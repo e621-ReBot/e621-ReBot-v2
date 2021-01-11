@@ -1,0 +1,525 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\CefSharp.WinForms.86.0.241\build\CefSharp.WinForms.props" Condition="Exists('..\packages\CefSharp.WinForms.86.0.241\build\CefSharp.WinForms.props')" />
+  <Import Project="..\packages\CefSharp.Common.86.0.241\build\CefSharp.Common.props" Condition="Exists('..\packages\CefSharp.Common.86.0.241\build\CefSharp.Common.props')" />
+  <Import Project="..\packages\cef.redist.x86.86.0.24\build\cef.redist.x86.props" Condition="Exists('..\packages\cef.redist.x86.86.0.24\build\cef.redist.x86.props')" />
+  <Import Project="..\packages\cef.redist.x64.86.0.24\build\cef.redist.x64.props" Condition="Exists('..\packages\cef.redist.x64.86.0.24\build\cef.redist.x64.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6F08DF48-801B-43A8-820A-2B423B8AAFEC}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>e621_ReBot_v2</RootNamespace>
+    <AssemblyName>e621 ReBot v2</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\Form\E6_LogoBigRemake.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HtmlAgilityPack, Version=1.11.28.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.28\lib\Net45\HtmlAgilityPack.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.113.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\lib\net46\System.Data.SQLite.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CustomControls\AutocompleMenu\ACM_AutocompleteItem.cs" />
+    <Compile Include="CustomControls\AutocompleMenu\ACM_Colors.cs" />
+    <Compile Include="CustomControls\AutocompleMenu\ACM_EventArgs.cs" />
+    <Compile Include="CustomControls\AutocompleMenu\ACM_TextBoxWrapper.cs" />
+    <Compile Include="CustomControls\AutocompleMenu\AutocompleteListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\AutocompleMenu\AutocompleteMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControls\AutocompleMenu\AutocompleteMenuHost.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControls\Button_App_Close.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControls\Button_App_Minimize.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControls\Button_Browser.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControls\Button_BrowserSmall.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControls\Button_Menu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControls\Button_MenuClose.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControls\Button_Unfocusable.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControls\Custom_CheckBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControls\Custom_CheckGroupBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControls\Custom_FlowLayoutPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControls\Custom_GroupBoxColored.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControls\Custom_InputBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomControls\Custom_InputBox.Designer.cs">
+      <DependentUpon>Custom_InputBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\Custom_LabelWithStroke.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControls\Custom_Panel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControls\Custom_ProgressBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\Custom_TabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControls\Custom_TreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControls\e6_DownloadItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\e6_DownloadItem.Designer.cs">
+      <DependentUpon>e6_DownloadItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\e6_GridItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\e6_GridItem.Designer.cs">
+      <DependentUpon>e6_GridItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\WebBrowserWithZoom.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\Form_APIKey.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form_APIKey.Designer.cs">
+      <DependentUpon>Form_APIKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_Blacklist.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form_Blacklist.Designer.cs">
+      <DependentUpon>Form_Blacklist.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_CommandLine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form_CommandLine.Designer.cs">
+      <DependentUpon>Form_CommandLine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_CommandView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form_CommandView.Designer.cs">
+      <DependentUpon>Form_CommandView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_e6Pool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form_e6Pool.Designer.cs">
+      <DependentUpon>Form_e6Pool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_e6Post.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form_e6Post.Designer.cs">
+      <DependentUpon>Form_e6Post.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_Loader.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form_Loader.Designer.cs">
+      <DependentUpon>Form_Loader.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form_Main.Designer.cs">
+      <DependentUpon>Form_Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_MainBig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form_MainBig.Designer.cs">
+      <DependentUpon>Form_MainBig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form_Menu.Designer.cs">
+      <DependentUpon>Form_Menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_Notes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form_Notes.Designer.cs">
+      <DependentUpon>Form_Notes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_ParentOffset.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form_ParentOffset.Designer.cs">
+      <DependentUpon>Form_ParentOffset.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_PoolWatcher.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form_PoolWatcher.Designer.cs">
+      <DependentUpon>Form_PoolWatcher.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_Preview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form_Preview.Designer.cs">
+      <DependentUpon>Form_Preview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_SimilarSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form_SimilarSearch.Designer.cs">
+      <DependentUpon>Form_SimilarSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_Tagger.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form_Tagger.Designer.cs">
+      <DependentUpon>Form_Tagger.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CefSharp\CefSharp_LifeSpanHandler.cs" />
+    <Compile Include="Modules\CefSharp\CefSharp_RequestHandler.cs" />
+    <Compile Include="Modules\CefSharp\CefSharp_ResourceRequestHandler.cs" />
+    <Compile Include="Modules\CefSharp\Module_CefSharp.cs" />
+    <Compile Include="Modules\Grabber\Module_CookieJar.cs" />
+    <Compile Include="Modules\Grabber\Module_FurAffinity.cs" />
+    <Compile Include="Modules\Grabber\Module_Grabber.cs" />
+    <Compile Include="Modules\Grabber\Module_HicceArs.cs" />
+    <Compile Include="Modules\Grabber\Module_Html2Text.cs" />
+    <Compile Include="Modules\Grabber\Module_Inkbunny.cs" />
+    <Compile Include="Modules\Grabber\Module_Mastodon.cs" />
+    <Compile Include="Modules\Grabber\Module_Newgrounds.cs" />
+    <Compile Include="Modules\Grabber\Module_Pixiv.cs" />
+    <Compile Include="Modules\Grabber\Module_Plurk.cs" />
+    <Compile Include="Modules\Grabber\Module_SoFurry.cs" />
+    <Compile Include="Modules\Grabber\Module_Twitter.cs" />
+    <Compile Include="Modules\Module_Converter.cs" />
+    <Compile Include="Modules\Module_Credits.cs" />
+    <Compile Include="Modules\Module_Cryptor.cs" />
+    <Compile Include="Modules\Module_DB.cs" />
+    <Compile Include="Modules\Module_Downloader.cs" />
+    <Compile Include="Modules\Module_e621Info.cs" />
+    <Compile Include="Modules\Module_FFmpeg.cs" />
+    <Compile Include="Modules\Module_Retry.cs" />
+    <Compile Include="Modules\Module_TableHolder.cs" />
+    <Compile Include="Modules\Module_Uploader.cs" />
+    <Compile Include="Modules\Module_VolumeControl.cs" />
+    <Compile Include="Modules\UIDrawController.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CustomControls\Button_App_Close.resx">
+      <DependentUpon>Button_App_Close.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\Button_App_Minimize.resx">
+      <DependentUpon>Button_App_Minimize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\Button_Menu.resx">
+      <DependentUpon>Button_Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\Custom_InputBox.resx">
+      <DependentUpon>Custom_InputBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\Custom_Panel.resx">
+      <DependentUpon>Custom_Panel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\Custom_ProgressBar.resx">
+      <DependentUpon>Custom_ProgressBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\Custom_TabControl.resx">
+      <DependentUpon>Custom_TabControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\e6_DownloadItem.resx">
+      <DependentUpon>e6_DownloadItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\e6_GridItem.resx">
+      <DependentUpon>e6_GridItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form_APIKey.resx">
+      <DependentUpon>Form_APIKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form_Blacklist.resx">
+      <DependentUpon>Form_Blacklist.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form_CommandLine.resx">
+      <DependentUpon>Form_CommandLine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form_CommandView.resx">
+      <DependentUpon>Form_CommandView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form_e6Pool.resx">
+      <DependentUpon>Form_e6Pool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form_e6Post.resx">
+      <DependentUpon>Form_e6Post.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form_Loader.resx">
+      <DependentUpon>Form_Loader.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form_Main.resx">
+      <DependentUpon>Form_Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form_MainBig.resx">
+      <DependentUpon>Form_MainBig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form_Menu.resx">
+      <DependentUpon>Form_Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form_Notes.resx">
+      <DependentUpon>Form_Notes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form_ParentOffset.resx">
+      <DependentUpon>Form_ParentOffset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form_PoolWatcher.resx">
+      <DependentUpon>Form_PoolWatcher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form_Preview.resx">
+      <DependentUpon>Form_Preview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form_SimilarSearch.resx">
+      <DependentUpon>Form_SimilarSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form_Tagger.resx">
+      <DependentUpon>Form_Tagger.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.manifest" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\x64\e621 ReBot v2\genders.txt" />
+    <Content Include="Resources\Browser\BB_Backward_False.png" />
+    <Content Include="Resources\Browser\BB_Backward_Small.png" />
+    <Content Include="Resources\Browser\BB_Backward_True.png" />
+    <Content Include="Resources\Browser\BB_Forward_False.png" />
+    <Content Include="Resources\Browser\BB_Forward_Small.png" />
+    <Content Include="Resources\Browser\BB_Forward_True.png" />
+    <Content Include="Resources\Browser\BrowserButtonsRegion.png" />
+    <Content Include="Resources\Browser\BrowserButtonsRegion_Button.png" />
+    <Content Include="Resources\Browser\BrowserIcon_FurAffinity.png" />
+    <Content Include="Resources\Browser\BrowserIcon_HicceArs.png" />
+    <Content Include="Resources\Browser\BrowserIcon_Inkbunny.png" />
+    <Content Include="Resources\Browser\BrowserIcon_Mastodon.png" />
+    <Content Include="Resources\Browser\BrowserIcon_Newgrounds.png" />
+    <Content Include="Resources\Browser\BrowserIcon_Pixiv.png" />
+    <Content Include="Resources\Browser\BrowserIcon_Plurk.png" />
+    <Content Include="Resources\Browser\BrowserIcon_SoFurry.png" />
+    <Content Include="Resources\Browser\BrowserIcon_Twitter.png" />
+    <Content Include="Resources\Browser\Browser_QuickButtons.png" />
+    <Content Include="Resources\Browser\ComboBox_Disabled.png" />
+    <EmbeddedResource Include="Resources\Files\HtmlAgilityPack.dll" />
+    <EmbeddedResource Include="Resources\Files\Newtonsoft.Json.dll" />
+    <EmbeddedResource Include="Resources\Files\System.Data.SQLite.dll" />
+    <EmbeddedResource Include="Resources\Files\genders.txt" />
+    <Content Include="Resources\Form\CheckMark_Icon.png" />
+    <Content Include="Resources\Form\CloseBtn_Active.png" />
+    <Content Include="Resources\Form\Cursor_e6.png" />
+    <Content Include="Resources\Form\Discord.png" />
+    <Content Include="Resources\Form\E621ReBot BG.png" />
+    <Content Include="Resources\Form\E621ReBot BGBig.png" />
+    <Content Include="Resources\Form\e621ReBot_CursorBrowser.png" />
+    <Content Include="Resources\Form\e621ReBot_CursorDefault.png" />
+    <Content Include="Resources\Form\e621ReBot_CursorE6.png" />
+    <Content Include="Resources\Form\E6Image_Deleted.png" />
+    <Content Include="Resources\Form\E6Image_Flash.png" />
+    <Content Include="Resources\Form\E6Image_Loading.png" />
+    <Content Include="Resources\Form\E6_LogoBigRemake.ico" />
+    <Content Include="Resources\Form\E6_LogoBigRemake.png" />
+    <Content Include="Resources\Form\FolderIcon.png" />
+    <Content Include="Resources\Form\FolderIconSmall.png" />
+    <Content Include="Resources\Form\Icon_Flag.png" />
+    <Content Include="Resources\Form\Icon_Note.png" />
+    <Content Include="Resources\Form\Icon_Upload.png" />
+    <Content Include="Resources\Form\Minimize_Btn.png" />
+    <Content Include="Resources\Form\UP_Icon.png" />
+    <None Include="Resources\Ko-Fi Button.png" />
+    <None Include="Resources\Ko-Fi ButtonSmall.png" />
+    <None Include="Resources\GitHubLogo.png" />
+    <Content Include="Resources\Menu\MenuButton_Browser.png" />
+    <Content Include="Resources\Menu\MenuButton_Browser_Highlight.png" />
+    <Content Include="Resources\Menu\MenuButton_Download.png" />
+    <Content Include="Resources\Menu\MenuButton_Download_Highlight.png" />
+    <Content Include="Resources\Menu\MenuButton_Grid.png" />
+    <Content Include="Resources\Menu\MenuButton_Grid_Highlight.png" />
+    <Content Include="Resources\Menu\MenuButton_Info.png" />
+    <Content Include="Resources\Menu\MenuButton_Info_Highlight.png" />
+    <Content Include="Resources\Menu\MenuButton_Jobs.png" />
+    <Content Include="Resources\Menu\MenuButton_Jobs_Highlight.png" />
+    <Content Include="Resources\Menu\MenuButton_MenuClose.png" />
+    <Content Include="Resources\Menu\MenuButton_MenuClose_Highlight.png" />
+    <Content Include="Resources\Menu\MenuButton_Settings.png" />
+    <Content Include="Resources\Menu\MenuButton_Settings_Highlight.png" />
+    <Content Include="Resources\Menu\MenuIcon_Browser.png" />
+    <Content Include="Resources\Menu\MenuIcon_Download.png" />
+    <Content Include="Resources\Menu\MenuIcon_Info.png" />
+    <Content Include="Resources\Menu\Menu_Button.png" />
+    <Content Include="Resources\Menu\Menu_Open.png" />
+    <Content Include="Resources\Sounds\PeasantPissed3.wav" />
+    <Content Include="Resources\Sounds\PeasantWhat3.wav" />
+    <Content Include="Resources\Sounds\PeasantYes2.wav" />
+    <Content Include="Resources\Sounds\PeasantYesAttack2.wav" />
+    <Content Include="Resources\Sounds\PeasantYesAttack4.wav" />
+    <Content Include="Resources\Sounds\PeonReady1.wav" />
+    <Content Include="Resources\Sounds\PeonYes3.wav" />
+    <Content Include="Resources\Sounds\PeonYesAttack1.wav" />
+    <Content Include="Resources\Sounds\PeonYesAttack3.wav" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\cef.redist.x64.86.0.24\build\cef.redist.x64.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x64.86.0.24\build\cef.redist.x64.props'))" />
+    <Error Condition="!Exists('..\packages\cef.redist.x86.86.0.24\build\cef.redist.x86.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x86.86.0.24\build\cef.redist.x86.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Common.86.0.241\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.86.0.241\build\CefSharp.Common.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Common.86.0.241\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.86.0.241\build\CefSharp.Common.targets'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.WinForms.86.0.241\build\CefSharp.WinForms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.WinForms.86.0.241\build\CefSharp.WinForms.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.WinForms.86.0.241\build\CefSharp.WinForms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.WinForms.86.0.241\build\CefSharp.WinForms.targets'))" />
+  </Target>
+  <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\packages\CefSharp.Common.86.0.241\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.86.0.241\build\CefSharp.Common.targets')" />
+  <Import Project="..\packages\CefSharp.WinForms.86.0.241\build\CefSharp.WinForms.targets" Condition="Exists('..\packages\CefSharp.WinForms.86.0.241\build\CefSharp.WinForms.targets')" />
+</Project>

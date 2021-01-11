@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e621 ReBot v2", "e621 ReBot v2\e621 ReBot v2.csproj", "{6F08DF48-801B-43A8-820A-2B423B8AAFEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e621 ReBot Updater", "e621 ReBot Updater\e621 ReBot Updater.csproj", "{E94E9C01-CC5E-4AB5-98EA-6994BBA975F3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6F08DF48-801B-43A8-820A-2B423B8AAFEC}.Debug|x64.ActiveCfg = Debug|x64
+		{6F08DF48-801B-43A8-820A-2B423B8AAFEC}.Debug|x64.Build.0 = Debug|x64
+		{6F08DF48-801B-43A8-820A-2B423B8AAFEC}.Debug|x86.ActiveCfg = Debug|x86
+		{6F08DF48-801B-43A8-820A-2B423B8AAFEC}.Debug|x86.Build.0 = Debug|x86
+		{6F08DF48-801B-43A8-820A-2B423B8AAFEC}.Release|x64.ActiveCfg = Release|x64
+		{6F08DF48-801B-43A8-820A-2B423B8AAFEC}.Release|x64.Build.0 = Release|x64
+		{6F08DF48-801B-43A8-820A-2B423B8AAFEC}.Release|x86.ActiveCfg = Release|x86
+		{6F08DF48-801B-43A8-820A-2B423B8AAFEC}.Release|x86.Build.0 = Release|x86
+		{E94E9C01-CC5E-4AB5-98EA-6994BBA975F3}.Debug|x64.ActiveCfg = Debug|x64
+		{E94E9C01-CC5E-4AB5-98EA-6994BBA975F3}.Debug|x64.Build.0 = Debug|x64
+		{E94E9C01-CC5E-4AB5-98EA-6994BBA975F3}.Debug|x86.ActiveCfg = Debug|x86
+		{E94E9C01-CC5E-4AB5-98EA-6994BBA975F3}.Debug|x86.Build.0 = Debug|x86
+		{E94E9C01-CC5E-4AB5-98EA-6994BBA975F3}.Release|x64.ActiveCfg = Release|x64
+		{E94E9C01-CC5E-4AB5-98EA-6994BBA975F3}.Release|x64.Build.0 = Release|x64
+		{E94E9C01-CC5E-4AB5-98EA-6994BBA975F3}.Release|x86.ActiveCfg = Release|x86
+		{E94E9C01-CC5E-4AB5-98EA-6994BBA975F3}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6450240F-CBC3-4FBB-9722-A57C0210EFD6}
+	EndGlobalSection
+EndGlobal

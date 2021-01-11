@@ -1,0 +1,70 @@
+﻿using e621_ReBot_v2.Modules.Grabber;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace CefSharp
+{
+    class CefSharp_RequestHandler : Handler.RequestHandler
+    {
+        private readonly List<string> AdBlock = new List<string>();
+        public CefSharp_RequestHandler()
+        {
+            // e6
+            AdBlock.Add("ads.dragonfru");
+
+            // FA
+            AdBlock.Add("googlesyndication.com");
+            AdBlock.Add("amazon-adsystem.com");
+            AdBlock.Add("rv.furaffinity.net");
+            AdBlock.Add("adservice.google");
+            AdBlock.Add("quantserve.com");
+
+            // Pixiv
+            AdBlock.Add("pixon.ads");
+            AdBlock.Add("microad.jp");
+            AdBlock.Add("microad.net");
+            AdBlock.Add("pixon.ads");
+            AdBlock.Add("microadinc.com");
+            AdBlock.Add("adsymptotic.com");
+            AdBlock.Add("adingo.jp");
+            AdBlock.Add("doubleclick.net");
+            AdBlock.Add("amazon-adsystem.com");
+            AdBlock.Add("pubmatic.com");
+            AdBlock.Add("onesignal.com");
+            AdBlock.Add("imp.pixiv.net");
+
+            //Plurk
+            AdBlock.Add("ads.yap.yahoo.com");
+        }
+
+        protected override bool OnBeforeBrowse(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool userGesture, bool isRedirect)
+        {
+            // Block Ads and shit
+            if (AdBlock.Any(s => request.Url.Contains(s)))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        protected override IResourceRequestHandler GetResourceRequestHandler(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool isNavigation, bool isDownload, string requestInitiator, ref bool disableDefaultHandling)
+        {
+            // To allow the resource load to proceed with default handling return null. To specify a handler for the resource return a IResourceRequestHandler object. If this callback returns null the same method will be called on the associated IRequestContextHandler, if any
+            if (chromiumWebBrowser.Address.Contains("https://twitter.com") && request.Url.StartsWith("https://twitter.com/i/api/2/timeline/") && request.Headers["authorization"] != null)
+            {
+                Module_Twitter.TwitterAuthorizationBearer = request.Headers["authorization"];
+                return new CefSharp_ResourceRequestHandler();
+            }
+
+            if (AdBlock.Any(s => request.Url.Contains(s)))
+            {
+                disableDefaultHandling = true;
+                return new CefSharp_ResourceRequestHandler_AdBlocker();
+            }
+
+            return null;
+        }
+    }
+
+
+}
