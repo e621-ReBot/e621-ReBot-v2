@@ -57,7 +57,7 @@ namespace e621_ReBot_v2.Modules
             };
             CefSharpBrowser.AddressChanged += CefSharp_AddressChanged;
             CefSharpBrowser.LoadingStateChanged += CefSharp_LoadingStateChanged;
-            CefSharpBrowser.FrameLoadEnd += chromeBrowser_FrameLoadEnd;
+            CefSharpBrowser.FrameLoadEnd += ChromeBrowser_FrameLoadEnd;
 
             Form_Loader._FormReference.panel_BrowserDisplay.Controls.Add(Module_CefSharp.CefSharpBrowser);
 
@@ -143,7 +143,7 @@ namespace e621_ReBot_v2.Modules
                             case string _2 when _2.Equals("https://e621.net/users/home"):
                                 {
                                     timer_CefTutorial = new Timer();
-                                    timer_CefTutorial.Tick += timer_CefTutorial_Tick;
+                                    timer_CefTutorial.Tick += Timer_CefTutorial_Tick;
                                     timer_CefTutorial.Start();
                                     break;
                                 }
@@ -174,7 +174,7 @@ namespace e621_ReBot_v2.Modules
         }
 
         private static Dictionary<string, int> FrameLoad = new Dictionary<string, int>();
-        private static void chromeBrowser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
+        private static void ChromeBrowser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
             if (CefSharpBrowser.Address.Contains("https://www.pixiv.net"))
             {
@@ -195,7 +195,7 @@ namespace e621_ReBot_v2.Modules
 
 
         private static Timer timer_CefTutorial;
-        private static void timer_CefTutorial_Tick(object sender, EventArgs e)
+        private static void Timer_CefTutorial_Tick(object sender, EventArgs e)
         {
             timer_CefTutorial.Stop();
 

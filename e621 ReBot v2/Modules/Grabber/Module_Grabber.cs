@@ -47,6 +47,7 @@ namespace e621_ReBot_v2.Modules
             _GrabEnabler.Add("hiccears.com/picture.php");
             _GrabEnabler.Add("furaffinity.net/gallery/");
             _GrabEnabler.Add("furaffinity.net/scraps/");
+            _GrabEnabler.Add("furaffinity.net/favorites/");
             _GrabEnabler.Add("furaffinity.net/view/");
             _GrabEnabler.Add("furaffinity.net/full/");
             _GrabEnabler.Add("furaffinity.net/search/");

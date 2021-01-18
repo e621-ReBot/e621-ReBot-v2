@@ -14,8 +14,9 @@ namespace e621_ReBot_v2.Modules.Grabber
         public static void QueuePrep(string WebAdress)
         {
             Module_CookieJar.GetCookies(WebAdress, ref Module_CookieJar.Cookies_FurAffinity);
-            if (WebAdress.Contains("furaffinity.net/gallery")
-            || WebAdress.Contains("furaffinity.net/scraps")
+            if (WebAdress.Contains("furaffinity.net/gallery/")
+            || WebAdress.Contains("furaffinity.net/scraps/")
+            || WebAdress.Contains("furaffinity.net/favorites/")
             || WebAdress.Contains("furaffinity.net/search/"))
             {
                 Queue_Multi(WebAdress, Module_CefSharp.GetHTMLSource());
@@ -50,7 +51,10 @@ namespace e621_ReBot_v2.Modules.Grabber
             HtmlDocument WebDoc = new HtmlDocument();
             WebDoc.LoadHtml(HTMLSource);
 
-            foreach (HtmlNode ChildNode in WebDoc.DocumentNode.SelectNodes(".//section[@id='gallery-gallery']/figure"))
+            HtmlNodeCollection HtmlNodecollectionTemp = WebDoc.DocumentNode.SelectNodes(".//section[contains(@id, 'gallery')]/figure");
+            if (HtmlNodecollectionTemp.Count == 0) return;
+
+            foreach (HtmlNode ChildNode in HtmlNodecollectionTemp)
             {
                 HtmlNode figcaptionNode = ChildNode.SelectSingleNode("./figcaption");
                 string DirectLink2Post = "https://www.furaffinity.net" + figcaptionNode.SelectSingleNode(".//a").Attributes["href"].Value;
