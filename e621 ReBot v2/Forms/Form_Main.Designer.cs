@@ -63,11 +63,34 @@
             this.GB_Uncheck = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.GB_Inverse = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.GB_Check = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.bU_SkipDLCache = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.bU_DownloadPageDown = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.bU_DownloadPageUp = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.bU_ClearDLHistory = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.cGroupBoxColored_DLThreads = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
+            this.RadioButton_DL1 = new System.Windows.Forms.RadioButton();
+            this.RadioButton_DL2 = new System.Windows.Forms.RadioButton();
+            this.RadioButton_DL3 = new System.Windows.Forms.RadioButton();
+            this.RadioButton_DL4 = new System.Windows.Forms.RadioButton();
+            this.bU_DownloadFolder = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.cGroupBoxColored_Downloaded = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
+            this.DownloadFLP_Downloaded = new e621_ReBot_v2.CustomControls.Custom_FlowLayoutPanel();
+            this.cGroupBoxColored_InProgress = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
+            this.DownloadFLP_InProgress = new e621_ReBot_v2.CustomControls.Custom_FlowLayoutPanel();
+            this.cCheckGroupBox_Download = new e621_ReBot_v2.CustomControls.Custom_CheckGroupBox();
+            this.bU_CancelAPIDL = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.label_DownloadStatus = new System.Windows.Forms.Label();
+            this.cTreeView_DownloadQueue = new e621_ReBot_v2.CustomControls.Custom_TreeView();
+            this.pictureBox_GitHub = new System.Windows.Forms.PictureBox();
             this.pictureBox_KoFi = new System.Windows.Forms.PictureBox();
             this.pictureBox_Logo = new System.Windows.Forms.PictureBox();
             this.label_FlashPlayer = new System.Windows.Forms.Label();
             this.label_Forum = new System.Windows.Forms.Label();
             this.pictureBox_Discord = new System.Windows.Forms.PictureBox();
+            this.cGroupBoxColored_NamingWeb = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
+            this.Naming_web_0 = new System.Windows.Forms.RadioButton();
+            this.Naming_web_1 = new System.Windows.Forms.RadioButton();
+            this.Naming_web_2 = new System.Windows.Forms.RadioButton();
             this.bU_GetGenders = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.label_DragDropConvert = new System.Windows.Forms.Label();
             this.cGroupBoxColored_ActionDelay = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
@@ -116,28 +139,6 @@
             this.cGroupBoxColored_AppName = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
             this.AppName_Label = new System.Windows.Forms.Label();
             this.bU_KoFi = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.cCheckGroupBox_Download = new e621_ReBot_v2.CustomControls.Custom_CheckGroupBox();
-            this.bU_CancelAPIDL = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.label_DownloadStatus = new System.Windows.Forms.Label();
-            this.cTreeView_DownloadQueue = new e621_ReBot_v2.CustomControls.Custom_TreeView();
-            this.cGroupBoxColored_InProgress = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
-            this.DownloadFLP_InProgress = new e621_ReBot_v2.CustomControls.Custom_FlowLayoutPanel();
-            this.cGroupBoxColored_Downloaded = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
-            this.DownloadFLP_Downloaded = new e621_ReBot_v2.CustomControls.Custom_FlowLayoutPanel();
-            this.bU_DownloadFolder = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.cGroupBoxColored_DLThreads = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
-            this.RadioButton_DL1 = new System.Windows.Forms.RadioButton();
-            this.RadioButton_DL2 = new System.Windows.Forms.RadioButton();
-            this.RadioButton_DL3 = new System.Windows.Forms.RadioButton();
-            this.RadioButton_DL4 = new System.Windows.Forms.RadioButton();
-            this.bU_ClearDLHistory = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.bU_DownloadPageUp = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.bU_DownloadPageDown = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.cGroupBoxColored_NamingWeb = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
-            this.Naming_web_0 = new System.Windows.Forms.RadioButton();
-            this.Naming_web_1 = new System.Windows.Forms.RadioButton();
-            this.Naming_web_2 = new System.Windows.Forms.RadioButton();
-            this.pictureBox_GitHub = new System.Windows.Forms.PictureBox();
             this.Version_Label = new System.Windows.Forms.Label();
             this.Title_Label = new System.Windows.Forms.Label();
             this.Panel_Holder = new System.Windows.Forms.Panel();
@@ -217,9 +218,15 @@
             this.bU_APIKey = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             ((System.ComponentModel.ISupportInitialize)(this.button_AppMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.button_AppClose)).BeginInit();
+            this.cGroupBoxColored_DLThreads.SuspendLayout();
+            this.cGroupBoxColored_Downloaded.SuspendLayout();
+            this.cGroupBoxColored_InProgress.SuspendLayout();
+            this.cCheckGroupBox_Download.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_GitHub)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_KoFi)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Logo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Discord)).BeginInit();
+            this.cGroupBoxColored_NamingWeb.SuspendLayout();
             this.cGroupBoxColored_ActionDelay.SuspendLayout();
             this.cGroupBoxColored_Volume.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBar_Volume)).BeginInit();
@@ -228,12 +235,6 @@
             this.cGroupBoxColored_DownloadsFolderLocation.SuspendLayout();
             this.cGroupBoxColored_Update.SuspendLayout();
             this.cGroupBoxColored_AppName.SuspendLayout();
-            this.cCheckGroupBox_Download.SuspendLayout();
-            this.cGroupBoxColored_InProgress.SuspendLayout();
-            this.cGroupBoxColored_Downloaded.SuspendLayout();
-            this.cGroupBoxColored_DLThreads.SuspendLayout();
-            this.cGroupBoxColored_NamingWeb.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_GitHub)).BeginInit();
             this.Panel_Holder.SuspendLayout();
             this.contextMenuStrip_Download.SuspendLayout();
             this.contextMenuStrip_cTreeView.SuspendLayout();
@@ -866,6 +867,296 @@
             this.GB_Check.UseVisualStyleBackColor = true;
             this.GB_Check.Click += new System.EventHandler(this.GB_Check_Click);
             // 
+            // bU_SkipDLCache
+            // 
+            this.bU_SkipDLCache.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bU_SkipDLCache.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.bU_SkipDLCache.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bU_SkipDLCache.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bU_SkipDLCache.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.bU_SkipDLCache.Location = new System.Drawing.Point(484, 225);
+            this.bU_SkipDLCache.Margin = new System.Windows.Forms.Padding(4, 4, 4, 16);
+            this.bU_SkipDLCache.Name = "bU_SkipDLCache";
+            this.bU_SkipDLCache.Size = new System.Drawing.Size(120, 23);
+            this.bU_SkipDLCache.TabIndex = 8;
+            this.bU_SkipDLCache.TabStop = false;
+            this.bU_SkipDLCache.Text = "Cache downloads";
+            this.toolTip_Display.SetToolTip(this.bU_SkipDLCache, "Load all files from e621 download folder into cache so they are skipped when down" +
+        "loading.\r\nPress this and wait for it to finish before starting to download.");
+            this.bU_SkipDLCache.UseVisualStyleBackColor = true;
+            this.bU_SkipDLCache.Click += new System.EventHandler(this.BU_SkipDLCache_Click);
+            // 
+            // bU_DownloadPageDown
+            // 
+            this.bU_DownloadPageDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.bU_DownloadPageDown.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bU_DownloadPageDown.Enabled = false;
+            this.bU_DownloadPageDown.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.bU_DownloadPageDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bU_DownloadPageDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bU_DownloadPageDown.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.bU_DownloadPageDown.Location = new System.Drawing.Point(708, 272);
+            this.bU_DownloadPageDown.Margin = new System.Windows.Forms.Padding(4);
+            this.bU_DownloadPageDown.Name = "bU_DownloadPageDown";
+            this.bU_DownloadPageDown.Size = new System.Drawing.Size(24, 39);
+            this.bU_DownloadPageDown.TabIndex = 7;
+            this.bU_DownloadPageDown.TabStop = false;
+            this.bU_DownloadPageDown.Text = "▼";
+            this.toolTip_Display.SetToolTip(this.bU_DownloadPageDown, "Show next page of Download Queue.");
+            this.bU_DownloadPageDown.UseVisualStyleBackColor = true;
+            this.bU_DownloadPageDown.Click += new System.EventHandler(this.BU_DownloadPageDown_Click);
+            // 
+            // bU_DownloadPageUp
+            // 
+            this.bU_DownloadPageUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.bU_DownloadPageUp.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bU_DownloadPageUp.Enabled = false;
+            this.bU_DownloadPageUp.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.bU_DownloadPageUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bU_DownloadPageUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bU_DownloadPageUp.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.bU_DownloadPageUp.Location = new System.Drawing.Point(708, 225);
+            this.bU_DownloadPageUp.Margin = new System.Windows.Forms.Padding(4);
+            this.bU_DownloadPageUp.Name = "bU_DownloadPageUp";
+            this.bU_DownloadPageUp.Size = new System.Drawing.Size(24, 39);
+            this.bU_DownloadPageUp.TabIndex = 6;
+            this.bU_DownloadPageUp.TabStop = false;
+            this.bU_DownloadPageUp.Text = "▲";
+            this.toolTip_Display.SetToolTip(this.bU_DownloadPageUp, "Show previous page of Download Queue.");
+            this.bU_DownloadPageUp.UseVisualStyleBackColor = true;
+            this.bU_DownloadPageUp.Click += new System.EventHandler(this.BU_DownloadPageUp_Click);
+            // 
+            // bU_ClearDLHistory
+            // 
+            this.bU_ClearDLHistory.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bU_ClearDLHistory.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.bU_ClearDLHistory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bU_ClearDLHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bU_ClearDLHistory.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.bU_ClearDLHistory.Location = new System.Drawing.Point(154, 297);
+            this.bU_ClearDLHistory.Margin = new System.Windows.Forms.Padding(4, 4, 4, 16);
+            this.bU_ClearDLHistory.Name = "bU_ClearDLHistory";
+            this.bU_ClearDLHistory.Size = new System.Drawing.Size(80, 23);
+            this.bU_ClearDLHistory.TabIndex = 3;
+            this.bU_ClearDLHistory.TabStop = false;
+            this.bU_ClearDLHistory.Text = "Clear History";
+            this.toolTip_Display.SetToolTip(this.bU_ClearDLHistory, "Clear Download History.");
+            this.bU_ClearDLHistory.UseVisualStyleBackColor = true;
+            this.bU_ClearDLHistory.Click += new System.EventHandler(this.BU_ClearDLHistory_Click);
+            // 
+            // cGroupBoxColored_DLThreads
+            // 
+            this.cGroupBoxColored_DLThreads.BorderColor = System.Drawing.Color.Black;
+            this.cGroupBoxColored_DLThreads.BottomBorderFix = 1;
+            this.cGroupBoxColored_DLThreads.Controls.Add(this.RadioButton_DL1);
+            this.cGroupBoxColored_DLThreads.Controls.Add(this.RadioButton_DL2);
+            this.cGroupBoxColored_DLThreads.Controls.Add(this.RadioButton_DL3);
+            this.cGroupBoxColored_DLThreads.Controls.Add(this.RadioButton_DL4);
+            this.cGroupBoxColored_DLThreads.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.cGroupBoxColored_DLThreads.Location = new System.Drawing.Point(52, 219);
+            this.cGroupBoxColored_DLThreads.Margin = new System.Windows.Forms.Padding(48, 32, 4, 4);
+            this.cGroupBoxColored_DLThreads.Name = "cGroupBoxColored_DLThreads";
+            this.cGroupBoxColored_DLThreads.Size = new System.Drawing.Size(160, 40);
+            this.cGroupBoxColored_DLThreads.TabIndex = 5;
+            this.cGroupBoxColored_DLThreads.TabStop = false;
+            this.cGroupBoxColored_DLThreads.Text = "Download Threads";
+            this.cGroupBoxColored_DLThreads.TextOffset = 0;
+            this.toolTip_Display.SetToolTip(this.cGroupBoxColored_DLThreads, "Select the number of download threads.");
+            // 
+            // RadioButton_DL1
+            // 
+            this.RadioButton_DL1.AutoSize = true;
+            this.RadioButton_DL1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.RadioButton_DL1.Location = new System.Drawing.Point(10, 17);
+            this.RadioButton_DL1.Name = "RadioButton_DL1";
+            this.RadioButton_DL1.Size = new System.Drawing.Size(31, 17);
+            this.RadioButton_DL1.TabIndex = 5;
+            this.RadioButton_DL1.Text = "1";
+            this.RadioButton_DL1.UseVisualStyleBackColor = true;
+            // 
+            // RadioButton_DL2
+            // 
+            this.RadioButton_DL2.AutoSize = true;
+            this.RadioButton_DL2.Cursor = System.Windows.Forms.Cursors.Default;
+            this.RadioButton_DL2.Location = new System.Drawing.Point(47, 17);
+            this.RadioButton_DL2.Name = "RadioButton_DL2";
+            this.RadioButton_DL2.Size = new System.Drawing.Size(31, 17);
+            this.RadioButton_DL2.TabIndex = 6;
+            this.RadioButton_DL2.Text = "2";
+            this.RadioButton_DL2.UseVisualStyleBackColor = true;
+            // 
+            // RadioButton_DL3
+            // 
+            this.RadioButton_DL3.AutoSize = true;
+            this.RadioButton_DL3.Cursor = System.Windows.Forms.Cursors.Default;
+            this.RadioButton_DL3.Location = new System.Drawing.Point(84, 17);
+            this.RadioButton_DL3.Name = "RadioButton_DL3";
+            this.RadioButton_DL3.Size = new System.Drawing.Size(31, 17);
+            this.RadioButton_DL3.TabIndex = 7;
+            this.RadioButton_DL3.Text = "3";
+            this.RadioButton_DL3.UseVisualStyleBackColor = true;
+            // 
+            // RadioButton_DL4
+            // 
+            this.RadioButton_DL4.AutoSize = true;
+            this.RadioButton_DL4.Checked = true;
+            this.RadioButton_DL4.Cursor = System.Windows.Forms.Cursors.Default;
+            this.RadioButton_DL4.Location = new System.Drawing.Point(121, 17);
+            this.RadioButton_DL4.Name = "RadioButton_DL4";
+            this.RadioButton_DL4.Size = new System.Drawing.Size(31, 17);
+            this.RadioButton_DL4.TabIndex = 8;
+            this.RadioButton_DL4.TabStop = true;
+            this.RadioButton_DL4.Text = "4";
+            this.RadioButton_DL4.UseVisualStyleBackColor = true;
+            // 
+            // bU_DownloadFolder
+            // 
+            this.bU_DownloadFolder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.bU_DownloadFolder.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bU_DownloadFolder.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.bU_DownloadFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bU_DownloadFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bU_DownloadFolder.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.bU_DownloadFolder.Image = global::e621_ReBot_v2.Properties.Resources.FolderIcon;
+            this.bU_DownloadFolder.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.bU_DownloadFolder.Location = new System.Drawing.Point(611, 225);
+            this.bU_DownloadFolder.Name = "bU_DownloadFolder";
+            this.bU_DownloadFolder.Size = new System.Drawing.Size(90, 86);
+            this.bU_DownloadFolder.TabIndex = 4;
+            this.bU_DownloadFolder.TabStop = false;
+            this.bU_DownloadFolder.Text = "Downloads";
+            this.bU_DownloadFolder.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolTip_Display.SetToolTip(this.bU_DownloadFolder, "Open Downloads Folder.");
+            this.bU_DownloadFolder.UseVisualStyleBackColor = true;
+            this.bU_DownloadFolder.Click += new System.EventHandler(this.BU_DownloadFolder_Click);
+            // 
+            // cGroupBoxColored_Downloaded
+            // 
+            this.cGroupBoxColored_Downloaded.BorderColor = System.Drawing.Color.Black;
+            this.cGroupBoxColored_Downloaded.BottomBorderFix = 1;
+            this.cGroupBoxColored_Downloaded.Controls.Add(this.DownloadFLP_Downloaded);
+            this.cGroupBoxColored_Downloaded.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.cGroupBoxColored_Downloaded.Location = new System.Drawing.Point(52, 313);
+            this.cGroupBoxColored_Downloaded.Margin = new System.Windows.Forms.Padding(48, 0, 28, 16);
+            this.cGroupBoxColored_Downloaded.Name = "cGroupBoxColored_Downloaded";
+            this.cGroupBoxColored_Downloaded.Size = new System.Drawing.Size(1182, 356);
+            this.cGroupBoxColored_Downloaded.TabIndex = 2;
+            this.cGroupBoxColored_Downloaded.TabStop = false;
+            this.cGroupBoxColored_Downloaded.Text = "Latest Downloads";
+            this.cGroupBoxColored_Downloaded.TextOffset = 0;
+            this.toolTip_Display.SetToolTip(this.cGroupBoxColored_Downloaded, "Download History.");
+            // 
+            // DownloadFLP_Downloaded
+            // 
+            this.DownloadFLP_Downloaded.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DownloadFLP_Downloaded.Location = new System.Drawing.Point(3, 16);
+            this.DownloadFLP_Downloaded.Margin = new System.Windows.Forms.Padding(0);
+            this.DownloadFLP_Downloaded.Name = "DownloadFLP_Downloaded";
+            this.DownloadFLP_Downloaded.Size = new System.Drawing.Size(1176, 337);
+            this.DownloadFLP_Downloaded.TabIndex = 1;
+            this.DownloadFLP_Downloaded.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.DownloadFLP_Downloaded_ControlAdded);
+            // 
+            // cGroupBoxColored_InProgress
+            // 
+            this.cGroupBoxColored_InProgress.BorderColor = System.Drawing.Color.Black;
+            this.cGroupBoxColored_InProgress.BottomBorderFix = 1;
+            this.cGroupBoxColored_InProgress.Controls.Add(this.DownloadFLP_InProgress);
+            this.cGroupBoxColored_InProgress.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.cGroupBoxColored_InProgress.Location = new System.Drawing.Point(52, 32);
+            this.cGroupBoxColored_InProgress.Margin = new System.Windows.Forms.Padding(48, 32, 4, 4);
+            this.cGroupBoxColored_InProgress.Name = "cGroupBoxColored_InProgress";
+            this.cGroupBoxColored_InProgress.Size = new System.Drawing.Size(680, 186);
+            this.cGroupBoxColored_InProgress.TabIndex = 1;
+            this.cGroupBoxColored_InProgress.TabStop = false;
+            this.cGroupBoxColored_InProgress.Text = "In Progress";
+            this.cGroupBoxColored_InProgress.TextOffset = 0;
+            this.toolTip_Display.SetToolTip(this.cGroupBoxColored_InProgress, "Currently Downloading.");
+            // 
+            // DownloadFLP_InProgress
+            // 
+            this.DownloadFLP_InProgress.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DownloadFLP_InProgress.Location = new System.Drawing.Point(3, 16);
+            this.DownloadFLP_InProgress.Name = "DownloadFLP_InProgress";
+            this.DownloadFLP_InProgress.Size = new System.Drawing.Size(674, 167);
+            this.DownloadFLP_InProgress.TabIndex = 0;
+            // 
+            // cCheckGroupBox_Download
+            // 
+            this.cCheckGroupBox_Download.BorderColor = System.Drawing.Color.Black;
+            this.cCheckGroupBox_Download.BottomBorderFix = 1;
+            this.cCheckGroupBox_Download.Controls.Add(this.bU_CancelAPIDL);
+            this.cCheckGroupBox_Download.Controls.Add(this.label_DownloadStatus);
+            this.cCheckGroupBox_Download.Controls.Add(this.cTreeView_DownloadQueue);
+            this.cCheckGroupBox_Download.DisableChildrenIfUnchecked = false;
+            this.cCheckGroupBox_Download.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.cCheckGroupBox_Download.Location = new System.Drawing.Point(740, 32);
+            this.cCheckGroupBox_Download.Margin = new System.Windows.Forms.Padding(4, 32, 28, 0);
+            this.cCheckGroupBox_Download.Name = "cCheckGroupBox_Download";
+            this.cCheckGroupBox_Download.Size = new System.Drawing.Size(494, 280);
+            this.cCheckGroupBox_Download.TabIndex = 0;
+            this.cCheckGroupBox_Download.TabStop = false;
+            this.cCheckGroupBox_Download.Text = "Download Queue";
+            this.cCheckGroupBox_Download.TextOffset = 0;
+            this.toolTip_Display.SetToolTip(this.cCheckGroupBox_Download, "Toggle this (Off) to pause downloading.");
+            this.cCheckGroupBox_Download.TooltipTextOnCheckbox = "Toggle this (Off) to pause downloading.";
+            this.cCheckGroupBox_Download.CheckedChanged += new System.EventHandler(this.CCheckGroupBox_Download_CheckedChanged);
+            this.cCheckGroupBox_Download.Paint += new System.Windows.Forms.PaintEventHandler(this.CCheckGroupBox_Download_Paint);
+            // 
+            // bU_CancelAPIDL
+            // 
+            this.bU_CancelAPIDL.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bU_CancelAPIDL.Enabled = false;
+            this.bU_CancelAPIDL.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.bU_CancelAPIDL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bU_CancelAPIDL.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bU_CancelAPIDL.Location = new System.Drawing.Point(419, 6);
+            this.bU_CancelAPIDL.Name = "bU_CancelAPIDL";
+            this.bU_CancelAPIDL.Size = new System.Drawing.Size(75, 27);
+            this.bU_CancelAPIDL.TabIndex = 10;
+            this.bU_CancelAPIDL.TabStop = false;
+            this.bU_CancelAPIDL.Text = "Cancel";
+            this.toolTip_Display.SetToolTip(this.bU_CancelAPIDL, "Cancel grabbing further download links from e621 API.");
+            this.bU_CancelAPIDL.UseVisualStyleBackColor = true;
+            this.bU_CancelAPIDL.Click += new System.EventHandler(this.BU_CancelAPIDL_Click);
+            // 
+            // label_DownloadStatus
+            // 
+            this.label_DownloadStatus.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.label_DownloadStatus.Location = new System.Drawing.Point(3, 16);
+            this.label_DownloadStatus.Margin = new System.Windows.Forms.Padding(0);
+            this.label_DownloadStatus.Name = "label_DownloadStatus";
+            this.label_DownloadStatus.Size = new System.Drawing.Size(414, 13);
+            this.label_DownloadStatus.TabIndex = 9;
+            this.label_DownloadStatus.Text = "API DL Status: Suspended. ";
+            this.label_DownloadStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cTreeView_DownloadQueue
+            // 
+            this.cTreeView_DownloadQueue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
+            this.cTreeView_DownloadQueue.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.cTreeView_DownloadQueue.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.cTreeView_DownloadQueue.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
+            this.cTreeView_DownloadQueue.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.cTreeView_DownloadQueue.Location = new System.Drawing.Point(3, 37);
+            this.cTreeView_DownloadQueue.Name = "cTreeView_DownloadQueue";
+            this.cTreeView_DownloadQueue.NodeBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
+            this.cTreeView_DownloadQueue.Size = new System.Drawing.Size(488, 240);
+            this.cTreeView_DownloadQueue.TabIndex = 1;
+            // 
+            // pictureBox_GitHub
+            // 
+            this.pictureBox_GitHub.BackgroundImage = global::e621_ReBot_v2.Properties.Resources.GitHubLogo;
+            this.pictureBox_GitHub.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox_GitHub.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox_GitHub.Location = new System.Drawing.Point(640, 558);
+            this.pictureBox_GitHub.Margin = new System.Windows.Forms.Padding(0, 0, 32, 32);
+            this.pictureBox_GitHub.Name = "pictureBox_GitHub";
+            this.pictureBox_GitHub.Size = new System.Drawing.Size(381, 100);
+            this.pictureBox_GitHub.TabIndex = 104;
+            this.pictureBox_GitHub.TabStop = false;
+            this.toolTip_Display.SetToolTip(this.pictureBox_GitHub, "https://github.com/e621-ReBot/e621-ReBot-v2");
+            this.pictureBox_GitHub.Click += new System.EventHandler(this.PictureBox_GitHub_Click);
+            // 
             // pictureBox_KoFi
             // 
             this.pictureBox_KoFi.BackgroundImage = global::e621_ReBot_v2.Properties.Resources.Ko_Fi_Button;
@@ -934,6 +1225,67 @@
             this.pictureBox_Discord.TabStop = false;
             this.toolTip_Display.SetToolTip(this.pictureBox_Discord, "https://discord.gg/7ncEzah");
             this.pictureBox_Discord.Click += new System.EventHandler(this.PictureBox_Discord_Click);
+            // 
+            // cGroupBoxColored_NamingWeb
+            // 
+            this.cGroupBoxColored_NamingWeb.BorderColor = System.Drawing.Color.Black;
+            this.cGroupBoxColored_NamingWeb.BottomBorderFix = 1;
+            this.cGroupBoxColored_NamingWeb.Controls.Add(this.Naming_web_0);
+            this.cGroupBoxColored_NamingWeb.Controls.Add(this.Naming_web_1);
+            this.cGroupBoxColored_NamingWeb.Controls.Add(this.Naming_web_2);
+            this.cGroupBoxColored_NamingWeb.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.cGroupBoxColored_NamingWeb.Location = new System.Drawing.Point(942, 232);
+            this.cGroupBoxColored_NamingWeb.Margin = new System.Windows.Forms.Padding(4, 32, 64, 4);
+            this.cGroupBoxColored_NamingWeb.Name = "cGroupBoxColored_NamingWeb";
+            this.cGroupBoxColored_NamingWeb.Padding = new System.Windows.Forms.Padding(1);
+            this.cGroupBoxColored_NamingWeb.Size = new System.Drawing.Size(256, 48);
+            this.cGroupBoxColored_NamingWeb.TabIndex = 125;
+            this.cGroupBoxColored_NamingWeb.TabStop = false;
+            this.cGroupBoxColored_NamingWeb.Text = "Web DL media naming pattern";
+            this.cGroupBoxColored_NamingWeb.TextOffset = 4;
+            this.toolTip_Display.SetToolTip(this.cGroupBoxColored_NamingWeb, "Naming pattern for media downloaded from websites.");
+            // 
+            // Naming_web_0
+            // 
+            this.Naming_web_0.AutoSize = true;
+            this.Naming_web_0.Checked = true;
+            this.Naming_web_0.Location = new System.Drawing.Point(9, 20);
+            this.Naming_web_0.Margin = new System.Windows.Forms.Padding(8, 4, 2, 4);
+            this.Naming_web_0.Name = "Naming_web_0";
+            this.Naming_web_0.Size = new System.Drawing.Size(60, 17);
+            this.Naming_web_0.TabIndex = 3;
+            this.Naming_web_0.TabStop = true;
+            this.Naming_web_0.Tag = "0";
+            this.Naming_web_0.Text = "Original";
+            this.toolTip_Display.SetToolTip(this.Naming_web_0, "All downloaded media  will be named by its original filename.");
+            this.Naming_web_0.UseVisualStyleBackColor = true;
+            // 
+            // Naming_web_1
+            // 
+            this.Naming_web_1.AutoSize = true;
+            this.Naming_web_1.Location = new System.Drawing.Point(71, 20);
+            this.Naming_web_1.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.Naming_web_1.Name = "Naming_web_1";
+            this.Naming_web_1.Size = new System.Drawing.Size(92, 17);
+            this.Naming_web_1.TabIndex = 4;
+            this.Naming_web_1.Tag = "1";
+            this.Naming_web_1.Text = "Artist_Title_....";
+            this.toolTip_Display.SetToolTip(this.Naming_web_1, "All downloaded media will be named (whenever possible) by its artist, title and 4" +
+        " characters of original name.");
+            this.Naming_web_1.UseVisualStyleBackColor = true;
+            // 
+            // Naming_web_2
+            // 
+            this.Naming_web_2.AutoSize = true;
+            this.Naming_web_2.Location = new System.Drawing.Point(163, 20);
+            this.Naming_web_2.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.Naming_web_2.Name = "Naming_web_2";
+            this.Naming_web_2.Size = new System.Drawing.Size(89, 17);
+            this.Naming_web_2.TabIndex = 5;
+            this.Naming_web_2.Tag = "2";
+            this.Naming_web_2.Text = "Artist_Original";
+            this.toolTip_Display.SetToolTip(this.Naming_web_2, "All downloaded media  will be named by its artist and original filename.");
+            this.Naming_web_2.UseVisualStyleBackColor = true;
             // 
             // bU_GetGenders
             // 
@@ -1730,338 +2082,6 @@
             this.bU_KoFi.UseVisualStyleBackColor = true;
             this.bU_KoFi.Click += new System.EventHandler(this.BU_KoFi_Click);
             // 
-            // cCheckGroupBox_Download
-            // 
-            this.cCheckGroupBox_Download.BorderColor = System.Drawing.Color.Black;
-            this.cCheckGroupBox_Download.BottomBorderFix = 1;
-            this.cCheckGroupBox_Download.Controls.Add(this.bU_CancelAPIDL);
-            this.cCheckGroupBox_Download.Controls.Add(this.label_DownloadStatus);
-            this.cCheckGroupBox_Download.Controls.Add(this.cTreeView_DownloadQueue);
-            this.cCheckGroupBox_Download.DisableChildrenIfUnchecked = false;
-            this.cCheckGroupBox_Download.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cCheckGroupBox_Download.Location = new System.Drawing.Point(740, 32);
-            this.cCheckGroupBox_Download.Margin = new System.Windows.Forms.Padding(4, 32, 28, 0);
-            this.cCheckGroupBox_Download.Name = "cCheckGroupBox_Download";
-            this.cCheckGroupBox_Download.Size = new System.Drawing.Size(494, 280);
-            this.cCheckGroupBox_Download.TabIndex = 0;
-            this.cCheckGroupBox_Download.TabStop = false;
-            this.cCheckGroupBox_Download.Text = "Download Queue";
-            this.cCheckGroupBox_Download.TextOffset = 0;
-            this.toolTip_Display.SetToolTip(this.cCheckGroupBox_Download, "Toggle this (Off) to pause downloading.");
-            this.cCheckGroupBox_Download.TooltipTextOnCheckbox = "Toggle this (Off) to pause downloading.";
-            this.cCheckGroupBox_Download.CheckedChanged += new System.EventHandler(this.CCheckGroupBox_Download_CheckedChanged);
-            this.cCheckGroupBox_Download.Paint += new System.Windows.Forms.PaintEventHandler(this.CCheckGroupBox_Download_Paint);
-            // 
-            // bU_CancelAPIDL
-            // 
-            this.bU_CancelAPIDL.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bU_CancelAPIDL.Enabled = false;
-            this.bU_CancelAPIDL.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_CancelAPIDL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bU_CancelAPIDL.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.bU_CancelAPIDL.Location = new System.Drawing.Point(419, 6);
-            this.bU_CancelAPIDL.Name = "bU_CancelAPIDL";
-            this.bU_CancelAPIDL.Size = new System.Drawing.Size(75, 27);
-            this.bU_CancelAPIDL.TabIndex = 10;
-            this.bU_CancelAPIDL.TabStop = false;
-            this.bU_CancelAPIDL.Text = "Cancel";
-            this.toolTip_Display.SetToolTip(this.bU_CancelAPIDL, "Cancel grabbing further download links from e621 API.");
-            this.bU_CancelAPIDL.UseVisualStyleBackColor = true;
-            this.bU_CancelAPIDL.Click += new System.EventHandler(this.BU_CancelAPIDL_Click);
-            // 
-            // label_DownloadStatus
-            // 
-            this.label_DownloadStatus.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.label_DownloadStatus.Location = new System.Drawing.Point(3, 16);
-            this.label_DownloadStatus.Margin = new System.Windows.Forms.Padding(0);
-            this.label_DownloadStatus.Name = "label_DownloadStatus";
-            this.label_DownloadStatus.Size = new System.Drawing.Size(414, 13);
-            this.label_DownloadStatus.TabIndex = 9;
-            this.label_DownloadStatus.Text = "API DL Status: Suspended. ";
-            this.label_DownloadStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // cTreeView_DownloadQueue
-            // 
-            this.cTreeView_DownloadQueue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
-            this.cTreeView_DownloadQueue.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.cTreeView_DownloadQueue.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.cTreeView_DownloadQueue.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
-            this.cTreeView_DownloadQueue.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cTreeView_DownloadQueue.Location = new System.Drawing.Point(3, 37);
-            this.cTreeView_DownloadQueue.Name = "cTreeView_DownloadQueue";
-            this.cTreeView_DownloadQueue.NodeBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
-            this.cTreeView_DownloadQueue.Size = new System.Drawing.Size(488, 240);
-            this.cTreeView_DownloadQueue.TabIndex = 1;
-            // 
-            // cGroupBoxColored_InProgress
-            // 
-            this.cGroupBoxColored_InProgress.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_InProgress.BottomBorderFix = 1;
-            this.cGroupBoxColored_InProgress.Controls.Add(this.DownloadFLP_InProgress);
-            this.cGroupBoxColored_InProgress.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cGroupBoxColored_InProgress.Location = new System.Drawing.Point(52, 32);
-            this.cGroupBoxColored_InProgress.Margin = new System.Windows.Forms.Padding(48, 32, 4, 4);
-            this.cGroupBoxColored_InProgress.Name = "cGroupBoxColored_InProgress";
-            this.cGroupBoxColored_InProgress.Size = new System.Drawing.Size(680, 186);
-            this.cGroupBoxColored_InProgress.TabIndex = 1;
-            this.cGroupBoxColored_InProgress.TabStop = false;
-            this.cGroupBoxColored_InProgress.Text = "In Progress";
-            this.cGroupBoxColored_InProgress.TextOffset = 0;
-            this.toolTip_Display.SetToolTip(this.cGroupBoxColored_InProgress, "Currently Downloading.");
-            // 
-            // DownloadFLP_InProgress
-            // 
-            this.DownloadFLP_InProgress.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DownloadFLP_InProgress.Location = new System.Drawing.Point(3, 16);
-            this.DownloadFLP_InProgress.Name = "DownloadFLP_InProgress";
-            this.DownloadFLP_InProgress.Size = new System.Drawing.Size(674, 167);
-            this.DownloadFLP_InProgress.TabIndex = 0;
-            // 
-            // cGroupBoxColored_Downloaded
-            // 
-            this.cGroupBoxColored_Downloaded.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_Downloaded.BottomBorderFix = 1;
-            this.cGroupBoxColored_Downloaded.Controls.Add(this.DownloadFLP_Downloaded);
-            this.cGroupBoxColored_Downloaded.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cGroupBoxColored_Downloaded.Location = new System.Drawing.Point(52, 313);
-            this.cGroupBoxColored_Downloaded.Margin = new System.Windows.Forms.Padding(48, 0, 28, 16);
-            this.cGroupBoxColored_Downloaded.Name = "cGroupBoxColored_Downloaded";
-            this.cGroupBoxColored_Downloaded.Size = new System.Drawing.Size(1182, 356);
-            this.cGroupBoxColored_Downloaded.TabIndex = 2;
-            this.cGroupBoxColored_Downloaded.TabStop = false;
-            this.cGroupBoxColored_Downloaded.Text = "Latest Downloads";
-            this.cGroupBoxColored_Downloaded.TextOffset = 0;
-            this.toolTip_Display.SetToolTip(this.cGroupBoxColored_Downloaded, "Download History.");
-            // 
-            // DownloadFLP_Downloaded
-            // 
-            this.DownloadFLP_Downloaded.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DownloadFLP_Downloaded.Location = new System.Drawing.Point(3, 16);
-            this.DownloadFLP_Downloaded.Margin = new System.Windows.Forms.Padding(0);
-            this.DownloadFLP_Downloaded.Name = "DownloadFLP_Downloaded";
-            this.DownloadFLP_Downloaded.Size = new System.Drawing.Size(1176, 337);
-            this.DownloadFLP_Downloaded.TabIndex = 1;
-            this.DownloadFLP_Downloaded.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.DownloadFLP_Downloaded_ControlAdded);
-            // 
-            // bU_DownloadFolder
-            // 
-            this.bU_DownloadFolder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.bU_DownloadFolder.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bU_DownloadFolder.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_DownloadFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bU_DownloadFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.bU_DownloadFolder.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.bU_DownloadFolder.Image = global::e621_ReBot_v2.Properties.Resources.FolderIcon;
-            this.bU_DownloadFolder.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.bU_DownloadFolder.Location = new System.Drawing.Point(611, 225);
-            this.bU_DownloadFolder.Name = "bU_DownloadFolder";
-            this.bU_DownloadFolder.Size = new System.Drawing.Size(90, 86);
-            this.bU_DownloadFolder.TabIndex = 4;
-            this.bU_DownloadFolder.TabStop = false;
-            this.bU_DownloadFolder.Text = "Downloads";
-            this.bU_DownloadFolder.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.toolTip_Display.SetToolTip(this.bU_DownloadFolder, "Open Downloads Folder.");
-            this.bU_DownloadFolder.UseVisualStyleBackColor = true;
-            this.bU_DownloadFolder.Click += new System.EventHandler(this.BU_DownloadFolder_Click);
-            // 
-            // cGroupBoxColored_DLThreads
-            // 
-            this.cGroupBoxColored_DLThreads.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_DLThreads.BottomBorderFix = 1;
-            this.cGroupBoxColored_DLThreads.Controls.Add(this.RadioButton_DL1);
-            this.cGroupBoxColored_DLThreads.Controls.Add(this.RadioButton_DL2);
-            this.cGroupBoxColored_DLThreads.Controls.Add(this.RadioButton_DL3);
-            this.cGroupBoxColored_DLThreads.Controls.Add(this.RadioButton_DL4);
-            this.cGroupBoxColored_DLThreads.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cGroupBoxColored_DLThreads.Location = new System.Drawing.Point(52, 219);
-            this.cGroupBoxColored_DLThreads.Margin = new System.Windows.Forms.Padding(48, 32, 4, 4);
-            this.cGroupBoxColored_DLThreads.Name = "cGroupBoxColored_DLThreads";
-            this.cGroupBoxColored_DLThreads.Size = new System.Drawing.Size(160, 40);
-            this.cGroupBoxColored_DLThreads.TabIndex = 5;
-            this.cGroupBoxColored_DLThreads.TabStop = false;
-            this.cGroupBoxColored_DLThreads.Text = "Download Threads";
-            this.cGroupBoxColored_DLThreads.TextOffset = 0;
-            this.toolTip_Display.SetToolTip(this.cGroupBoxColored_DLThreads, "Select the number of download threads.");
-            // 
-            // RadioButton_DL1
-            // 
-            this.RadioButton_DL1.AutoSize = true;
-            this.RadioButton_DL1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.RadioButton_DL1.Location = new System.Drawing.Point(10, 17);
-            this.RadioButton_DL1.Name = "RadioButton_DL1";
-            this.RadioButton_DL1.Size = new System.Drawing.Size(31, 17);
-            this.RadioButton_DL1.TabIndex = 5;
-            this.RadioButton_DL1.Text = "1";
-            this.RadioButton_DL1.UseVisualStyleBackColor = true;
-            // 
-            // RadioButton_DL2
-            // 
-            this.RadioButton_DL2.AutoSize = true;
-            this.RadioButton_DL2.Cursor = System.Windows.Forms.Cursors.Default;
-            this.RadioButton_DL2.Location = new System.Drawing.Point(47, 17);
-            this.RadioButton_DL2.Name = "RadioButton_DL2";
-            this.RadioButton_DL2.Size = new System.Drawing.Size(31, 17);
-            this.RadioButton_DL2.TabIndex = 6;
-            this.RadioButton_DL2.Text = "2";
-            this.RadioButton_DL2.UseVisualStyleBackColor = true;
-            // 
-            // RadioButton_DL3
-            // 
-            this.RadioButton_DL3.AutoSize = true;
-            this.RadioButton_DL3.Cursor = System.Windows.Forms.Cursors.Default;
-            this.RadioButton_DL3.Location = new System.Drawing.Point(84, 17);
-            this.RadioButton_DL3.Name = "RadioButton_DL3";
-            this.RadioButton_DL3.Size = new System.Drawing.Size(31, 17);
-            this.RadioButton_DL3.TabIndex = 7;
-            this.RadioButton_DL3.Text = "3";
-            this.RadioButton_DL3.UseVisualStyleBackColor = true;
-            // 
-            // RadioButton_DL4
-            // 
-            this.RadioButton_DL4.AutoSize = true;
-            this.RadioButton_DL4.Checked = true;
-            this.RadioButton_DL4.Cursor = System.Windows.Forms.Cursors.Default;
-            this.RadioButton_DL4.Location = new System.Drawing.Point(121, 17);
-            this.RadioButton_DL4.Name = "RadioButton_DL4";
-            this.RadioButton_DL4.Size = new System.Drawing.Size(31, 17);
-            this.RadioButton_DL4.TabIndex = 8;
-            this.RadioButton_DL4.TabStop = true;
-            this.RadioButton_DL4.Text = "4";
-            this.RadioButton_DL4.UseVisualStyleBackColor = true;
-            // 
-            // bU_ClearDLHistory
-            // 
-            this.bU_ClearDLHistory.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bU_ClearDLHistory.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_ClearDLHistory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bU_ClearDLHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.bU_ClearDLHistory.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.bU_ClearDLHistory.Location = new System.Drawing.Point(154, 297);
-            this.bU_ClearDLHistory.Margin = new System.Windows.Forms.Padding(4, 4, 4, 16);
-            this.bU_ClearDLHistory.Name = "bU_ClearDLHistory";
-            this.bU_ClearDLHistory.Size = new System.Drawing.Size(80, 23);
-            this.bU_ClearDLHistory.TabIndex = 3;
-            this.bU_ClearDLHistory.TabStop = false;
-            this.bU_ClearDLHistory.Text = "Clear History";
-            this.toolTip_Display.SetToolTip(this.bU_ClearDLHistory, "Clear Download History.");
-            this.bU_ClearDLHistory.UseVisualStyleBackColor = true;
-            this.bU_ClearDLHistory.Click += new System.EventHandler(this.BU_ClearDLHistory_Click);
-            // 
-            // bU_DownloadPageUp
-            // 
-            this.bU_DownloadPageUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.bU_DownloadPageUp.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bU_DownloadPageUp.Enabled = false;
-            this.bU_DownloadPageUp.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_DownloadPageUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bU_DownloadPageUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.bU_DownloadPageUp.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.bU_DownloadPageUp.Location = new System.Drawing.Point(708, 225);
-            this.bU_DownloadPageUp.Margin = new System.Windows.Forms.Padding(4);
-            this.bU_DownloadPageUp.Name = "bU_DownloadPageUp";
-            this.bU_DownloadPageUp.Size = new System.Drawing.Size(24, 39);
-            this.bU_DownloadPageUp.TabIndex = 6;
-            this.bU_DownloadPageUp.TabStop = false;
-            this.bU_DownloadPageUp.Text = "▲";
-            this.toolTip_Display.SetToolTip(this.bU_DownloadPageUp, "Show previous page of Download Queue.");
-            this.bU_DownloadPageUp.UseVisualStyleBackColor = true;
-            this.bU_DownloadPageUp.Click += new System.EventHandler(this.BU_DownloadPageUp_Click);
-            // 
-            // bU_DownloadPageDown
-            // 
-            this.bU_DownloadPageDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.bU_DownloadPageDown.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bU_DownloadPageDown.Enabled = false;
-            this.bU_DownloadPageDown.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_DownloadPageDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bU_DownloadPageDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.bU_DownloadPageDown.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.bU_DownloadPageDown.Location = new System.Drawing.Point(708, 272);
-            this.bU_DownloadPageDown.Margin = new System.Windows.Forms.Padding(4);
-            this.bU_DownloadPageDown.Name = "bU_DownloadPageDown";
-            this.bU_DownloadPageDown.Size = new System.Drawing.Size(24, 39);
-            this.bU_DownloadPageDown.TabIndex = 7;
-            this.bU_DownloadPageDown.TabStop = false;
-            this.bU_DownloadPageDown.Text = "▼";
-            this.toolTip_Display.SetToolTip(this.bU_DownloadPageDown, "Show next page of Download Queue.");
-            this.bU_DownloadPageDown.UseVisualStyleBackColor = true;
-            this.bU_DownloadPageDown.Click += new System.EventHandler(this.BU_DownloadPageDown_Click);
-            // 
-            // cGroupBoxColored_NamingWeb
-            // 
-            this.cGroupBoxColored_NamingWeb.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_NamingWeb.BottomBorderFix = 1;
-            this.cGroupBoxColored_NamingWeb.Controls.Add(this.Naming_web_0);
-            this.cGroupBoxColored_NamingWeb.Controls.Add(this.Naming_web_1);
-            this.cGroupBoxColored_NamingWeb.Controls.Add(this.Naming_web_2);
-            this.cGroupBoxColored_NamingWeb.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cGroupBoxColored_NamingWeb.Location = new System.Drawing.Point(942, 232);
-            this.cGroupBoxColored_NamingWeb.Margin = new System.Windows.Forms.Padding(4, 32, 64, 4);
-            this.cGroupBoxColored_NamingWeb.Name = "cGroupBoxColored_NamingWeb";
-            this.cGroupBoxColored_NamingWeb.Padding = new System.Windows.Forms.Padding(1);
-            this.cGroupBoxColored_NamingWeb.Size = new System.Drawing.Size(256, 48);
-            this.cGroupBoxColored_NamingWeb.TabIndex = 125;
-            this.cGroupBoxColored_NamingWeb.TabStop = false;
-            this.cGroupBoxColored_NamingWeb.Text = "Web DL media naming pattern";
-            this.cGroupBoxColored_NamingWeb.TextOffset = 4;
-            this.toolTip_Display.SetToolTip(this.cGroupBoxColored_NamingWeb, "Naming pattern for media downloaded from websites.");
-            // 
-            // Naming_web_0
-            // 
-            this.Naming_web_0.AutoSize = true;
-            this.Naming_web_0.Checked = true;
-            this.Naming_web_0.Location = new System.Drawing.Point(9, 20);
-            this.Naming_web_0.Margin = new System.Windows.Forms.Padding(8, 4, 2, 4);
-            this.Naming_web_0.Name = "Naming_web_0";
-            this.Naming_web_0.Size = new System.Drawing.Size(60, 17);
-            this.Naming_web_0.TabIndex = 3;
-            this.Naming_web_0.TabStop = true;
-            this.Naming_web_0.Tag = "0";
-            this.Naming_web_0.Text = "Original";
-            this.toolTip_Display.SetToolTip(this.Naming_web_0, "All downloaded media  will be named by its original filename.");
-            this.Naming_web_0.UseVisualStyleBackColor = true;
-            // 
-            // Naming_web_1
-            // 
-            this.Naming_web_1.AutoSize = true;
-            this.Naming_web_1.Location = new System.Drawing.Point(71, 20);
-            this.Naming_web_1.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
-            this.Naming_web_1.Name = "Naming_web_1";
-            this.Naming_web_1.Size = new System.Drawing.Size(92, 17);
-            this.Naming_web_1.TabIndex = 4;
-            this.Naming_web_1.Tag = "1";
-            this.Naming_web_1.Text = "Artist_Title_....";
-            this.toolTip_Display.SetToolTip(this.Naming_web_1, "All downloaded media will be named (whenever possible) by its artist, title and 4" +
-        " characters of original name.");
-            this.Naming_web_1.UseVisualStyleBackColor = true;
-            // 
-            // Naming_web_2
-            // 
-            this.Naming_web_2.AutoSize = true;
-            this.Naming_web_2.Location = new System.Drawing.Point(163, 20);
-            this.Naming_web_2.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
-            this.Naming_web_2.Name = "Naming_web_2";
-            this.Naming_web_2.Size = new System.Drawing.Size(89, 17);
-            this.Naming_web_2.TabIndex = 5;
-            this.Naming_web_2.Tag = "2";
-            this.Naming_web_2.Text = "Artist_Original";
-            this.toolTip_Display.SetToolTip(this.Naming_web_2, "All downloaded media  will be named by its artist and original filename.");
-            this.Naming_web_2.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox_GitHub
-            // 
-            this.pictureBox_GitHub.BackgroundImage = global::e621_ReBot_v2.Properties.Resources.GitHubLogo;
-            this.pictureBox_GitHub.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox_GitHub.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox_GitHub.Location = new System.Drawing.Point(640, 558);
-            this.pictureBox_GitHub.Margin = new System.Windows.Forms.Padding(0, 0, 32, 32);
-            this.pictureBox_GitHub.Name = "pictureBox_GitHub";
-            this.pictureBox_GitHub.Size = new System.Drawing.Size(381, 100);
-            this.pictureBox_GitHub.TabIndex = 104;
-            this.pictureBox_GitHub.TabStop = false;
-            this.toolTip_Display.SetToolTip(this.pictureBox_GitHub, "https://github.com/e621-ReBot/e621-ReBot-v2");
-            this.pictureBox_GitHub.Click += new System.EventHandler(this.PictureBox_GitHub_Click);
-            // 
             // Version_Label
             // 
             this.Version_Label.AutoSize = true;
@@ -2501,6 +2521,7 @@
             // 
             this.tabPage_Download.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
             this.tabPage_Download.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tabPage_Download.Controls.Add(this.bU_SkipDLCache);
             this.tabPage_Download.Controls.Add(this.bU_DownloadPageDown);
             this.tabPage_Download.Controls.Add(this.bU_DownloadPageUp);
             this.tabPage_Download.Controls.Add(this.bU_ClearDLHistory);
@@ -2511,7 +2532,7 @@
             this.tabPage_Download.Controls.Add(this.cCheckGroupBox_Download);
             this.tabPage_Download.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Download.Name = "tabPage_Download";
-            this.tabPage_Download.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Download.Size = new System.Drawing.Size(1262, 695);
             this.tabPage_Download.TabIndex = 2;
             this.tabPage_Download.Text = "tabPage_Download";
             // 
@@ -2771,7 +2792,7 @@
             this.tabPage_Info.Controls.Add(this.label_API2);
             this.tabPage_Info.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Info.Name = "tabPage_Info";
-            this.tabPage_Info.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Info.Size = new System.Drawing.Size(192, 91);
             this.tabPage_Info.TabIndex = 4;
             this.tabPage_Info.Text = "tabPage_Info";
             // 
@@ -3170,9 +3191,18 @@
             this.Shown += new System.EventHandler(this.Form_Main_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.button_AppMinimize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.button_AppClose)).EndInit();
+            this.cGroupBoxColored_DLThreads.ResumeLayout(false);
+            this.cGroupBoxColored_DLThreads.PerformLayout();
+            this.cGroupBoxColored_Downloaded.ResumeLayout(false);
+            this.cGroupBoxColored_InProgress.ResumeLayout(false);
+            this.cCheckGroupBox_Download.ResumeLayout(false);
+            this.cCheckGroupBox_Download.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_GitHub)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_KoFi)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Logo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Discord)).EndInit();
+            this.cGroupBoxColored_NamingWeb.ResumeLayout(false);
+            this.cGroupBoxColored_NamingWeb.PerformLayout();
             this.cGroupBoxColored_ActionDelay.ResumeLayout(false);
             this.cGroupBoxColored_ActionDelay.PerformLayout();
             this.cGroupBoxColored_Volume.ResumeLayout(false);
@@ -3186,15 +3216,6 @@
             this.cGroupBoxColored_Update.ResumeLayout(false);
             this.cGroupBoxColored_Update.PerformLayout();
             this.cGroupBoxColored_AppName.ResumeLayout(false);
-            this.cCheckGroupBox_Download.ResumeLayout(false);
-            this.cCheckGroupBox_Download.PerformLayout();
-            this.cGroupBoxColored_InProgress.ResumeLayout(false);
-            this.cGroupBoxColored_Downloaded.ResumeLayout(false);
-            this.cGroupBoxColored_DLThreads.ResumeLayout(false);
-            this.cGroupBoxColored_DLThreads.PerformLayout();
-            this.cGroupBoxColored_NamingWeb.ResumeLayout(false);
-            this.cGroupBoxColored_NamingWeb.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_GitHub)).EndInit();
             this.Panel_Holder.ResumeLayout(false);
             this.contextMenuStrip_Download.ResumeLayout(false);
             this.contextMenuStrip_cTreeView.ResumeLayout(false);
@@ -3425,6 +3446,7 @@
         internal System.Windows.Forms.RadioButton Naming_web_2;
         protected internal System.Windows.Forms.PictureBox pictureBox_GitHub;
         protected internal System.Windows.Forms.PictureBox pictureBox_KoFi;
+        protected internal CustomControls.Button_Unfocusable bU_SkipDLCache;
     }
 }
 

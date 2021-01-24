@@ -12,7 +12,7 @@ namespace e621_ReBot_v2.CustomControls
             InitializeComponent();
         }
 
-        private void e6_DownloadItem_Load(object sender, System.EventArgs e)
+        private void E6_DownloadItem_Load(object sender, System.EventArgs e)
         {
             SuspendLayout();
             DL_ProgressBar.Parent = picBox_ImageHolder;
@@ -36,6 +36,12 @@ namespace e621_ReBot_v2.CustomControls
             picBox_ImageHolder.Image = null;
             picBox_ImageHolder.Tag = null;
         }
+
+        public void SetTooltip(string tooltipText)
+        {
+            toolTip_Display.SetToolTip(DL_ProgressBar, tooltipText);
+        }
+
 
         /// <summary> 
         /// Clean up any resources being used.

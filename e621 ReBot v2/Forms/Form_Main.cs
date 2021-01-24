@@ -142,7 +142,7 @@ namespace e621_ReBot_v2
             Module_CefSharp.InitializeBrowser("about:blank");
             SetQuickButtonPanelRegion();
             CreateTrackList();
-            Module_Downloader.Load_DownloadCache();
+            Module_Downloader.Load_IECache();
 
             Version_Label.Text = "v" + Application.ProductVersion;
 
@@ -1465,6 +1465,12 @@ namespace e621_ReBot_v2
             Module_Downloader.UpdateTreeViewNodes();
         }
 
+        private void BU_SkipDLCache_Click(object sender, EventArgs e)
+        {
+            bU_SkipDLCache.Enabled = false;
+            Module_Downloader.Load_DownloadFolderCache();
+        }
+
         #endregion
 
 
@@ -2563,5 +2569,7 @@ namespace e621_ReBot_v2
         }
 
         #endregion
+
+
     }
 }

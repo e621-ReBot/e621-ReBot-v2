@@ -458,6 +458,11 @@
             // 
             this.pictureBox_KoFi.Location = new System.Drawing.Point(1547, 323);
             // 
+            // bU_SkipDLCache
+            // 
+            this.bU_SkipDLCache.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.bU_SkipDLCache.Location = new System.Drawing.Point(1015, 252);
+            // 
             // Form_MainBig
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;

@@ -16,9 +16,11 @@ namespace e621_ReBot_v2.CustomControls
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.DL_FolderIcon = new System.Windows.Forms.PictureBox();
             this.DL_ProgressBar = new e621_ReBot_v2.CustomControls.Custom_ProgressBar();
             this.picBox_ImageHolder = new System.Windows.Forms.PictureBox();
+            this.toolTip_Display = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.DL_FolderIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_ImageHolder)).BeginInit();
             this.SuspendLayout();
@@ -69,6 +71,14 @@ namespace e621_ReBot_v2.CustomControls
             this.picBox_ImageHolder.TabStop = false;
             this.picBox_ImageHolder.LoadCompleted += new System.ComponentModel.AsyncCompletedEventHandler(this.PicBox_ImageHolder_LoadCompleted);
             // 
+            // toolTip_Display
+            // 
+            this.toolTip_Display.AutomaticDelay = 100;
+            this.toolTip_Display.AutoPopDelay = 15000;
+            this.toolTip_Display.InitialDelay = 100;
+            this.toolTip_Display.ReshowDelay = 100;
+            this.toolTip_Display.ShowAlways = true;
+            // 
             // e6_DownloadItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -82,7 +92,7 @@ namespace e621_ReBot_v2.CustomControls
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "e6_DownloadItem";
             this.Size = new System.Drawing.Size(160, 160);
-            this.Load += new System.EventHandler(this.e6_DownloadItem_Load);
+            this.Load += new System.EventHandler(this.E6_DownloadItem_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DL_FolderIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_ImageHolder)).EndInit();
             this.ResumeLayout(false);
@@ -94,5 +104,6 @@ namespace e621_ReBot_v2.CustomControls
         internal System.Windows.Forms.PictureBox DL_FolderIcon;
         internal Custom_ProgressBar DL_ProgressBar;
         internal System.Windows.Forms.PictureBox picBox_ImageHolder;
+        internal System.Windows.Forms.ToolTip toolTip_Display;
     }
 }

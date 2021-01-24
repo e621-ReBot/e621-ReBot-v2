@@ -382,9 +382,9 @@ namespace e621_ReBot_v2.Forms
                 if (FileFound.Name.Contains(ImageName + "["))
                 {
                     string FilenameCut = FileFound.Name.Replace("[1].", ".");
-                    if (!Module_Downloader.Download_Cache.ContainsKey(FilenameCut))
+                    if (!Module_Downloader.IEDownload_Cache.ContainsKey(FilenameCut))
                     {
-                        Module_Downloader.Download_Cache.Add(FilenameCut, FileFound.FullName);
+                        Module_Downloader.IEDownload_Cache.Add(FilenameCut, FileFound.FullName);
                     }
 
                     RetryReadBytes:
@@ -455,7 +455,7 @@ namespace e621_ReBot_v2.Forms
                         case "gif":
                             {
                                 string ImageName = Module_Downloader.GetMediasFileNameOnly((string)Preview_RowHolder["Grab_MediaURL"]);
-                                byte[] bytes = File.ReadAllBytes(Module_Downloader.Download_Cache[ImageName]); // File.ReadAllBytes(Preview_RowHolder("Image_FilePath"))
+                                byte[] bytes = File.ReadAllBytes(Module_Downloader.IEDownload_Cache[ImageName]); // File.ReadAllBytes(Preview_RowHolder("Image_FilePath"))
                                 using (MemoryStream TempStream = new MemoryStream(bytes))
                                 {
                                     Image gif = Image.FromStream(TempStream);

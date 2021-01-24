@@ -41,7 +41,6 @@ namespace e621_ReBot_v2.Modules
             e6APIDL_BGW.RunWorkerCompleted += E6APIDL_BGW_Done;
         }
 
-
         public static void DownloadEnabler(string WebAdress)
         {
             if (WebAdress.StartsWith("https://e621.net/posts", StringComparison.OrdinalIgnoreCase)
@@ -56,15 +55,16 @@ namespace e621_ReBot_v2.Modules
 
 
 
-        public static Dictionary<string, string> Download_Cache = new Dictionary<string, string>();
-        public static void Load_DownloadCache()
+        public static Dictionary<string, string> IEDownload_Cache = new Dictionary<string, string>();
+        public static void Load_IECache()
         {
+            //IEDownload_Cache.Clear();
             BackgroundWorker NewBGW = new BackgroundWorker();
-            NewBGW.DoWork += Load_DownloadCache_BGW;
+            NewBGW.DoWork += Load_IECache_BGW;
             NewBGW.RunWorkerAsync();
         }
 
-        private static void Load_DownloadCache_BGW(object sender, DoWorkEventArgs e)
+        private static void Load_IECache_BGW(object sender, DoWorkEventArgs e)
         {
             DirectoryInfo CacheFolder = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.InternetCache) + @"\IE");
             string[] Search4Extensions = { "*.jpg", "*.png", "*.gif" };
@@ -75,9 +75,9 @@ namespace e621_ReBot_v2.Modules
                 foreach (FileInfo FileFound in CacheFolder.GetFiles(Search4Extension, SearchOption.AllDirectories))
                 {
                     FileFoundNameFix = FileFound.Name.Replace("[1].", ".");
-                    if (!Download_Cache.ContainsKey(FileFoundNameFix))
+                    if (!IEDownload_Cache.ContainsKey(FileFoundNameFix))
                     {
-                        Download_Cache.Add(FileFoundNameFix, FileFound.FullName);
+                        IEDownload_Cache.Add(FileFoundNameFix, FileFound.FullName);
                     }
                 }
             }
@@ -166,9 +166,9 @@ namespace e621_ReBot_v2.Modules
             {
                 Download_AlreadyDownloaded.Add(ImageURL);
             }
-            if (!File.Exists(FilePath) && Download_Cache.ContainsKey(ImageName))
+            if (!File.Exists(FilePath) && IEDownload_Cache.ContainsKey(ImageName))
             {
-                File.Copy(Download_Cache[ImageName], FilePath, true);
+                File.Copy(IEDownload_Cache[ImageName], FilePath, true);
                 return true;
             }
             return false;
@@ -351,7 +351,8 @@ namespace e621_ReBot_v2.Modules
         public static void DownloadFile(ref e6_DownloadItem e6_DownloadItemRef)
         {
             DataRow DataRowTemp = (DataRow)e6_DownloadItemRef.Tag;
-            string SiteReferer = "https://" + new Uri((string)DataRowTemp["Grab_URL"]).Host; ;
+            string SiteReferer = "https://" + new Uri((string)DataRowTemp["Grab_URL"]).Host;
+            e6_DownloadItemRef.SetTooltip((string)DataRowTemp["Grab_MediaURL"]);
             using (WebClient FileClient = new WebClient())
             {
                 FileClient.Headers.Add(HttpRequestHeader.Referer, SiteReferer);
@@ -512,7 +513,7 @@ namespace e621_ReBot_v2.Modules
             Directory.CreateDirectory(FolderPath);
 
             string GetFileNameOnly = GetMediasFileNameOnly((string)DataRowRef["Grab_MediaURL"]);
-            string ImageRename; 
+            string ImageRename;
 
             if (GetFileNameOnly.Contains("ugoira"))
             {
@@ -546,7 +547,7 @@ namespace e621_ReBot_v2.Modules
             {
                 ImageRename = RenameMediaFileName(GetFileNameOnly, DataRowRef);
                 string FilePath = Path.Combine(FolderPath, ImageRename).ToString();
-                if (Download_Cache.Keys.Contains(GetFileNameOnly))
+                if (IEDownload_Cache.Keys.Contains(GetFileNameOnly))
                 {
                     if (ReSaveMedia(DataRowRef))
                     {
@@ -592,6 +593,10 @@ namespace e621_ReBot_v2.Modules
         private static void DownloadFrom_e6URL(DataRow DataRowRef)
         {
             string PicURL = (string)DataRowRef["Grab_MediaURL"];
+
+            string GetFileNameOnly = GetMediasFileNameOnly(PicURL);
+            if (DownloadFolderCache != null && DownloadFolderCache.Contains(GetFileNameOnly)) return;
+
             string ThumbLink = PicURL.Replace("net/data/", "net/data/preview/");
             ThumbLink = ThumbLink.Remove(ThumbLink.LastIndexOf(".") + 1) + "jpg";
 
@@ -606,7 +611,6 @@ namespace e621_ReBot_v2.Modules
             string PoolPostIndex = DataRowRef["e6_PoolPostIndex"] != DBNull.Value ? (string)DataRowRef["e6_PoolPostIndex"] : null;
             string PostID = (string)DataRowRef["e6_PostID"];
 
-            string GetFileNameOnly = GetMediasFileNameOnly(PicURL);
             switch (Properties.Settings.Default.Naming_e6)
             {
                 case 1:
@@ -888,13 +892,42 @@ namespace e621_ReBot_v2.Modules
 
         private static void Report_Status(string StatusMessage, bool ButtonEnable)
         {
-            Form_Loader._FormReference.BeginInvoke(new Action(() => 
-            { 
+            Form_Loader._FormReference.BeginInvoke(new Action(() =>
+            {
                 Form_Loader._FormReference.label_DownloadStatus.Text = string.Format("API DL Status: {0}", StatusMessage);
                 Form_Loader._FormReference.bU_CancelAPIDL.Enabled = ButtonEnable;
             }));
         }
 
+
+
+        public static List<string> DownloadFolderCache;
+        public static void Load_DownloadFolderCache()
+        {
+            DownloadFolderCache = new List<string>();
+            BackgroundWorker NewBGW = new BackgroundWorker();
+            NewBGW.DoWork += Load_DownloadFolderCache_BGW;
+            NewBGW.RunWorkerAsync();
+        }
+
+        private static void Load_DownloadFolderCache_BGW(object sender, DoWorkEventArgs e)
+        {
+            DirectoryInfo CacheFolder = new DirectoryInfo(Properties.Settings.Default.DownloadsFolderLocation + "\\e621");
+
+            foreach (FileInfo FileFound in CacheFolder.GetFiles("*", SearchOption.AllDirectories))
+            {
+                string GetFileMD5 = FileFound.Name;
+                if (GetFileMD5.Contains("_")) GetFileMD5 = GetFileMD5.Substring(GetFileMD5.LastIndexOf("_") + 1);
+                //GetFileMD5 = GetFileMD5.Substring(0, GetFileMD5.LastIndexOf("."));
+
+                if (!DownloadFolderCache.Contains(GetFileMD5)) DownloadFolderCache.Add(GetFileMD5);
+            }
+            Form_Loader._FormReference.BeginInvoke(new Action(() => 
+            { 
+                Form_Loader._FormReference.bU_SkipDLCache.Enabled = true;
+                MessageBox.Show(string.Format("Cached {0} files.", DownloadFolderCache.Count), "e621 ReBot");
+            }));
+        }
 
 
         public static void GrabAllImagesWithGivenTags(object sender, DoWorkEventArgs e)
