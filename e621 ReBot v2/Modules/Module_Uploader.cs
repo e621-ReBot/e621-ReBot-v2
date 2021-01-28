@@ -411,7 +411,7 @@ namespace e621_ReBot_v2.Modules
             {
                 foreach (string InferiorSource in (List<string>)DataRowRef["Inferior_Sources"])
                 {
-                    Upload_Sources += "%0A" + InferiorSource;
+                    if (!Upload_Sources.Contains(InferiorSource)) Upload_Sources += "%0A" + InferiorSource;
                 }
             }
 
@@ -500,7 +500,10 @@ namespace e621_ReBot_v2.Modules
                 Upload_Description += string.Format("\n  - - - - - \n{0}", DataRowRef["Inferior_Description"]);
             }
 
-            Upload_Description += string.Format("\n\n{0} Posted with \"e621 ReBot\":{1} {2}", Properties.Settings.Default.PostedWithLeft, "https://e621.net/forum_topics/25939", Properties.Settings.Default.PostedWithRight);
+            if (!Upload_Description.Contains("Posted with \"e621 ReBot\":"))
+            {
+                Upload_Description += string.Format("\n\n{0} Posted with \"e621 ReBot\":{1} {2}", Properties.Settings.Default.PostedWithLeft, "https://e621.net/forum_topics/25939", Properties.Settings.Default.PostedWithRight);
+            }
 
             string ParentTag = null;
             string PostTags = (string)DataRowRef["Upload_Tags"];
