@@ -168,7 +168,7 @@ Each line is regarded separately.</value>
 * Press 1,+,0 or - to toggle checkmark.
 * Press T to open Tagger.
 * Scroll the mouse or press Left/Right Arrow to scroll through pages.
-* Press Del to delete.</value>
+* Press Del to delete selected image.</value>
   </data>
   <data name="label_API2.Text" xml:space="preserve">
     <value>* Image Upload (/uploads.json)

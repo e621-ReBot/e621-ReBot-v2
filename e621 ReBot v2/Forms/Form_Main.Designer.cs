@@ -823,7 +823,7 @@
             this.GB_Uncheck.TabStop = false;
             this.GB_Uncheck.Tag = "Uncheck";
             this.GB_Uncheck.Text = "Uncheck All";
-            this.toolTip_Display.SetToolTip(this.GB_Uncheck, "Uncheck all visible images.\r\nCtrl+click to uncheck all images.");
+            this.toolTip_Display.SetToolTip(this.GB_Uncheck, "Uncheck all visible images.\r\nCtrl+Click to uncheck all images.");
             this.GB_Uncheck.UseVisualStyleBackColor = true;
             this.GB_Uncheck.Click += new System.EventHandler(this.GB_Uncheck_Click);
             // 
@@ -2424,7 +2424,7 @@
             this.tabPage_Grid.Controls.Add(this.flowLayoutPanel_Grid);
             this.tabPage_Grid.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Grid.Name = "tabPage_Grid";
-            this.tabPage_Grid.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Grid.Size = new System.Drawing.Size(1262, 695);
             this.tabPage_Grid.TabIndex = 1;
             this.tabPage_Grid.Text = "tabPage_Grid";
             this.tabPage_Grid.Paint += new System.Windows.Forms.PaintEventHandler(this.TabPage_Grid_Paint);
@@ -2512,7 +2512,7 @@
             this.flowLayoutPanel_Grid.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel_Grid.Name = "flowLayoutPanel_Grid";
             this.flowLayoutPanel_Grid.Padding = new System.Windows.Forms.Padding(0, 16, 0, 0);
-            this.flowLayoutPanel_Grid.Size = new System.Drawing.Size(192, 650);
+            this.flowLayoutPanel_Grid.Size = new System.Drawing.Size(1262, 650);
             this.flowLayoutPanel_Grid.TabIndex = 0;
             this.flowLayoutPanel_Grid.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.FlowLayoutPanel_Grid_ControlAdded);
             this.flowLayoutPanel_Grid.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.FlowLayoutPanel_Grid_ControlRemoved);
@@ -2532,7 +2532,7 @@
             this.tabPage_Download.Controls.Add(this.cCheckGroupBox_Download);
             this.tabPage_Download.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Download.Name = "tabPage_Download";
-            this.tabPage_Download.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Download.Size = new System.Drawing.Size(192, 91);
             this.tabPage_Download.TabIndex = 2;
             this.tabPage_Download.Text = "tabPage_Download";
             // 
@@ -2792,7 +2792,7 @@
             this.tabPage_Info.Controls.Add(this.label_API2);
             this.tabPage_Info.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Info.Name = "tabPage_Info";
-            this.tabPage_Info.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Info.Size = new System.Drawing.Size(1262, 695);
             this.tabPage_Info.TabIndex = 4;
             this.tabPage_Info.Text = "tabPage_Info";
             // 
