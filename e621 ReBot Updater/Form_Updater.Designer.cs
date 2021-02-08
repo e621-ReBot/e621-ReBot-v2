@@ -98,7 +98,7 @@ namespace e621_ReBot_Updater
             // timer_Delay
             // 
             this.timer_Delay.Interval = 1000;
-            this.timer_Delay.Tick += new System.EventHandler(this.timer_Delay_Tick);
+            this.timer_Delay.Tick += new System.EventHandler(this.Timer_Delay_Tick);
             // 
             // backgroundWorker_Update
             // 
@@ -108,6 +108,7 @@ namespace e621_ReBot_Updater
             // timer_Close
             // 
             this.timer_Close.Interval = 1000;
+            this.timer_Close.Tick += new System.EventHandler(this.Timer_Close_Tick);
             // 
             // label_Title
             // 

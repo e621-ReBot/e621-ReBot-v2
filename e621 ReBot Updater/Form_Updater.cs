@@ -24,10 +24,15 @@ namespace e621_ReBot_Updater
             timer_Delay.Start();
         }
 
-        private void timer_Delay_Tick(object sender, EventArgs e)
+        private void Timer_Delay_Tick(object sender, EventArgs e)
         {
             timer_Delay.Stop();
             WebBrowser_Updater.Navigate("http://e621rebot.infinityfreeapp.com");
+        }
+
+        private void Timer_Close_Tick(object sender, EventArgs e)
+        {
+            Close();
         }
 
         private void WebBrowser_Updater_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
@@ -140,5 +145,6 @@ namespace e621_ReBot_Updater
             File.WriteAllText("update.check", DateTime.UtcNow.ToString());
             Process.Start("e621 ReBot v2.exe");
         }
+
     }
 }
