@@ -41,7 +41,7 @@ namespace e621_ReBot_v2
         }
 
 
-        static Mutex AppMutex = new Mutex(true, "e621 ReBot v2");
+        static readonly Mutex AppMutex = new Mutex(true, "e621 ReBot v2");
         [STAThread]
         static void Main()
         {

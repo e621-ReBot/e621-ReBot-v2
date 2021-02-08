@@ -90,8 +90,10 @@
     <ApplicationIcon>Resources\Form\E6_LogoBigRemake.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup />
   <PropertyGroup>
-    <NoWin32Manifest>true</NoWin32Manifest>
+    <StartupObject>e621_ReBot_v2.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="HtmlAgilityPack, Version=1.11.28.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
@@ -429,7 +431,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\x64\e621 ReBot v2\genders.txt" />
     <Content Include="Resources\Browser\BB_Backward_False.png" />
     <Content Include="Resources\Browser\BB_Backward_Small.png" />
     <Content Include="Resources\Browser\BB_Backward_True.png" />
@@ -506,6 +507,7 @@
     <Content Include="Resources\Sounds\PeonYesAttack1.wav" />
     <Content Include="Resources\Sounds\PeonYesAttack3.wav" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
