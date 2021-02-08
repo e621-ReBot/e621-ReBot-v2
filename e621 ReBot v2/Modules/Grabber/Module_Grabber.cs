@@ -407,22 +407,25 @@ namespace e621_ReBot_v2.Modules
             GetSizeRequest.Method = "HEAD";
             GetSizeRequest.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0";
             GetSizeRequest.CookieContainer = new CookieContainer(); //twitter sometimes not working otherwise
-
-            if (MediaURL.Contains("pximg.net"))
-            {
-                GetSizeRequest.Referer = "http://www.pixiv.net";
-            }
+            if (MediaURL.Contains("pximg.net")) GetSizeRequest.Referer = "http://www.pixiv.net";
             GetSizeRequest.Timeout = 3000;
-            using (HttpWebResponse GetSizeResponse = (HttpWebResponse)GetSizeRequest.GetResponse())
+            try
             {
-                if (GetSizeResponse.StatusCode == HttpStatusCode.OK)
+                using (HttpWebResponse GetSizeResponse = (HttpWebResponse)GetSizeRequest.GetResponse())
                 {
-                    return (int)GetSizeResponse.ContentLength;
+                    if (GetSizeResponse.StatusCode == HttpStatusCode.OK)
+                    {
+                        return (int)GetSizeResponse.ContentLength;
+                    }
+                    else
+                    {
+                        return 0;
+                    }
                 }
-                else
-                {
-                    return 0;
-                }
+            }
+            catch (WebException) //TimeoutException
+            {
+                return 0;
             }
         }
 
