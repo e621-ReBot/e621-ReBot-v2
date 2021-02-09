@@ -89,12 +89,6 @@
     <Setting Name="Converter_DontConvertVideos" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="PostedWithLeft" Type="System.String" Scope="User">
-      <Value Profile="(Default)">◥ ════ .｡.:*★</Value>
-    </Setting>
-    <Setting Name="PostedWithRight" Type="System.String" Scope="User">
-      <Value Profile="(Default)">★*:.｡. ════ ◤</Value>
-    </Setting>
     <Setting Name="DelayGrabber" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">250</Value>
     </Setting>

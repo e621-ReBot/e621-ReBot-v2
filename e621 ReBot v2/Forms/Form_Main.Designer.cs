@@ -198,11 +198,6 @@
             this.label_API1 = new System.Windows.Forms.Label();
             this.label_API2 = new System.Windows.Forms.Label();
             this.tabPage_Settings = new System.Windows.Forms.TabPage();
-            this.cGroupBoxColored_MessageCustomization = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
-            this.textBox_PostedWithRight = new System.Windows.Forms.TextBox();
-            this.textBox_PostedWithLeft = new System.Windows.Forms.TextBox();
-            this.bU_PostedWithSave = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.label_PostedWithCenter = new System.Windows.Forms.Label();
             this.cGroupBoxColored_ConversionistOptions = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
             this.cGroupBoxColored_GrabDisplayOrder = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
             this.cGroupBoxColored_ProgressBarStyle = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
@@ -255,7 +250,6 @@
             this.cCheckGroupBox_Info.SuspendLayout();
             this.tabPage_Info.SuspendLayout();
             this.tabPage_Settings.SuspendLayout();
-            this.cGroupBoxColored_MessageCustomization.SuspendLayout();
             this.cGroupBoxColored_ConversionistOptions.SuspendLayout();
             this.cGroupBoxColored_GrabDisplayOrder.SuspendLayout();
             this.cGroupBoxColored_ProgressBarStyle.SuspendLayout();
@@ -1312,7 +1306,7 @@
             this.label_DragDropConvert.AllowDrop = true;
             this.label_DragDropConvert.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label_DragDropConvert.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.label_DragDropConvert.Location = new System.Drawing.Point(566, 386);
+            this.label_DragDropConvert.Location = new System.Drawing.Point(566, 322);
             this.label_DragDropConvert.Name = "label_DragDropConvert";
             this.label_DragDropConvert.Size = new System.Drawing.Size(120, 62);
             this.label_DragDropConvert.TabIndex = 147;
@@ -1334,7 +1328,7 @@
             this.cGroupBoxColored_ActionDelay.Controls.Add(this.textBox_DelayGrabber);
             this.cGroupBoxColored_ActionDelay.Controls.Add(this.label_GrabberDelay);
             this.cGroupBoxColored_ActionDelay.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cGroupBoxColored_ActionDelay.Location = new System.Drawing.Point(754, 380);
+            this.cGroupBoxColored_ActionDelay.Location = new System.Drawing.Point(754, 316);
             this.cGroupBoxColored_ActionDelay.Margin = new System.Windows.Forms.Padding(64, 32, 64, 4);
             this.cGroupBoxColored_ActionDelay.Name = "cGroupBoxColored_ActionDelay";
             this.cGroupBoxColored_ActionDelay.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
@@ -1471,7 +1465,7 @@
             this.bU_DLPools.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bU_DLPools.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.bU_DLPools.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.bU_DLPools.Location = new System.Drawing.Point(388, 416);
+            this.bU_DLPools.Location = new System.Drawing.Point(388, 351);
             this.bU_DLPools.Margin = new System.Windows.Forms.Padding(64, 4, 4, 64);
             this.bU_DLPools.Name = "bU_DLPools";
             this.bU_DLPools.Size = new System.Drawing.Size(120, 31);
@@ -1492,7 +1486,7 @@
             this.bU_DLTags.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bU_DLTags.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.bU_DLTags.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.bU_DLTags.Location = new System.Drawing.Point(388, 386);
+            this.bU_DLTags.Location = new System.Drawing.Point(388, 321);
             this.bU_DLTags.Margin = new System.Windows.Forms.Padding(64, 4, 4, 64);
             this.bU_DLTags.Name = "bU_DLTags";
             this.bU_DLTags.Size = new System.Drawing.Size(120, 31);
@@ -1541,7 +1535,7 @@
             this.bU_RefreshCredit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bU_RefreshCredit.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.bU_RefreshCredit.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.bU_RefreshCredit.Location = new System.Drawing.Point(754, 322);
+            this.bU_RefreshCredit.Location = new System.Drawing.Point(754, 247);
             this.bU_RefreshCredit.Margin = new System.Windows.Forms.Padding(4);
             this.bU_RefreshCredit.Name = "bU_RefreshCredit";
             this.bU_RefreshCredit.Size = new System.Drawing.Size(120, 28);
@@ -1561,7 +1555,7 @@
             this.bU_Blacklist.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bU_Blacklist.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.bU_Blacklist.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.bU_Blacklist.Location = new System.Drawing.Point(566, 322);
+            this.bU_Blacklist.Location = new System.Drawing.Point(566, 247);
             this.bU_Blacklist.Margin = new System.Windows.Forms.Padding(64, 4, 64, 4);
             this.bU_Blacklist.Name = "bU_Blacklist";
             this.bU_Blacklist.Size = new System.Drawing.Size(120, 28);
@@ -1581,7 +1575,7 @@
             this.bU_PoolWatcher.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bU_PoolWatcher.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.bU_PoolWatcher.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.bU_PoolWatcher.Location = new System.Drawing.Point(388, 322);
+            this.bU_PoolWatcher.Location = new System.Drawing.Point(388, 247);
             this.bU_PoolWatcher.Margin = new System.Windows.Forms.Padding(4);
             this.bU_PoolWatcher.Name = "bU_PoolWatcher";
             this.bU_PoolWatcher.Size = new System.Drawing.Size(120, 28);
@@ -2424,7 +2418,7 @@
             this.tabPage_Grid.Controls.Add(this.flowLayoutPanel_Grid);
             this.tabPage_Grid.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Grid.Name = "tabPage_Grid";
-            this.tabPage_Grid.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Grid.Size = new System.Drawing.Size(192, 91);
             this.tabPage_Grid.TabIndex = 1;
             this.tabPage_Grid.Text = "tabPage_Grid";
             this.tabPage_Grid.Paint += new System.Windows.Forms.PaintEventHandler(this.TabPage_Grid_Paint);
@@ -2512,7 +2506,7 @@
             this.flowLayoutPanel_Grid.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel_Grid.Name = "flowLayoutPanel_Grid";
             this.flowLayoutPanel_Grid.Padding = new System.Windows.Forms.Padding(0, 16, 0, 0);
-            this.flowLayoutPanel_Grid.Size = new System.Drawing.Size(1262, 650);
+            this.flowLayoutPanel_Grid.Size = new System.Drawing.Size(192, 650);
             this.flowLayoutPanel_Grid.TabIndex = 0;
             this.flowLayoutPanel_Grid.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.FlowLayoutPanel_Grid_ControlAdded);
             this.flowLayoutPanel_Grid.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.FlowLayoutPanel_Grid_ControlRemoved);
@@ -2792,7 +2786,7 @@
             this.tabPage_Info.Controls.Add(this.label_API2);
             this.tabPage_Info.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Info.Name = "tabPage_Info";
-            this.tabPage_Info.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Info.Size = new System.Drawing.Size(192, 91);
             this.tabPage_Info.TabIndex = 4;
             this.tabPage_Info.Text = "tabPage_Info";
             // 
@@ -2852,7 +2846,6 @@
             this.tabPage_Settings.Controls.Add(this.bU_GetGenders);
             this.tabPage_Settings.Controls.Add(this.label_DragDropConvert);
             this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_ActionDelay);
-            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_MessageCustomization);
             this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_ConversionistOptions);
             this.tabPage_Settings.Controls.Add(this.bU_DLPools);
             this.tabPage_Settings.Controls.Add(this.bU_DLTags);
@@ -2874,99 +2867,10 @@
             this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_AppName);
             this.tabPage_Settings.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Settings.Name = "tabPage_Settings";
-            this.tabPage_Settings.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Settings.Size = new System.Drawing.Size(1262, 695);
             this.tabPage_Settings.TabIndex = 5;
             this.tabPage_Settings.Text = "tabPage_Settings";
             this.tabPage_Settings.Enter += new System.EventHandler(this.TabPage_Settings_Enter);
-            // 
-            // cGroupBoxColored_MessageCustomization
-            // 
-            this.cGroupBoxColored_MessageCustomization.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_MessageCustomization.BottomBorderFix = 1;
-            this.cGroupBoxColored_MessageCustomization.Controls.Add(this.textBox_PostedWithRight);
-            this.cGroupBoxColored_MessageCustomization.Controls.Add(this.textBox_PostedWithLeft);
-            this.cGroupBoxColored_MessageCustomization.Controls.Add(this.bU_PostedWithSave);
-            this.cGroupBoxColored_MessageCustomization.Controls.Add(this.label_PostedWithCenter);
-            this.cGroupBoxColored_MessageCustomization.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cGroupBoxColored_MessageCustomization.Location = new System.Drawing.Point(388, 240);
-            this.cGroupBoxColored_MessageCustomization.Margin = new System.Windows.Forms.Padding(64, 48, 64, 4);
-            this.cGroupBoxColored_MessageCustomization.Name = "cGroupBoxColored_MessageCustomization";
-            this.cGroupBoxColored_MessageCustomization.Padding = new System.Windows.Forms.Padding(1);
-            this.cGroupBoxColored_MessageCustomization.Size = new System.Drawing.Size(486, 32);
-            this.cGroupBoxColored_MessageCustomization.TabIndex = 144;
-            this.cGroupBoxColored_MessageCustomization.TabStop = false;
-            this.cGroupBoxColored_MessageCustomization.Text = "Posted with e621 ReBot message customization";
-            this.cGroupBoxColored_MessageCustomization.TextOffset = 12;
-            // 
-            // textBox_PostedWithRight
-            // 
-            this.textBox_PostedWithRight.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.textBox_PostedWithRight.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBox_PostedWithRight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
-            this.textBox_PostedWithRight.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox_PostedWithRight.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.textBox_PostedWithRight.Location = new System.Drawing.Point(259, 16);
-            this.textBox_PostedWithRight.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.textBox_PostedWithRight.MaxLength = 16;
-            this.textBox_PostedWithRight.Name = "textBox_PostedWithRight";
-            this.textBox_PostedWithRight.ShortcutsEnabled = false;
-            this.textBox_PostedWithRight.Size = new System.Drawing.Size(126, 13);
-            this.textBox_PostedWithRight.TabIndex = 148;
-            this.textBox_PostedWithRight.TabStop = false;
-            this.textBox_PostedWithRight.Text = "★*:.｡. ════ ◤";
-            this.textBox_PostedWithRight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox_PostedWithRight.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_PostedWithRight_KeyDown);
-            // 
-            // textBox_PostedWithLeft
-            // 
-            this.textBox_PostedWithLeft.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.textBox_PostedWithLeft.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBox_PostedWithLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
-            this.textBox_PostedWithLeft.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox_PostedWithLeft.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.textBox_PostedWithLeft.Location = new System.Drawing.Point(4, 16);
-            this.textBox_PostedWithLeft.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.textBox_PostedWithLeft.MaxLength = 16;
-            this.textBox_PostedWithLeft.Name = "textBox_PostedWithLeft";
-            this.textBox_PostedWithLeft.ShortcutsEnabled = false;
-            this.textBox_PostedWithLeft.Size = new System.Drawing.Size(126, 13);
-            this.textBox_PostedWithLeft.TabIndex = 147;
-            this.textBox_PostedWithLeft.TabStop = false;
-            this.textBox_PostedWithLeft.Text = "◥ ════ .｡.:*★";
-            this.textBox_PostedWithLeft.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox_PostedWithLeft.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_PostedWithLeft_KeyDown);
-            // 
-            // bU_PostedWithSave
-            // 
-            this.bU_PostedWithSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.bU_PostedWithSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bU_PostedWithSave.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_PostedWithSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bU_PostedWithSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.bU_PostedWithSave.Location = new System.Drawing.Point(385, 6);
-            this.bU_PostedWithSave.Margin = new System.Windows.Forms.Padding(4);
-            this.bU_PostedWithSave.Name = "bU_PostedWithSave";
-            this.bU_PostedWithSave.Size = new System.Drawing.Size(101, 25);
-            this.bU_PostedWithSave.TabIndex = 127;
-            this.bU_PostedWithSave.TabStop = false;
-            this.bU_PostedWithSave.Text = "Save";
-            this.bU_PostedWithSave.UseVisualStyleBackColor = true;
-            this.bU_PostedWithSave.Click += new System.EventHandler(this.BU_PostedWithSave_Click);
-            // 
-            // label_PostedWithCenter
-            // 
-            this.label_PostedWithCenter.AutoEllipsis = true;
-            this.label_PostedWithCenter.AutoSize = true;
-            this.label_PostedWithCenter.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.label_PostedWithCenter.Location = new System.Drawing.Point(131, 15);
-            this.label_PostedWithCenter.Margin = new System.Windows.Forms.Padding(0);
-            this.label_PostedWithCenter.Name = "label_PostedWithCenter";
-            this.label_PostedWithCenter.Padding = new System.Windows.Forms.Padding(2, 0, 0, 0);
-            this.label_PostedWithCenter.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label_PostedWithCenter.Size = new System.Drawing.Size(124, 13);
-            this.label_PostedWithCenter.TabIndex = 126;
-            this.label_PostedWithCenter.Text = "Posted with e621 ReBot";
-            this.label_PostedWithCenter.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // cGroupBoxColored_ConversionistOptions
             // 
@@ -3241,8 +3145,6 @@
             this.tabPage_Info.ResumeLayout(false);
             this.tabPage_Info.PerformLayout();
             this.tabPage_Settings.ResumeLayout(false);
-            this.cGroupBoxColored_MessageCustomization.ResumeLayout(false);
-            this.cGroupBoxColored_MessageCustomization.PerformLayout();
             this.cGroupBoxColored_ConversionistOptions.ResumeLayout(false);
             this.cGroupBoxColored_ConversionistOptions.PerformLayout();
             this.cGroupBoxColored_GrabDisplayOrder.ResumeLayout(false);
@@ -3405,11 +3307,6 @@
         protected internal System.Windows.Forms.CheckBox CheckBox_ConverterKeepOriginal;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_ExpandAll;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_CollapseAll;
-        protected internal CustomControls.Custom_GroupBoxColored cGroupBoxColored_MessageCustomization;
-        protected internal System.Windows.Forms.Label label_PostedWithCenter;
-        protected internal CustomControls.Button_Unfocusable bU_PostedWithSave;
-        protected internal System.Windows.Forms.TextBox textBox_PostedWithRight;
-        protected internal System.Windows.Forms.TextBox textBox_PostedWithLeft;
         protected internal CustomControls.Custom_GroupBoxColored cGroupBoxColored_ActionDelay;
         protected internal System.Windows.Forms.TextBox textBox_DelayDownload;
         private System.Windows.Forms.Label label_DownloadDelay;

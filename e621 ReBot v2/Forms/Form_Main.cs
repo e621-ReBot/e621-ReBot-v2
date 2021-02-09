@@ -225,9 +225,6 @@ namespace e621_ReBot_v2
             ((RadioButton)tabPage_Settings.Controls.Find("radioButton_GrabDisplayOrder" + Properties.Settings.Default.GrabDisplayOrder, true).FirstOrDefault()).Checked = true;
             ((RadioButton)tabPage_Download.Controls.Find("RadioButton_DL" + Properties.Settings.Default.DLThreadsCount, true).FirstOrDefault()).Checked = true;
 
-            textBox_PostedWithLeft.Text = Properties.Settings.Default.PostedWithLeft;
-            textBox_PostedWithRight.Text = Properties.Settings.Default.PostedWithRight;
-
             textBox_DelayGrabber.Text = Properties.Settings.Default.DelayGrabber.ToString();
             textBox_DelayUploader.Text = Properties.Settings.Default.DelayUploader.ToString();
             textBox_DelayDownload.Text = Properties.Settings.Default.DelayDownload.ToString();
@@ -2313,56 +2310,6 @@ namespace e621_ReBot_v2
             Properties.Settings.Default.Save();
         }
 
-        private void TextBox_PostedWithLeft_KeyDown(object sender, KeyEventArgs e)
-        {
-            switch (e.KeyCode)
-            {
-                case Keys.Enter:
-                    {
-                        label_PostedWithCenter.Focus();
-                        e.SuppressKeyPress = true;
-                        break;
-                    }
-
-                case Keys.Escape:
-                    {
-                        label_PostedWithCenter.Focus();
-                        e.SuppressKeyPress = true;
-                        textBox_PostedWithLeft.Text = Properties.Settings.Default.PostedWithLeft;
-                        break;
-                    }
-            }
-        }
-
-        private void TextBox_PostedWithRight_KeyDown(object sender, KeyEventArgs e)
-        {
-            switch (e.KeyCode)
-            {
-                case Keys.Enter:
-                    {
-                        label_PostedWithCenter.Focus();
-                        e.SuppressKeyPress = true;
-                        break;
-                    }
-
-                case Keys.Escape:
-                    {
-                        label_PostedWithCenter.Focus();
-                        e.SuppressKeyPress = true;
-                        textBox_PostedWithRight.Text = Properties.Settings.Default.PostedWithRight;
-                        break;
-                    }
-            }
-        }
-
-        private void BU_PostedWithSave_Click(object sender, EventArgs e)
-        {
-            label_PostedWithCenter.Focus();
-            Properties.Settings.Default.PostedWithLeft = textBox_PostedWithLeft.Text;
-            Properties.Settings.Default.PostedWithRight = textBox_PostedWithRight.Text;
-            Properties.Settings.Default.Save();
-        }
-
         private void TextBox_Delay_Enter(object sender, EventArgs e)
         {
             TextBox SenderTB = (TextBox)sender;
@@ -2568,8 +2515,8 @@ namespace e621_ReBot_v2
             Gender_Tags.AddRange(Properties.Resources.genders.Split(new string[] { "✄" }, StringSplitOptions.RemoveEmptyEntries));
         }
 
-        #endregion
 
+        #endregion
 
     }
 }

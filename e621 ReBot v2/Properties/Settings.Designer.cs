@@ -369,30 +369,6 @@ namespace e621_ReBot_v2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("◥ ════ .｡.:*★")]
-        public string PostedWithLeft {
-            get {
-                return ((string)(this["PostedWithLeft"]));
-            }
-            set {
-                this["PostedWithLeft"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("★*:.｡. ════ ◤")]
-        public string PostedWithRight {
-            get {
-                return ((string)(this["PostedWithRight"]));
-            }
-            set {
-                this["PostedWithRight"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("250")]
         public int DelayGrabber {
             get {

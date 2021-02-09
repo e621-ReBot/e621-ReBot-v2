@@ -424,6 +424,7 @@ namespace e621_ReBot_v2.Modules
             {
                 Upload_Description = string.Format("[section{0}={1}]\n{2}\n[/section]", Properties.Settings.Default.ExpandedDescription ? ",expanded" : "", (string)DataRowRef["Grab_Title"], (string)DataRowRef["Grab_TextBody"]);
             }
+
             if (DataRowRef["Inferior_ID"] != DBNull.Value)
             {
                 Upload_Description = string.Format("Superior version of post #{0}\n\n{1}", DataRowRef["Inferior_ID"], Upload_Description);
@@ -498,11 +499,6 @@ namespace e621_ReBot_v2.Modules
             if (DataRowRef["Inferior_Description"] != DBNull.Value)
             {
                 Upload_Description += string.Format("\n  - - - - - \n{0}", DataRowRef["Inferior_Description"]);
-            }
-
-            if (!Upload_Description.Contains("Posted with \"e621 ReBot\":"))
-            {
-                Upload_Description += string.Format("\n\n{0} Posted with \"e621 ReBot\":{1} {2}", Properties.Settings.Default.PostedWithLeft, "https://e621.net/forum_topics/25939", Properties.Settings.Default.PostedWithRight);
             }
 
             string ParentTag = null;

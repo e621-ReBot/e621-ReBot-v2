@@ -43,7 +43,6 @@
             this.cCheckGroupBox_Upload.SuspendLayout();
             this.cCheckGroupBox_Grab.SuspendLayout();
             this.cGroupBoxColored_ConversionistOptions.SuspendLayout();
-            this.cGroupBoxColored_MessageCustomization.SuspendLayout();
             this.cGroupBoxColored_ActionDelay.SuspendLayout();
             this.cCheckGroupBox_Download.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_GitHub)).BeginInit();
@@ -85,21 +84,21 @@
             // bU_RefreshCredit
             // 
             this.bU_RefreshCredit.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_RefreshCredit.Location = new System.Drawing.Point(1103, 513);
+            this.bU_RefreshCredit.Location = new System.Drawing.Point(1103, 439);
             // 
             // bU_Blacklist
             // 
             this.bU_Blacklist.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_Blacklist.Location = new System.Drawing.Point(876, 513);
+            this.bU_Blacklist.Location = new System.Drawing.Point(876, 439);
             // 
             // bU_PoolWatcher
             // 
             this.bU_PoolWatcher.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_PoolWatcher.Location = new System.Drawing.Point(648, 514);
+            this.bU_PoolWatcher.Location = new System.Drawing.Point(648, 439);
             // 
             // cGroupBoxColored_Volume
             // 
-            this.cGroupBoxColored_Volume.Location = new System.Drawing.Point(1355, 424);
+            this.cGroupBoxColored_Volume.Location = new System.Drawing.Point(1355, 508);
             this.cGroupBoxColored_Volume.Margin = new System.Windows.Forms.Padding(4, 32, 256, 4);
             this.cGroupBoxColored_Volume.Text = "Volume (100%)";
             // 
@@ -111,7 +110,7 @@
             // bU_ResetSettings
             // 
             this.bU_ResetSettings.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_ResetSettings.Location = new System.Drawing.Point(1483, 704);
+            this.bU_ResetSettings.Location = new System.Drawing.Point(1483, 775);
             this.bU_ResetSettings.Margin = new System.Windows.Forms.Padding(4, 4, 256, 256);
             // 
             // cGroupBoxColored_AutocompleteTagEditor
@@ -256,16 +255,16 @@
             // 
             // cGroupBoxColored_GridItemStyle
             // 
-            this.cGroupBoxColored_GridItemStyle.Location = new System.Drawing.Point(1355, 508);
+            this.cGroupBoxColored_GridItemStyle.Location = new System.Drawing.Point(1355, 592);
             // 
             // cGroupBoxColored_ProgressBarStyle
             // 
-            this.cGroupBoxColored_ProgressBarStyle.Location = new System.Drawing.Point(1491, 508);
+            this.cGroupBoxColored_ProgressBarStyle.Location = new System.Drawing.Point(1491, 592);
             this.cGroupBoxColored_ProgressBarStyle.Margin = new System.Windows.Forms.Padding(64, 32, 256, 4);
             // 
             // cGroupBoxColored_GrabDisplayOrder
             // 
-            this.cGroupBoxColored_GrabDisplayOrder.Location = new System.Drawing.Point(1355, 592);
+            this.cGroupBoxColored_GrabDisplayOrder.Location = new System.Drawing.Point(1355, 676);
             this.cGroupBoxColored_GrabDisplayOrder.Margin = new System.Windows.Forms.Padding(4, 32, 256, 4);
             // 
             // cCheckGroupBox_Info
@@ -305,13 +304,13 @@
             // bU_DLPools
             // 
             this.bU_DLPools.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_DLPools.Location = new System.Drawing.Point(648, 608);
+            this.bU_DLPools.Location = new System.Drawing.Point(648, 544);
             this.bU_DLPools.Margin = new System.Windows.Forms.Padding(256, 4, 4, 256);
             // 
             // bU_DLTags
             // 
             this.bU_DLTags.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_DLTags.Location = new System.Drawing.Point(648, 578);
+            this.bU_DLTags.Location = new System.Drawing.Point(648, 514);
             this.bU_DLTags.Margin = new System.Windows.Forms.Padding(256, 4, 4, 256);
             // 
             // cTreeView_GrabQueue
@@ -362,23 +361,13 @@
             this.cGroupBoxColored_ConversionistOptions.Location = new System.Drawing.Point(257, 508);
             this.cGroupBoxColored_ConversionistOptions.Margin = new System.Windows.Forms.Padding(256, 32, 4, 4);
             // 
-            // cGroupBoxColored_MessageCustomization
-            // 
-            this.cGroupBoxColored_MessageCustomization.Location = new System.Drawing.Point(648, 432);
-            this.cGroupBoxColored_MessageCustomization.Size = new System.Drawing.Size(575, 32);
-            // 
-            // bU_PostedWithSave
-            // 
-            this.bU_PostedWithSave.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_PostedWithSave.Location = new System.Drawing.Point(474, 6);
-            // 
             // cGroupBoxColored_ActionDelay
             // 
-            this.cGroupBoxColored_ActionDelay.Location = new System.Drawing.Point(1103, 572);
+            this.cGroupBoxColored_ActionDelay.Location = new System.Drawing.Point(1103, 508);
             // 
             // label_DragDropConvert
             // 
-            this.label_DragDropConvert.Location = new System.Drawing.Point(876, 578);
+            this.label_DragDropConvert.Location = new System.Drawing.Point(876, 514);
             this.label_DragDropConvert.Size = new System.Drawing.Size(120, 61);
             // 
             // bU_KoFi
@@ -450,6 +439,10 @@
             this.cTreeView_DownloadQueue.Location = new System.Drawing.Point(3, 33);
             this.cTreeView_DownloadQueue.Size = new System.Drawing.Size(566, 873);
             // 
+            // cGroupBoxColored_NamingWeb
+            // 
+            this.cGroupBoxColored_NamingWeb.Location = new System.Drawing.Point(1355, 424);
+            // 
             // pictureBox_GitHub
             // 
             this.pictureBox_GitHub.Location = new System.Drawing.Point(1213, 828);
@@ -492,8 +485,6 @@
             this.cCheckGroupBox_Grab.PerformLayout();
             this.cGroupBoxColored_ConversionistOptions.ResumeLayout(false);
             this.cGroupBoxColored_ConversionistOptions.PerformLayout();
-            this.cGroupBoxColored_MessageCustomization.ResumeLayout(false);
-            this.cGroupBoxColored_MessageCustomization.PerformLayout();
             this.cGroupBoxColored_ActionDelay.ResumeLayout(false);
             this.cGroupBoxColored_ActionDelay.PerformLayout();
             this.cCheckGroupBox_Download.ResumeLayout(false);
