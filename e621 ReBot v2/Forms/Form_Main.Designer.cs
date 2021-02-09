@@ -78,6 +78,7 @@
             this.cGroupBoxColored_InProgress = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
             this.DownloadFLP_InProgress = new e621_ReBot_v2.CustomControls.Custom_FlowLayoutPanel();
             this.cCheckGroupBox_Download = new e621_ReBot_v2.CustomControls.Custom_CheckGroupBox();
+            this.bU_ReverseDownload = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.bU_CancelAPIDL = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.label_DownloadStatus = new System.Windows.Forms.Label();
             this.cTreeView_DownloadQueue = new e621_ReBot_v2.CustomControls.Custom_TreeView();
@@ -1078,6 +1079,7 @@
             // 
             this.cCheckGroupBox_Download.BorderColor = System.Drawing.Color.Black;
             this.cCheckGroupBox_Download.BottomBorderFix = 1;
+            this.cCheckGroupBox_Download.Controls.Add(this.bU_ReverseDownload);
             this.cCheckGroupBox_Download.Controls.Add(this.bU_CancelAPIDL);
             this.cCheckGroupBox_Download.Controls.Add(this.label_DownloadStatus);
             this.cCheckGroupBox_Download.Controls.Add(this.cTreeView_DownloadQueue);
@@ -1096,6 +1098,25 @@
             this.cCheckGroupBox_Download.CheckedChanged += new System.EventHandler(this.CCheckGroupBox_Download_CheckedChanged);
             this.cCheckGroupBox_Download.Paint += new System.Windows.Forms.PaintEventHandler(this.CCheckGroupBox_Download_Paint);
             // 
+            // bU_ReverseDownload
+            // 
+            this.bU_ReverseDownload.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.bU_ReverseDownload.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bU_ReverseDownload.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.bU_ReverseDownload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bU_ReverseDownload.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bU_ReverseDownload.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.bU_ReverseDownload.Location = new System.Drawing.Point(467, 6);
+            this.bU_ReverseDownload.Margin = new System.Windows.Forms.Padding(4);
+            this.bU_ReverseDownload.Name = "bU_ReverseDownload";
+            this.bU_ReverseDownload.Size = new System.Drawing.Size(27, 27);
+            this.bU_ReverseDownload.TabIndex = 9;
+            this.bU_ReverseDownload.TabStop = false;
+            this.bU_ReverseDownload.Text = "⮃🗘";
+            this.toolTip_Display.SetToolTip(this.bU_ReverseDownload, "Reverse download queue order.");
+            this.bU_ReverseDownload.UseVisualStyleBackColor = true;
+            this.bU_ReverseDownload.Click += new System.EventHandler(this.BU_ReverseDownload_Click);
+            // 
             // bU_CancelAPIDL
             // 
             this.bU_CancelAPIDL.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -1103,9 +1124,9 @@
             this.bU_CancelAPIDL.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.bU_CancelAPIDL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bU_CancelAPIDL.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.bU_CancelAPIDL.Location = new System.Drawing.Point(419, 6);
+            this.bU_CancelAPIDL.Location = new System.Drawing.Point(404, 6);
             this.bU_CancelAPIDL.Name = "bU_CancelAPIDL";
-            this.bU_CancelAPIDL.Size = new System.Drawing.Size(75, 27);
+            this.bU_CancelAPIDL.Size = new System.Drawing.Size(64, 27);
             this.bU_CancelAPIDL.TabIndex = 10;
             this.bU_CancelAPIDL.TabStop = false;
             this.bU_CancelAPIDL.Text = "Cancel";
@@ -1116,10 +1137,10 @@
             // label_DownloadStatus
             // 
             this.label_DownloadStatus.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.label_DownloadStatus.Location = new System.Drawing.Point(3, 16);
+            this.label_DownloadStatus.Location = new System.Drawing.Point(3, 15);
             this.label_DownloadStatus.Margin = new System.Windows.Forms.Padding(0);
             this.label_DownloadStatus.Name = "label_DownloadStatus";
-            this.label_DownloadStatus.Size = new System.Drawing.Size(414, 13);
+            this.label_DownloadStatus.Size = new System.Drawing.Size(398, 17);
             this.label_DownloadStatus.TabIndex = 9;
             this.label_DownloadStatus.Text = "API DL Status: Suspended. ";
             this.label_DownloadStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -2526,7 +2547,7 @@
             this.tabPage_Download.Controls.Add(this.cCheckGroupBox_Download);
             this.tabPage_Download.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Download.Name = "tabPage_Download";
-            this.tabPage_Download.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Download.Size = new System.Drawing.Size(1262, 695);
             this.tabPage_Download.TabIndex = 2;
             this.tabPage_Download.Text = "tabPage_Download";
             // 
@@ -2867,7 +2888,7 @@
             this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_AppName);
             this.tabPage_Settings.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Settings.Name = "tabPage_Settings";
-            this.tabPage_Settings.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Settings.Size = new System.Drawing.Size(192, 91);
             this.tabPage_Settings.TabIndex = 5;
             this.tabPage_Settings.Text = "tabPage_Settings";
             this.tabPage_Settings.Enter += new System.EventHandler(this.TabPage_Settings_Enter);
@@ -3335,7 +3356,6 @@
         protected internal CustomControls.Custom_FlowLayoutPanel DownloadFLP_InProgress;
         protected internal CustomControls.Custom_CheckGroupBox cCheckGroupBox_Download;
         protected internal CustomControls.Button_Unfocusable bU_CancelAPIDL;
-        internal System.Windows.Forms.Label label_DownloadStatus;
         protected internal CustomControls.Custom_TreeView cTreeView_DownloadQueue;
         protected internal CustomControls.Custom_GroupBoxColored cGroupBoxColored_NamingWeb;
         internal System.Windows.Forms.RadioButton Naming_web_0;
@@ -3344,6 +3364,8 @@
         protected internal System.Windows.Forms.PictureBox pictureBox_GitHub;
         protected internal System.Windows.Forms.PictureBox pictureBox_KoFi;
         protected internal CustomControls.Button_Unfocusable bU_SkipDLCache;
+        protected internal CustomControls.Button_Unfocusable bU_ReverseDownload;
+        protected internal System.Windows.Forms.Label label_DownloadStatus;
     }
 }
 

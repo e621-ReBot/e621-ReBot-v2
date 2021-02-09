@@ -1468,6 +1468,17 @@ namespace e621_ReBot_v2
             Module_Downloader.Load_DownloadFolderCache();
         }
 
+        private void BU_ReverseDownload_Click(object sender, EventArgs e)
+        {
+            if (cCheckGroupBox_Download.Checked | Module_Downloader.e6APIDL_BGW.IsBusy)
+            {
+                MessageBox.Show("Download queue and API should be stopped before attempting to reverse the order.", "e621 ReBot");
+                return;
+            }
+            Module_TableHolder.Download_Table = Module_TableHolder.ReverseDataTable(Module_TableHolder.Download_Table);
+            Module_Downloader.UpdateTreeViewNodes();
+        }
+
         #endregion
 
 
@@ -2517,6 +2528,5 @@ namespace e621_ReBot_v2
 
 
         #endregion
-
     }
 }

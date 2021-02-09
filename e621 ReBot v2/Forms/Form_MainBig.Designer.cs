@@ -425,13 +425,15 @@
             this.cCheckGroupBox_Download.Location = new System.Drawing.Point(1266, 60);
             this.cCheckGroupBox_Download.Margin = new System.Windows.Forms.Padding(16, 64, 32, 64);
             this.cCheckGroupBox_Download.Size = new System.Drawing.Size(572, 909);
+            this.cCheckGroupBox_Download.Controls.SetChildIndex(this.label_DownloadStatus, 0);
+            this.cCheckGroupBox_Download.Controls.SetChildIndex(this.bU_ReverseDownload, 0);
             this.cCheckGroupBox_Download.Controls.SetChildIndex(this.bU_CancelAPIDL, 0);
             this.cCheckGroupBox_Download.Controls.SetChildIndex(this.cTreeView_DownloadQueue, 0);
             // 
             // bU_CancelAPIDL
             // 
             this.bU_CancelAPIDL.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_CancelAPIDL.Location = new System.Drawing.Point(497, 6);
+            this.bU_CancelAPIDL.Location = new System.Drawing.Point(482, 6);
             // 
             // cTreeView_DownloadQueue
             // 
@@ -455,6 +457,15 @@
             // 
             this.bU_SkipDLCache.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.bU_SkipDLCache.Location = new System.Drawing.Point(1015, 252);
+            // 
+            // bU_ReverseDownload
+            // 
+            this.bU_ReverseDownload.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.bU_ReverseDownload.Location = new System.Drawing.Point(545, 6);
+            // 
+            // label_DownloadStatus
+            // 
+            this.label_DownloadStatus.Size = new System.Drawing.Size(476, 17);
             // 
             // Form_MainBig
             // 
