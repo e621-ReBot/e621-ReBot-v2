@@ -54,8 +54,8 @@
             // 
             this.Menu_FlowLayoutPanel.Controls.Add(this.MB_Browser);
             this.Menu_FlowLayoutPanel.Controls.Add(this.MB_Grid);
-            this.Menu_FlowLayoutPanel.Controls.Add(this.MB_Download);
             this.Menu_FlowLayoutPanel.Controls.Add(this.MB_Jobs);
+            this.Menu_FlowLayoutPanel.Controls.Add(this.MB_Download);
             this.Menu_FlowLayoutPanel.Controls.Add(this.MB_Info);
             this.Menu_FlowLayoutPanel.Controls.Add(this.MB_Settings);
             this.Menu_FlowLayoutPanel.Controls.Add(this.MB_MenuClose);
@@ -110,7 +110,7 @@
             this.MB_Download.BackgroundImage = global::e621_ReBot_v2.Properties.Resources.MenuButton_Download;
             this.MB_Download.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.MB_Download.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.MB_Download.Location = new System.Drawing.Point(4, 102);
+            this.MB_Download.Location = new System.Drawing.Point(4, 149);
             this.MB_Download.Margin = new System.Windows.Forms.Padding(4, 8, 8, 8);
             this.MB_Download.MaximumSize = new System.Drawing.Size(34, 31);
             this.MB_Download.MinimumSize = new System.Drawing.Size(34, 31);
@@ -119,7 +119,7 @@
             this.MB_Download.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.MB_Download.TabIndex = 10;
             this.MB_Download.TabStop = false;
-            this.MB_Download.Tag = "2";
+            this.MB_Download.Tag = "3";
             this.toolTip_Display.SetToolTip(this.MB_Download, "Downloads");
             // 
             // MB_Jobs
@@ -128,7 +128,7 @@
             this.MB_Jobs.BackgroundImage = global::e621_ReBot_v2.Properties.Resources.MenuButton_Jobs;
             this.MB_Jobs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.MB_Jobs.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.MB_Jobs.Location = new System.Drawing.Point(4, 149);
+            this.MB_Jobs.Location = new System.Drawing.Point(4, 102);
             this.MB_Jobs.Margin = new System.Windows.Forms.Padding(4, 8, 8, 8);
             this.MB_Jobs.MaximumSize = new System.Drawing.Size(34, 31);
             this.MB_Jobs.MinimumSize = new System.Drawing.Size(34, 31);
@@ -137,7 +137,7 @@
             this.MB_Jobs.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.MB_Jobs.TabIndex = 11;
             this.MB_Jobs.TabStop = false;
-            this.MB_Jobs.Tag = "3";
+            this.MB_Jobs.Tag = "2";
             this.toolTip_Display.SetToolTip(this.MB_Jobs, "Jobs");
             // 
             // MB_Info

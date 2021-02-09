@@ -2261,8 +2261,8 @@
             this.cTabControl_e621ReBot.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
             this.cTabControl_e621ReBot.Controls.Add(this.tabPage_Browser);
             this.cTabControl_e621ReBot.Controls.Add(this.tabPage_Grid);
-            this.cTabControl_e621ReBot.Controls.Add(this.tabPage_Download);
             this.cTabControl_e621ReBot.Controls.Add(this.tabPage_Jobs);
+            this.cTabControl_e621ReBot.Controls.Add(this.tabPage_Download);
             this.cTabControl_e621ReBot.Controls.Add(this.tabPage_Info);
             this.cTabControl_e621ReBot.Controls.Add(this.tabPage_Settings);
             this.cTabControl_e621ReBot.ItemSize = new System.Drawing.Size(0, 1);
@@ -2439,7 +2439,7 @@
             this.tabPage_Grid.Controls.Add(this.flowLayoutPanel_Grid);
             this.tabPage_Grid.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Grid.Name = "tabPage_Grid";
-            this.tabPage_Grid.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Grid.Size = new System.Drawing.Size(1262, 695);
             this.tabPage_Grid.TabIndex = 1;
             this.tabPage_Grid.Text = "tabPage_Grid";
             this.tabPage_Grid.Paint += new System.Windows.Forms.PaintEventHandler(this.TabPage_Grid_Paint);
@@ -2527,7 +2527,7 @@
             this.flowLayoutPanel_Grid.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel_Grid.Name = "flowLayoutPanel_Grid";
             this.flowLayoutPanel_Grid.Padding = new System.Windows.Forms.Padding(0, 16, 0, 0);
-            this.flowLayoutPanel_Grid.Size = new System.Drawing.Size(192, 650);
+            this.flowLayoutPanel_Grid.Size = new System.Drawing.Size(1262, 650);
             this.flowLayoutPanel_Grid.TabIndex = 0;
             this.flowLayoutPanel_Grid.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.FlowLayoutPanel_Grid_ControlAdded);
             this.flowLayoutPanel_Grid.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.FlowLayoutPanel_Grid_ControlRemoved);
@@ -2562,7 +2562,7 @@
             this.tabPage_Jobs.Controls.Add(this.cCheckGroupBox_Info);
             this.tabPage_Jobs.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Jobs.Name = "tabPage_Jobs";
-            this.tabPage_Jobs.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Jobs.Size = new System.Drawing.Size(1262, 695);
             this.tabPage_Jobs.TabIndex = 3;
             this.tabPage_Jobs.Text = "tabPage_Jobs";
             // 
@@ -2807,7 +2807,7 @@
             this.tabPage_Info.Controls.Add(this.label_API2);
             this.tabPage_Info.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Info.Name = "tabPage_Info";
-            this.tabPage_Info.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Info.Size = new System.Drawing.Size(1262, 695);
             this.tabPage_Info.TabIndex = 4;
             this.tabPage_Info.Text = "tabPage_Info";
             // 
@@ -2888,7 +2888,7 @@
             this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_AppName);
             this.tabPage_Settings.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Settings.Name = "tabPage_Settings";
-            this.tabPage_Settings.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Settings.Size = new System.Drawing.Size(1262, 695);
             this.tabPage_Settings.TabIndex = 5;
             this.tabPage_Settings.Text = "tabPage_Settings";
             this.tabPage_Settings.Enter += new System.EventHandler(this.TabPage_Settings_Enter);
