@@ -467,6 +467,11 @@
             // 
             this.label_DownloadStatus.Size = new System.Drawing.Size(476, 17);
             // 
+            // bU_AppData
+            // 
+            this.bU_AppData.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.bU_AppData.Location = new System.Drawing.Point(1355, 743);
+            // 
             // Form_MainBig
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;

@@ -140,6 +140,7 @@
             this.cGroupBoxColored_AppName = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
             this.AppName_Label = new System.Windows.Forms.Label();
             this.bU_KoFi = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.bU_AppData = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.Version_Label = new System.Windows.Forms.Label();
             this.Title_Label = new System.Windows.Forms.Label();
             this.Panel_Holder = new System.Windows.Forms.Panel();
@@ -176,7 +177,6 @@
             this.GB_Right = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.GB_Left = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.flowLayoutPanel_Grid = new System.Windows.Forms.FlowLayoutPanel();
-            this.tabPage_Download = new System.Windows.Forms.TabPage();
             this.tabPage_Jobs = new System.Windows.Forms.TabPage();
             this.cCheckGroupBox_Retry = new e621_ReBot_v2.CustomControls.Custom_CheckGroupBox();
             this.cTreeView_RetryQueue = new e621_ReBot_v2.CustomControls.Custom_TreeView();
@@ -193,6 +193,7 @@
             this.label_GrabStatus = new System.Windows.Forms.Label();
             this.cCheckGroupBox_Info = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
             this.textBox_Info = new System.Windows.Forms.RichTextBox();
+            this.tabPage_Download = new System.Windows.Forms.TabPage();
             this.tabPage_Info = new System.Windows.Forms.TabPage();
             this.Label_GridHelp2 = new System.Windows.Forms.Label();
             this.Label_GridHelp1 = new System.Windows.Forms.Label();
@@ -242,13 +243,13 @@
             this.panel_Browser.SuspendLayout();
             this.flowLayoutPanel_BrowserButtons.SuspendLayout();
             this.tabPage_Grid.SuspendLayout();
-            this.tabPage_Download.SuspendLayout();
             this.tabPage_Jobs.SuspendLayout();
             this.cCheckGroupBox_Retry.SuspendLayout();
             this.cCheckGroupBox_Convert.SuspendLayout();
             this.cCheckGroupBox_Upload.SuspendLayout();
             this.cCheckGroupBox_Grab.SuspendLayout();
             this.cCheckGroupBox_Info.SuspendLayout();
+            this.tabPage_Download.SuspendLayout();
             this.tabPage_Info.SuspendLayout();
             this.tabPage_Settings.SuspendLayout();
             this.cGroupBoxColored_ConversionistOptions.SuspendLayout();
@@ -2097,6 +2098,27 @@
             this.bU_KoFi.UseVisualStyleBackColor = true;
             this.bU_KoFi.Click += new System.EventHandler(this.BU_KoFi_Click);
             // 
+            // bU_AppData
+            // 
+            this.bU_AppData.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.bU_AppData.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bU_AppData.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.bU_AppData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bU_AppData.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bU_AppData.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.bU_AppData.Image = global::e621_ReBot_v2.Properties.Resources.FolderIconSmall;
+            this.bU_AppData.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.bU_AppData.Location = new System.Drawing.Point(942, 562);
+            this.bU_AppData.Name = "bU_AppData";
+            this.bU_AppData.Size = new System.Drawing.Size(64, 64);
+            this.bU_AppData.TabIndex = 150;
+            this.bU_AppData.TabStop = false;
+            this.bU_AppData.Text = "App Data";
+            this.bU_AppData.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolTip_Display.SetToolTip(this.bU_AppData, "Open App Folder in AppData\\Local.");
+            this.bU_AppData.UseVisualStyleBackColor = true;
+            this.bU_AppData.Click += new System.EventHandler(this.BU_AppData_Click);
+            // 
             // Version_Label
             // 
             this.Version_Label.AutoSize = true;
@@ -2439,7 +2461,7 @@
             this.tabPage_Grid.Controls.Add(this.flowLayoutPanel_Grid);
             this.tabPage_Grid.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Grid.Name = "tabPage_Grid";
-            this.tabPage_Grid.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Grid.Size = new System.Drawing.Size(192, 91);
             this.tabPage_Grid.TabIndex = 1;
             this.tabPage_Grid.Text = "tabPage_Grid";
             this.tabPage_Grid.Paint += new System.Windows.Forms.PaintEventHandler(this.TabPage_Grid_Paint);
@@ -2527,29 +2549,10 @@
             this.flowLayoutPanel_Grid.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel_Grid.Name = "flowLayoutPanel_Grid";
             this.flowLayoutPanel_Grid.Padding = new System.Windows.Forms.Padding(0, 16, 0, 0);
-            this.flowLayoutPanel_Grid.Size = new System.Drawing.Size(1262, 650);
+            this.flowLayoutPanel_Grid.Size = new System.Drawing.Size(192, 650);
             this.flowLayoutPanel_Grid.TabIndex = 0;
             this.flowLayoutPanel_Grid.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.FlowLayoutPanel_Grid_ControlAdded);
             this.flowLayoutPanel_Grid.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.FlowLayoutPanel_Grid_ControlRemoved);
-            // 
-            // tabPage_Download
-            // 
-            this.tabPage_Download.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
-            this.tabPage_Download.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.tabPage_Download.Controls.Add(this.bU_SkipDLCache);
-            this.tabPage_Download.Controls.Add(this.bU_DownloadPageDown);
-            this.tabPage_Download.Controls.Add(this.bU_DownloadPageUp);
-            this.tabPage_Download.Controls.Add(this.bU_ClearDLHistory);
-            this.tabPage_Download.Controls.Add(this.cGroupBoxColored_DLThreads);
-            this.tabPage_Download.Controls.Add(this.bU_DownloadFolder);
-            this.tabPage_Download.Controls.Add(this.cGroupBoxColored_Downloaded);
-            this.tabPage_Download.Controls.Add(this.cGroupBoxColored_InProgress);
-            this.tabPage_Download.Controls.Add(this.cCheckGroupBox_Download);
-            this.tabPage_Download.Location = new System.Drawing.Point(4, 5);
-            this.tabPage_Download.Name = "tabPage_Download";
-            this.tabPage_Download.Size = new System.Drawing.Size(1262, 695);
-            this.tabPage_Download.TabIndex = 2;
-            this.tabPage_Download.Text = "tabPage_Download";
             // 
             // tabPage_Jobs
             // 
@@ -2562,7 +2565,7 @@
             this.tabPage_Jobs.Controls.Add(this.cCheckGroupBox_Info);
             this.tabPage_Jobs.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Jobs.Name = "tabPage_Jobs";
-            this.tabPage_Jobs.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Jobs.Size = new System.Drawing.Size(192, 91);
             this.tabPage_Jobs.TabIndex = 3;
             this.tabPage_Jobs.Text = "tabPage_Jobs";
             // 
@@ -2791,6 +2794,25 @@
             this.textBox_Info.Text = "";
             this.textBox_Info.WordWrap = false;
             // 
+            // tabPage_Download
+            // 
+            this.tabPage_Download.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
+            this.tabPage_Download.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tabPage_Download.Controls.Add(this.bU_SkipDLCache);
+            this.tabPage_Download.Controls.Add(this.bU_DownloadPageDown);
+            this.tabPage_Download.Controls.Add(this.bU_DownloadPageUp);
+            this.tabPage_Download.Controls.Add(this.bU_ClearDLHistory);
+            this.tabPage_Download.Controls.Add(this.cGroupBoxColored_DLThreads);
+            this.tabPage_Download.Controls.Add(this.bU_DownloadFolder);
+            this.tabPage_Download.Controls.Add(this.cGroupBoxColored_Downloaded);
+            this.tabPage_Download.Controls.Add(this.cGroupBoxColored_InProgress);
+            this.tabPage_Download.Controls.Add(this.cCheckGroupBox_Download);
+            this.tabPage_Download.Location = new System.Drawing.Point(4, 5);
+            this.tabPage_Download.Name = "tabPage_Download";
+            this.tabPage_Download.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Download.TabIndex = 2;
+            this.tabPage_Download.Text = "tabPage_Download";
+            // 
             // tabPage_Info
             // 
             this.tabPage_Info.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
@@ -2807,7 +2829,7 @@
             this.tabPage_Info.Controls.Add(this.label_API2);
             this.tabPage_Info.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Info.Name = "tabPage_Info";
-            this.tabPage_Info.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Info.Size = new System.Drawing.Size(192, 91);
             this.tabPage_Info.TabIndex = 4;
             this.tabPage_Info.Text = "tabPage_Info";
             // 
@@ -2863,6 +2885,7 @@
             // 
             this.tabPage_Settings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
             this.tabPage_Settings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tabPage_Settings.Controls.Add(this.bU_AppData);
             this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_NamingWeb);
             this.tabPage_Settings.Controls.Add(this.bU_GetGenders);
             this.tabPage_Settings.Controls.Add(this.label_DragDropConvert);
@@ -3152,7 +3175,6 @@
             this.panel_Browser.ResumeLayout(false);
             this.flowLayoutPanel_BrowserButtons.ResumeLayout(false);
             this.tabPage_Grid.ResumeLayout(false);
-            this.tabPage_Download.ResumeLayout(false);
             this.tabPage_Jobs.ResumeLayout(false);
             this.cCheckGroupBox_Retry.ResumeLayout(false);
             this.cCheckGroupBox_Retry.PerformLayout();
@@ -3163,6 +3185,7 @@
             this.cCheckGroupBox_Grab.ResumeLayout(false);
             this.cCheckGroupBox_Grab.PerformLayout();
             this.cCheckGroupBox_Info.ResumeLayout(false);
+            this.tabPage_Download.ResumeLayout(false);
             this.tabPage_Info.ResumeLayout(false);
             this.tabPage_Info.PerformLayout();
             this.tabPage_Settings.ResumeLayout(false);
@@ -3366,6 +3389,7 @@
         protected internal CustomControls.Button_Unfocusable bU_SkipDLCache;
         protected internal CustomControls.Button_Unfocusable bU_ReverseDownload;
         protected internal System.Windows.Forms.Label label_DownloadStatus;
+        protected internal CustomControls.Button_Unfocusable bU_AppData;
     }
 }
 

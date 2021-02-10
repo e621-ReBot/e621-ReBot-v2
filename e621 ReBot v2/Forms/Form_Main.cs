@@ -2526,7 +2526,16 @@ namespace e621_ReBot_v2
             Gender_Tags.AddRange(Properties.Resources.genders.Split(new string[] { "✄" }, StringSplitOptions.RemoveEmptyEntries));
         }
 
+        private void BU_AppData_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "e621_ReBot_v2"));
+        }
 
         #endregion
+
+        private void bU_AppData_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
