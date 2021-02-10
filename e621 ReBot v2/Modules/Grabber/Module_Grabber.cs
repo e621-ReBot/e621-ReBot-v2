@@ -401,7 +401,7 @@ namespace e621_ReBot_v2.Modules
             }
         }
 
-        public static int GetMediaSize(string MediaURL)
+        public static dynamic GetMediaSize(string MediaURL)
         {
             HttpWebRequest GetSizeRequest = (HttpWebRequest)WebRequest.Create(MediaURL);
             GetSizeRequest.Method = "HEAD";
@@ -419,13 +419,13 @@ namespace e621_ReBot_v2.Modules
                     }
                     else
                     {
-                        return 0;
+                        return DBNull.Value;
                     }
                 }
             }
-            catch (WebException) //TimeoutException
+            catch (WebException)
             {
-                return 0;
+                return DBNull.Value;
             }
         }
 
