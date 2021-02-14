@@ -132,6 +132,7 @@ namespace e621_ReBot_v2.Modules
         }
 
 
+
         public static DataTable Download_Table = new DataTable();
         public static void Create_DownloadTable(ref DataTable ReferenceTable)
         {
@@ -167,14 +168,18 @@ namespace e621_ReBot_v2.Modules
 
         public static DataTable ReverseDataTable(DataTable originalDT)
         {
-            DataTable reversedDT = originalDT.Clone();
-            for (int i = originalDT.Rows.Count - 1; i >= 0; i--)
+            if (originalDT.Rows.Count > 1)
             {
-                DataRow row = originalDT.Rows[i];
-                reversedDT.ImportRow(row);
+                DataTable reversedDT = originalDT.Clone();
+                for (int i = originalDT.Rows.Count - 1; i >= 0; i--)
+                {
+                    DataRow row = originalDT.Rows[i];
+                    reversedDT.ImportRow(row);
+                }
+                reversedDT.AcceptChanges();
+                return reversedDT;
             }
-            reversedDT.AcceptChanges();
-            return reversedDT;
+            return originalDT;
         }
     }
 }

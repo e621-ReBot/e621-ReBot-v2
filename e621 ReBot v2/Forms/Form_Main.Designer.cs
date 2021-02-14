@@ -88,6 +88,7 @@
             this.label_FlashPlayer = new System.Windows.Forms.Label();
             this.label_Forum = new System.Windows.Forms.Label();
             this.pictureBox_Discord = new System.Windows.Forms.PictureBox();
+            this.bU_AppData = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.cGroupBoxColored_NamingWeb = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
             this.Naming_web_0 = new System.Windows.Forms.RadioButton();
             this.Naming_web_1 = new System.Windows.Forms.RadioButton();
@@ -140,7 +141,14 @@
             this.cGroupBoxColored_AppName = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
             this.AppName_Label = new System.Windows.Forms.Label();
             this.bU_KoFi = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.bU_AppData = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.rb_GameStart_1 = new System.Windows.Forms.RadioButton();
+            this.rb_GameStart_2 = new System.Windows.Forms.RadioButton();
+            this.CC_GameAnimations = new e621_ReBot_v2.CustomControls.Custom_CheckBox();
+            this.CC_GameIndexHints = new e621_ReBot_v2.CustomControls.Custom_CheckBox();
+            this.CC_GameThumb = new e621_ReBot_v2.CustomControls.Custom_CheckBox();
+            this.rb_GameStart_3 = new System.Windows.Forms.RadioButton();
+            this.labelPuzzle_Rows = new System.Windows.Forms.Label();
+            this.labelPuzzle_Collumns = new System.Windows.Forms.Label();
             this.Version_Label = new System.Windows.Forms.Label();
             this.Title_Label = new System.Windows.Forms.Label();
             this.Panel_Holder = new System.Windows.Forms.Panel();
@@ -213,6 +221,15 @@
             this.cGroupBoxColored_AppNotes = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
             this.cGroupBoxColored_APIKey = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
             this.bU_APIKey = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.tabPage_PuzzleGame = new System.Windows.Forms.TabPage();
+            this.cGroupBox_GameCheats = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
+            this.pB_GameThumb = new System.Windows.Forms.PictureBox();
+            this.GB_RestartGame = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.GB_StartGame = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.gamePanel_Main = new e621_ReBot_v2.CustomControls.GamePanel();
+            this.panel_GameStart = new System.Windows.Forms.Panel();
+            this.comboBox_PuzzleCollumns = new System.Windows.Forms.ComboBox();
+            this.comboBox_PuzzleRows = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.button_AppMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.button_AppClose)).BeginInit();
             this.cGroupBoxColored_DLThreads.SuspendLayout();
@@ -259,6 +276,10 @@
             this.panel_CheckBoxOptions.SuspendLayout();
             this.cGroupBoxColored_AppNotes.SuspendLayout();
             this.cGroupBoxColored_APIKey.SuspendLayout();
+            this.tabPage_PuzzleGame.SuspendLayout();
+            this.cGroupBox_GameCheats.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pB_GameThumb)).BeginInit();
+            this.panel_GameStart.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolTip_Display
@@ -1242,6 +1263,27 @@
             this.toolTip_Display.SetToolTip(this.pictureBox_Discord, "https://discord.gg/7ncEzah");
             this.pictureBox_Discord.Click += new System.EventHandler(this.PictureBox_Discord_Click);
             // 
+            // bU_AppData
+            // 
+            this.bU_AppData.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.bU_AppData.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bU_AppData.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.bU_AppData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bU_AppData.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bU_AppData.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.bU_AppData.Image = global::e621_ReBot_v2.Properties.Resources.FolderIconSmall;
+            this.bU_AppData.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.bU_AppData.Location = new System.Drawing.Point(942, 562);
+            this.bU_AppData.Name = "bU_AppData";
+            this.bU_AppData.Size = new System.Drawing.Size(64, 64);
+            this.bU_AppData.TabIndex = 150;
+            this.bU_AppData.TabStop = false;
+            this.bU_AppData.Text = "App Data";
+            this.bU_AppData.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolTip_Display.SetToolTip(this.bU_AppData, "Open App Folder in AppData\\Local.");
+            this.bU_AppData.UseVisualStyleBackColor = true;
+            this.bU_AppData.Click += new System.EventHandler(this.BU_AppData_Click);
+            // 
             // cGroupBoxColored_NamingWeb
             // 
             this.cGroupBoxColored_NamingWeb.BorderColor = System.Drawing.Color.Black;
@@ -2098,26 +2140,107 @@
             this.bU_KoFi.UseVisualStyleBackColor = true;
             this.bU_KoFi.Click += new System.EventHandler(this.BU_KoFi_Click);
             // 
-            // bU_AppData
+            // rb_GameStart_1
             // 
-            this.bU_AppData.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.bU_AppData.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bU_AppData.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_AppData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bU_AppData.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.bU_AppData.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.bU_AppData.Image = global::e621_ReBot_v2.Properties.Resources.FolderIconSmall;
-            this.bU_AppData.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.bU_AppData.Location = new System.Drawing.Point(942, 562);
-            this.bU_AppData.Name = "bU_AppData";
-            this.bU_AppData.Size = new System.Drawing.Size(64, 64);
-            this.bU_AppData.TabIndex = 150;
-            this.bU_AppData.TabStop = false;
-            this.bU_AppData.Text = "App Data";
-            this.bU_AppData.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.toolTip_Display.SetToolTip(this.bU_AppData, "Open App Folder in AppData\\Local.");
-            this.bU_AppData.UseVisualStyleBackColor = true;
-            this.bU_AppData.Click += new System.EventHandler(this.BU_AppData_Click);
+            this.rb_GameStart_1.AutoSize = true;
+            this.rb_GameStart_1.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.rb_GameStart_1.Location = new System.Drawing.Point(5, 93);
+            this.rb_GameStart_1.Margin = new System.Windows.Forms.Padding(4);
+            this.rb_GameStart_1.Name = "rb_GameStart_1";
+            this.rb_GameStart_1.Size = new System.Drawing.Size(51, 17);
+            this.rb_GameStart_1.TabIndex = 1;
+            this.rb_GameStart_1.Text = "Local";
+            this.toolTip_Display.SetToolTip(this.rb_GameStart_1, "Pick an image from local location when starting a game.");
+            this.rb_GameStart_1.UseVisualStyleBackColor = true;
+            // 
+            // rb_GameStart_2
+            // 
+            this.rb_GameStart_2.AutoSize = true;
+            this.rb_GameStart_2.Checked = true;
+            this.rb_GameStart_2.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.rb_GameStart_2.Location = new System.Drawing.Point(64, 93);
+            this.rb_GameStart_2.Margin = new System.Windows.Forms.Padding(4);
+            this.rb_GameStart_2.Name = "rb_GameStart_2";
+            this.rb_GameStart_2.Size = new System.Drawing.Size(65, 17);
+            this.rb_GameStart_2.TabIndex = 0;
+            this.rb_GameStart_2.TabStop = true;
+            this.rb_GameStart_2.Text = "Random";
+            this.toolTip_Display.SetToolTip(this.rb_GameStart_2, "Picks a random image from e621 when starting a game.");
+            this.rb_GameStart_2.UseVisualStyleBackColor = true;
+            // 
+            // CC_GameAnimations
+            // 
+            this.CC_GameAnimations.AutoSize = true;
+            this.CC_GameAnimations.Checked = true;
+            this.CC_GameAnimations.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CC_GameAnimations.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.CC_GameAnimations.Location = new System.Drawing.Point(1111, 218);
+            this.CC_GameAnimations.Name = "CC_GameAnimations";
+            this.CC_GameAnimations.Size = new System.Drawing.Size(144, 17);
+            this.CC_GameAnimations.TabIndex = 4;
+            this.CC_GameAnimations.Text = "Enable Game Animations";
+            this.toolTip_Display.SetToolTip(this.CC_GameAnimations, "Show game animations.");
+            this.CC_GameAnimations.UseVisualStyleBackColor = true;
+            // 
+            // CC_GameIndexHints
+            // 
+            this.CC_GameIndexHints.AutoSize = true;
+            this.CC_GameIndexHints.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.CC_GameIndexHints.Location = new System.Drawing.Point(6, 42);
+            this.CC_GameIndexHints.Name = "CC_GameIndexHints";
+            this.CC_GameIndexHints.Size = new System.Drawing.Size(112, 17);
+            this.CC_GameIndexHints.TabIndex = 5;
+            this.CC_GameIndexHints.Text = "Show Piece Index";
+            this.toolTip_Display.SetToolTip(this.CC_GameIndexHints, "Show intended board position on puzzle pieces.\r\n(Applied after re/starting.)");
+            this.CC_GameIndexHints.UseVisualStyleBackColor = true;
+            // 
+            // CC_GameThumb
+            // 
+            this.CC_GameThumb.AutoSize = true;
+            this.CC_GameThumb.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.CC_GameThumb.Location = new System.Drawing.Point(6, 19);
+            this.CC_GameThumb.Name = "CC_GameThumb";
+            this.CC_GameThumb.Size = new System.Drawing.Size(139, 17);
+            this.CC_GameThumb.TabIndex = 6;
+            this.CC_GameThumb.Text = "Show Puzzle Thumbnail";
+            this.toolTip_Display.SetToolTip(this.CC_GameThumb, "Show a thumbnail preview of image.");
+            this.CC_GameThumb.UseVisualStyleBackColor = true;
+            this.CC_GameThumb.CheckedChanged += new System.EventHandler(this.CC_GameThumb_CheckedChanged);
+            // 
+            // rb_GameStart_3
+            // 
+            this.rb_GameStart_3.AutoSize = true;
+            this.rb_GameStart_3.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.rb_GameStart_3.Location = new System.Drawing.Point(4, 118);
+            this.rb_GameStart_3.Margin = new System.Windows.Forms.Padding(4);
+            this.rb_GameStart_3.Name = "rb_GameStart_3";
+            this.rb_GameStart_3.Size = new System.Drawing.Size(122, 17);
+            this.rb_GameStart_3.TabIndex = 2;
+            this.rb_GameStart_3.Text = "Image from e621.net";
+            this.toolTip_Display.SetToolTip(this.rb_GameStart_3, "Pick an image from e621 when starting a game.");
+            this.rb_GameStart_3.UseVisualStyleBackColor = true;
+            // 
+            // labelPuzzle_Rows
+            // 
+            this.labelPuzzle_Rows.AutoSize = true;
+            this.labelPuzzle_Rows.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.labelPuzzle_Rows.Location = new System.Drawing.Point(19, 6);
+            this.labelPuzzle_Rows.Name = "labelPuzzle_Rows";
+            this.labelPuzzle_Rows.Size = new System.Drawing.Size(37, 13);
+            this.labelPuzzle_Rows.TabIndex = 3;
+            this.labelPuzzle_Rows.Text = "Rows:";
+            this.toolTip_Display.SetToolTip(this.labelPuzzle_Rows, "Number of puzzle rows.");
+            // 
+            // labelPuzzle_Collumns
+            // 
+            this.labelPuzzle_Collumns.AutoSize = true;
+            this.labelPuzzle_Collumns.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.labelPuzzle_Collumns.Location = new System.Drawing.Point(4, 30);
+            this.labelPuzzle_Collumns.Name = "labelPuzzle_Collumns";
+            this.labelPuzzle_Collumns.Size = new System.Drawing.Size(52, 13);
+            this.labelPuzzle_Collumns.TabIndex = 11;
+            this.labelPuzzle_Collumns.Text = "Collumns:";
+            this.toolTip_Display.SetToolTip(this.labelPuzzle_Collumns, "Number of puzzle collumns.");
             // 
             // Version_Label
             // 
@@ -2127,7 +2250,7 @@
             this.Version_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Version_Label.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.Version_Label.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Version_Label.Location = new System.Drawing.Point(132, 22);
+            this.Version_Label.Location = new System.Drawing.Point(136, 22);
             this.Version_Label.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
             this.Version_Label.Name = "Version_Label";
             this.Version_Label.Size = new System.Drawing.Size(46, 13);
@@ -2143,8 +2266,8 @@
             this.Title_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Title_Label.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.Title_Label.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Title_Label.Location = new System.Drawing.Point(40, 20);
-            this.Title_Label.Margin = new System.Windows.Forms.Padding(0);
+            this.Title_Label.Location = new System.Drawing.Point(44, 20);
+            this.Title_Label.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
             this.Title_Label.Name = "Title_Label";
             this.Title_Label.Size = new System.Drawing.Size(88, 16);
             this.Title_Label.TabIndex = 0;
@@ -2287,6 +2410,7 @@
             this.cTabControl_e621ReBot.Controls.Add(this.tabPage_Download);
             this.cTabControl_e621ReBot.Controls.Add(this.tabPage_Info);
             this.cTabControl_e621ReBot.Controls.Add(this.tabPage_Settings);
+            this.cTabControl_e621ReBot.Controls.Add(this.tabPage_PuzzleGame);
             this.cTabControl_e621ReBot.ItemSize = new System.Drawing.Size(0, 1);
             this.cTabControl_e621ReBot.Location = new System.Drawing.Point(23, 34);
             this.cTabControl_e621ReBot.Margin = new System.Windows.Forms.Padding(0);
@@ -2911,7 +3035,7 @@
             this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_AppName);
             this.tabPage_Settings.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Settings.Name = "tabPage_Settings";
-            this.tabPage_Settings.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Settings.Size = new System.Drawing.Size(192, 91);
             this.tabPage_Settings.TabIndex = 5;
             this.tabPage_Settings.Text = "tabPage_Settings";
             this.tabPage_Settings.Enter += new System.EventHandler(this.TabPage_Settings_Enter);
@@ -3109,6 +3233,169 @@
             this.bU_APIKey.TextChanged += new System.EventHandler(this.BU_APIKey_TextChanged);
             this.bU_APIKey.Click += new System.EventHandler(this.BU_APIKey_Click);
             // 
+            // tabPage_PuzzleGame
+            // 
+            this.tabPage_PuzzleGame.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
+            this.tabPage_PuzzleGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tabPage_PuzzleGame.Controls.Add(this.cGroupBox_GameCheats);
+            this.tabPage_PuzzleGame.Controls.Add(this.pB_GameThumb);
+            this.tabPage_PuzzleGame.Controls.Add(this.CC_GameAnimations);
+            this.tabPage_PuzzleGame.Controls.Add(this.GB_RestartGame);
+            this.tabPage_PuzzleGame.Controls.Add(this.GB_StartGame);
+            this.tabPage_PuzzleGame.Controls.Add(this.gamePanel_Main);
+            this.tabPage_PuzzleGame.Controls.Add(this.panel_GameStart);
+            this.tabPage_PuzzleGame.Location = new System.Drawing.Point(4, 5);
+            this.tabPage_PuzzleGame.Name = "tabPage_PuzzleGame";
+            this.tabPage_PuzzleGame.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_PuzzleGame.TabIndex = 6;
+            this.tabPage_PuzzleGame.Text = "tabPage_PuzzleGame";
+            // 
+            // cGroupBox_GameCheats
+            // 
+            this.cGroupBox_GameCheats.BorderColor = System.Drawing.Color.Black;
+            this.cGroupBox_GameCheats.BottomBorderFix = 1;
+            this.cGroupBox_GameCheats.Controls.Add(this.CC_GameThumb);
+            this.cGroupBox_GameCheats.Controls.Add(this.CC_GameIndexHints);
+            this.cGroupBox_GameCheats.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.cGroupBox_GameCheats.Location = new System.Drawing.Point(1106, 623);
+            this.cGroupBox_GameCheats.Margin = new System.Windows.Forms.Padding(4, 4, 16, 4);
+            this.cGroupBox_GameCheats.Name = "cGroupBox_GameCheats";
+            this.cGroupBox_GameCheats.Size = new System.Drawing.Size(150, 65);
+            this.cGroupBox_GameCheats.TabIndex = 8;
+            this.cGroupBox_GameCheats.TabStop = false;
+            this.cGroupBox_GameCheats.Text = "Cheats";
+            this.cGroupBox_GameCheats.TextOffset = 0;
+            // 
+            // pB_GameThumb
+            // 
+            this.pB_GameThumb.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pB_GameThumb.Location = new System.Drawing.Point(1026, 386);
+            this.pB_GameThumb.Name = "pB_GameThumb";
+            this.pB_GameThumb.Size = new System.Drawing.Size(230, 230);
+            this.pB_GameThumb.TabIndex = 7;
+            this.pB_GameThumb.TabStop = false;
+            this.pB_GameThumb.Visible = false;
+            this.pB_GameThumb.Paint += new System.Windows.Forms.PaintEventHandler(this.PB_GameThumb_Paint);
+            // 
+            // GB_RestartGame
+            // 
+            this.GB_RestartGame.Enabled = false;
+            this.GB_RestartGame.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.GB_RestartGame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GB_RestartGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GB_RestartGame.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.GB_RestartGame.Location = new System.Drawing.Point(1111, 171);
+            this.GB_RestartGame.Margin = new System.Windows.Forms.Padding(4, 16, 16, 4);
+            this.GB_RestartGame.Name = "GB_RestartGame";
+            this.GB_RestartGame.Size = new System.Drawing.Size(140, 40);
+            this.GB_RestartGame.TabIndex = 2;
+            this.GB_RestartGame.TabStop = false;
+            this.GB_RestartGame.Text = "Restart Game";
+            this.GB_RestartGame.UseVisualStyleBackColor = true;
+            this.GB_RestartGame.Click += new System.EventHandler(this.GB_RestartGame_Click);
+            // 
+            // GB_StartGame
+            // 
+            this.GB_StartGame.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.GB_StartGame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GB_StartGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GB_StartGame.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.GB_StartGame.Location = new System.Drawing.Point(1111, 66);
+            this.GB_StartGame.Margin = new System.Windows.Forms.Padding(4, 4, 16, 4);
+            this.GB_StartGame.Name = "GB_StartGame";
+            this.GB_StartGame.Size = new System.Drawing.Size(140, 40);
+            this.GB_StartGame.TabIndex = 1;
+            this.GB_StartGame.TabStop = false;
+            this.GB_StartGame.Text = "Start Game";
+            this.GB_StartGame.UseVisualStyleBackColor = true;
+            this.GB_StartGame.Click += new System.EventHandler(this.GB_StartGame_Click);
+            // 
+            // gamePanel_Main
+            // 
+            this.gamePanel_Main.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gamePanel_Main.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
+            this.gamePanel_Main.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.gamePanel_Main.Location = new System.Drawing.Point(20, 8);
+            this.gamePanel_Main.Margin = new System.Windows.Forms.Padding(8, 4, 4, 4);
+            this.gamePanel_Main.MaximumSize = new System.Drawing.Size(1000, 680);
+            this.gamePanel_Main.Name = "gamePanel_Main";
+            this.gamePanel_Main.Size = new System.Drawing.Size(1000, 680);
+            this.gamePanel_Main.TabIndex = 0;
+            // 
+            // panel_GameStart
+            // 
+            this.panel_GameStart.Controls.Add(this.comboBox_PuzzleCollumns);
+            this.panel_GameStart.Controls.Add(this.labelPuzzle_Collumns);
+            this.panel_GameStart.Controls.Add(this.comboBox_PuzzleRows);
+            this.panel_GameStart.Controls.Add(this.labelPuzzle_Rows);
+            this.panel_GameStart.Controls.Add(this.rb_GameStart_3);
+            this.panel_GameStart.Controls.Add(this.rb_GameStart_1);
+            this.panel_GameStart.Controls.Add(this.rb_GameStart_2);
+            this.panel_GameStart.Location = new System.Drawing.Point(1111, 16);
+            this.panel_GameStart.Name = "panel_GameStart";
+            this.panel_GameStart.Size = new System.Drawing.Size(140, 140);
+            this.panel_GameStart.TabIndex = 3;
+            this.panel_GameStart.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel_GameStart_Paint);
+            // 
+            // comboBox_PuzzleCollumns
+            // 
+            this.comboBox_PuzzleCollumns.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
+            this.comboBox_PuzzleCollumns.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_PuzzleCollumns.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBox_PuzzleCollumns.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.comboBox_PuzzleCollumns.FormattingEnabled = true;
+            this.comboBox_PuzzleCollumns.Items.AddRange(new object[] {
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16"});
+            this.comboBox_PuzzleCollumns.Location = new System.Drawing.Point(89, 27);
+            this.comboBox_PuzzleCollumns.Name = "comboBox_PuzzleCollumns";
+            this.comboBox_PuzzleCollumns.Size = new System.Drawing.Size(48, 21);
+            this.comboBox_PuzzleCollumns.TabIndex = 10;
+            this.comboBox_PuzzleCollumns.TabStop = false;
+            // 
+            // comboBox_PuzzleRows
+            // 
+            this.comboBox_PuzzleRows.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
+            this.comboBox_PuzzleRows.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_PuzzleRows.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBox_PuzzleRows.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.comboBox_PuzzleRows.FormattingEnabled = true;
+            this.comboBox_PuzzleRows.Items.AddRange(new object[] {
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16"});
+            this.comboBox_PuzzleRows.Location = new System.Drawing.Point(89, 3);
+            this.comboBox_PuzzleRows.Name = "comboBox_PuzzleRows";
+            this.comboBox_PuzzleRows.Size = new System.Drawing.Size(48, 21);
+            this.comboBox_PuzzleRows.TabIndex = 9;
+            this.comboBox_PuzzleRows.TabStop = false;
+            // 
             // Form_Main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -3201,6 +3488,13 @@
             this.panel_CheckBoxOptions.PerformLayout();
             this.cGroupBoxColored_AppNotes.ResumeLayout(false);
             this.cGroupBoxColored_APIKey.ResumeLayout(false);
+            this.tabPage_PuzzleGame.ResumeLayout(false);
+            this.tabPage_PuzzleGame.PerformLayout();
+            this.cGroupBox_GameCheats.ResumeLayout(false);
+            this.cGroupBox_GameCheats.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pB_GameThumb)).EndInit();
+            this.panel_GameStart.ResumeLayout(false);
+            this.panel_GameStart.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3390,6 +3684,23 @@
         protected internal CustomControls.Button_Unfocusable bU_ReverseDownload;
         protected internal System.Windows.Forms.Label label_DownloadStatus;
         protected internal CustomControls.Button_Unfocusable bU_AppData;
+        private System.Windows.Forms.TabPage tabPage_PuzzleGame;
+        protected internal CustomControls.Custom_CheckBox CC_GameIndexHints;
+        protected internal CustomControls.Custom_CheckBox CC_GameAnimations;
+        protected internal CustomControls.GamePanel gamePanel_Main;
+        protected internal CustomControls.Button_Unfocusable GB_StartGame;
+        protected internal System.Windows.Forms.Panel panel_GameStart;
+        protected internal CustomControls.Button_Unfocusable GB_RestartGame;
+        protected internal CustomControls.Custom_CheckBox CC_GameThumb;
+        protected internal System.Windows.Forms.PictureBox pB_GameThumb;
+        protected internal System.Windows.Forms.RadioButton rb_GameStart_1;
+        protected internal System.Windows.Forms.RadioButton rb_GameStart_2;
+        protected internal System.Windows.Forms.RadioButton rb_GameStart_3;
+        protected internal System.Windows.Forms.ComboBox comboBox_PuzzleCollumns;
+        protected internal System.Windows.Forms.Label labelPuzzle_Collumns;
+        protected internal System.Windows.Forms.ComboBox comboBox_PuzzleRows;
+        protected internal System.Windows.Forms.Label labelPuzzle_Rows;
+        protected internal CustomControls.Custom_GroupBoxColored cGroupBox_GameCheats;
     }
 }
 

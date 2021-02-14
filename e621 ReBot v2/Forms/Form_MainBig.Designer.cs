@@ -47,6 +47,9 @@
             this.cCheckGroupBox_Download.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_GitHub)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_KoFi)).BeginInit();
+            this.panel_GameStart.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pB_GameThumb)).BeginInit();
+            this.cGroupBox_GameCheats.SuspendLayout();
             this.SuspendLayout();
             // 
             // AutoTags
@@ -472,6 +475,37 @@
             this.bU_AppData.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.bU_AppData.Location = new System.Drawing.Point(1355, 743);
             // 
+            // CC_GameAnimations
+            // 
+            this.CC_GameAnimations.Location = new System.Drawing.Point(1715, 214);
+            // 
+            // gamePanel_Main
+            // 
+            this.gamePanel_Main.MaximumSize = new System.Drawing.Size(1594, 974);
+            this.gamePanel_Main.Size = new System.Drawing.Size(1594, 974);
+            // 
+            // GB_StartGame
+            // 
+            this.GB_StartGame.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.GB_StartGame.Location = new System.Drawing.Point(1715, 58);
+            // 
+            // panel_GameStart
+            // 
+            this.panel_GameStart.Location = new System.Drawing.Point(1715, 8);
+            // 
+            // GB_RestartGame
+            // 
+            this.GB_RestartGame.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.GB_RestartGame.Location = new System.Drawing.Point(1715, 167);
+            // 
+            // pB_GameThumb
+            // 
+            this.pB_GameThumb.Location = new System.Drawing.Point(1621, 686);
+            // 
+            // cGroupBox_GameCheats
+            // 
+            this.cGroupBox_GameCheats.Location = new System.Drawing.Point(1701, 923);
+            // 
             // Form_MainBig
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -507,6 +541,11 @@
             this.cCheckGroupBox_Download.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_GitHub)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_KoFi)).EndInit();
+            this.panel_GameStart.ResumeLayout(false);
+            this.panel_GameStart.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pB_GameThumb)).EndInit();
+            this.cGroupBox_GameCheats.ResumeLayout(false);
+            this.cGroupBox_GameCheats.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

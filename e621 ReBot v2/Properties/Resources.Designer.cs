@@ -632,6 +632,26 @@ namespace e621_ReBot_v2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap MenuButton_PuzzleGame {
+            get {
+                object obj = ResourceManager.GetObject("MenuButton_PuzzleGame", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MenuButton_PuzzleGame_Highlight {
+            get {
+                object obj = ResourceManager.GetObject("MenuButton_PuzzleGame_Highlight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap MenuButton_Settings {
             get {
                 object obj = ResourceManager.GetObject("MenuButton_Settings", resourceCulture);

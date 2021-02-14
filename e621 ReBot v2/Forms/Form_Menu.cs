@@ -27,7 +27,7 @@ namespace e621_ReBot_v2.Forms
         }
 
         private int ActionTimer;
-        private void timer_FadeIn_Tick(object sender, EventArgs e)
+        private void Timer_FadeIn_Tick(object sender, EventArgs e)
         {
             switch (ActionTimer)
             {
@@ -64,7 +64,7 @@ namespace e621_ReBot_v2.Forms
             ActionTimer += 1;
         }
 
-        private void timer_FadeOut_Tick(object sender, EventArgs e)
+        private void Timer_FadeOut_Tick(object sender, EventArgs e)
         {
             Location = new Point(Location.X - 1, Location.Y);
             Opacity -= 0.05;
@@ -97,7 +97,5 @@ namespace e621_ReBot_v2.Forms
             Dispose();
             _FormReference = null;
         }
-
     }
-
 }

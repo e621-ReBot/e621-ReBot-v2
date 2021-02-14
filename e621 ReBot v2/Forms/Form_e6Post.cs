@@ -22,6 +22,8 @@ namespace e621_ReBot_v2.Forms
 
         public static Form_e6Post _FormReference;
 
+        public string PuzzlePostID;
+
         private void Form_e6Post_FormClosed(object sender, FormClosedEventArgs e)
         {
             _FormReference = null;
@@ -89,7 +91,14 @@ namespace e621_ReBot_v2.Forms
 
             if (e.KeyCode == Keys.Enter)
             {
-                SuperiorSub(ID_TextBox.Text, Form_Preview._FormReference.Preview_RowHolder);
+                if (Tag == null)
+                {
+                    SuperiorSub(ID_TextBox.Text, Form_Preview._FormReference.Preview_RowHolder);
+                }
+                else
+                {
+                    PuzzlePostID = ID_TextBox.Text;
+                }
                 Close();
             }
         }
@@ -97,7 +106,7 @@ namespace e621_ReBot_v2.Forms
         public static void SuperiorSub(string PostID, DataRow RowRefference)
         {
             string PostTest = Module_e621Info.e621InfoDownload(string.Format("https://e621.net/posts/{0}.json", PostID), true);
-            if (PostTest.Length < 10)
+            if (PostTest == null || PostTest.Length < 10)
             {
                 if (_FormReference != null)
                 {

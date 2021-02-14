@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace e621_ReBot_v2.CustomControls
 {
-    class Custom_CheckBox :CheckBox
+    public class Custom_CheckBox :CheckBox
     {
         protected override void OnPaint(PaintEventArgs e)
         {

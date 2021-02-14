@@ -237,6 +237,9 @@ namespace e621_ReBot_v2
                 }
                 panel_ComboBoxBlocker.Visible = false;
             }
+
+            comboBox_PuzzleRows.SelectedIndex = 2;
+            comboBox_PuzzleCollumns.SelectedIndex = 2;
         }
 
         private void Form_Main_Shown(object sender, EventArgs e)
@@ -2533,9 +2536,43 @@ namespace e621_ReBot_v2
 
         #endregion
 
-        private void bU_AppData_Click(object sender, EventArgs e)
-        {
 
+
+
+
+
+
+
+
+        #region "Puzzle Game"
+
+        private void Panel_GameStart_Paint(object sender, PaintEventArgs e)
+        {
+            ControlPaint.DrawBorder(e.Graphics, panel_GameStart.ClientRectangle, Color.Black, ButtonBorderStyle.Solid);
         }
+
+        private void PB_GameThumb_Paint(object sender, PaintEventArgs e)
+        {
+            ControlPaint.DrawBorder(e.Graphics, pB_GameThumb.ClientRectangle, Color.Black, ButtonBorderStyle.Solid);
+        }
+
+        private void GB_StartGame_Click(object sender, EventArgs e)
+        {
+            gamePanel_Main.LoadPuzzle();
+        }
+
+        private void GB_RestartGame_Click(object sender, EventArgs e)
+        {
+            gamePanel_Main.ResetPuzzle();
+        }
+
+        private void CC_GameThumb_CheckedChanged(object sender, EventArgs e)
+        {
+            pB_GameThumb.Visible = CC_GameThumb.Checked;
+        }
+
+
+        #endregion
+
     }
 }

@@ -96,9 +96,8 @@
     <StartupObject>e621_ReBot_v2.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack, Version=1.11.28.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.11.28\lib\Net45\HtmlAgilityPack.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="HtmlAgilityPack, Version=1.11.30.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.30\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -175,6 +174,9 @@
       <DependentUpon>Custom_InputBox.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomControls\Custom_LabelWithStroke.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControls\GamePanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CustomControls\Custom_Panel.cs">
@@ -342,6 +344,9 @@
     <EmbeddedResource Include="CustomControls\Custom_InputBox.resx">
       <DependentUpon>Custom_InputBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\GamePanel.resx">
+      <DependentUpon>GamePanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\Custom_Panel.resx">
       <DependentUpon>Custom_Panel.cs</DependentUpon>
     </EmbeddedResource>
@@ -431,6 +436,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\549ec43d2c9cb82e8f4bb168827c0b21.png" />
     <Content Include="Resources\Browser\BB_Backward_False.png" />
     <Content Include="Resources\Browser\BB_Backward_Small.png" />
     <Content Include="Resources\Browser\BB_Backward_True.png" />
@@ -490,6 +496,8 @@
     <Content Include="Resources\Menu\MenuButton_Jobs_Highlight.png" />
     <Content Include="Resources\Menu\MenuButton_MenuClose.png" />
     <Content Include="Resources\Menu\MenuButton_MenuClose_Highlight.png" />
+    <None Include="Resources\Menu\MenuButton_PuzzleGame.png" />
+    <None Include="Resources\Menu\MenuButton_PuzzleGame_Highlight.png" />
     <Content Include="Resources\Menu\MenuButton_Settings.png" />
     <Content Include="Resources\Menu\MenuButton_Settings_Highlight.png" />
     <Content Include="Resources\Menu\MenuIcon_Browser.png" />

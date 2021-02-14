@@ -33,10 +33,11 @@
             this.Menu_FlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.MB_Browser = new e621_ReBot_v2.CustomControls.Button_Menu();
             this.MB_Grid = new e621_ReBot_v2.CustomControls.Button_Menu();
-            this.MB_Download = new e621_ReBot_v2.CustomControls.Button_Menu();
             this.MB_Jobs = new e621_ReBot_v2.CustomControls.Button_Menu();
+            this.MB_Download = new e621_ReBot_v2.CustomControls.Button_Menu();
             this.MB_Info = new e621_ReBot_v2.CustomControls.Button_Menu();
             this.MB_Settings = new e621_ReBot_v2.CustomControls.Button_Menu();
+            this.MB_PuzzleGame = new e621_ReBot_v2.CustomControls.Button_Menu();
             this.MB_MenuClose = new e621_ReBot_v2.CustomControls.Button_MenuClose();
             this.timer_FadeIn = new System.Windows.Forms.Timer(this.components);
             this.timer_FadeOut = new System.Windows.Forms.Timer(this.components);
@@ -44,10 +45,11 @@
             this.Menu_FlowLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MB_Browser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MB_Grid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MB_Download)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MB_Jobs)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MB_Download)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MB_Info)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MB_Settings)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MB_PuzzleGame)).BeginInit();
             this.SuspendLayout();
             // 
             // Menu_FlowLayoutPanel
@@ -58,13 +60,14 @@
             this.Menu_FlowLayoutPanel.Controls.Add(this.MB_Download);
             this.Menu_FlowLayoutPanel.Controls.Add(this.MB_Info);
             this.Menu_FlowLayoutPanel.Controls.Add(this.MB_Settings);
+            this.Menu_FlowLayoutPanel.Controls.Add(this.MB_PuzzleGame);
             this.Menu_FlowLayoutPanel.Controls.Add(this.MB_MenuClose);
             this.Menu_FlowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Menu_FlowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.Menu_FlowLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.Menu_FlowLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.Menu_FlowLayoutPanel.Name = "Menu_FlowLayoutPanel";
-            this.Menu_FlowLayoutPanel.Size = new System.Drawing.Size(40, 320);
+            this.Menu_FlowLayoutPanel.Size = new System.Drawing.Size(40, 360);
             this.Menu_FlowLayoutPanel.TabIndex = 8;
             // 
             // MB_Browser
@@ -104,24 +107,6 @@
             this.toolTip_Display.SetToolTip(this.MB_Grid, "Grid");
             this.MB_Grid.Visible = false;
             // 
-            // MB_Download
-            // 
-            this.MB_Download.BackColor = System.Drawing.Color.Transparent;
-            this.MB_Download.BackgroundImage = global::e621_ReBot_v2.Properties.Resources.MenuButton_Download;
-            this.MB_Download.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.MB_Download.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.MB_Download.Location = new System.Drawing.Point(4, 149);
-            this.MB_Download.Margin = new System.Windows.Forms.Padding(4, 8, 8, 8);
-            this.MB_Download.MaximumSize = new System.Drawing.Size(34, 31);
-            this.MB_Download.MinimumSize = new System.Drawing.Size(34, 31);
-            this.MB_Download.Name = "MB_Download";
-            this.MB_Download.Size = new System.Drawing.Size(34, 31);
-            this.MB_Download.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.MB_Download.TabIndex = 10;
-            this.MB_Download.TabStop = false;
-            this.MB_Download.Tag = "3";
-            this.toolTip_Display.SetToolTip(this.MB_Download, "Downloads");
-            // 
             // MB_Jobs
             // 
             this.MB_Jobs.BackColor = System.Drawing.Color.Transparent;
@@ -139,6 +124,24 @@
             this.MB_Jobs.TabStop = false;
             this.MB_Jobs.Tag = "2";
             this.toolTip_Display.SetToolTip(this.MB_Jobs, "Jobs");
+            // 
+            // MB_Download
+            // 
+            this.MB_Download.BackColor = System.Drawing.Color.Transparent;
+            this.MB_Download.BackgroundImage = global::e621_ReBot_v2.Properties.Resources.MenuButton_Download;
+            this.MB_Download.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.MB_Download.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.MB_Download.Location = new System.Drawing.Point(4, 149);
+            this.MB_Download.Margin = new System.Windows.Forms.Padding(4, 8, 8, 8);
+            this.MB_Download.MaximumSize = new System.Drawing.Size(34, 31);
+            this.MB_Download.MinimumSize = new System.Drawing.Size(34, 31);
+            this.MB_Download.Name = "MB_Download";
+            this.MB_Download.Size = new System.Drawing.Size(34, 31);
+            this.MB_Download.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.MB_Download.TabIndex = 10;
+            this.MB_Download.TabStop = false;
+            this.MB_Download.Tag = "3";
+            this.toolTip_Display.SetToolTip(this.MB_Download, "Downloads");
             // 
             // MB_Info
             // 
@@ -176,6 +179,24 @@
             this.MB_Settings.Tag = "5";
             this.toolTip_Display.SetToolTip(this.MB_Settings, "Settings");
             // 
+            // MB_PuzzleGame
+            // 
+            this.MB_PuzzleGame.BackColor = System.Drawing.Color.Transparent;
+            this.MB_PuzzleGame.BackgroundImage = global::e621_ReBot_v2.Properties.Resources.MenuButton_PuzzleGame;
+            this.MB_PuzzleGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.MB_PuzzleGame.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.MB_PuzzleGame.Location = new System.Drawing.Point(4, 290);
+            this.MB_PuzzleGame.Margin = new System.Windows.Forms.Padding(4, 8, 8, 8);
+            this.MB_PuzzleGame.MaximumSize = new System.Drawing.Size(34, 31);
+            this.MB_PuzzleGame.MinimumSize = new System.Drawing.Size(34, 31);
+            this.MB_PuzzleGame.Name = "MB_PuzzleGame";
+            this.MB_PuzzleGame.Size = new System.Drawing.Size(34, 31);
+            this.MB_PuzzleGame.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.MB_PuzzleGame.TabIndex = 15;
+            this.MB_PuzzleGame.TabStop = false;
+            this.MB_PuzzleGame.Tag = "6";
+            this.toolTip_Display.SetToolTip(this.MB_PuzzleGame, "Puzzle Game");
+            // 
             // MB_MenuClose
             // 
             this.MB_MenuClose.BackColor = System.Drawing.Color.Transparent;
@@ -186,8 +207,8 @@
             this.MB_MenuClose.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.MB_MenuClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.MB_MenuClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.MB_MenuClose.Location = new System.Drawing.Point(20, 298);
-            this.MB_MenuClose.Margin = new System.Windows.Forms.Padding(20, 16, 4, 4);
+            this.MB_MenuClose.Location = new System.Drawing.Point(20, 337);
+            this.MB_MenuClose.Margin = new System.Windows.Forms.Padding(20, 8, 4, 4);
             this.MB_MenuClose.MaximumSize = new System.Drawing.Size(18, 15);
             this.MB_MenuClose.MinimumSize = new System.Drawing.Size(18, 15);
             this.MB_MenuClose.Name = "MB_MenuClose";
@@ -200,12 +221,12 @@
             // timer_FadeIn
             // 
             this.timer_FadeIn.Interval = 16;
-            this.timer_FadeIn.Tick += new System.EventHandler(this.timer_FadeIn_Tick);
+            this.timer_FadeIn.Tick += new System.EventHandler(this.Timer_FadeIn_Tick);
             // 
             // timer_FadeOut
             // 
             this.timer_FadeOut.Interval = 16;
-            this.timer_FadeOut.Tick += new System.EventHandler(this.timer_FadeOut_Tick);
+            this.timer_FadeOut.Tick += new System.EventHandler(this.Timer_FadeOut_Tick);
             // 
             // toolTip_Display
             // 
@@ -220,7 +241,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.ForestGreen;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(40, 320);
+            this.ClientSize = new System.Drawing.Size(40, 360);
             this.Controls.Add(this.Menu_FlowLayoutPanel);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -238,10 +259,11 @@
             this.Menu_FlowLayoutPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MB_Browser)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MB_Grid)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MB_Download)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MB_Jobs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MB_Download)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MB_Info)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MB_Settings)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MB_PuzzleGame)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -259,5 +281,6 @@
         private CustomControls.Button_MenuClose MB_MenuClose;
         internal CustomControls.Button_Menu MB_Grid;
         internal CustomControls.Button_Menu MB_Download;
+        private CustomControls.Button_Menu MB_PuzzleGame;
     }
 }
