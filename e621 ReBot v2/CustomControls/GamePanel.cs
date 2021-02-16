@@ -105,6 +105,7 @@ namespace e621_ReBot_v2.CustomControls
         {
             if (Form_Loader._FormReference.rb_GameStart_1.Checked)
             {
+                Form_Loader._FormReference.labelPuzzle_SelectedPost.Visible = false;
                 using (OpenFileDialog ImageDialog = new OpenFileDialog())
                 {
                     ImageDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
@@ -124,6 +125,8 @@ namespace e621_ReBot_v2.CustomControls
                 string FileURL = string.Format("https://static1.e621.net/data/{0}/{1}/{2}.{3}", RandomJSON["file"]["md5"].Value<string>().Substring(0, 2), RandomJSON["file"]["md5"].Value<string>().Substring(2, 2), RandomJSON["file"]["md5"].Value<string>(), RandomJSON["file"]["ext"].Value<string>());
                 if (RandomJSON["file"]["ext"].Value<string>().Equals("jpg") || RandomJSON["file"]["ext"].Value<string>().Equals("png"))
                 {
+                    Form_Loader._FormReference.labelPuzzle_SelectedPost.Text = "Random post #" + RandomJSON["id"].Value<string>();
+                    Form_Loader._FormReference.labelPuzzle_SelectedPost.Tag = RandomJSON["id"].Value<string>();
                     using (WebClient WebClientTemp = new WebClient())
                     {
                         WebClientTemp.DownloadDataCompleted += ImageDownloadComplete;
@@ -164,6 +167,8 @@ namespace e621_ReBot_v2.CustomControls
                 string FileURL = string.Format("https://static1.e621.net/data/{0}/{1}/{2}.{3}", RandomJSON["file"]["md5"].Value<string>().Substring(0, 2), RandomJSON["file"]["md5"].Value<string>().Substring(2, 2), RandomJSON["file"]["md5"].Value<string>(), RandomJSON["file"]["ext"].Value<string>());
                 if (RandomJSON["file"]["ext"].Value<string>().Equals("jpg") || RandomJSON["file"]["ext"].Value<string>().Equals("png"))
                 {
+                    Form_Loader._FormReference.labelPuzzle_SelectedPost.Text = "Selected post #" + PuzzlePostID;
+                    Form_Loader._FormReference.labelPuzzle_SelectedPost.Tag = PuzzlePostID;
                     using (WebClient WebClientTemp = new WebClient())
                     {
                         WebClientTemp.DownloadDataCompleted += ImageDownloadComplete;
@@ -179,6 +184,7 @@ namespace e621_ReBot_v2.CustomControls
 
         private void ImageDownloadComplete(object sender, DownloadDataCompletedEventArgs e)
         {
+            Form_Loader._FormReference.labelPuzzle_SelectedPost.Visible = true;
             using (MemoryStream MemoryStreamTemp = new MemoryStream(e.Result))
             {
                 PreloadImage = (Bitmap)Image.FromStream(MemoryStreamTemp);

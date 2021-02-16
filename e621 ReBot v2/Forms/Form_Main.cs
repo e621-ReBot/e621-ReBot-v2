@@ -240,6 +240,7 @@ namespace e621_ReBot_v2
 
             comboBox_PuzzleRows.SelectedIndex = 2;
             comboBox_PuzzleCollumns.SelectedIndex = 2;
+            labelPuzzle_SelectedPost.Cursor = Form_Loader.Cursor_ReBotNav;
         }
 
         private void Form_Main_Shown(object sender, EventArgs e)
@@ -2571,8 +2572,23 @@ namespace e621_ReBot_v2
             pB_GameThumb.Visible = CC_GameThumb.Checked;
         }
 
+        private void LabelPuzzle_SelectedPost_Click(object sender, EventArgs e)
+        {
+            string e6Post = "https://e621.net/post/show/" + labelPuzzle_SelectedPost.Tag.ToString();
+            if (ModifierKeys.HasFlag(Keys.Alt))
+            {
+                Process.Start(e6Post);
+            }
+            else
+            {
+                Form_Loader._FormReference.BringToFront();
+                Form_Loader._FormReference.cTabControl_e621ReBot.SelectedIndex = 0;
+                if (!Module_CefSharp.CefSharpBrowser.Address.Equals(e6Post)) Module_CefSharp.CefSharpBrowser.Load(e6Post);
+            }
+        }
 
         #endregion
+
 
     }
 }

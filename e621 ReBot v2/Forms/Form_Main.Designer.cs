@@ -149,6 +149,7 @@
             this.rb_GameStart_3 = new System.Windows.Forms.RadioButton();
             this.labelPuzzle_Rows = new System.Windows.Forms.Label();
             this.labelPuzzle_Collumns = new System.Windows.Forms.Label();
+            this.labelPuzzle_SelectedPost = new System.Windows.Forms.Label();
             this.Version_Label = new System.Windows.Forms.Label();
             this.Title_Label = new System.Windows.Forms.Label();
             this.Panel_Holder = new System.Windows.Forms.Panel();
@@ -2191,7 +2192,8 @@
             this.CC_GameIndexHints.Size = new System.Drawing.Size(112, 17);
             this.CC_GameIndexHints.TabIndex = 5;
             this.CC_GameIndexHints.Text = "Show Piece Index";
-            this.toolTip_Display.SetToolTip(this.CC_GameIndexHints, "Show intended board position on puzzle pieces.\r\n(Applied after re/starting.)");
+            this.toolTip_Display.SetToolTip(this.CC_GameIndexHints, "Show intended board position on puzzle pieces.\r\n(Applied after re/starting the ga" +
+        "me.)");
             this.CC_GameIndexHints.UseVisualStyleBackColor = true;
             // 
             // CC_GameThumb
@@ -2241,6 +2243,21 @@
             this.labelPuzzle_Collumns.TabIndex = 11;
             this.labelPuzzle_Collumns.Text = "Collumns:";
             this.toolTip_Display.SetToolTip(this.labelPuzzle_Collumns, "Number of puzzle collumns.");
+            // 
+            // labelPuzzle_SelectedPost
+            // 
+            this.labelPuzzle_SelectedPost.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPuzzle_SelectedPost.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.labelPuzzle_SelectedPost.Location = new System.Drawing.Point(1111, 246);
+            this.labelPuzzle_SelectedPost.Margin = new System.Windows.Forms.Padding(4, 8, 4, 4);
+            this.labelPuzzle_SelectedPost.Name = "labelPuzzle_SelectedPost";
+            this.labelPuzzle_SelectedPost.Size = new System.Drawing.Size(140, 40);
+            this.labelPuzzle_SelectedPost.TabIndex = 9;
+            this.labelPuzzle_SelectedPost.Text = "Random post #123456789";
+            this.labelPuzzle_SelectedPost.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip_Display.SetToolTip(this.labelPuzzle_SelectedPost, "Click to open post in browser.");
+            this.labelPuzzle_SelectedPost.Visible = false;
+            this.labelPuzzle_SelectedPost.Click += new System.EventHandler(this.LabelPuzzle_SelectedPost_Click);
             // 
             // Version_Label
             // 
@@ -3237,6 +3254,7 @@
             // 
             this.tabPage_PuzzleGame.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
             this.tabPage_PuzzleGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tabPage_PuzzleGame.Controls.Add(this.labelPuzzle_SelectedPost);
             this.tabPage_PuzzleGame.Controls.Add(this.cGroupBox_GameCheats);
             this.tabPage_PuzzleGame.Controls.Add(this.pB_GameThumb);
             this.tabPage_PuzzleGame.Controls.Add(this.CC_GameAnimations);
@@ -3701,6 +3719,7 @@
         protected internal System.Windows.Forms.ComboBox comboBox_PuzzleRows;
         protected internal System.Windows.Forms.Label labelPuzzle_Rows;
         protected internal CustomControls.Custom_GroupBoxColored cGroupBox_GameCheats;
+        protected internal System.Windows.Forms.Label labelPuzzle_SelectedPost;
     }
 }
 

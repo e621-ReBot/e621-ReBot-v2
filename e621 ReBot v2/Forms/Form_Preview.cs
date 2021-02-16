@@ -45,7 +45,7 @@ namespace e621_ReBot_v2.Forms
         {
             Preview_RowIndex = Module_TableHolder.Database_Table.Rows.IndexOf(Preview_RowHolder);
             UpdateNavButtons();
-            Label_AlreadyUploaded.Cursor = Form_Loader.Cursor_e6Nav;
+            Label_AlreadyUploaded.Cursor = Form_Loader.Cursor_ReBotNav;
             PB_IQDBQ.Enabled = !Properties.Settings.Default.API_Key.Equals("");
         }
 
@@ -110,7 +110,7 @@ namespace e621_ReBot_v2.Forms
         {
             if (e.KeyValue == 18) //Keys.Alt
             {
-                Label_AlreadyUploaded.Cursor = Form_Loader.Cursor_e6Nav;
+                Label_AlreadyUploaded.Cursor = Form_Loader.Cursor_ReBotNav;
             }
             base.KeyDown += Form_Preview_KeyDown;
         }

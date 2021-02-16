@@ -24,7 +24,7 @@ namespace e621_ReBot_v2
 
             Load += Form_Loader_Load;
             Cursor_Default = Module_Cursor.CreateCursorNoResize(Properties.Resources.e621ReBot_CursorDefault, 0, 0);
-            Cursor_e6Nav = Module_Cursor.CreateCursorNoResize(Properties.Resources.e621ReBot_CursorE6, 0, 0);
+            Cursor_ReBotNav = Module_Cursor.CreateCursorNoResize(Properties.Resources.e621ReBot_CursorE6, 0, 0);
             Cursor_BrowserNav = Module_Cursor.CreateCursorNoResize(Properties.Resources.e621ReBot_CursorBrowser, 0, 0);
         }
 
@@ -92,7 +92,7 @@ namespace e621_ReBot_v2
         }
 
         public static Cursor Cursor_Default;
-        public static Cursor Cursor_e6Nav;
+        public static Cursor Cursor_ReBotNav;
         public static Cursor Cursor_BrowserNav;
 
         public static GridItemStyle _customGIStyle;
@@ -106,7 +106,7 @@ namespace e621_ReBot_v2
             bool CtrlState = ModifierKeys.HasFlag(Keys.Control);
             if (AltState == LastAltState && CtrlState == LastCtrlState)
             {
-                    return;
+                return;
             }
             LastAltState = AltState;
             LastCtrlState = CtrlState;
@@ -125,16 +125,9 @@ namespace e621_ReBot_v2
                     }
                     else
                     {
-                        if (CtrlState)
-                        {
-                            CursorSelector = Cursor_e6Nav;
-                        }
-                        else
-                        {
-                            CursorSelector = Cursor_Default;
-                        }
-                        e6_GridItemTemp.cLabel_isSuperior.Cursor = Cursor_e6Nav;
-                        e6_GridItemTemp.cLabel_isUploaded.Cursor = Cursor_e6Nav;
+                        CursorSelector = CtrlState ? Cursor_ReBotNav : Cursor_Default;
+                        e6_GridItemTemp.cLabel_isSuperior.Cursor = Cursor_ReBotNav;
+                        e6_GridItemTemp.cLabel_isUploaded.Cursor = Cursor_ReBotNav;
                     }
                     e6_GridItemTemp.pictureBox_ImageHolder.Cursor = CursorSelector;
                     e6_GridItemTemp.cLabel_Rating.Cursor = CursorSelector;
@@ -148,40 +141,21 @@ namespace e621_ReBot_v2
                 {
                     ButtonChange.Text = ButtonChange.Tag.ToString() + (ModifierKeys.HasFlag(Keys.Control) ? " All" : null);
                 }
+            }
 
+            if (_FormReference.cTabControl_e621ReBot.SelectedIndex == 6)
+            {
+                _FormReference.labelPuzzle_SelectedPost.Cursor = AltState ? Cursor_BrowserNav : Cursor_ReBotNav;
             }
 
             if (Form_Preview._FormReference != null)
             {
-                if (AltState)
-                {
-                    Form_Preview._FormReference.Label_AlreadyUploaded.Cursor = Cursor_BrowserNav;
-                }
-                else
-                {
-                    Form_Preview._FormReference.Label_AlreadyUploaded.Cursor = Cursor_e6Nav;
-                }
+                    Form_Preview._FormReference.Label_AlreadyUploaded.Cursor = AltState ? Cursor_BrowserNav : Cursor_ReBotNav;
             }
 
             if (Form_SimilarSearch._FormReference != null)
             {
-                Cursor CursorSelector;
-                if (CtrlState)
-                {
-                    CursorSelector = Cursor_Default;
-                }
-                else
-                {
-                    if (AltState)
-                    {
-                        CursorSelector = Cursor_BrowserNav;
-                    }
-                    else
-                    {
-                        CursorSelector = Cursors.No;
-                    }
-                } 
-
+                Cursor CursorSelector = CtrlState ? Cursor_Default : (AltState ? Cursor_BrowserNav : Cursors.No);
                 foreach (GroupBox GB in Form_SimilarSearch._FormReference.FlowLayoutPanel_Holder.Controls)
                 {
                     ((PictureBox)GB.Controls[0]).Cursor = CursorSelector;
