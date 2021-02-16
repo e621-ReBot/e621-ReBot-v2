@@ -506,6 +506,10 @@
             // 
             this.cGroupBox_GameCheats.Location = new System.Drawing.Point(1701, 923);
             // 
+            // labelPuzzle_SelectedPost
+            // 
+            this.labelPuzzle_SelectedPost.Location = new System.Drawing.Point(1715, 242);
+            // 
             // Form_MainBig
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;

@@ -40,8 +40,10 @@ namespace e621_ReBot_v2.CustomControls
             // 
             // GamePanel
             // 
+            Font = new Font("Arial", 10, FontStyle.Bold, GraphicsUnit.Pixel);
             MouseClick += GamePanel_MouseClick;
             ResumeLayout(false);
+
         }
 
         private void Custom_Panel_Paint(object sender, PaintEventArgs e)
@@ -105,6 +107,7 @@ namespace e621_ReBot_v2.CustomControls
         {
             if (Form_Loader._FormReference.rb_GameStart_1.Checked)
             {
+                Form_Loader._FormReference.labelPuzzle_SelectedPost.Visible = false;
                 using (OpenFileDialog ImageDialog = new OpenFileDialog())
                 {
                     ImageDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
@@ -124,6 +127,8 @@ namespace e621_ReBot_v2.CustomControls
                 string FileURL = string.Format("https://static1.e621.net/data/{0}/{1}/{2}.{3}", RandomJSON["file"]["md5"].Value<string>().Substring(0, 2), RandomJSON["file"]["md5"].Value<string>().Substring(2, 2), RandomJSON["file"]["md5"].Value<string>(), RandomJSON["file"]["ext"].Value<string>());
                 if (RandomJSON["file"]["ext"].Value<string>().Equals("jpg") || RandomJSON["file"]["ext"].Value<string>().Equals("png"))
                 {
+                    Form_Loader._FormReference.labelPuzzle_SelectedPost.Text = "Random post #" + RandomJSON["id"].Value<string>();
+                    Form_Loader._FormReference.labelPuzzle_SelectedPost.Tag = RandomJSON["id"].Value<string>();
                     using (WebClient WebClientTemp = new WebClient())
                     {
                         WebClientTemp.DownloadDataCompleted += ImageDownloadComplete;
@@ -164,6 +169,8 @@ namespace e621_ReBot_v2.CustomControls
                 string FileURL = string.Format("https://static1.e621.net/data/{0}/{1}/{2}.{3}", RandomJSON["file"]["md5"].Value<string>().Substring(0, 2), RandomJSON["file"]["md5"].Value<string>().Substring(2, 2), RandomJSON["file"]["md5"].Value<string>(), RandomJSON["file"]["ext"].Value<string>());
                 if (RandomJSON["file"]["ext"].Value<string>().Equals("jpg") || RandomJSON["file"]["ext"].Value<string>().Equals("png"))
                 {
+                    Form_Loader._FormReference.labelPuzzle_SelectedPost.Text = "Selected post #" + PuzzlePostID;
+                    Form_Loader._FormReference.labelPuzzle_SelectedPost.Tag = PuzzlePostID;
                     using (WebClient WebClientTemp = new WebClient())
                     {
                         WebClientTemp.DownloadDataCompleted += ImageDownloadComplete;
@@ -179,6 +186,7 @@ namespace e621_ReBot_v2.CustomControls
 
         private void ImageDownloadComplete(object sender, DownloadDataCompletedEventArgs e)
         {
+            Form_Loader._FormReference.labelPuzzle_SelectedPost.Visible = true;
             using (MemoryStream MemoryStreamTemp = new MemoryStream(e.Result))
             {
                 PreloadImage = (Bitmap)Image.FromStream(MemoryStreamTemp);
@@ -216,7 +224,7 @@ namespace e621_ReBot_v2.CustomControls
 
         private Bitmap ImageCut(int xPoint, int yPoint, int PieceIndex)
         {
-            Bitmap TempBitmap = new Bitmap(_PieceWidth, _PieceHeight, PixelFormat.Format32bppArgb);
+            Bitmap TempBitmap = new Bitmap(_PieceWidth + 1, _PieceHeight + 1, PixelFormat.Format32bppArgb);
             using (Graphics TempGraphics = Graphics.FromImage(TempBitmap))
             {
                 TempGraphics.SmoothingMode = SmoothingMode.AntiAlias;
@@ -226,19 +234,33 @@ namespace e621_ReBot_v2.CustomControls
                 TempGraphics.DrawImage(CompleteImage, new Rectangle(new Point(0, 0), new Size(_PieceWidth, _PieceHeight)), new Rectangle(new Point(xPoint, yPoint), new Size(_PieceWidth, _PieceHeight)), GraphicsUnit.Pixel);
                 using (Pen TempPen = new Pen(Color.Black, 1))
                 {
-                    TempGraphics.DrawRectangle(TempPen, 0, 0, _PieceWidth - 1, _PieceHeight - 1);
+                    TempGraphics.DrawRectangle(TempPen, 0, 0, _PieceWidth + 1, _PieceHeight + 1);
                 }
 
-                TempGraphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+                TempGraphics.TextRenderingHint = TextRenderingHint.AntiAlias;
                 if (Form_Loader._FormReference.CC_GameIndexHints.Checked)
                 {
                     using (GraphicsPath gPath = new GraphicsPath())
                     {
-                        using (StringFormat sf = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center })
+                        using (StringFormat StringFormatTemp = new StringFormat())
                         {
-                            gPath.AddString(PieceIndex.ToString(), Font.FontFamily, (int)Font.Style, _CollumnCount > 12 ? 12 : 20, new Rectangle(new Point(0, _PieceHeight - 24), new Size(48, 24)), sf);
+                            int FontSize = 20;
+                            if (_PieceWidth < 40 && _PieceHeight > _PieceWidth)
+                            {
+                                StringFormatTemp.Alignment = StringAlignment.Near;
+                                StringFormatTemp.LineAlignment = StringAlignment.Near;
+                                TempGraphics.RotateTransform(-90, MatrixOrder.Append);
+                                TempGraphics.TranslateTransform(0, _PieceHeight, MatrixOrder.Append);
+                                gPath.AddString(PieceIndex.ToString(), Font.FontFamily, (int)Font.Style, FontSize, new Rectangle(new Point(0, 0), new Size(48, 32)), StringFormatTemp);
+                            }
+                            else
+                            {
+                                StringFormatTemp.Alignment = StringAlignment.Near;
+                                StringFormatTemp.LineAlignment = StringAlignment.Far;
+                                gPath.AddString(PieceIndex.ToString(), Font.FontFamily, (int)Font.Style, FontSize, new Rectangle(new Point(0, _PieceHeight - 32), new Size(48, 32)), StringFormatTemp);
+                            }
                         }
-                        TempGraphics.DrawPath(new Pen(Color.Black, 2), gPath);
+                        TempGraphics.DrawPath(new Pen(Color.Black, 4), gPath);
                         TempGraphics.FillPath(new SolidBrush(Color.DarkOrange), gPath);
                     }
                 }
@@ -323,7 +345,7 @@ namespace e621_ReBot_v2.CustomControls
                         _BlankPiece = CancelCounter;
                         continue; //skip last piece
                     }
-                    PointPool.Add(new Point(CollumnCount * (_PieceWidth - 1), RowCount * (_PieceHeight - 1)));
+                    PointPool.Add(new Point(CollumnCount * _PieceWidth, RowCount * _PieceHeight));
                     CancelCounter += 1;
                 }
             }
@@ -364,9 +386,8 @@ namespace e621_ReBot_v2.CustomControls
 
         private void GamePanel_MouseClick(object sender, MouseEventArgs e)
         {
-            //-1 px for pieces becase they are offset to not have double border everywhere but the edges
-            int ClickRow = e.Y / (_PieceHeight - 1);
-            int ClickCollumn = e.X / (_PieceWidth - 1);
+            int ClickRow = e.Y / _PieceHeight;
+            int ClickCollumn = e.X / _PieceWidth;
             int ClickIndex = ClickRow * _CollumnCount + ClickCollumn;
 
             if (ClickIndex == _BlankPiece) return;
@@ -406,10 +427,10 @@ namespace e621_ReBot_v2.CustomControls
                 TempGraphics.SmoothingMode = SmoothingMode.AntiAlias;
                 TempGraphics.InterpolationMode = InterpolationMode.High;
                 TempGraphics.CompositingQuality = CompositingQuality.HighQuality;
-                if (Form_Loader._FormReference.CC_GameAnimations.Checked == false) TempGraphics.DrawImage(PuzzlePieces[PieceIndex].PieceImage, new Point(BlankPieceCollumn * (_PieceWidth - 1), BlankPieceRow * (_PieceHeight - 1)));
+                if (Form_Loader._FormReference.CC_GameAnimations.Checked == false) TempGraphics.DrawImage(PuzzlePieces[PieceIndex].PieceImage, new Point(BlankPieceCollumn * _PieceWidth, BlankPieceRow * _PieceHeight));
                 using (Brush TempBrush = new SolidBrush(Color.FromArgb(0, 45, 90)))
                 {
-                    TempGraphics.FillRectangle(TempBrush, new Rectangle(new Point(ClickCollumn * (_PieceWidth - 1), ClickRow * (_PieceHeight - 1)), new Size(_PieceWidth - 1, _PieceHeight - 1)));
+                    TempGraphics.FillRectangle(TempBrush, new Rectangle(new Point(ClickCollumn * _PieceWidth, ClickRow * _PieceHeight), new Size(_PieceWidth, _PieceHeight)));
                 }
             }
 
@@ -419,9 +440,9 @@ namespace e621_ReBot_v2.CustomControls
                 if (CleanBackground != null) CleanBackground.Dispose();
                 CleanBackground = TempBitmap;
                 PizzleImage = PuzzlePieces[PieceIndex].PieceImage;
-                StartPoint = new Point(ClickCollumn * (_PieceWidth - 1), ClickRow * (_PieceHeight - 1));
-                DestinationPoint = new Point(BlankPieceCollumn * (_PieceWidth - 1), BlankPieceRow * (_PieceHeight - 1));
-                CurrentPoint = new Point(ClickCollumn * (_PieceWidth - 1), ClickRow * (_PieceHeight - 1));
+                StartPoint = new Point(ClickCollumn * _PieceWidth , ClickRow * _PieceHeight);
+                DestinationPoint = new Point(BlankPieceCollumn * _PieceWidth , BlankPieceRow * _PieceHeight);
+                CurrentPoint = new Point(ClickCollumn * _PieceWidth, ClickRow * _PieceHeight );
                 AnimationStep = new Point((DestinationPoint.X - StartPoint.X) / AnimationSteps, (DestinationPoint.Y - StartPoint.Y) / AnimationSteps);
                 AnimationTickCounter = 0;
                 MouseClick -= GamePanel_MouseClick;

@@ -51,9 +51,9 @@ namespace e621_ReBot_v2.CustomControls
 
             pictureBox_ImageHolder.Cursor = Form_Loader.Cursor_Default;
             cLabel_Rating.Cursor = Form_Loader.Cursor_Default;
-            cLabel_isSuperior.Cursor = Form_Loader.Cursor_e6Nav;
+            cLabel_isSuperior.Cursor = Form_Loader.Cursor_ReBotNav;
             cLabel_TagWarning.Cursor = Form_Loader.Cursor_Default;
-            cLabel_isUploaded.Cursor = Form_Loader.Cursor_e6Nav;
+            cLabel_isUploaded.Cursor = Form_Loader.Cursor_ReBotNav;
             cPanel_Rating.Cursor = Form_Loader.Cursor_Default;
 
             SuspendLayout();
@@ -289,10 +289,7 @@ namespace e621_ReBot_v2.CustomControls
             {
                 Form_Loader._FormReference.BringToFront();
                 Form_Loader._FormReference.cTabControl_e621ReBot.SelectedIndex = 0;
-                if (!Module_CefSharp.CefSharpBrowser.Address.Equals(e6Post))
-                {
-                    Module_CefSharp.CefSharpBrowser.Load(e6Post);
-                }
+                if (!Module_CefSharp.CefSharpBrowser.Address.Equals(e6Post)) Module_CefSharp.CefSharpBrowser.Load(e6Post);
             }
         }
 
@@ -432,7 +429,6 @@ namespace e621_ReBot_v2.CustomControls
                         }
                     }
                 }
-                TempImage.Save("test.png");
                 return TempImage;
             }
         }
