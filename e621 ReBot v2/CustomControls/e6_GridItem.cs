@@ -429,7 +429,6 @@ namespace e621_ReBot_v2.CustomControls
                         }
                     }
                 }
-                TempImage.Save("test.png");
                 return TempImage;
             }
         }

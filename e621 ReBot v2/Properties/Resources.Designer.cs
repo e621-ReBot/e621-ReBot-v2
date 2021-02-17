@@ -311,6 +311,16 @@ namespace e621_ReBot_v2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] e621_ReBot_Updater {
+            get {
+                object obj = ResourceManager.GetObject("e621_ReBot_Updater", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap E621ReBot_BG {

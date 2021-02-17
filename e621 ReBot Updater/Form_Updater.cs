@@ -145,6 +145,5 @@ namespace e621_ReBot_Updater
             File.WriteAllText("update.check", DateTime.UtcNow.ToString());
             Process.Start("e621 ReBot v2.exe");
         }
-
     }
 }

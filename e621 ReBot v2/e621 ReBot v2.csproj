@@ -327,6 +327,7 @@
     <Compile Include="Modules\Module_FFmpeg.cs" />
     <Compile Include="Modules\Module_Retry.cs" />
     <Compile Include="Modules\Module_TableHolder.cs" />
+    <Compile Include="Modules\Module_UpdaterUpdater.cs" />
     <Compile Include="Modules\Module_Uploader.cs" />
     <Compile Include="Modules\Module_VolumeControl.cs" />
     <Compile Include="Modules\UIDrawController.cs" />
@@ -421,6 +422,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.manifest" />
+    <None Include="bin\x64\e621 ReBot v2\e621 ReBot Updater.zip" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -436,7 +438,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\549ec43d2c9cb82e8f4bb168827c0b21.png" />
     <Content Include="Resources\Browser\BB_Backward_False.png" />
     <Content Include="Resources\Browser\BB_Backward_Small.png" />
     <Content Include="Resources\Browser\BB_Backward_True.png" />
@@ -481,6 +482,7 @@
     <Content Include="Resources\Form\Icon_Upload.png" />
     <Content Include="Resources\Form\Minimize_Btn.png" />
     <Content Include="Resources\Form\UP_Icon.png" />
+    <EmbeddedResource Include="Resources\Files\e621 ReBot Updater.zip" />
     <None Include="Resources\Ko-Fi Button.png" />
     <None Include="Resources\Ko-Fi ButtonSmall.png" />
     <None Include="Resources\GitHubLogo.png" />

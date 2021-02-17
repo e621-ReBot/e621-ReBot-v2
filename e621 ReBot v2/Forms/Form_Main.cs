@@ -281,6 +281,8 @@ namespace e621_ReBot_v2
                 timer_FadeIn.Stop();
                 Menu_Btn_Click(null, null);
 
+                Module_UpdaterUpdater.UpdateTheUpdater();
+
                 if (Properties.Settings.Default.FirstRun)
                 {
                     TrackBar_Volume.Value = 25;

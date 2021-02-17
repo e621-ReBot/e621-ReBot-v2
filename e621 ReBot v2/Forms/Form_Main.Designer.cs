@@ -2255,7 +2255,7 @@
             this.labelPuzzle_SelectedPost.TabIndex = 9;
             this.labelPuzzle_SelectedPost.Text = "Random post #123456789";
             this.labelPuzzle_SelectedPost.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.toolTip_Display.SetToolTip(this.labelPuzzle_SelectedPost, "Click to open post in browser.");
+            this.toolTip_Display.SetToolTip(this.labelPuzzle_SelectedPost, "Click to navigate to post.\r\nAlt+Click to open in your default browser.");
             this.labelPuzzle_SelectedPost.Visible = false;
             this.labelPuzzle_SelectedPost.Click += new System.EventHandler(this.LabelPuzzle_SelectedPost_Click);
             // 
