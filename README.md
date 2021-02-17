@@ -21,6 +21,7 @@ Features:
 - Coverts Pixiv Ugoira and videos to WebM (one click download or upload)
 - Watches for pool updates and automatically downloads new images
 - Auto-Updater
+- Puzzle game!
 
 ---
 ## Requirements:
