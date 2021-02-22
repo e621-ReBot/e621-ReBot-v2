@@ -717,6 +717,7 @@ namespace e621_ReBot_v2.Forms
 
             _FormReference = null;
             Form_Loader._FormReference.AutoTags.SetAutocompleteMenu(textBox_Tags, null);
+            Form_Loader._FormReference.AutoTags.SetAutocompleteItems(Form_Loader._FormReference.AutoTagsList_Tags);
             Dispose();
             GC.Collect();
         }
