@@ -3335,6 +3335,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gamePanel_Main.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
             this.gamePanel_Main.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.gamePanel_Main.Enabled = false;
+            this.gamePanel_Main.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.gamePanel_Main.Location = new System.Drawing.Point(20, 8);
             this.gamePanel_Main.Margin = new System.Windows.Forms.Padding(8, 4, 4, 4);
             this.gamePanel_Main.MaximumSize = new System.Drawing.Size(1000, 680);
