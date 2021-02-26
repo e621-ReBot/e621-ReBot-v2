@@ -56,16 +56,8 @@ namespace e621_ReBot_v2.Modules
                     }
                     Form_Loader._FormReference.label_Credit_Upload.Text = string.Format("{0}/{1}", Credit_Upload_Hourly, Credit_Upload_Total);
                 }
-                if (UserLevelInt == 0)
-                {
-                    Form_Loader._FormReference.label_Credit_Flag.Text = Credit_Flag.ToString();
-                    Form_Loader._FormReference.label_Credit_Note.Text = Credit_Notes.ToString();
-                }
-                else
-                {
-                    Form_Loader._FormReference.label_Credit_Flag.Text = "Inf.";
-                    Form_Loader._FormReference.label_Credit_Note.Text = "Inf.";
-                }
+                Form_Loader._FormReference.label_Credit_Flag.Text = UserLevelInt == 0 ? Credit_Flag.ToString() : "Inf.";
+                Form_Loader._FormReference.label_Credit_Note.Text = UserLevelInt == 0 ? Credit_Notes.ToString() : "Inf.";
             }));
         }
 
@@ -125,7 +117,7 @@ namespace e621_ReBot_v2.Modules
                 {
                     Credit_Upload_Total = int.Parse(WebDoc.DocumentNode.SelectSingleNode(".//abbr[@title='User Upload Limit Remaining']").InnerText);
 
-                    string HTML_UploadHistory = Module_e621Info.e621InfoDownload("https://e621.net/posts.json?limit=30&tags=user:" + Properties.Settings.Default.UserName);
+                    string HTML_UploadHistory = Module_e621Info.e621InfoDownload("https://e621.net/posts.json?limit=30&tags=user:" + Properties.Settings.Default.UserName.Replace(" ", "_")); //replace space in username with underscore, might be e621 bug
                     if (HTML_UploadHistory != null)
                     {
                         JObject PostHistory = JObject.Parse(HTML_UploadHistory);
@@ -145,7 +137,7 @@ namespace e621_ReBot_v2.Modules
                         Timestamps_Upload.Sort();
                     }
                 }
-         
+
             }
         }
 
