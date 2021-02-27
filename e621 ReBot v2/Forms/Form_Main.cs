@@ -399,6 +399,10 @@ namespace e621_ReBot_v2
 
 
 
+        private void BU_KoFi_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://ko-fi.com/e621rebot");
+        }
 
         private void Opene6_btn_Click(object sender, EventArgs e)
         {
@@ -519,6 +523,7 @@ namespace e621_ReBot_v2
                                     Module_Grabber._Grabbed_MediaURLs.Remove((string)_Selected_e6GridItem._DataRowReference["Grab_MediaURL"]);
                                     _Selected_e6GridItem._DataRowReference.Delete();
                                     _Selected_e6GridItem.Dispose();
+                                    _Selected_e6GridItem = null;
                                     flowLayoutPanel_Grid.ResumeLayout();
                                     Paginator();
                                     if (Form_Preview._FormReference != null) Form_Preview._FormReference.Close();
@@ -532,10 +537,6 @@ namespace e621_ReBot_v2
             return false;
         }
 
-        private void BU_KoFi_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://ko-fi.com/e621rebot");
-        }
 
 
 
