@@ -452,19 +452,13 @@ namespace e621_ReBot_v2
                 {
                     case Keys.Left:
                         {
-                            if (GB_Left.Visible)
-                            {
-                                GB_Left_Click(null, null);
-                            }
+                            if (GB_Left.Visible) GB_Left_Click(null, null);
                             break;
                         }
 
                     case Keys.Right:
                         {
-                            if (GB_Right.Visible)
-                            {
-                                GB_Right_Click(null, null);
-                            }
+                            if (GB_Right.Visible) GB_Right_Click(null, null);
                             break;
                         }
                 }
@@ -522,14 +516,12 @@ namespace e621_ReBot_v2
                                 else
                                 {
                                     flowLayoutPanel_Grid.SuspendLayout();
+                                    Module_Grabber._Grabbed_MediaURLs.Remove((string)_Selected_e6GridItem._DataRowReference["Grab_MediaURL"]);
                                     _Selected_e6GridItem._DataRowReference.Delete();
                                     _Selected_e6GridItem.Dispose();
                                     flowLayoutPanel_Grid.ResumeLayout();
                                     Paginator();
-                                    if (Form_Preview._FormReference != null)
-                                    {
-                                        Form_Preview._FormReference.Close();
-                                    }
+                                    if (Form_Preview._FormReference != null) Form_Preview._FormReference.Close();
                                 }
                                 break;
                             }
@@ -1232,14 +1224,8 @@ namespace e621_ReBot_v2
             }
             else
             {
-                if (Form_Tagger._FormReference != null)
-                {
-                    Form_Tagger._FormReference.Close();
-                }
-                if (Form_Preview._FormReference != null)
-                {
-                    Form_Preview._FormReference.Close();
-                }
+                if (Form_Tagger._FormReference != null) Form_Tagger._FormReference.Close();
+                if (Form_Preview._FormReference != null) Form_Preview._FormReference.Close();
 
                 if (ModifierKeys.HasFlag(Keys.Control))
                 {
@@ -1247,10 +1233,7 @@ namespace e621_ReBot_v2
                     {
                         for (int i = Module_TableHolder.Database_Table.Select().Length - 1; i >= 0; i--)
                         {
-                            if (Module_TableHolder.Database_Table.Rows[i]["Uploaded_As"] != DBNull.Value)
-                            {
-                                Module_TableHolder.Database_Table.Rows.RemoveAt(i);
-                            }
+                            if (Module_TableHolder.Database_Table.Rows[i]["Uploaded_As"] != DBNull.Value) Module_TableHolder.Database_Table.Rows.RemoveAt(i);
                         }
                     }
 
@@ -1268,10 +1251,7 @@ namespace e621_ReBot_v2
                         {
                             Module_TableHolder.Database_Table.Clear();
                         }
-                        if (Form_Menu._FormReference != null)
-                        {
-                            Form_Menu._FormReference.MB_Grid.Visible = false;
-                        }
+                        if (Form_Menu._FormReference != null) Form_Menu._FormReference.MB_Grid.Visible = false;
                     }
                     else
                     {
@@ -1280,10 +1260,7 @@ namespace e621_ReBot_v2
                         ClearGrid();
                         GridIndexTracker = 0;
                         GB_Left.Visible = false;
-                        if (Module_TableHolder.Database_Table.Rows.Count - Form_Loader._GridMaxControls > GridIndexTracker)
-                        {
-                            GB_Right.Visible = true;
-                        }
+                        if (Module_TableHolder.Database_Table.Rows.Count - Form_Loader._GridMaxControls > GridIndexTracker) GB_Right.Visible = true;
                         PopulateGrid(GridIndexTracker);
                         Paginator();
                         flowLayoutPanel_Grid.ResumeLayout();
@@ -1300,10 +1277,7 @@ namespace e621_ReBot_v2
                     ClearGrid();
                     GridIndexTracker = 0;
                     Module_TableHolder.Database_Table.Clear();
-                    if (Form_Menu._FormReference != null)
-                    {
-                        Form_Menu._FormReference.MB_Grid.Visible = false;
-                    }
+                    if (Form_Menu._FormReference != null) Form_Menu._FormReference.MB_Grid.Visible = false;
                     GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
                     GC.Collect();
                 }
