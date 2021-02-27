@@ -50,12 +50,11 @@ namespace e621_ReBot_v2.Forms
 
         private void Form_Similar_Shown(object sender, EventArgs e)
         {
-            BackgroundWorker TempBGW = new BackgroundWorker();
-            TempBGW.DoWork += CheckSiteStatus;
-            TempBGW.RunWorkerAsync();
+            Thread ThreadTemp = new Thread(CheckSiteStatus);
+            ThreadTemp.Start();
         }
 
-        private void CheckSiteStatus(object sender, DoWorkEventArgs e)
+        private void CheckSiteStatus()
         {
             HttpWebRequest SiteRequest;
             if (Text.Equals("SauceNao"))

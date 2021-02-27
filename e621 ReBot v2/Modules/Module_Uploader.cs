@@ -290,9 +290,8 @@ namespace e621_ReBot_v2.Modules
             timer_UploadDisable.Stop();
             if (timer_UploadDisable.Tag.ToString().Equals("Total"))
             {
-                BackgroundWorker NewBGW = new BackgroundWorker();
-                NewBGW.DoWork += Module_Credits.Check_Credit_All;
-                NewBGW.RunWorkerAsync();
+                Thread ThreadTemp = new Thread(Module_Credits.Check_Credit_All);
+                ThreadTemp.Start();
             }
             else
             {

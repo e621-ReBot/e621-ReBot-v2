@@ -61,7 +61,7 @@ namespace e621_ReBot_v2.Modules
             }));
         }
 
-        public static void Check_Credit_All(object sender, DoWorkEventArgs e)
+        public static void Check_Credit_All()
         {
             Credit_Reset();
             if (!Properties.Settings.Default.API_Key.Equals(""))
@@ -93,17 +93,14 @@ namespace e621_ReBot_v2.Modules
         {
             Timestamps_Upload.Clear();
 
-            string HTML_UserInfo = Module_e621Info.e621InfoDownload("https://e621.net/users/" + Properties.Settings.Default.UserID);
-            if (HTML_UserInfo != null)
+            string HTML_UserInfo = Module_e621Info.e621InfoDownload(string.Format("https://e621.net/users/{0}.json", Properties.Settings.Default.UserID));
+            if (HTML_UserInfo != null && HTML_UserInfo.Length > 24)
             {
-                HtmlDocument WebDoc = new HtmlDocument();
-                WebDoc.LoadHtml(HTML_UserInfo);
+                JObject UserJObject = JObject.Parse(HTML_UserInfo);
 
-                string UserNameNode = WebDoc.DocumentNode.SelectSingleNode(".//div[@class='profile-stats']//a").InnerText.Trim();
-                Properties.Settings.Default.UserName = UserNameNode;
-                Properties.Settings.Default.AppName = string.Format("e621 ReBot ({0})", UserNameNode);
-
-                Properties.Settings.Default.UserLevel = WebDoc.DocumentNode.SelectSingleNode(".//table[@class='user-statistics']/tbody/tr[2]/td[1]").InnerText.Trim();
+                Properties.Settings.Default.UserName = UserJObject["name"].Value<string>();
+                Properties.Settings.Default.AppName = string.Format("e621 ReBot ({0})", UserJObject["name"].Value<string>());
+                Properties.Settings.Default.UserLevel = UserJObject["level_string"].Value<string>(); ;
                 Properties.Settings.Default.Save();
 
                 Form_Loader._FormReference.BeginInvoke(new Action(() =>
@@ -115,10 +112,10 @@ namespace e621_ReBot_v2.Modules
 
                 if (UserLevels[Properties.Settings.Default.UserLevel] < 2)
                 {
-                    Credit_Upload_Total = int.Parse(WebDoc.DocumentNode.SelectSingleNode(".//abbr[@title='User Upload Limit Remaining']").InnerText);
+                    Credit_Upload_Total = UserJObject["upload_limit"].Value<int>();
 
-                    string HTML_UploadHistory = Module_e621Info.e621InfoDownload("https://e621.net/posts.json?limit=30&tags=user:" + Properties.Settings.Default.UserName.Replace(" ", "_")); //replace space in username with underscore, might be e621 bug
-                    if (HTML_UploadHistory != null)
+                    string HTML_UploadHistory = Module_e621Info.e621InfoDownload("https://e621.net/posts.json?limit=30&tags=user:" + Properties.Settings.Default.UserName);
+                    if (HTML_UploadHistory != null && HTML_UploadHistory.Length > 24)
                     {
                         JObject PostHistory = JObject.Parse(HTML_UploadHistory);
                         foreach (JObject UploadedPost in PostHistory["posts"])

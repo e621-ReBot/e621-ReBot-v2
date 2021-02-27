@@ -9,8 +9,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Windows.Forms;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
+using Timer = System.Windows.Forms.Timer;
 
 namespace e621_ReBot_v2.Modules
 {
@@ -205,12 +207,10 @@ namespace e621_ReBot_v2.Modules
             string TextNode = WebDoc.DocumentNode.SelectSingleNode(".//a[@id='subnav-profile-link']").Attributes["href"].Value;
             TextNode = TextNode.Substring(TextNode.LastIndexOf("/") + 1);
             Properties.Settings.Default.UserID = TextNode;
-
-            TextNode = WebDoc.DocumentNode.SelectSingleNode(".//meta[@name='current-user-name']").Attributes["content"].Value;
-            Properties.Settings.Default.UserName = TextNode;
-            Form_Loader._FormReference.AppName_Label.Text = string.Format("e621 ReBot ({0})", TextNode);
-            Properties.Settings.Default.AppName = string.Format("e621 ReBot ({0})", TextNode);
             Properties.Settings.Default.Save();
+
+            Thread ThreadTemp = new Thread(Module_Credits.Check_Credit_All);
+            ThreadTemp.Start();
 
             CefSharpBrowser.Load(string.Format("https://e621.net/users/{0}/api_key", Properties.Settings.Default.UserID));
         }
