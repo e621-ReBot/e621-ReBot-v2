@@ -1,10 +1,10 @@
 ﻿using e621_ReBot_v2.Modules;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace e621_ReBot_v2.Forms
@@ -120,9 +120,8 @@ namespace e621_ReBot_v2.Forms
                 }
                 if (!Properties.Settings.Default.API_Key.Equals(""))
                 {
-                    BackgroundWorker NewBGW = new BackgroundWorker();
-                    NewBGW.DoWork += Module_Credits.Check_Credit_All;
-                    NewBGW.RunWorkerAsync();
+                    Thread ThreadTemp = new Thread(Module_Credits.Check_Credit_All);
+                    ThreadTemp.Start();
                 }
             }));
             _FormReference = null;

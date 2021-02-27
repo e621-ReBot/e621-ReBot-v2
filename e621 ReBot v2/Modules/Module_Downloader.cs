@@ -59,12 +59,11 @@ namespace e621_ReBot_v2.Modules
         public static void Load_IECache()
         {
             //IEDownload_Cache.Clear();
-            BackgroundWorker NewBGW = new BackgroundWorker();
-            NewBGW.DoWork += Load_IECache_BGW;
-            NewBGW.RunWorkerAsync();
+            Thread ThreadTemp = new Thread(Load_IECache_BGW);
+            ThreadTemp.Start();
         }
 
-        private static void Load_IECache_BGW(object sender, DoWorkEventArgs e)
+        private static void Load_IECache_BGW()
         {
             DirectoryInfo CacheFolder = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.InternetCache) + @"\IE");
             string[] Search4Extensions = { "*.jpg", "*.png", "*.gif" };
@@ -905,12 +904,11 @@ namespace e621_ReBot_v2.Modules
         public static void Load_DownloadFolderCache()
         {
             DownloadFolderCache = new List<string>();
-            BackgroundWorker NewBGW = new BackgroundWorker();
-            NewBGW.DoWork += Load_DownloadFolderCache_BGW;
-            NewBGW.RunWorkerAsync();
+            Thread ThreadTemp = new Thread(Load_DownloadFolderCache_BGW);
+            ThreadTemp.Start();
         }
 
-        private static void Load_DownloadFolderCache_BGW(object sender, DoWorkEventArgs e)
+        private static void Load_DownloadFolderCache_BGW()
         {
             DirectoryInfo CacheFolder = new DirectoryInfo(Properties.Settings.Default.DownloadsFolderLocation + "\\e621");
 

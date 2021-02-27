@@ -99,7 +99,7 @@ namespace e621_ReBot_v2.Forms
             }
         }
 
-        public static void PoolWatcher_Check4New(object sender, DoWorkEventArgs e)
+        public static void PoolWatcher_Check4New()
         {
             if (!Properties.Settings.Default.PoolWatcher.Equals(""))
             {

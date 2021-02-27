@@ -155,9 +155,8 @@ namespace e621_ReBot_v2
 
             if (!Properties.Settings.Default.UserID.Equals(""))
             {
-                BackgroundWorker BGWTemp = new BackgroundWorker();
-                BGWTemp.DoWork += Module_Credits.Check_Credit_All;
-                BGWTemp.RunWorkerAsync();
+                Thread ThreadTemp = new Thread(Module_Credits.Check_Credit_All);
+                ThreadTemp.Start();
             }
 
             if (Properties.Settings.Default.API_Key.Equals(""))
@@ -172,9 +171,8 @@ namespace e621_ReBot_v2
                 bU_RefreshCredit.Enabled = true;
                 if (!Properties.Settings.Default.PoolWatcher.Equals(""))
                 {
-                    BackgroundWorker NewBGW = new BackgroundWorker();
-                    NewBGW.DoWork += Form_PoolWatcher.PoolWatcher_Check4New;
-                    NewBGW.RunWorkerAsync();
+                    Thread ThreadTemp = new Thread(Form_PoolWatcher.PoolWatcher_Check4New);
+                    ThreadTemp.Start();
                 }
             }
 
@@ -262,9 +260,8 @@ namespace e621_ReBot_v2
 
             if (!Properties.Settings.Default.API_Key.Equals("") && !Properties.Settings.Default.PoolWatcher.Equals(""))
             {
-                BackgroundWorker NewBGW = new BackgroundWorker();
-                NewBGW.DoWork += Form_PoolWatcher.PoolWatcher_Check4New;
-                NewBGW.RunWorkerAsync();
+                Thread ThreadTemp = new Thread(Form_PoolWatcher.PoolWatcher_Check4New);
+                ThreadTemp.Start();
             }
 
             RetryQueue_Load();
@@ -2038,9 +2035,8 @@ namespace e621_ReBot_v2
         private void BU_RefreshCredit_Click(object sender, EventArgs e)
         {
             bU_RefreshCredit.Enabled = false;
-            BackgroundWorker BGWRunnerTemp = new BackgroundWorker();
-            BGWRunnerTemp.DoWork += Module_Credits.Check_Credit_All;
-            BGWRunnerTemp.RunWorkerAsync();
+            Thread ThreadTemp = new Thread(Module_Credits.Check_Credit_All);
+            ThreadTemp.Start();
         }
 
         private void UpdateDays_CheckedChanged(object sender, EventArgs e)
@@ -2165,12 +2161,11 @@ namespace e621_ReBot_v2
         {
             bU_DLTags.Enabled = false;
             bU_DLPools.Enabled = false;
-            BackgroundWorker TmpBGW = new BackgroundWorker();
-            TmpBGW.DoWork += DLWork_Tags;
-            TmpBGW.RunWorkerAsync();
+            Thread ThreadTemp = new Thread(DLWork_Tags);
+            ThreadTemp.Start();
         }
 
-        private void DLWork_Tags(object sender, DoWorkEventArgs e)
+        private void DLWork_Tags()
         {
             List<string> TagList = new List<string>();
             string[] TempStringHold;
@@ -2230,12 +2225,11 @@ namespace e621_ReBot_v2
         {
             bU_DLPools.Enabled = false;
             bU_DLTags.Enabled = false;
-            BackgroundWorker TmpBGW = new BackgroundWorker();
-            TmpBGW.DoWork += DLWork_Pools;
-            TmpBGW.RunWorkerAsync();
+            Thread ThreadTemp = new Thread(DLWork_Pools);
+            ThreadTemp.Start();
         }
 
-        private void DLWork_Pools(object sender, DoWorkEventArgs e)
+        private void DLWork_Pools()
         {
             List<string> PoolList = new List<string>();
             string Pool_ID;
