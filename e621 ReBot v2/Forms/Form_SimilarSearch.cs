@@ -83,7 +83,7 @@ namespace e621_ReBot_v2.Forms
             }
             finally
             {
-                BeginInvoke(new Action(() =>
+                if (_FormReference != null) Invoke(new Action(() =>
                 {
                     Label_SearchCheck.Text = LabelText;
                     Label_SearchCheck.ForeColor = LabelColor;
@@ -151,7 +151,8 @@ namespace e621_ReBot_v2.Forms
                         }
                         else
                         {
-                            BeginInvoke(new Action(() =>
+                            if (_FormReference == null) return; //already closed
+                            Invoke(new Action(() =>
                             {
                                 MessageBox.Show("Error at Check SauceNao Images response!", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 Close();
@@ -167,7 +168,8 @@ namespace e621_ReBot_v2.Forms
                 {
                     if (ex.CancellationToken != cts.Token)
                     {
-                        BeginInvoke(new Action(() =>
+                        if (_FormReference == null) return; //already closed
+                        Invoke(new Action(() =>
                         {
                             MessageBox.Show("SauceNao Search timed out.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             Close();
@@ -181,14 +183,8 @@ namespace e621_ReBot_v2.Forms
             WebDoc.LoadHtml(ResponseString);
 
             HtmlNodeCollection ResultCollection = WebDoc.DocumentNode.SelectNodes("//div[@id='middle']/div[@class='result']");
-            if (ResultCollection.Last().InnerText.Contains("Low similarity results have been hidden."))
-            {
-                ResultCollection.RemoveAt(ResultCollection.Count - 1);
-            }
-            if (ResultCollection.Count > 0 && ResultCollection.Last().InnerText.Contains("No results found..."))
-            {
-                ResultCollection.RemoveAt(ResultCollection.Count - 1);
-            }
+            if (ResultCollection.Last().InnerText.Contains("Low similarity results have been hidden.")) ResultCollection.RemoveAt(ResultCollection.Count - 1);
+            if (ResultCollection.Count > 0 && ResultCollection.Last().InnerText.Contains("No results found...")) ResultCollection.RemoveAt(ResultCollection.Count - 1);
 
             Dictionary<string, string> ResultList = new Dictionary<string, string>();
             if (ResultCollection.Count > 0)
@@ -204,14 +200,16 @@ namespace e621_ReBot_v2.Forms
             }
             else
             {
-                BeginInvoke(new Action(() =>
+                if (_FormReference == null) return; //already closed
+                Invoke(new Action(() =>
                 {
                     MessageBox.Show("No probable matches found.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Close();
                 }));
                 return;
             }
-            BeginInvoke(new Action(() => Label_SearchCheck.Text = "Getting image data..."));
+            if (_FormReference == null) return; //already closed
+            Invoke(new Action(() => Label_SearchCheck.Text = "Getting image data..."));
 
             JToken e6info_Data = JObject.Parse(Module_e621Info.e621InfoDownload("https://e621.net/posts.json?tags=id:" + string.Join(",", ResultList.Keys)))["posts"];
 
@@ -246,7 +244,8 @@ namespace e621_ReBot_v2.Forms
                     Tag = PostRating
                 };
                 PicBox.MouseClick += ItemClick;
-                BeginInvoke(new Action(() => PicBox.LoadAsync(PicPreview)));
+                if (_FormReference == null) return; //already closed
+                Invoke(new Action(() => PicBox.LoadAsync(PicPreview)));
                 toolTip_Display.SetToolTip(PicBox, string.Format("Resolution: {0}x{1}\nFile size: {2} KB {3}\nMD5: {4}", PicWidth, PicHeight, FileSize, PicFormat, PicMD5));
                 PicGB.Controls.Add(PicBox);
                 ResultGBs.Add(PicGB);
@@ -256,7 +255,8 @@ namespace e621_ReBot_v2.Forms
             e6info_Data = null;
 
             Move2Center = true;
-            BeginInvoke(new Action(() =>
+            if (_FormReference == null) return; //already closed
+            Invoke(new Action(() =>
             {
                 FlowLayoutPanel_Holder.Controls.Clear();
                 FlowLayoutPanel_Holder.SuspendLayout();
@@ -282,14 +282,16 @@ namespace e621_ReBot_v2.Forms
             string ResponseString = Module_e621Info.e621InfoDownload("https://e621.net/iqdb_queries.json?url=" + (string)Form_Preview._FormReference.Preview_RowHolder["Grab_MediaURL"], true);
             if (ResponseString.StartsWith("{", StringComparison.OrdinalIgnoreCase))
             {
-                BeginInvoke(new Action(() =>
+                if (_FormReference == null) return; //already closed
+                Invoke(new Action(() =>
                 {
                     MessageBox.Show("No probable matches found.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Close();
                 }));
                 return;
             }
-            BeginInvoke(new Action(() => Label_SearchCheck.Text = "Getting image data..."));
+            if (_FormReference == null) return; //already closed
+            Invoke(new Action(() => Label_SearchCheck.Text = "Getting image data..."));
 
             List<GroupBox> ResultGBs = new List<GroupBox>();
             var e6info_Data = JArray.Parse(ResponseString);
@@ -339,7 +341,7 @@ namespace e621_ReBot_v2.Forms
                 else
                 {
                     PicBox.InitialImage = Properties.Resources.E6Image_Loading;
-                    BeginInvoke(new Action(() => PicBox.LoadAsync(PicPreview)));
+                    if (_FormReference == null) Invoke(new Action(() => PicBox.LoadAsync(PicPreview)));
                 }
                 toolTip_Display.SetToolTip(PicBox, string.Format("Resolution: {0}x{1}\nFile size: {2} KB {3}\nMD5: {4}", PicWidth, PicHeight, FileSize, PicFormat, PicMD5));
                 PicGB.Controls.Add(PicBox);
@@ -348,7 +350,8 @@ namespace e621_ReBot_v2.Forms
             e6info_Data = null;
 
             Move2Center = true;
-            BeginInvoke(new Action(() =>
+            if (_FormReference == null) return; //already closed
+            Invoke(new Action(() =>
             {
                 FlowLayoutPanel_Holder.Controls.Clear();
                 FlowLayoutPanel_Holder.SuspendLayout();
