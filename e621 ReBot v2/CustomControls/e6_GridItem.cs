@@ -307,6 +307,7 @@ namespace e621_ReBot_v2.CustomControls
             {
                 giRating = value;
                 cLabel_Rating.Text = giRating;
+                _DataRowReference["Upload_Rating"] = giRating;
                 cLabel_Rating.Visible = giStyle == GridItemStyle.Defult;
                 cPanel_Rating.Visible = giStyle != GridItemStyle.Defult;
 
