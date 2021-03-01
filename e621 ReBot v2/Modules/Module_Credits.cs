@@ -65,17 +65,19 @@ namespace e621_ReBot_v2.Modules
         {
             Credit_Reset();
             Check_Credit_Upload();
-
-            if (UserLevels[Properties.Settings.Default.UserLevel] == 0)
+            if (!Properties.Settings.Default.UserLevel.Equals(""))
             {
-                Check_Credit_Flag();
-                Check_Credit_Notes();
+                if (UserLevels[Properties.Settings.Default.UserLevel] == 0)
+                {
+                    Check_Credit_Flag();
+                    Check_Credit_Notes();
+                }
+                if (UserLevels[Properties.Settings.Default.UserLevel] > 1)
+                {
+                    Form_Loader._FormReference.Invoke(new Action(() => { Form_Loader._FormReference.label_Credit_Upload.Text = "Infinity"; }));
+                }
+                Credit_Refresh_Display();
             }
-            if (UserLevels[Properties.Settings.Default.UserLevel] > 1)
-            {
-                Form_Loader._FormReference.Invoke(new Action(() => { Form_Loader._FormReference.label_Credit_Upload.Text = "Infinity"; }));
-            }
-            Credit_Refresh_Display();
             Form_Loader._FormReference.Invoke(new Action(() =>
             {
                 Form_Loader._FormReference.bU_RefreshCredit.Enabled = true;
