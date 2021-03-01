@@ -231,6 +231,7 @@
             this.panel_GameStart = new System.Windows.Forms.Panel();
             this.comboBox_PuzzleCollumns = new System.Windows.Forms.ComboBox();
             this.comboBox_PuzzleRows = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.button_AppMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.button_AppClose)).BeginInit();
             this.cGroupBoxColored_DLThreads.SuspendLayout();
@@ -2457,6 +2458,7 @@
             this.QuickButtonPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.QuickButtonPanel.BackColor = System.Drawing.Color.Transparent;
             this.QuickButtonPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.QuickButtonPanel.Controls.Add(this.button1);
             this.QuickButtonPanel.Controls.Add(this.BQB_Plurk);
             this.QuickButtonPanel.Controls.Add(this.BQB_Mastodon);
             this.QuickButtonPanel.Controls.Add(this.BQB_SoFurry);
@@ -3264,7 +3266,7 @@
             this.tabPage_PuzzleGame.Controls.Add(this.panel_GameStart);
             this.tabPage_PuzzleGame.Location = new System.Drawing.Point(4, 5);
             this.tabPage_PuzzleGame.Name = "tabPage_PuzzleGame";
-            this.tabPage_PuzzleGame.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_PuzzleGame.Size = new System.Drawing.Size(192, 91);
             this.tabPage_PuzzleGame.TabIndex = 6;
             this.tabPage_PuzzleGame.Text = "tabPage_PuzzleGame";
             // 
@@ -3341,7 +3343,7 @@
             this.gamePanel_Main.Margin = new System.Windows.Forms.Padding(8, 4, 4, 4);
             this.gamePanel_Main.MaximumSize = new System.Drawing.Size(1000, 680);
             this.gamePanel_Main.Name = "gamePanel_Main";
-            this.gamePanel_Main.Size = new System.Drawing.Size(1000, 680);
+            this.gamePanel_Main.Size = new System.Drawing.Size(0, 76);
             this.gamePanel_Main.TabIndex = 0;
             // 
             // panel_GameStart
@@ -3415,6 +3417,16 @@
             this.comboBox_PuzzleRows.Size = new System.Drawing.Size(48, 21);
             this.comboBox_PuzzleRows.TabIndex = 9;
             this.comboBox_PuzzleRows.TabStop = false;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(128, 136);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 46);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form_Main
             // 
@@ -3722,6 +3734,7 @@
         protected internal System.Windows.Forms.Label labelPuzzle_Rows;
         protected internal CustomControls.Custom_GroupBoxColored cGroupBox_GameCheats;
         protected internal System.Windows.Forms.Label labelPuzzle_SelectedPost;
+        private System.Windows.Forms.Button button1;
     }
 }
 

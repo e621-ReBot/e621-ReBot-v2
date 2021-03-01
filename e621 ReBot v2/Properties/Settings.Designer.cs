@@ -37,7 +37,7 @@ namespace e621_ReBot_v2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("e621 ReBot")]
         public string AppName {
             get {
                 return ((string)(this["AppName"]));
