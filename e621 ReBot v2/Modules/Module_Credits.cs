@@ -64,29 +64,23 @@ namespace e621_ReBot_v2.Modules
         public static void Check_Credit_All()
         {
             Credit_Reset();
-            if (!Properties.Settings.Default.API_Key.Equals(""))
-            {
-                Check_Credit_Upload();
+            Check_Credit_Upload();
 
-                if (UserLevels[Properties.Settings.Default.UserLevel] == 0)
-                {
-                    Check_Credit_Flag();
-                    Check_Credit_Notes();
-                }
-                if (UserLevels[Properties.Settings.Default.UserLevel] > 1)
-                {
-                    Form_Loader._FormReference.Invoke(new Action(() => { Form_Loader._FormReference.label_Credit_Upload.Text = "Infinity"; }));
-                }
-                Credit_Refresh_Display();
-                Form_Loader._FormReference.Invoke(new Action(() =>
-                {
-                    Form_Loader._FormReference.bU_RefreshCredit.Enabled = true;
-                    if (Form_Loader._FormReference.cTreeView_RetryQueue.Nodes.Count > 0)
-                    {
-                        Module_Retry.timer_Retry.Start(); //has to be created on main thread.
-                    }
-                }));
+            if (UserLevels[Properties.Settings.Default.UserLevel] == 0)
+            {
+                Check_Credit_Flag();
+                Check_Credit_Notes();
             }
+            if (UserLevels[Properties.Settings.Default.UserLevel] > 1)
+            {
+                Form_Loader._FormReference.Invoke(new Action(() => { Form_Loader._FormReference.label_Credit_Upload.Text = "Infinity"; }));
+            }
+            Credit_Refresh_Display();
+            Form_Loader._FormReference.Invoke(new Action(() =>
+            {
+                Form_Loader._FormReference.bU_RefreshCredit.Enabled = true;
+                if (Form_Loader._FormReference.cTreeView_RetryQueue.Nodes.Count > 0) Module_Retry.timer_Retry.Start(); //has to be created on main thread.
+            }));
         }
 
         private static void Check_Credit_Upload()
