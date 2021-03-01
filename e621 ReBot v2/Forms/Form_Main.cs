@@ -2562,11 +2562,5 @@ namespace e621_ReBot_v2
         }
 
         #endregion
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            new Form_APIKey();
-            Form_APIKey._FormReference.ValidateAPIKey();
-        }
     }
 }
