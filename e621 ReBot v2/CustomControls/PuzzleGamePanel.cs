@@ -16,7 +16,7 @@ using System.Windows.Forms;
 
 namespace e621_ReBot_v2.CustomControls
 {
-    public class GamePanel : Panel
+    public class PuzzleGamePanel : Panel
     {
         private Bitmap PreloadImage;
         public Bitmap CompleteImage;
@@ -27,7 +27,7 @@ namespace e621_ReBot_v2.CustomControls
         public int _PieceWidth;
         public int _PieceHeight;
 
-        public GamePanel()
+        public PuzzleGamePanel()
         {
             SetStyle(ControlStyles.UserPaint | ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
             UpdateStyles();
@@ -122,8 +122,14 @@ namespace e621_ReBot_v2.CustomControls
             }
             if (Form_Loader._FormReference.rb_GameStart_2.Checked)
             {
-                Repeat_Random:
+            Repeat_Random:
                 JToken RandomJSON = JObject.Parse(Module_e621Info.e621InfoDownload("https://e621.net/posts/random.json", false))["post"];
+
+                int ImageWidth = RandomJSON["file"]["width"].Value<int>();
+                int ImageHeight = RandomJSON["file"]["height"].Value<int>();
+                double ImageRatio = (double)Math.Max(ImageWidth, ImageHeight) / Math.Min(ImageWidth, ImageHeight);
+                if (ImageRatio > 3) goto Repeat_Random;
+
                 string FileURL = string.Format("https://static1.e621.net/data/{0}/{1}/{2}.{3}", RandomJSON["file"]["md5"].Value<string>().Substring(0, 2), RandomJSON["file"]["md5"].Value<string>().Substring(2, 2), RandomJSON["file"]["md5"].Value<string>(), RandomJSON["file"]["ext"].Value<string>());
                 if (RandomJSON["file"]["ext"].Value<string>().Equals("jpg") || RandomJSON["file"]["ext"].Value<string>().Equals("png"))
                 {

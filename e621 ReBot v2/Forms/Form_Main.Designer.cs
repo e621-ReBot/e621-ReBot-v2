@@ -227,7 +227,7 @@
             this.pB_GameThumb = new System.Windows.Forms.PictureBox();
             this.GB_RestartGame = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.GB_StartGame = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.gamePanel_Main = new e621_ReBot_v2.CustomControls.GamePanel();
+            this.gamePanel_Main = new e621_ReBot_v2.CustomControls.PuzzleGamePanel();
             this.panel_GameStart = new System.Windows.Forms.Panel();
             this.comboBox_PuzzleCollumns = new System.Windows.Forms.ComboBox();
             this.comboBox_PuzzleRows = new System.Windows.Forms.ComboBox();
@@ -3707,7 +3707,7 @@
         private System.Windows.Forms.TabPage tabPage_PuzzleGame;
         protected internal CustomControls.Custom_CheckBox CC_GameIndexHints;
         protected internal CustomControls.Custom_CheckBox CC_GameAnimations;
-        protected internal CustomControls.GamePanel gamePanel_Main;
+        protected internal CustomControls.PuzzleGamePanel gamePanel_Main;
         protected internal CustomControls.Button_Unfocusable GB_StartGame;
         protected internal System.Windows.Forms.Panel panel_GameStart;
         protected internal CustomControls.Button_Unfocusable GB_RestartGame;

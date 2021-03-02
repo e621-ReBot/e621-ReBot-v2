@@ -176,7 +176,7 @@
     <Compile Include="CustomControls\Custom_LabelWithStroke.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="CustomControls\GamePanel.cs">
+    <Compile Include="CustomControls\PuzzleGamePanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CustomControls\Custom_Panel.cs">
@@ -345,8 +345,8 @@
     <EmbeddedResource Include="CustomControls\Custom_InputBox.resx">
       <DependentUpon>Custom_InputBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomControls\GamePanel.resx">
-      <DependentUpon>GamePanel.cs</DependentUpon>
+    <EmbeddedResource Include="CustomControls\PuzzleGamePanel.resx">
+      <DependentUpon>PuzzleGamePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\Custom_Panel.resx">
       <DependentUpon>Custom_Panel.cs</DependentUpon>
