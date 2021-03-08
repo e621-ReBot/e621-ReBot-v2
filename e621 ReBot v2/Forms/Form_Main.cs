@@ -133,10 +133,7 @@ namespace e621_ReBot_v2
 
         private void Form_Main_Load(object sender, EventArgs e)
         {
-            if (DesignMode)
-            {
-                return;
-            }
+            if (DesignMode) return;
 
             //heavy shit
             Module_CefSharp.InitializeBrowser("about:blank");
@@ -205,8 +202,23 @@ namespace e621_ReBot_v2
                 label_DownloadsFolder.Text = Properties.Settings.Default.DownloadsFolderLocation;
             }
 
-            Read_AutoTags();
-            Read_AutoPools();
+            if (File.Exists("tags.txt"))
+            {
+                Read_AutoTags();
+            }
+            else
+            {
+                DownloadWhat = "tags";
+                cGroupBoxColored_AutocompleteTagEditor.Enabled = false;
+            }
+            if (File.Exists("pools.txt"))
+            {
+                Read_AutoPools();
+            }
+            else
+            {
+                DownloadWhat = (DownloadWhat == null ? "pools" : "tags and pools");
+            }
             AutoTags.AllowsTabKey = true;
             AutoTags.LeftPadding = 0;
             Read_Genders();
@@ -243,10 +255,7 @@ namespace e621_ReBot_v2
 
         private void Form_Main_Shown(object sender, EventArgs e)
         {
-            if (DesignMode)
-            {
-                return;
-            }
+            if (DesignMode) return;
 
             QuickButtonPanel.Visible = !Properties.Settings.Default.FirstRun;
 
@@ -269,6 +278,7 @@ namespace e621_ReBot_v2
             timer_FadeIn.Start();
         }
 
+        private string DownloadWhat = null;
         private void Timer_FadeIn_Tick(object sender, EventArgs e)
         {
             //to remove shitty flicker
@@ -280,13 +290,15 @@ namespace e621_ReBot_v2
 
                 Module_UpdaterUpdater.UpdateTheUpdater();
 
+                if (Properties.Settings.Default.AutocompleteTags && DownloadWhat != null) MessageBox.Show("You should download " + DownloadWhat + " if you intend to use autocomplete feature.\n\nYou can do so by going to the settings tab and clicking the button for it.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 if (Properties.Settings.Default.FirstRun)
                 {
                     TrackBar_Volume.Value = 25;
                     TrackBar_Volume_Scroll(null, null);
                     panel_Browser.Visible = true;
                     Module_CefSharp.CefSharpBrowser.Load("https://e621.net/session/new");
-                    MessageBox.Show("Thanks for trying me out." + Environment.NewLine + Environment.NewLine + "For start, you should log in into e621 and provide me with API key so I could do the tasks you require." + Environment.NewLine + Environment.NewLine + "I opened the login page for you.", "e621 ReBot");
+                    MessageBox.Show("Thanks for trying me out.\n\nFor start, you should log in into e621 and provide me with API key so I could do the tasks you require.\n\nI opened the login page for you.", "e621 ReBot");
                 }
 
                 if (Properties.Settings.Default.Note.Equals(""))
@@ -2218,7 +2230,10 @@ namespace e621_ReBot_v2
             CloneTags.Sort();
             AutoCompleteStringCollection TempACSC = new AutoCompleteStringCollection();
             TempACSC.AddRange(CloneTags.ToArray());
-            BeginInvoke(new Action(() => { textbox_AutoTagsEditor.AutoCompleteCustomSource = TempACSC; }));
+            BeginInvoke(new Action(() => {
+                textbox_AutoTagsEditor.AutoCompleteCustomSource = TempACSC;
+                cGroupBoxColored_AutocompleteTagEditor.Enabled = true;
+            }));
         }
 
         private void BU_DLPools_Click(object sender, EventArgs e)
