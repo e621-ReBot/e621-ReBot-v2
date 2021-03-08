@@ -387,17 +387,28 @@ namespace e621_ReBot_v2.Forms
                         Module_Downloader.IEDownload_Cache.Add(FilenameCut, FileFound.FullName);
                     }
 
-                    RetryReadBytes:
-                    byte[] ImageBytes;
-                    try
+                    byte[] ImageBytes = null;
+                    for (int numTries = 0; numTries < 10; numTries++)
                     {
-                        ImageBytes = File.ReadAllBytes(FileFound.FullName);
+                        FileStream FileStreamTemp = null;
+                        try
+                        {
+                            FileStreamTemp = new FileStream(FileFound.FullName, FileMode.Open, FileAccess.Read);
+                            int FileStreamTempLenght = (int)FileStreamTemp.Length;
+                            ImageBytes = new byte[FileStreamTempLenght];
+                            FileStreamTemp.Read(ImageBytes, 0, FileStreamTempLenght);
+                            break;
+                        }
+                        catch (IOException)
+                        {
+                                Thread.Sleep(500);
+                        }
+                        finally
+                        {
+                            if (FileStreamTemp != null) FileStreamTemp.Dispose();
+                        }
                     }
-                    catch //for bug in preview opening file download
-                    {
-                        Thread.Sleep(500);
-                        goto RetryReadBytes;
-                    }
+                    if (ImageBytes == null | ImageBytes.Length == 0) return;
                     Preview_RowHolder["Info_MediaByteLength"] = ImageBytes.Length;
 
                     // Get MD5

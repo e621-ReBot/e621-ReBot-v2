@@ -1648,7 +1648,7 @@
             this.bU_PoolWatcher.TabStop = false;
             this.bU_PoolWatcher.Text = "Pool Watcher";
             this.toolTip_Display.SetToolTip(this.bU_PoolWatcher, "Automatically downloads new images from the pools you are watching.\r\nChecks for n" +
-        "ew images when you start the app.");
+        "ew images when you start the app.\r\nRight click for options after opening it.");
             this.bU_PoolWatcher.UseVisualStyleBackColor = true;
             this.bU_PoolWatcher.Click += new System.EventHandler(this.BU_PoolWatcher_Click);
             // 
@@ -3052,7 +3052,7 @@
             this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_AppName);
             this.tabPage_Settings.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Settings.Name = "tabPage_Settings";
-            this.tabPage_Settings.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Settings.Size = new System.Drawing.Size(1262, 695);
             this.tabPage_Settings.TabIndex = 5;
             this.tabPage_Settings.Text = "tabPage_Settings";
             this.tabPage_Settings.Enter += new System.EventHandler(this.TabPage_Settings_Enter);

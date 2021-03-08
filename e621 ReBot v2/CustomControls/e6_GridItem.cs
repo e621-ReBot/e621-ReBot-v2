@@ -270,7 +270,7 @@ namespace e621_ReBot_v2.CustomControls
             Form_Loader._FormReference.GB_Download.Enabled = Form_Loader._FormReference.DownloadCounter != 0;
 
             _DataRowReference["UPDL_Queued"] = cCheckBox_State;
-            if (Form_Preview._FormReference != null)
+            if (Form_Preview._FormReference != null && Form_Preview._FormReference.Preview_RowHolder == _DataRowReference)
             {
                 Form_Preview._FormReference.PB_Upload.BackColor = cCheckBox_State ? Color.LimeGreen : Color.FromArgb(0, 45, 90);
             }

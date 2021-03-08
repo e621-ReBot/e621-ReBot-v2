@@ -96,8 +96,8 @@
     <StartupObject>e621_ReBot_v2.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack, Version=1.11.30.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.11.30\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.11.31.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.31\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -486,6 +486,7 @@
     <None Include="Resources\Ko-Fi Button.png" />
     <None Include="Resources\Ko-Fi ButtonSmall.png" />
     <None Include="Resources\GitHubLogo.png" />
+    <None Include="Resources\HtmlAgilityPack.dll" />
     <Content Include="Resources\Menu\MenuButton_Browser.png" />
     <Content Include="Resources\Menu\MenuButton_Browser_Highlight.png" />
     <Content Include="Resources\Menu\MenuButton_Download.png" />
