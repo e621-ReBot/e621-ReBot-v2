@@ -108,10 +108,7 @@ namespace e621_ReBot_v2.Forms
             string PostTest = Module_e621Info.e621InfoDownload(string.Format("https://e621.net/posts/{0}.json", PostID), true);
             if (PostTest == null || PostTest.Length < 10)
             {
-                if (_FormReference != null)
-                {
-                    _FormReference.ID_TextBox.Text = null;
-                }
+                if (_FormReference != null)  _FormReference.ID_TextBox.Text = null;
                 MessageBox.Show(string.Format("Post with ID#{0} does not exist.", PostID), "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -136,17 +133,19 @@ namespace e621_ReBot_v2.Forms
                 }
             }
 
-            if (PostData["relationships"]["parent_id"].HasValues)
+            string InferiorParentID = PostData["relationships"]["parent_id"].Value<string>();
+            if (!InferiorParentID.Equals("null"))
             {
-                string InferiorParentID = PostData["relationships"]["parent_id"].Value<string>();
                 SortTags.Add("parent:" + InferiorParentID);
                 RowRefference["Inferior_ParentID"] = InferiorParentID;
             }
             RowRefference["Upload_Tags"] = string.Join(" ", SortTags);
             RowRefference["Inferior_ID"] = PostID;
-            if (!PostData["description"].Value<string>().Equals(""))
+            string InferiorDescription = PostData["description"].Value<string>();
+            string CurrentDescriptionConstruct = string.Format("[section{0}={1}]\n{2}\n[/section]", Properties.Settings.Default.ExpandedDescription ? ",expanded" : "", (string)RowRefference["Grab_Title"], (string)RowRefference["Grab_TextBody"]);
+            if (!InferiorDescription.Equals("") && InferiorDescription != CurrentDescriptionConstruct)
             {
-                RowRefference["Inferior_Description"] = PostData["description"].Value<string>();
+                RowRefference["Inferior_Description"] = InferiorDescription;
             }
 
             if (PostData["sources"].Children().Count() > 0)

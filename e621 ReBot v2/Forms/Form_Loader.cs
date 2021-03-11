@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -156,7 +157,7 @@ namespace e621_ReBot_v2
             if (Form_SimilarSearch._FormReference != null)
             {
                 Cursor CursorSelector = CtrlState ? Cursor_Default : (AltState ? Cursor_BrowserNav : Cursors.No);
-                foreach (GroupBox GB in Form_SimilarSearch._FormReference.FlowLayoutPanel_Holder.Controls)
+                foreach (GroupBox GB in Form_SimilarSearch._FormReference.FlowLayoutPanel_Holder.Controls.OfType<GroupBox>())
                 {
                     ((PictureBox)GB.Controls[0]).Cursor = CursorSelector;
                 }

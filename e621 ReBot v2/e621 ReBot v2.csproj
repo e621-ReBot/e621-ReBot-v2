@@ -457,7 +457,6 @@
     <Content Include="Resources\Browser\BrowserIcon_Twitter.png" />
     <Content Include="Resources\Browser\Browser_QuickButtons.png" />
     <Content Include="Resources\Browser\ComboBox_Disabled.png" />
-    <EmbeddedResource Include="Resources\Files\HtmlAgilityPack.dll" />
     <EmbeddedResource Include="Resources\Files\Newtonsoft.Json.dll" />
     <EmbeddedResource Include="Resources\Files\System.Data.SQLite.dll" />
     <EmbeddedResource Include="Resources\Files\genders.txt" />
@@ -486,7 +485,7 @@
     <None Include="Resources\Ko-Fi Button.png" />
     <None Include="Resources\Ko-Fi ButtonSmall.png" />
     <None Include="Resources\GitHubLogo.png" />
-    <None Include="Resources\HtmlAgilityPack.dll" />
+    <None Include="Resources\Files\HtmlAgilityPack.dll" />
     <Content Include="Resources\Menu\MenuButton_Browser.png" />
     <Content Include="Resources\Menu\MenuButton_Browser_Highlight.png" />
     <Content Include="Resources\Menu\MenuButton_Download.png" />
