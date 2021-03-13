@@ -134,7 +134,7 @@ namespace e621_ReBot_v2.Forms
             }
 
             string InferiorParentID = PostData["relationships"]["parent_id"].Value<string>();
-            if (!InferiorParentID.Equals("null"))
+            if (InferiorParentID != null)
             {
                 SortTags.Add("parent:" + InferiorParentID);
                 RowRefference["Inferior_ParentID"] = InferiorParentID;
