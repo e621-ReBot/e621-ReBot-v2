@@ -157,6 +157,7 @@ namespace e621_ReBot_v2.Forms
                                 MessageBox.Show("Error at Check SauceNao Images response!", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 Close();
                             }));
+                            return;
                         }
                     }
                 }
