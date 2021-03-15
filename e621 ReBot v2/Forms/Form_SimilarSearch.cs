@@ -134,6 +134,7 @@ namespace e621_ReBot_v2.Forms
             }
         }
 
+        //Has 100 daily search and 5 per 30s search limit.
         private async void CheckSauceNaoImages(object sender, DoWorkEventArgs e)
         {
             string ResponseString = null;

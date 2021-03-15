@@ -164,7 +164,11 @@ namespace e621_ReBot_v2.Modules.Grabber
             string FullName = PostNode.SelectNodes(".//a[@role='link']")[1].InnerText;
             FullName = FullName.Replace("@", " (@") + ")";
 
-            string Post_Text = PostNode.SelectNodes(".//div[@dir='auto']")[2].InnerText;
+            HtmlNodeCollection TestTextNodes = PostNode.SelectNodes(".//div[@dir='auto']");
+            HtmlNode TestTextNode = TestTextNodes[2];
+            if (TestTextNode.SelectSingleNode("./div") != null && FullName.Contains(TestTextNode.SelectSingleNode("./div").InnerText)) TestTextNode = TestTextNodes[3];
+
+            string Post_Text = TestTextNode.InnerText;
             if (Post_Text != null)
             {
                 Post_Text = WebUtility.HtmlDecode(Post_Text).Trim();
