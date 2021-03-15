@@ -164,15 +164,10 @@ namespace e621_ReBot_v2.Modules.Grabber
             string FullName = PostNode.SelectNodes(".//a[@role='link']")[1].InnerText;
             FullName = FullName.Replace("@", " (@") + ")";
 
-            HtmlNodeCollection TestTextNodes = PostNode.SelectNodes(".//div[@dir='auto']");
+            HtmlNodeCollection TestTextNodes = PostNode.SelectNodes(".//div[@dir='auto']/span");
             HtmlNode TestTextNode = TestTextNodes[2];
-            if (TestTextNode.SelectSingleNode("./div") != null && FullName.Contains(TestTextNode.SelectSingleNode("./div").InnerText)) TestTextNode = TestTextNodes[3];
-
             string Post_Text = TestTextNode.InnerText;
-            if (Post_Text != null)
-            {
-                Post_Text = WebUtility.HtmlDecode(Post_Text).Trim();
-            }
+            if (Post_Text != null) Post_Text = WebUtility.HtmlDecode(Post_Text).Trim();
 
             string Post_MediaURL;
             int SkipCounter = 0;
@@ -214,10 +209,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                 {
                     KeyValuePair<string, string> VideoData = Grab_TwitterStatus_API(Post_URL);
                     string VideoURL = VideoData.Key;
-                    if (VideoURL.Contains("?"))
-                    {
-                        VideoURL = VideoURL.Substring(0, VideoURL.IndexOf("?"));
-                    }
+                    if (VideoURL.Contains("?")) VideoURL = VideoURL.Substring(0, VideoURL.IndexOf("?"));
 
                     if (Module_Grabber._Grabbed_MediaURLs.Contains(VideoURL))
                     {
