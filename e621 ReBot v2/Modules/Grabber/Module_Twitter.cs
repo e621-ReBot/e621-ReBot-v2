@@ -165,7 +165,9 @@ namespace e621_ReBot_v2.Modules.Grabber
             FullName = FullName.Replace("@", " (@") + ")";
 
             HtmlNodeCollection TestTextNodes = PostNode.SelectNodes(".//div[@dir='auto']/span");
-            HtmlNode TestTextNode = TestTextNodes[2];
+            HtmlNode TestTextNode = TestTextNodes[1];
+            if (FullName.Contains(TestTextNode.InnerText)) TestTextNode = TestTextNodes[2];
+
             string Post_Text = TestTextNode.InnerText;
             if (Post_Text != null) Post_Text = WebUtility.HtmlDecode(Post_Text).Trim();
 
