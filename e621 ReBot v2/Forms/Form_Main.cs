@@ -2545,12 +2545,14 @@ namespace e621_ReBot_v2
 
         private void GB_StartGame_Click(object sender, EventArgs e)
         {
+            gamePanel_Main.Focus();
             gamePanel_Main.Enabled = true;
             gamePanel_Main.LoadPuzzle();
         }
 
         private void GB_RestartGame_Click(object sender, EventArgs e)
         {
+            gamePanel_Main.Focus();
             gamePanel_Main.ResetPuzzle();
         }
 
