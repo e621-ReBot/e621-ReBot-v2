@@ -52,10 +52,9 @@ namespace e621_ReBot_v2.Modules
             _GrabEnabler.Add("furaffinity.net/full/");
             _GrabEnabler.Add("furaffinity.net/search/");
             // GrabberList_GrabEnabler.Add("twitter.com")
-            _GrabEnabler.Add("newgrounds.com/art/view/");
-            _GrabEnabler.Add("newgrounds.com/art/");
-            _GrabEnabler.Add("newgrounds.com/portal/view/");
-            _GrabEnabler.Add("newgrounds.com/portal/");
+            _GrabEnabler.Add("newgrounds.com/art");
+            _GrabEnabler.Add("newgrounds.com/movies");
+            _GrabEnabler.Add("newgrounds.com/portal/view");
             //_GrabEnabler.Add("plurk.com/");
             _GrabEnabler.Add("plurk.com/p/");
             _GrabEnabler.Add("sofurry.com/view/");

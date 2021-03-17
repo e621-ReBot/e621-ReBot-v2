@@ -18,7 +18,7 @@ namespace e621_ReBot_v2.Modules.Grabber
         {
             Module_CookieJar.GetCookies(WebAdress, ref Module_CookieJar.Cookies_Newgrounds);
             if (WebAdress.Contains("newgrounds.com/art/view/")
-            || WebAdress.Contains("newgrounds.com/portal/view/"))
+            || WebAdress.Contains("newgrounds.com/portal/view/")) //movies
             {
                 Queue_Single(WebAdress);
 
@@ -53,7 +53,8 @@ namespace e621_ReBot_v2.Modules.Grabber
             HtmlDocument WebDoc = new HtmlDocument();
             WebDoc.LoadHtml(HTMLSource);
 
-            foreach (HtmlNode ChildNode in WebDoc.DocumentNode.SelectNodes("*//div[@data-id='item']"))
+            var test = WebDoc.DocumentNode.SelectNodes(".//div[@data-id='item']");
+            foreach (HtmlNode ChildNode in WebDoc.DocumentNode.SelectNodes(".//div[@data-id='item']"))
             {
                 string DirectLink2Post = ChildNode.SelectSingleNode("./a").Attributes["href"].Value;
                 if (Module_Grabber._GrabQueue_URLs.Contains(DirectLink2Post))
@@ -132,7 +133,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                         }
                         else
                         {
-                            if (ImageNode.Attributes["src"].Value.Contains("thumbnails"))
+                            if (ImageNode.Attributes["src"] != null && ImageNode.Attributes["src"].Value.Contains("thumbnails"))
                             {
                                 continue;
                             }
