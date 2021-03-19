@@ -371,10 +371,7 @@ namespace e621_ReBot_v2.Modules
         {
             HttpWebRequest HTMLRequest = (HttpWebRequest)WebRequest.Create(WebAdress);
             HTMLRequest.CookieContainer = CookieRef ?? new CookieContainer();
-            if (NewgroundsSpecialRequest)
-            {
-                HTMLRequest.Headers.Add("X-Requested-With", "XMLHttpRequest");
-            }
+            if (NewgroundsSpecialRequest) HTMLRequest.Headers.Add("X-Requested-With", "XMLHttpRequest");
             HTMLRequest.Timeout = 5000;
             HTMLRequest.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0";
             try
