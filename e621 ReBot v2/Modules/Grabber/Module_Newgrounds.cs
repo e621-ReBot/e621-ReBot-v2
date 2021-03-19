@@ -82,6 +82,7 @@ namespace e621_ReBot_v2.Modules.Grabber
         {
             Grab(e.Argument.ToString());
             ((BackgroundWorker)sender).Dispose();
+            Thread.Sleep(5000); //Slow it down so that it does not get Error 429, 50 requests per minute seems to be the rate limit.
         }
 
         private static void Grab(string WebAdress)
