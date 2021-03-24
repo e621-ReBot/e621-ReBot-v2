@@ -551,7 +551,7 @@ namespace e621_ReBot_v2.Modules
                 {
                     if (ReSaveMedia(DataRowRef))
                     {
-                        //Form_Loader._FormReference.BeginInvoke(new Action(() => { AddPic2FLP((string)DataRowRef["Grab_ThumbnailURL"], FilePath); }));
+                        Form_Loader._FormReference.BeginInvoke(new Action(() => { AddPic2FLP((string)DataRowRef["Grab_ThumbnailURL"], FilePath); }));
                     }
                 }
                 else
