@@ -152,19 +152,21 @@ namespace e621_ReBot_v2.Modules
             string ImageRename = RenameMediaFileName(ImageName, DataRowRef);
             string FilePath = Path.Combine(FolderPath, ImageRename).ToString();
 
-            if (DataRowRef.ItemArray.Length > 8)
+            if (DataRowRef.ItemArray.Length > 9)
             {
                 DataRowRef["DL_FilePath"] = FilePath;
             }
             else
             {
-                ((DataRow)DataRowRef["DataRowRef"])["DL_FilePath"] = FilePath;
+                DataRow DataRow4Grid = DataRowRef["DataRowRef"] != DBNull.Value ? (DataRow)DataRowRef["DataRowRef"] : null;
+                if (DataRow4Grid != null && DataRow4Grid.RowState != DataRowState.Detached)
+                {
+                    ((DataRow)DataRowRef["DataRowRef"])["DL_FilePath"] = FilePath;
+                }
             }
 
-            if (!Download_AlreadyDownloaded.Contains(ImageURL))
-            {
-                Download_AlreadyDownloaded.Add(ImageURL);
-            }
+            if (!Download_AlreadyDownloaded.Contains(ImageURL)) Download_AlreadyDownloaded.Add(ImageURL);
+
             if (!File.Exists(FilePath) && IEDownload_Cache.ContainsKey(ImageName))
             {
                 File.Copy(IEDownload_Cache[ImageName], FilePath, true);
@@ -341,7 +343,6 @@ namespace e621_ReBot_v2.Modules
                 }
             }
             e6_DownloadItemRef.picBox_ImageHolder.BackgroundImage = ResizedImage;
-            ResizedImage.Dispose();
 
             DownloadedImage.Dispose();
             ((WebClient)sender).Dispose();
@@ -550,7 +551,7 @@ namespace e621_ReBot_v2.Modules
                 {
                     if (ReSaveMedia(DataRowRef))
                     {
-                        Form_Loader._FormReference.BeginInvoke(new Action(() => { AddPic2FLP((string)DataRowRef["Grab_ThumbnailURL"], FilePath); }));
+                        //Form_Loader._FormReference.BeginInvoke(new Action(() => { AddPic2FLP((string)DataRowRef["Grab_ThumbnailURL"], FilePath); }));
                     }
                 }
                 else
