@@ -813,7 +813,7 @@ namespace e621_ReBot_v2
             }
         }
 
-        private List<UnmanagedMemoryStream> TrackList = new List<UnmanagedMemoryStream>();
+        private readonly List<UnmanagedMemoryStream> TrackList = new List<UnmanagedMemoryStream>();
         private void CreateTrackList()
         {
             TrackList.Add(Properties.Resources.PeasantPissed3);
@@ -826,11 +826,12 @@ namespace e621_ReBot_v2
             TrackList.Add(Properties.Resources.PeonYesAttack1);
             TrackList.Add(Properties.Resources.PeonYesAttack3);
         }
+
+        private readonly Random RandomGenerator = new Random();
         private void Worker_Sound()
         {
-            int trackNum = new Random().Next(0, 8);
-            int ChanceProc = new Random().Next(0, 100);
-
+            int trackNum = RandomGenerator.Next(0, 8);
+            int ChanceProc = RandomGenerator.Next(0, 100);
             if (ChanceProc < 25)
             {
                 UnmanagedMemoryStream Track = TrackList[trackNum];
