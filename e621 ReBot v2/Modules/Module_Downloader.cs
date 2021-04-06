@@ -657,6 +657,7 @@ namespace e621_ReBot_v2.Modules
             }));
         }
 
+        private static string LastGrabFolder = null;
         public static void Grab_e621()
         {
             HtmlDocument WebDoc = new HtmlDocument();
@@ -672,10 +673,7 @@ namespace e621_ReBot_v2.Modules
                 }
 
                 string PostID = BrowserAdress;
-                if (PostID.Contains("?"))
-                {
-                    PostID = PostID.Substring(0, PostID.IndexOf("?"));
-                }
+                if (PostID.Contains("?")) PostID = PostID.Substring(0, PostID.IndexOf("?"));
                 PostID = PostID.Substring(PostID.LastIndexOf("/") + 1);
                 AddDownloadQueueItem(null, BrowserAdress, PicURL, null, null, null, PostID, null, null);
                 return;
@@ -683,15 +681,10 @@ namespace e621_ReBot_v2.Modules
 
             if (BrowserAdress.StartsWith("https://e621.net/posts", StringComparison.OrdinalIgnoreCase))  // multi
             {
-                string inputtext = Custom_InputBox.Show(Form_Loader._FormReference, "e621 ReBot", "If you want to download media to a separate folder, enter a folder name below.", Form_Loader._FormReference.BQB_Start.PointToScreen(Point.Empty), "");
-                if (!inputtext.Equals("✄") && !inputtext.Equals(""))
-                {
-                    inputtext = string.Join("", inputtext.Split(Path.GetInvalidFileNameChars()));
-                }
-                else
-                {
-                    inputtext = null;
-                }
+                string inputtext = Custom_InputBox.Show(Form_Loader._FormReference, "e621 ReBot", "If you want to download media to a separate folder, enter a folder name below.", Form_Loader._FormReference.BQB_Start.PointToScreen(Point.Empty), LastGrabFolder);
+                inputtext = (!inputtext.Equals("✄") && !inputtext.Equals("")) ? string.Join("", inputtext.Split(Path.GetInvalidFileNameChars())) : null;
+                inputtext = inputtext.Trim();
+                LastGrabFolder = inputtext;
 
                 if (BrowserAdress.StartsWith("https://e621.net/posts?tags=", StringComparison.OrdinalIgnoreCase))
                 {
@@ -818,15 +811,10 @@ namespace e621_ReBot_v2.Modules
 
             if (BrowserAdress.StartsWith("https://e621.net/favorites", StringComparison.OrdinalIgnoreCase))
             {
-                string inputtext = Custom_InputBox.Show(Form_Loader._FormReference, "e621 ReBot", "If you want to download media to a separate folder, enter a folder name below.", Form_Loader._FormReference.BQB_Start.PointToScreen(Point.Empty), "");
-                if (!inputtext.Equals("✄") && !inputtext.Equals(""))
-                {
-                    inputtext = string.Join("", inputtext.Split(Path.GetInvalidFileNameChars()));
-                }
-                else
-                {
-                    inputtext = null;
-                }
+                string inputtext = Custom_InputBox.Show(Form_Loader._FormReference, "e621 ReBot", "If you want to download media to a separate folder, enter a folder name below.", Form_Loader._FormReference.BQB_Start.PointToScreen(Point.Empty), LastGrabFolder);
+                inputtext = (!inputtext.Equals("✄") && !inputtext.Equals("")) ? string.Join("", inputtext.Split(Path.GetInvalidFileNameChars())) : null;
+                inputtext = inputtext.Trim();
+                LastGrabFolder = inputtext;
 
                 if (Properties.Settings.Default.API_Key.Equals("") || WebDoc.DocumentNode.SelectSingleNode("//div[@class='paginator']/menu").ChildNodes.Count <= 3)
                 {
@@ -921,8 +909,8 @@ namespace e621_ReBot_v2.Modules
 
                 if (!DownloadFolderCache.Contains(GetFileMD5)) DownloadFolderCache.Add(GetFileMD5);
             }
-            Form_Loader._FormReference.BeginInvoke(new Action(() => 
-            { 
+            Form_Loader._FormReference.BeginInvoke(new Action(() =>
+            {
                 Form_Loader._FormReference.bU_SkipDLCache.Enabled = true;
                 MessageBox.Show(string.Format("Cached {0} files.", DownloadFolderCache.Count), "e621 ReBot");
             }));
