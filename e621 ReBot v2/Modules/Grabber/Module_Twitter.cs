@@ -48,7 +48,9 @@ namespace e621_ReBot_v2.Modules.Grabber
                 HtmlDocument WebDoc = new HtmlDocument();
                 WebDoc.LoadHtml(HTMLSource);
 
-                HtmlNode TweetNode = WebDoc.DocumentNode.SelectSingleNode(".//a[@rel=' noopener noreferrer' and preceding-sibling::span[.='·']]/ancestor::article"); //[text()='·'] does not work, AND should be and
+                HtmlNode TweetNode = WebDoc.DocumentNode.SelectSingleNode(".//a[@rel='noopener noreferrer' and preceding-sibling::span[.='·']]/ancestor::article"); //[text()='·'] does not work, AND should be and
+                if (TweetNode == null) TweetNode = WebDoc.DocumentNode.SelectSingleNode(".//span[.='·']/ancestor::article");
+                
                 if (TweetNode.InnerHtml.Contains("This Tweet is unavailable."))
                 {
                     Module_Grabber.Report_Info(string.Format("Skipped grabbing - Tweet deleted [@{0}]", WebAdress));
