@@ -682,8 +682,15 @@ namespace e621_ReBot_v2.Modules
             if (BrowserAdress.StartsWith("https://e621.net/posts", StringComparison.OrdinalIgnoreCase))  // multi
             {
                 string inputtext = Custom_InputBox.Show(Form_Loader._FormReference, "e621 ReBot", "If you want to download media to a separate folder, enter a folder name below.", Form_Loader._FormReference.BQB_Start.PointToScreen(Point.Empty), LastGrabFolder);
-                inputtext = (!inputtext.Equals("✄") && !inputtext.Equals("")) ? string.Join("", inputtext.Split(Path.GetInvalidFileNameChars())) : null;
-                inputtext = inputtext.Trim();
+                if (!inputtext.Equals("✄") && !inputtext.Equals(""))
+                {
+                    inputtext = string.Join("", inputtext.Split(Path.GetInvalidFileNameChars()));
+                    inputtext = inputtext.Trim();
+                }
+                else
+                {
+                    inputtext = null;
+                }
                 LastGrabFolder = inputtext;
 
                 if (BrowserAdress.StartsWith("https://e621.net/posts?tags=", StringComparison.OrdinalIgnoreCase))
@@ -812,8 +819,15 @@ namespace e621_ReBot_v2.Modules
             if (BrowserAdress.StartsWith("https://e621.net/favorites", StringComparison.OrdinalIgnoreCase))
             {
                 string inputtext = Custom_InputBox.Show(Form_Loader._FormReference, "e621 ReBot", "If you want to download media to a separate folder, enter a folder name below.", Form_Loader._FormReference.BQB_Start.PointToScreen(Point.Empty), LastGrabFolder);
-                inputtext = (!inputtext.Equals("✄") && !inputtext.Equals("")) ? string.Join("", inputtext.Split(Path.GetInvalidFileNameChars())) : null;
-                inputtext = inputtext.Trim();
+                if (!inputtext.Equals("✄") && !inputtext.Equals(""))
+                {
+                    inputtext = string.Join("", inputtext.Split(Path.GetInvalidFileNameChars()));
+                    inputtext = inputtext.Trim();
+                }
+                else
+                {
+                    inputtext = null;
+                }
                 LastGrabFolder = inputtext;
 
                 if (Properties.Settings.Default.API_Key.Equals("") || WebDoc.DocumentNode.SelectSingleNode("//div[@class='paginator']/menu").ChildNodes.Count <= 3)
