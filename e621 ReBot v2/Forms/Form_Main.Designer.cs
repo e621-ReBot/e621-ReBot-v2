@@ -1822,6 +1822,7 @@
             // bU_AutoTagsAdd
             // 
             this.bU_AutoTagsAdd.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bU_AutoTagsAdd.Enabled = false;
             this.bU_AutoTagsAdd.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.bU_AutoTagsAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bU_AutoTagsAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
