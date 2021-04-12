@@ -342,7 +342,7 @@
             // label_UserLevel
             // 
             this.label_UserLevel.BackColor = System.Drawing.Color.Transparent;
-            this.label_UserLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_UserLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_UserLevel.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.label_UserLevel.Location = new System.Drawing.Point(872, 18);
             this.label_UserLevel.Margin = new System.Windows.Forms.Padding(0, 0, 16, 0);
@@ -623,7 +623,7 @@
             this.BB_Home.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.BB_Home.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BB_Home.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BB_Home.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.BB_Home.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.BB_Home.Location = new System.Drawing.Point(120, 2);
             this.BB_Home.Margin = new System.Windows.Forms.Padding(1);
             this.BB_Home.Name = "BB_Home";
@@ -642,7 +642,7 @@
             this.BB_Forward.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BB_Forward.Enabled = false;
             this.BB_Forward.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BB_Forward.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.BB_Forward.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.BB_Forward.Location = new System.Drawing.Point(86, 2);
             this.BB_Forward.Margin = new System.Windows.Forms.Padding(1);
             this.BB_Forward.Name = "BB_Forward";
@@ -660,7 +660,7 @@
             this.BB_Reload.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BB_Reload.Enabled = false;
             this.BB_Reload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BB_Reload.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BB_Reload.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.BB_Reload.Location = new System.Drawing.Point(61, 2);
             this.BB_Reload.Margin = new System.Windows.Forms.Padding(1);
             this.BB_Reload.Name = "BB_Reload";
@@ -680,7 +680,7 @@
             this.BB_Backward.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BB_Backward.Enabled = false;
             this.BB_Backward.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BB_Backward.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.BB_Backward.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.BB_Backward.Location = new System.Drawing.Point(27, 2);
             this.BB_Backward.Margin = new System.Windows.Forms.Padding(1);
             this.BB_Backward.Name = "BB_Backward";
@@ -698,7 +698,7 @@
             this.BB_Bookmarks.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BB_Bookmarks.Enabled = false;
             this.BB_Bookmarks.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BB_Bookmarks.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BB_Bookmarks.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.BB_Bookmarks.Location = new System.Drawing.Point(2, 2);
             this.BB_Bookmarks.Margin = new System.Windows.Forms.Padding(1);
             this.BB_Bookmarks.Name = "BB_Bookmarks";
@@ -715,7 +715,7 @@
             this.BB_Grab_All.BackColor = System.Drawing.SystemColors.Control;
             this.BB_Grab_All.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BB_Grab_All.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BB_Grab_All.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.BB_Grab_All.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.BB_Grab_All.Location = new System.Drawing.Point(234, 0);
             this.BB_Grab_All.Margin = new System.Windows.Forms.Padding(2, 0, 0, 0);
             this.BB_Grab_All.Name = "BB_Grab_All";
@@ -733,7 +733,7 @@
             this.BB_Grab.BackColor = System.Drawing.SystemColors.Control;
             this.BB_Grab.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BB_Grab.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BB_Grab.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.BB_Grab.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.BB_Grab.Location = new System.Drawing.Point(157, 0);
             this.BB_Grab.Margin = new System.Windows.Forms.Padding(2, 0, 0, 0);
             this.BB_Grab.Name = "BB_Grab";
@@ -751,7 +751,7 @@
             this.BB_Download.BackColor = System.Drawing.SystemColors.Control;
             this.BB_Download.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BB_Download.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BB_Download.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.BB_Download.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.BB_Download.Location = new System.Drawing.Point(80, 0);
             this.BB_Download.Margin = new System.Windows.Forms.Padding(2, 0, 0, 0);
             this.BB_Download.Name = "BB_Download";
@@ -771,7 +771,7 @@
             this.GB_Upload.Enabled = false;
             this.GB_Upload.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.GB_Upload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GB_Upload.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.GB_Upload.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.GB_Upload.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.GB_Upload.Location = new System.Drawing.Point(1027, 672);
             this.GB_Upload.Margin = new System.Windows.Forms.Padding(0, 0, 128, 0);
@@ -792,7 +792,7 @@
             this.GB_Download.Enabled = false;
             this.GB_Download.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.GB_Download.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GB_Download.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.GB_Download.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.GB_Download.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.GB_Download.Location = new System.Drawing.Point(944, 672);
             this.GB_Download.Margin = new System.Windows.Forms.Padding(0, 0, 8, 0);
@@ -812,7 +812,7 @@
             this.GB_Clear.Cursor = System.Windows.Forms.Cursors.Hand;
             this.GB_Clear.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.GB_Clear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GB_Clear.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.GB_Clear.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.GB_Clear.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.GB_Clear.Location = new System.Drawing.Point(593, 672);
             this.GB_Clear.Margin = new System.Windows.Forms.Padding(0);
@@ -831,7 +831,7 @@
             this.GB_Uncheck.Cursor = System.Windows.Forms.Cursors.Hand;
             this.GB_Uncheck.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.GB_Uncheck.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GB_Uncheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.GB_Uncheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.GB_Uncheck.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.GB_Uncheck.Location = new System.Drawing.Point(326, 672);
             this.GB_Uncheck.Margin = new System.Windows.Forms.Padding(8, 0, 0, 0);
@@ -851,7 +851,7 @@
             this.GB_Inverse.Cursor = System.Windows.Forms.Cursors.Hand;
             this.GB_Inverse.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.GB_Inverse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GB_Inverse.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.GB_Inverse.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.GB_Inverse.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.GB_Inverse.Location = new System.Drawing.Point(243, 672);
             this.GB_Inverse.Margin = new System.Windows.Forms.Padding(8, 0, 0, 0);
@@ -871,7 +871,7 @@
             this.GB_Check.Cursor = System.Windows.Forms.Cursors.Hand;
             this.GB_Check.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.GB_Check.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GB_Check.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.GB_Check.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.GB_Check.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.GB_Check.Location = new System.Drawing.Point(160, 672);
             this.GB_Check.Margin = new System.Windows.Forms.Padding(128, 0, 0, 0);
@@ -890,7 +890,7 @@
             this.bU_SkipDLCache.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bU_SkipDLCache.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.bU_SkipDLCache.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bU_SkipDLCache.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bU_SkipDLCache.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_SkipDLCache.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.bU_SkipDLCache.Location = new System.Drawing.Point(484, 225);
             this.bU_SkipDLCache.Margin = new System.Windows.Forms.Padding(4, 4, 4, 16);
@@ -950,7 +950,7 @@
             this.bU_ClearDLHistory.Enabled = false;
             this.bU_ClearDLHistory.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.bU_ClearDLHistory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bU_ClearDLHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bU_ClearDLHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_ClearDLHistory.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.bU_ClearDLHistory.Location = new System.Drawing.Point(154, 297);
             this.bU_ClearDLHistory.Margin = new System.Windows.Forms.Padding(4, 4, 4, 16);
@@ -971,6 +971,7 @@
             this.cGroupBoxColored_DLThreads.Controls.Add(this.RadioButton_DL2);
             this.cGroupBoxColored_DLThreads.Controls.Add(this.RadioButton_DL3);
             this.cGroupBoxColored_DLThreads.Controls.Add(this.RadioButton_DL4);
+            this.cGroupBoxColored_DLThreads.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_DLThreads.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.cGroupBoxColored_DLThreads.Location = new System.Drawing.Point(52, 219);
             this.cGroupBoxColored_DLThreads.Margin = new System.Windows.Forms.Padding(48, 32, 4, 4);
@@ -1034,7 +1035,7 @@
             this.bU_DownloadFolder.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bU_DownloadFolder.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.bU_DownloadFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bU_DownloadFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bU_DownloadFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_DownloadFolder.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.bU_DownloadFolder.Image = global::e621_ReBot_v2.Properties.Resources.FolderIcon;
             this.bU_DownloadFolder.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -1054,6 +1055,7 @@
             this.cGroupBoxColored_Downloaded.BorderColor = System.Drawing.Color.Black;
             this.cGroupBoxColored_Downloaded.BottomBorderFix = 1;
             this.cGroupBoxColored_Downloaded.Controls.Add(this.DownloadFLP_Downloaded);
+            this.cGroupBoxColored_Downloaded.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_Downloaded.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.cGroupBoxColored_Downloaded.Location = new System.Drawing.Point(52, 313);
             this.cGroupBoxColored_Downloaded.Margin = new System.Windows.Forms.Padding(48, 0, 28, 16);
@@ -1080,6 +1082,7 @@
             this.cGroupBoxColored_InProgress.BorderColor = System.Drawing.Color.Black;
             this.cGroupBoxColored_InProgress.BottomBorderFix = 1;
             this.cGroupBoxColored_InProgress.Controls.Add(this.DownloadFLP_InProgress);
+            this.cGroupBoxColored_InProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_InProgress.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.cGroupBoxColored_InProgress.Location = new System.Drawing.Point(52, 32);
             this.cGroupBoxColored_InProgress.Margin = new System.Windows.Forms.Padding(48, 32, 4, 4);
@@ -1108,6 +1111,7 @@
             this.cCheckGroupBox_Download.Controls.Add(this.label_DownloadStatus);
             this.cCheckGroupBox_Download.Controls.Add(this.cTreeView_DownloadQueue);
             this.cCheckGroupBox_Download.DisableChildrenIfUnchecked = false;
+            this.cCheckGroupBox_Download.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cCheckGroupBox_Download.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.cCheckGroupBox_Download.Location = new System.Drawing.Point(740, 32);
             this.cCheckGroupBox_Download.Margin = new System.Windows.Forms.Padding(4, 32, 28, 0);
@@ -1147,7 +1151,7 @@
             this.bU_CancelAPIDL.Enabled = false;
             this.bU_CancelAPIDL.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.bU_CancelAPIDL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bU_CancelAPIDL.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bU_CancelAPIDL.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_CancelAPIDL.Location = new System.Drawing.Point(404, 6);
             this.bU_CancelAPIDL.Name = "bU_CancelAPIDL";
             this.bU_CancelAPIDL.Size = new System.Drawing.Size(64, 27);
@@ -1271,7 +1275,7 @@
             this.bU_AppData.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bU_AppData.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.bU_AppData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bU_AppData.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bU_AppData.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_AppData.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.bU_AppData.Image = global::e621_ReBot_v2.Properties.Resources.FolderIconSmall;
             this.bU_AppData.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -1293,6 +1297,7 @@
             this.cGroupBoxColored_NamingWeb.Controls.Add(this.Naming_web_0);
             this.cGroupBoxColored_NamingWeb.Controls.Add(this.Naming_web_1);
             this.cGroupBoxColored_NamingWeb.Controls.Add(this.Naming_web_2);
+            this.cGroupBoxColored_NamingWeb.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_NamingWeb.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.cGroupBoxColored_NamingWeb.Location = new System.Drawing.Point(942, 232);
             this.cGroupBoxColored_NamingWeb.Margin = new System.Windows.Forms.Padding(4, 32, 64, 4);
@@ -1353,7 +1358,7 @@
             this.bU_GetGenders.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bU_GetGenders.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.bU_GetGenders.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bU_GetGenders.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bU_GetGenders.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_GetGenders.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.bU_GetGenders.Location = new System.Drawing.Point(64, 552);
             this.bU_GetGenders.Margin = new System.Windows.Forms.Padding(4);
@@ -1371,6 +1376,7 @@
             // 
             this.label_DragDropConvert.AllowDrop = true;
             this.label_DragDropConvert.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_DragDropConvert.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.label_DragDropConvert.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.label_DragDropConvert.Location = new System.Drawing.Point(566, 322);
             this.label_DragDropConvert.Name = "label_DragDropConvert";
@@ -1393,6 +1399,7 @@
             this.cGroupBoxColored_ActionDelay.Controls.Add(this.label_UploaderDelay);
             this.cGroupBoxColored_ActionDelay.Controls.Add(this.textBox_DelayGrabber);
             this.cGroupBoxColored_ActionDelay.Controls.Add(this.label_GrabberDelay);
+            this.cGroupBoxColored_ActionDelay.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_ActionDelay.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.cGroupBoxColored_ActionDelay.Location = new System.Drawing.Point(754, 316);
             this.cGroupBoxColored_ActionDelay.Margin = new System.Windows.Forms.Padding(64, 32, 64, 4);
@@ -1529,7 +1536,7 @@
             this.bU_DLPools.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bU_DLPools.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.bU_DLPools.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bU_DLPools.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bU_DLPools.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_DLPools.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.bU_DLPools.Location = new System.Drawing.Point(388, 351);
             this.bU_DLPools.Margin = new System.Windows.Forms.Padding(64, 4, 4, 64);
@@ -1550,7 +1557,7 @@
             this.bU_DLTags.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bU_DLTags.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.bU_DLTags.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bU_DLTags.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bU_DLTags.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_DLTags.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.bU_DLTags.Location = new System.Drawing.Point(388, 321);
             this.bU_DLTags.Margin = new System.Windows.Forms.Padding(64, 4, 4, 64);
@@ -1599,7 +1606,7 @@
             this.bU_RefreshCredit.Enabled = false;
             this.bU_RefreshCredit.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.bU_RefreshCredit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bU_RefreshCredit.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bU_RefreshCredit.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_RefreshCredit.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.bU_RefreshCredit.Location = new System.Drawing.Point(754, 247);
             this.bU_RefreshCredit.Margin = new System.Windows.Forms.Padding(4);
@@ -1619,7 +1626,7 @@
             this.bU_Blacklist.Enabled = false;
             this.bU_Blacklist.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.bU_Blacklist.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bU_Blacklist.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bU_Blacklist.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_Blacklist.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.bU_Blacklist.Location = new System.Drawing.Point(566, 247);
             this.bU_Blacklist.Margin = new System.Windows.Forms.Padding(64, 4, 64, 4);
@@ -1639,7 +1646,7 @@
             this.bU_PoolWatcher.Enabled = false;
             this.bU_PoolWatcher.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.bU_PoolWatcher.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bU_PoolWatcher.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bU_PoolWatcher.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_PoolWatcher.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.bU_PoolWatcher.Location = new System.Drawing.Point(388, 247);
             this.bU_PoolWatcher.Margin = new System.Windows.Forms.Padding(4);
@@ -1658,6 +1665,7 @@
             this.cGroupBoxColored_Volume.BorderColor = System.Drawing.Color.Black;
             this.cGroupBoxColored_Volume.BottomBorderFix = 0;
             this.cGroupBoxColored_Volume.Controls.Add(this.TrackBar_Volume);
+            this.cGroupBoxColored_Volume.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_Volume.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.cGroupBoxColored_Volume.Location = new System.Drawing.Point(942, 316);
             this.cGroupBoxColored_Volume.Margin = new System.Windows.Forms.Padding(4, 32, 64, 4);
@@ -1690,6 +1698,7 @@
             // CheckBox_DontFlag
             // 
             this.CheckBox_DontFlag.AutoSize = true;
+            this.CheckBox_DontFlag.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.CheckBox_DontFlag.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.CheckBox_DontFlag.Location = new System.Drawing.Point(4, 104);
             this.CheckBox_DontFlag.Margin = new System.Windows.Forms.Padding(4, 4, 8, 4);
@@ -1707,6 +1716,7 @@
             // CheckBox_BigMode
             // 
             this.CheckBox_BigMode.AutoSize = true;
+            this.CheckBox_BigMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.CheckBox_BigMode.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.CheckBox_BigMode.Location = new System.Drawing.Point(4, 79);
             this.CheckBox_BigMode.Margin = new System.Windows.Forms.Padding(4);
@@ -1722,6 +1732,7 @@
             // CheckBox_ExpandedDescription
             // 
             this.CheckBox_ExpandedDescription.AutoSize = true;
+            this.CheckBox_ExpandedDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.CheckBox_ExpandedDescription.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.CheckBox_ExpandedDescription.Location = new System.Drawing.Point(4, 29);
             this.CheckBox_ExpandedDescription.Margin = new System.Windows.Forms.Padding(4);
@@ -1737,6 +1748,7 @@
             // CheckBox_AutocompleteTags
             // 
             this.CheckBox_AutocompleteTags.AutoSize = true;
+            this.CheckBox_AutocompleteTags.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.CheckBox_AutocompleteTags.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.CheckBox_AutocompleteTags.Location = new System.Drawing.Point(4, 54);
             this.CheckBox_AutocompleteTags.Margin = new System.Windows.Forms.Padding(4);
@@ -1754,6 +1766,7 @@
             this.CheckBox_RemoveBVAS.AutoSize = true;
             this.CheckBox_RemoveBVAS.Checked = true;
             this.CheckBox_RemoveBVAS.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CheckBox_RemoveBVAS.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.CheckBox_RemoveBVAS.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.CheckBox_RemoveBVAS.Location = new System.Drawing.Point(4, 4);
             this.CheckBox_RemoveBVAS.Margin = new System.Windows.Forms.Padding(4);
@@ -1773,7 +1786,7 @@
             this.bU_ResetSettings.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bU_ResetSettings.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.bU_ResetSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bU_ResetSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bU_ResetSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_ResetSettings.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.bU_ResetSettings.Location = new System.Drawing.Point(1070, 594);
             this.bU_ResetSettings.Margin = new System.Windows.Forms.Padding(4, 4, 64, 64);
@@ -1793,6 +1806,7 @@
             this.cGroupBoxColored_AutocompleteTagEditor.Controls.Add(this.bU_AutoTagsAdd);
             this.cGroupBoxColored_AutocompleteTagEditor.Controls.Add(this.textbox_AutoTagsEditor);
             this.cGroupBoxColored_AutocompleteTagEditor.Controls.Add(this.bU_AutoTagsRemove);
+            this.cGroupBoxColored_AutocompleteTagEditor.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_AutocompleteTagEditor.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.cGroupBoxColored_AutocompleteTagEditor.Location = new System.Drawing.Point(388, 156);
             this.cGroupBoxColored_AutocompleteTagEditor.Margin = new System.Windows.Forms.Padding(64, 48, 64, 4);
@@ -1808,7 +1822,6 @@
             // bU_AutoTagsAdd
             // 
             this.bU_AutoTagsAdd.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bU_AutoTagsAdd.Enabled = false;
             this.bU_AutoTagsAdd.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.bU_AutoTagsAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bU_AutoTagsAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
@@ -1871,6 +1884,7 @@
             this.cGroupBoxColored_NamingE621.Controls.Add(this.Naming_e6_0);
             this.cGroupBoxColored_NamingE621.Controls.Add(this.Naming_e6_1);
             this.cGroupBoxColored_NamingE621.Controls.Add(this.Naming_e6_2);
+            this.cGroupBoxColored_NamingE621.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_NamingE621.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.cGroupBoxColored_NamingE621.Location = new System.Drawing.Point(942, 148);
             this.cGroupBoxColored_NamingE621.Margin = new System.Windows.Forms.Padding(4, 32, 64, 4);
@@ -1931,6 +1945,7 @@
             this.cGroupBoxColored_DownloadsFolderLocation.BottomBorderFix = 1;
             this.cGroupBoxColored_DownloadsFolderLocation.Controls.Add(this.bU_DownloadFolderChange);
             this.cGroupBoxColored_DownloadsFolderLocation.Controls.Add(this.label_DownloadsFolder);
+            this.cGroupBoxColored_DownloadsFolderLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_DownloadsFolderLocation.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.cGroupBoxColored_DownloadsFolderLocation.Location = new System.Drawing.Point(388, 72);
             this.cGroupBoxColored_DownloadsFolderLocation.Margin = new System.Windows.Forms.Padding(64, 72, 64, 4);
@@ -1949,7 +1964,7 @@
             this.bU_DownloadFolderChange.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bU_DownloadFolderChange.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.bU_DownloadFolderChange.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bU_DownloadFolderChange.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bU_DownloadFolderChange.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_DownloadFolderChange.Location = new System.Drawing.Point(426, 6);
             this.bU_DownloadFolderChange.Margin = new System.Windows.Forms.Padding(4);
             this.bU_DownloadFolderChange.Name = "bU_DownloadFolderChange";
@@ -1980,7 +1995,7 @@
             this.bU_NoteRemove.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bU_NoteRemove.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.bU_NoteRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bU_NoteRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bU_NoteRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_NoteRemove.Location = new System.Drawing.Point(131, 15);
             this.bU_NoteRemove.Margin = new System.Windows.Forms.Padding(4);
             this.bU_NoteRemove.Name = "bU_NoteRemove";
@@ -1998,7 +2013,7 @@
             this.bU_NoteAdd.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bU_NoteAdd.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.bU_NoteAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bU_NoteAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bU_NoteAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_NoteAdd.Location = new System.Drawing.Point(5, 15);
             this.bU_NoteAdd.Margin = new System.Windows.Forms.Padding(4);
             this.bU_NoteAdd.Name = "bU_NoteAdd";
@@ -2019,6 +2034,7 @@
             this.cGroupBoxColored_Update.Controls.Add(this.UpdateDays_7);
             this.cGroupBoxColored_Update.Controls.Add(this.UpdateDays_3);
             this.cGroupBoxColored_Update.Controls.Add(this.UpdateDays_1);
+            this.cGroupBoxColored_Update.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_Update.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.cGroupBoxColored_Update.Location = new System.Drawing.Point(942, 64);
             this.cGroupBoxColored_Update.Margin = new System.Windows.Forms.Padding(4, 64, 64, 4);
@@ -2098,6 +2114,7 @@
             this.cGroupBoxColored_AppName.BorderColor = System.Drawing.Color.Black;
             this.cGroupBoxColored_AppName.BottomBorderFix = 0;
             this.cGroupBoxColored_AppName.Controls.Add(this.AppName_Label);
+            this.cGroupBoxColored_AppName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_AppName.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.cGroupBoxColored_AppName.Location = new System.Drawing.Point(64, 64);
             this.cGroupBoxColored_AppName.Margin = new System.Windows.Forms.Padding(64, 64, 4, 4);
@@ -2169,6 +2186,7 @@
             this.CC_GameAnimations.AutoSize = true;
             this.CC_GameAnimations.Checked = true;
             this.CC_GameAnimations.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CC_GameAnimations.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.CC_GameAnimations.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.CC_GameAnimations.Location = new System.Drawing.Point(1111, 218);
             this.CC_GameAnimations.Name = "CC_GameAnimations";
@@ -2181,6 +2199,7 @@
             // labelPuzzle_Collumns
             // 
             this.labelPuzzle_Collumns.AutoSize = true;
+            this.labelPuzzle_Collumns.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.labelPuzzle_Collumns.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.labelPuzzle_Collumns.Location = new System.Drawing.Point(4, 30);
             this.labelPuzzle_Collumns.Name = "labelPuzzle_Collumns";
@@ -2192,6 +2211,7 @@
             // labelPuzzle_Rows
             // 
             this.labelPuzzle_Rows.AutoSize = true;
+            this.labelPuzzle_Rows.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.labelPuzzle_Rows.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.labelPuzzle_Rows.Location = new System.Drawing.Point(19, 6);
             this.labelPuzzle_Rows.Name = "labelPuzzle_Rows";
@@ -2203,6 +2223,7 @@
             // rb_GameStart_3
             // 
             this.rb_GameStart_3.AutoSize = true;
+            this.rb_GameStart_3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.rb_GameStart_3.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.rb_GameStart_3.Location = new System.Drawing.Point(4, 118);
             this.rb_GameStart_3.Margin = new System.Windows.Forms.Padding(4);
@@ -2216,6 +2237,7 @@
             // rb_GameStart_1
             // 
             this.rb_GameStart_1.AutoSize = true;
+            this.rb_GameStart_1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.rb_GameStart_1.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.rb_GameStart_1.Location = new System.Drawing.Point(5, 93);
             this.rb_GameStart_1.Margin = new System.Windows.Forms.Padding(4);
@@ -2230,6 +2252,7 @@
             // 
             this.rb_GameStart_2.AutoSize = true;
             this.rb_GameStart_2.Checked = true;
+            this.rb_GameStart_2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.rb_GameStart_2.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.rb_GameStart_2.Location = new System.Drawing.Point(64, 93);
             this.rb_GameStart_2.Margin = new System.Windows.Forms.Padding(4);
@@ -2323,6 +2346,7 @@
             // 
             // contextMenuStrip_Download
             // 
+            this.contextMenuStrip_Download.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip_Download.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripMenuItem_RemoveDLNode,
             this.ToolStripMenuItem_RemoveDLAll});
@@ -2399,6 +2423,7 @@
             // 
             // contextMenuStrip_Conversion
             // 
+            this.contextMenuStrip_Conversion.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip_Conversion.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripMenuItem_RemoveConversionNode,
             this.ToolStripMenuItem_RemoveConversionAll});
@@ -2521,7 +2546,7 @@
             this.BB_Navigate.BackColor = System.Drawing.SystemColors.Control;
             this.BB_Navigate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BB_Navigate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BB_Navigate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.BB_Navigate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.BB_Navigate.Location = new System.Drawing.Point(869, 2);
             this.BB_Navigate.Margin = new System.Windows.Forms.Padding(2);
             this.BB_Navigate.Name = "BB_Navigate";
@@ -2575,6 +2600,7 @@
             // 
             this.DevTools_Button.BackColor = System.Drawing.Color.DarkOrange;
             this.DevTools_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DevTools_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.DevTools_Button.Location = new System.Drawing.Point(3, 0);
             this.DevTools_Button.Margin = new System.Windows.Forms.Padding(0);
             this.DevTools_Button.Name = "DevTools_Button";
@@ -2610,6 +2636,7 @@
             // 
             // Label_PageShower
             // 
+            this.Label_PageShower.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.Label_PageShower.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.Label_PageShower.Location = new System.Drawing.Point(580, 652);
             this.Label_PageShower.Margin = new System.Windows.Forms.Padding(0, 0, 0, 8);
@@ -2621,6 +2648,7 @@
             // 
             // Label_RightPage
             // 
+            this.Label_RightPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.Label_RightPage.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.Label_RightPage.Location = new System.Drawing.Point(1190, 672);
             this.Label_RightPage.Margin = new System.Windows.Forms.Padding(0, 0, 8, 0);
@@ -2633,6 +2661,7 @@
             // 
             // Label_LeftPage
             // 
+            this.Label_LeftPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.Label_LeftPage.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.Label_LeftPage.Location = new System.Drawing.Point(40, 672);
             this.Label_LeftPage.Margin = new System.Windows.Forms.Padding(8, 0, 0, 0);
@@ -2649,7 +2678,7 @@
             this.GB_Right.Cursor = System.Windows.Forms.Cursors.Hand;
             this.GB_Right.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.GB_Right.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GB_Right.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.GB_Right.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.GB_Right.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.GB_Right.Location = new System.Drawing.Point(1230, 672);
             this.GB_Right.Margin = new System.Windows.Forms.Padding(0);
@@ -2669,7 +2698,7 @@
             this.GB_Left.Cursor = System.Windows.Forms.Cursors.Hand;
             this.GB_Left.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.GB_Left.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GB_Left.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.GB_Left.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.GB_Left.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.GB_Left.Location = new System.Drawing.Point(0, 672);
             this.GB_Left.Margin = new System.Windows.Forms.Padding(0);
@@ -2718,6 +2747,7 @@
             this.cCheckGroupBox_Retry.Controls.Add(this.cTreeView_RetryQueue);
             this.cCheckGroupBox_Retry.Controls.Add(this.label_RetryStatus);
             this.cCheckGroupBox_Retry.DisableChildrenIfUnchecked = false;
+            this.cCheckGroupBox_Retry.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cCheckGroupBox_Retry.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.cCheckGroupBox_Retry.Location = new System.Drawing.Point(644, 504);
             this.cCheckGroupBox_Retry.Margin = new System.Windows.Forms.Padding(8, 8, 32, 16);
@@ -2763,6 +2793,7 @@
             this.cCheckGroupBox_Convert.Controls.Add(this.cTreeView_ConversionQueue);
             this.cCheckGroupBox_Convert.Controls.Add(this.label_ConversionStatus);
             this.cCheckGroupBox_Convert.DisableChildrenIfUnchecked = false;
+            this.cCheckGroupBox_Convert.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cCheckGroupBox_Convert.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.cCheckGroupBox_Convert.Location = new System.Drawing.Point(644, 288);
             this.cCheckGroupBox_Convert.Margin = new System.Windows.Forms.Padding(8, 8, 32, 8);
@@ -2808,6 +2839,7 @@
             this.cCheckGroupBox_Upload.Controls.Add(this.cTreeView_UploadQueue);
             this.cCheckGroupBox_Upload.Controls.Add(this.label_UploadStatus);
             this.cCheckGroupBox_Upload.DisableChildrenIfUnchecked = false;
+            this.cCheckGroupBox_Upload.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cCheckGroupBox_Upload.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.cCheckGroupBox_Upload.Location = new System.Drawing.Point(644, 16);
             this.cCheckGroupBox_Upload.Margin = new System.Windows.Forms.Padding(8, 16, 32, 8);
@@ -2854,6 +2886,7 @@
             this.cCheckGroupBox_Grab.Controls.Add(this.cFlowLayoutPanel_ProgressBarHolder);
             this.cCheckGroupBox_Grab.Controls.Add(this.label_GrabStatus);
             this.cCheckGroupBox_Grab.DisableChildrenIfUnchecked = false;
+            this.cCheckGroupBox_Grab.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cCheckGroupBox_Grab.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.cCheckGroupBox_Grab.Location = new System.Drawing.Point(36, 16);
             this.cCheckGroupBox_Grab.Margin = new System.Windows.Forms.Padding(32, 16, 8, 8);
@@ -2908,6 +2941,7 @@
             this.cCheckGroupBox_Info.BorderColor = System.Drawing.Color.Black;
             this.cCheckGroupBox_Info.BottomBorderFix = 1;
             this.cCheckGroupBox_Info.Controls.Add(this.textBox_Info);
+            this.cCheckGroupBox_Info.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cCheckGroupBox_Info.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.cCheckGroupBox_Info.Location = new System.Drawing.Point(36, 288);
             this.cCheckGroupBox_Info.Margin = new System.Windows.Forms.Padding(32, 8, 8, 16);
@@ -2951,7 +2985,7 @@
             this.tabPage_Download.Controls.Add(this.cCheckGroupBox_Download);
             this.tabPage_Download.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Download.Name = "tabPage_Download";
-            this.tabPage_Download.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Download.Size = new System.Drawing.Size(192, 91);
             this.tabPage_Download.TabIndex = 2;
             this.tabPage_Download.Text = "tabPage_Download";
             // 
@@ -3053,7 +3087,7 @@
             this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_AppName);
             this.tabPage_Settings.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Settings.Name = "tabPage_Settings";
-            this.tabPage_Settings.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Settings.Size = new System.Drawing.Size(1262, 695);
             this.tabPage_Settings.TabIndex = 5;
             this.tabPage_Settings.Text = "tabPage_Settings";
             this.tabPage_Settings.Enter += new System.EventHandler(this.TabPage_Settings_Enter);
@@ -3064,6 +3098,7 @@
             this.cGroupBoxColored_ConversionistOptions.BottomBorderFix = 1;
             this.cGroupBoxColored_ConversionistOptions.Controls.Add(this.CheckBox_ConverterDontConvertVideos);
             this.cGroupBoxColored_ConversionistOptions.Controls.Add(this.CheckBox_ConverterKeepOriginal);
+            this.cGroupBoxColored_ConversionistOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_ConversionistOptions.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.cGroupBoxColored_ConversionistOptions.Location = new System.Drawing.Point(64, 316);
             this.cGroupBoxColored_ConversionistOptions.Margin = new System.Windows.Forms.Padding(4, 32, 64, 4);
@@ -3081,6 +3116,7 @@
             this.cGroupBoxColored_GrabDisplayOrder.BottomBorderFix = 1;
             this.cGroupBoxColored_GrabDisplayOrder.Controls.Add(this.radioButton_GrabDisplayOrder1);
             this.cGroupBoxColored_GrabDisplayOrder.Controls.Add(this.radioButton_GrabDisplayOrder0);
+            this.cGroupBoxColored_GrabDisplayOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_GrabDisplayOrder.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.cGroupBoxColored_GrabDisplayOrder.Location = new System.Drawing.Point(942, 484);
             this.cGroupBoxColored_GrabDisplayOrder.Margin = new System.Windows.Forms.Padding(4, 32, 64, 4);
@@ -3099,6 +3135,7 @@
             this.cGroupBoxColored_ProgressBarStyle.Controls.Add(this.panel_BorderFixer);
             this.cGroupBoxColored_ProgressBarStyle.Controls.Add(this.radioButton_ProgressBarStyle1);
             this.cGroupBoxColored_ProgressBarStyle.Controls.Add(this.radioButton_ProgressBarStyle0);
+            this.cGroupBoxColored_ProgressBarStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_ProgressBarStyle.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.cGroupBoxColored_ProgressBarStyle.Location = new System.Drawing.Point(1078, 400);
             this.cGroupBoxColored_ProgressBarStyle.Margin = new System.Windows.Forms.Padding(64, 32, 64, 4);
@@ -3149,6 +3186,7 @@
             this.cGroupBoxColored_GridItemStyle.BottomBorderFix = 1;
             this.cGroupBoxColored_GridItemStyle.Controls.Add(this.radioButton_GridItemStyle1);
             this.cGroupBoxColored_GridItemStyle.Controls.Add(this.radioButton_GridItemStyle0);
+            this.cGroupBoxColored_GridItemStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_GridItemStyle.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.cGroupBoxColored_GridItemStyle.Location = new System.Drawing.Point(942, 400);
             this.cGroupBoxColored_GridItemStyle.Margin = new System.Windows.Forms.Padding(64, 32, 4, 4);
@@ -3205,6 +3243,7 @@
             this.cGroupBoxColored_AppNotes.BottomBorderFix = 1;
             this.cGroupBoxColored_AppNotes.Controls.Add(this.bU_NoteRemove);
             this.cGroupBoxColored_AppNotes.Controls.Add(this.bU_NoteAdd);
+            this.cGroupBoxColored_AppNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_AppNotes.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.cGroupBoxColored_AppNotes.Location = new System.Drawing.Point(64, 232);
             this.cGroupBoxColored_AppNotes.Margin = new System.Windows.Forms.Padding(64, 32, 4, 4);
@@ -3221,6 +3260,7 @@
             this.cGroupBoxColored_APIKey.BorderColor = System.Drawing.Color.Black;
             this.cGroupBoxColored_APIKey.BottomBorderFix = 0;
             this.cGroupBoxColored_APIKey.Controls.Add(this.bU_APIKey);
+            this.cGroupBoxColored_APIKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_APIKey.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.cGroupBoxColored_APIKey.Location = new System.Drawing.Point(64, 148);
             this.cGroupBoxColored_APIKey.Margin = new System.Windows.Forms.Padding(64, 32, 4, 4);
@@ -3240,7 +3280,7 @@
             this.bU_APIKey.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.bU_APIKey.FlatAppearance.BorderSize = 0;
             this.bU_APIKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bU_APIKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bU_APIKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_APIKey.Location = new System.Drawing.Point(1, 14);
             this.bU_APIKey.Name = "bU_APIKey";
             this.bU_APIKey.Size = new System.Drawing.Size(254, 33);
@@ -3275,6 +3315,7 @@
             this.cGroupBox_GameCheats.BottomBorderFix = 1;
             this.cGroupBox_GameCheats.Controls.Add(this.CC_GameThumb);
             this.cGroupBox_GameCheats.Controls.Add(this.CC_GameIndexHints);
+            this.cGroupBox_GameCheats.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBox_GameCheats.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.cGroupBox_GameCheats.Location = new System.Drawing.Point(1106, 623);
             this.cGroupBox_GameCheats.Margin = new System.Windows.Forms.Padding(4, 4, 16, 4);
@@ -3301,7 +3342,7 @@
             this.GB_RestartGame.Enabled = false;
             this.GB_RestartGame.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.GB_RestartGame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GB_RestartGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GB_RestartGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.GB_RestartGame.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.GB_RestartGame.Location = new System.Drawing.Point(1111, 171);
             this.GB_RestartGame.Margin = new System.Windows.Forms.Padding(4, 16, 16, 4);
@@ -3317,7 +3358,7 @@
             // 
             this.GB_StartGame.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.GB_StartGame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GB_StartGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GB_StartGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.GB_StartGame.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.GB_StartGame.Location = new System.Drawing.Point(1111, 66);
             this.GB_StartGame.Margin = new System.Windows.Forms.Padding(4, 4, 16, 4);
@@ -3613,7 +3654,6 @@
         protected internal CustomControls.Button_Unfocusable BB_Forward;
         protected internal CustomControls.Button_Unfocusable BB_Reload;
         protected internal CustomControls.Button_Unfocusable BB_Backward;
-        protected internal CustomControls.Button_Unfocusable BB_Bookmarks;
         protected internal System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_BrowserButtons;
         internal CustomControls.Button_Unfocusable BB_Grab_All;
         internal CustomControls.Button_Unfocusable BB_Grab;
@@ -3723,6 +3763,7 @@
         protected internal System.Windows.Forms.Label labelPuzzle_Rows;
         protected internal CustomControls.Custom_GroupBoxColored cGroupBox_GameCheats;
         protected internal System.Windows.Forms.Label labelPuzzle_SelectedPost;
+        protected internal CustomControls.Button_Unfocusable BB_Bookmarks;
     }
 }
 

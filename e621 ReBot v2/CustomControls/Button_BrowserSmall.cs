@@ -25,6 +25,7 @@ namespace e621_ReBot_v2.CustomControls
 
         public Button_BrowserSmall()
         {
+            InitializeComponent();
             // Me.SetStyle(ControlStyles.Selectable, False) 'disables PerformClick
             MinimumSize = new Size(32, 32);
             MaximumSize = new Size(32, 32);
@@ -36,6 +37,17 @@ namespace e621_ReBot_v2.CustomControls
             FlatAppearance.MouseOverBackColor = Color.Transparent;
             Cursor = Cursors.Hand;
             BackgroundImageLayout = ImageLayout.Zoom;
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // Button_BrowserSmall
+            // 
+            this.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Pixel, ((byte)(0)));
+            this.ResumeLayout(false);
+
         }
 
         protected override void OnPaint(PaintEventArgs e)

@@ -2204,7 +2204,7 @@ namespace e621_ReBot_v2
                     PageList.RemoveAt(0);
                     TagList.AddRange(PageList);
                 }
-                BeginInvoke(new Action(() => { bU_DLTags.Text = string.Format("Downloaded {0}k Tags", p); }));
+                BeginInvoke(new Action(() => { bU_DLTags.Text = string.Format("DLed {0}k Tags", p); }));
                 Thread.Sleep(1000);
             }
             TagList = TagList.Distinct().ToList();
@@ -2273,7 +2273,7 @@ namespace e621_ReBot_v2
                     }
                     PoolList.AddRange(PageList);
                 }
-                BeginInvoke(new Action(() => { bU_DLPools.Text = string.Format("Downloaded {0}k Pools", p); }));
+                BeginInvoke(new Action(() => { bU_DLPools.Text = string.Format("DLed {0}k Pools", p); }));
                 Thread.Sleep(1000);
             }
             File.WriteAllText("pools.txt", string.Join("✄", PoolList));

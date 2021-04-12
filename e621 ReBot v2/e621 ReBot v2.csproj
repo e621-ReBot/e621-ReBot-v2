@@ -95,6 +95,9 @@
   <PropertyGroup>
     <StartupObject>e621_ReBot_v2.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="HtmlAgilityPack, Version=1.11.32.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.11.32\lib\Net45\HtmlAgilityPack.dll</HintPath>
@@ -332,14 +335,26 @@
     <Compile Include="Modules\UIDrawController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CustomControls\AutocompleMenu\AutocompleteListView.resx">
+      <DependentUpon>AutocompleteListView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\Button_App_Close.resx">
       <DependentUpon>Button_App_Close.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\Button_App_Minimize.resx">
       <DependentUpon>Button_App_Minimize.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\Button_BrowserSmall.resx">
+      <DependentUpon>Button_BrowserSmall.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\Button_Menu.resx">
       <DependentUpon>Button_Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\Button_Unfocusable.resx">
+      <DependentUpon>Button_Unfocusable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\Custom_GroupBoxColored.resx">
+      <DependentUpon>Custom_GroupBoxColored.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\Custom_InputBox.resx">
       <DependentUpon>Custom_InputBox.cs</DependentUpon>
@@ -420,9 +435,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="app.manifest" />
     <None Include="bin\x64\e621 ReBot v2\e621 ReBot Updater.zip" />
     <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

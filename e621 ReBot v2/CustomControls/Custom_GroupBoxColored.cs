@@ -12,6 +12,17 @@ namespace e621_ReBot_v2.CustomControls
             SetStyle(ControlStyles.UserPaint | ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
             UpdateStyles();
             BorderColor = Color.Black;
+            InitializeComponent();
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // Custom_GroupBoxColored
+            // 
+            this.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Pixel, ((byte)(0)));
+            this.ResumeLayout(false);
         }
 
         private Color _borderColor = Color.Black;
@@ -82,6 +93,7 @@ namespace e621_ReBot_v2.CustomControls
             e.Graphics.FillRectangle(new SolidBrush(BackColor), textRect);
             e.Graphics.DrawString(Text, Font, new SolidBrush(ForeColor), textRect);
         }
+
 
     }
 }

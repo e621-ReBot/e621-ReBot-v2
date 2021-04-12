@@ -33,6 +33,13 @@
             this.Info_Label = new System.Windows.Forms.Label();
             this.toolTip_Display = new System.Windows.Forms.ToolTip(this.components);
             this.textBox_Tags = new System.Windows.Forms.RichTextBox();
+            this.cGroupBoxColored_AutocompleteSelector = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
+            this.TB_ACPools = new System.Windows.Forms.RadioButton();
+            this.TB_ACTags = new System.Windows.Forms.RadioButton();
+            this.TB_CommandLine = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.TB_ParentOffset = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.TB_ArtistAlias = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.TB_Description = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.timer_TagCount = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip_EditItem = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.CMS_EditTag = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,19 +51,12 @@
             this.CMS_AddCategory = new System.Windows.Forms.ToolStripMenuItem();
             this.panel_TagBoxOutline = new System.Windows.Forms.Panel();
             this.flowLayoutPanel_Holder = new System.Windows.Forms.FlowLayoutPanel();
-            this.cGroupBoxColored_AutocompleteSelector = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
-            this.TB_ACPools = new System.Windows.Forms.RadioButton();
-            this.TB_ACTags = new System.Windows.Forms.RadioButton();
-            this.TB_CommandLine = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.TB_ParentOffset = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.TB_ArtistAlias = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.TB_Description = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.TB_Done = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.cGroupBoxColored_AutocompleteSelector.SuspendLayout();
             this.contextMenuStrip_EditItem.SuspendLayout();
             this.contextMenuStrip_EditCat.SuspendLayout();
             this.contextMenuStrip_AddCat.SuspendLayout();
             this.panel_TagBoxOutline.SuspendLayout();
-            this.cGroupBoxColored_AutocompleteSelector.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox_Title
@@ -75,6 +75,7 @@
             // 
             this.Info_Label.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.Info_Label.Enabled = false;
+            this.Info_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.Info_Label.Location = new System.Drawing.Point(208, 58);
             this.Info_Label.Margin = new System.Windows.Forms.Padding(2);
             this.Info_Label.Name = "Info_Label";
@@ -95,7 +96,7 @@
             this.textBox_Tags.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox_Tags.DetectUrls = false;
             this.textBox_Tags.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_Tags.Font = new System.Drawing.Font("Arial Unicode MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_Tags.Font = new System.Drawing.Font("Arial Unicode MS", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.textBox_Tags.Location = new System.Drawing.Point(0, 0);
             this.textBox_Tags.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_Tags.Name = "textBox_Tags";
@@ -107,6 +108,123 @@
             this.textBox_Tags.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_Tags_KeyDown);
             this.textBox_Tags.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_Tags_KeyUp);
             this.textBox_Tags.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.TextBox_Tags_PreviewKeyDown);
+            // 
+            // cGroupBoxColored_AutocompleteSelector
+            // 
+            this.cGroupBoxColored_AutocompleteSelector.BorderColor = System.Drawing.Color.Black;
+            this.cGroupBoxColored_AutocompleteSelector.BottomBorderFix = 1;
+            this.cGroupBoxColored_AutocompleteSelector.Controls.Add(this.TB_ACPools);
+            this.cGroupBoxColored_AutocompleteSelector.Controls.Add(this.TB_ACTags);
+            this.cGroupBoxColored_AutocompleteSelector.Enabled = false;
+            this.cGroupBoxColored_AutocompleteSelector.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cGroupBoxColored_AutocompleteSelector.Location = new System.Drawing.Point(208, 23);
+            this.cGroupBoxColored_AutocompleteSelector.Margin = new System.Windows.Forms.Padding(8, 0, 0, 0);
+            this.cGroupBoxColored_AutocompleteSelector.Name = "cGroupBoxColored_AutocompleteSelector";
+            this.cGroupBoxColored_AutocompleteSelector.Size = new System.Drawing.Size(135, 35);
+            this.cGroupBoxColored_AutocompleteSelector.TabIndex = 14;
+            this.cGroupBoxColored_AutocompleteSelector.TabStop = false;
+            this.cGroupBoxColored_AutocompleteSelector.Text = "Autocomplete:";
+            this.cGroupBoxColored_AutocompleteSelector.TextOffset = 0;
+            this.toolTip_Display.SetToolTip(this.cGroupBoxColored_AutocompleteSelector, "Autocomplete the selected type.");
+            // 
+            // TB_ACPools
+            // 
+            this.TB_ACPools.AutoSize = true;
+            this.TB_ACPools.Location = new System.Drawing.Point(72, 15);
+            this.TB_ACPools.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
+            this.TB_ACPools.Name = "TB_ACPools";
+            this.TB_ACPools.Size = new System.Drawing.Size(51, 17);
+            this.TB_ACPools.TabIndex = 1;
+            this.TB_ACPools.Text = "Pools";
+            this.TB_ACPools.UseVisualStyleBackColor = true;
+            this.TB_ACPools.CheckedChanged += new System.EventHandler(this.TB_ACPools_CheckedChanged);
+            // 
+            // TB_ACTags
+            // 
+            this.TB_ACTags.AutoSize = true;
+            this.TB_ACTags.Checked = true;
+            this.TB_ACTags.Location = new System.Drawing.Point(19, 15);
+            this.TB_ACTags.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.TB_ACTags.Name = "TB_ACTags";
+            this.TB_ACTags.Size = new System.Drawing.Size(49, 17);
+            this.TB_ACTags.TabIndex = 0;
+            this.TB_ACTags.TabStop = true;
+            this.TB_ACTags.Text = "Tags";
+            this.TB_ACTags.UseVisualStyleBackColor = true;
+            this.TB_ACTags.CheckedChanged += new System.EventHandler(this.TB_ACTags_CheckedChanged);
+            // 
+            // TB_CommandLine
+            // 
+            this.TB_CommandLine.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.TB_CommandLine.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.TB_CommandLine.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TB_CommandLine.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.TB_CommandLine.Location = new System.Drawing.Point(1, 47);
+            this.TB_CommandLine.Margin = new System.Windows.Forms.Padding(0);
+            this.TB_CommandLine.Name = "TB_CommandLine";
+            this.TB_CommandLine.Size = new System.Drawing.Size(100, 24);
+            this.TB_CommandLine.TabIndex = 7;
+            this.TB_CommandLine.TabStop = false;
+            this.TB_CommandLine.Text = "Command Line";
+            this.toolTip_Display.SetToolTip(this.TB_CommandLine, "Click to execute tag command.\r\nCommands automatically apply tags that you have se" +
+        "t for given command.\r\n\r\nCtrl+Click to add new command.\r\nShift+Click to open list" +
+        " of current commands.");
+            this.TB_CommandLine.UseVisualStyleBackColor = true;
+            this.TB_CommandLine.Click += new System.EventHandler(this.TB_CommandLine_Click);
+            // 
+            // TB_ParentOffset
+            // 
+            this.TB_ParentOffset.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.TB_ParentOffset.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.TB_ParentOffset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TB_ParentOffset.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.TB_ParentOffset.Location = new System.Drawing.Point(100, 47);
+            this.TB_ParentOffset.Margin = new System.Windows.Forms.Padding(0);
+            this.TB_ParentOffset.Name = "TB_ParentOffset";
+            this.TB_ParentOffset.Size = new System.Drawing.Size(100, 24);
+            this.TB_ParentOffset.TabIndex = 6;
+            this.TB_ParentOffset.TabStop = false;
+            this.TB_ParentOffset.Text = "Parent Offset";
+            this.toolTip_Display.SetToolTip(this.TB_ParentOffset, "Click to set Parent Offset.\r\nParent Offset automaticaly sets this image as a chil" +
+        "d of another.\r\n\r\nCtrl+Click to remove.");
+            this.TB_ParentOffset.UseVisualStyleBackColor = true;
+            this.TB_ParentOffset.Click += new System.EventHandler(this.TB_ParentOffset_Click);
+            // 
+            // TB_ArtistAlias
+            // 
+            this.TB_ArtistAlias.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.TB_ArtistAlias.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.TB_ArtistAlias.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TB_ArtistAlias.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.TB_ArtistAlias.Location = new System.Drawing.Point(100, 24);
+            this.TB_ArtistAlias.Margin = new System.Windows.Forms.Padding(0);
+            this.TB_ArtistAlias.Name = "TB_ArtistAlias";
+            this.TB_ArtistAlias.Size = new System.Drawing.Size(100, 24);
+            this.TB_ArtistAlias.TabIndex = 5;
+            this.TB_ArtistAlias.TabStop = false;
+            this.TB_ArtistAlias.Text = "Artist Alias";
+            this.toolTip_Display.SetToolTip(this.TB_ArtistAlias, "Click to set Artist Alias.\r\nArtist Alias automaticaly tags images with set artist" +
+        " tag for given Artist.\r\n\r\nCtrl+Click to remove Alias.");
+            this.TB_ArtistAlias.UseVisualStyleBackColor = true;
+            this.TB_ArtistAlias.Click += new System.EventHandler(this.TB_ArtistAlias_Click);
+            // 
+            // TB_Description
+            // 
+            this.TB_Description.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.TB_Description.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.TB_Description.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TB_Description.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.TB_Description.Location = new System.Drawing.Point(1, 24);
+            this.TB_Description.Margin = new System.Windows.Forms.Padding(0);
+            this.TB_Description.Name = "TB_Description";
+            this.TB_Description.Size = new System.Drawing.Size(100, 24);
+            this.TB_Description.TabIndex = 4;
+            this.TB_Description.TabStop = false;
+            this.TB_Description.Text = "< Description";
+            this.toolTip_Display.SetToolTip(this.TB_Description, "Click to show/hide post description.\r\nHiding will save any changes.\r\n\r\nCtrl+Click" +
+        " to copy title and description to clipboard.");
+            this.TB_Description.UseVisualStyleBackColor = true;
+            this.TB_Description.Click += new System.EventHandler(this.TB_Description_Click);
             // 
             // timer_TagCount
             // 
@@ -199,122 +317,6 @@
             this.flowLayoutPanel_Holder.SizeChanged += new System.EventHandler(this.FlowLayoutPanel_Holder_SizeChanged);
             this.flowLayoutPanel_Holder.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.FlowLayoutPanel_Holder_ControlRemoved);
             // 
-            // cGroupBoxColored_AutocompleteSelector
-            // 
-            this.cGroupBoxColored_AutocompleteSelector.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_AutocompleteSelector.BottomBorderFix = 1;
-            this.cGroupBoxColored_AutocompleteSelector.Controls.Add(this.TB_ACPools);
-            this.cGroupBoxColored_AutocompleteSelector.Controls.Add(this.TB_ACTags);
-            this.cGroupBoxColored_AutocompleteSelector.Enabled = false;
-            this.cGroupBoxColored_AutocompleteSelector.Location = new System.Drawing.Point(208, 23);
-            this.cGroupBoxColored_AutocompleteSelector.Margin = new System.Windows.Forms.Padding(8, 0, 0, 0);
-            this.cGroupBoxColored_AutocompleteSelector.Name = "cGroupBoxColored_AutocompleteSelector";
-            this.cGroupBoxColored_AutocompleteSelector.Size = new System.Drawing.Size(135, 35);
-            this.cGroupBoxColored_AutocompleteSelector.TabIndex = 14;
-            this.cGroupBoxColored_AutocompleteSelector.TabStop = false;
-            this.cGroupBoxColored_AutocompleteSelector.Text = "Autocomplete:";
-            this.cGroupBoxColored_AutocompleteSelector.TextOffset = 0;
-            this.toolTip_Display.SetToolTip(this.cGroupBoxColored_AutocompleteSelector, "Autocomplete the selected type.");
-            // 
-            // TB_ACPools
-            // 
-            this.TB_ACPools.AutoSize = true;
-            this.TB_ACPools.Location = new System.Drawing.Point(72, 15);
-            this.TB_ACPools.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
-            this.TB_ACPools.Name = "TB_ACPools";
-            this.TB_ACPools.Size = new System.Drawing.Size(51, 17);
-            this.TB_ACPools.TabIndex = 1;
-            this.TB_ACPools.Text = "Pools";
-            this.TB_ACPools.UseVisualStyleBackColor = true;
-            this.TB_ACPools.CheckedChanged += new System.EventHandler(this.TB_ACPools_CheckedChanged);
-            // 
-            // TB_ACTags
-            // 
-            this.TB_ACTags.AutoSize = true;
-            this.TB_ACTags.Checked = true;
-            this.TB_ACTags.Location = new System.Drawing.Point(19, 15);
-            this.TB_ACTags.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
-            this.TB_ACTags.Name = "TB_ACTags";
-            this.TB_ACTags.Size = new System.Drawing.Size(49, 17);
-            this.TB_ACTags.TabIndex = 0;
-            this.TB_ACTags.TabStop = true;
-            this.TB_ACTags.Text = "Tags";
-            this.TB_ACTags.UseVisualStyleBackColor = true;
-            this.TB_ACTags.CheckedChanged += new System.EventHandler(this.TB_ACTags_CheckedChanged);
-            // 
-            // TB_CommandLine
-            // 
-            this.TB_CommandLine.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.TB_CommandLine.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.TB_CommandLine.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.TB_CommandLine.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.TB_CommandLine.Location = new System.Drawing.Point(1, 47);
-            this.TB_CommandLine.Margin = new System.Windows.Forms.Padding(0);
-            this.TB_CommandLine.Name = "TB_CommandLine";
-            this.TB_CommandLine.Size = new System.Drawing.Size(100, 24);
-            this.TB_CommandLine.TabIndex = 7;
-            this.TB_CommandLine.TabStop = false;
-            this.TB_CommandLine.Text = "Command Line";
-            this.toolTip_Display.SetToolTip(this.TB_CommandLine, "Click to execute tag command.\r\nCommands automatically apply tags that you have se" +
-        "t for given command.\r\n\r\nCtrl+Click to add new command.\r\nShift+Click to open list" +
-        " of current commands.");
-            this.TB_CommandLine.UseVisualStyleBackColor = true;
-            this.TB_CommandLine.Click += new System.EventHandler(this.TB_CommandLine_Click);
-            // 
-            // TB_ParentOffset
-            // 
-            this.TB_ParentOffset.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.TB_ParentOffset.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.TB_ParentOffset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.TB_ParentOffset.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.TB_ParentOffset.Location = new System.Drawing.Point(100, 47);
-            this.TB_ParentOffset.Margin = new System.Windows.Forms.Padding(0);
-            this.TB_ParentOffset.Name = "TB_ParentOffset";
-            this.TB_ParentOffset.Size = new System.Drawing.Size(100, 24);
-            this.TB_ParentOffset.TabIndex = 6;
-            this.TB_ParentOffset.TabStop = false;
-            this.TB_ParentOffset.Text = "Parent Offset";
-            this.toolTip_Display.SetToolTip(this.TB_ParentOffset, "Click to set Parent Offset.\r\nParent Offset automaticaly sets this image as a chil" +
-        "d of another.\r\n\r\nCtrl+Click to remove.");
-            this.TB_ParentOffset.UseVisualStyleBackColor = true;
-            this.TB_ParentOffset.Click += new System.EventHandler(this.TB_ParentOffset_Click);
-            // 
-            // TB_ArtistAlias
-            // 
-            this.TB_ArtistAlias.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.TB_ArtistAlias.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.TB_ArtistAlias.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.TB_ArtistAlias.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.TB_ArtistAlias.Location = new System.Drawing.Point(100, 24);
-            this.TB_ArtistAlias.Margin = new System.Windows.Forms.Padding(0);
-            this.TB_ArtistAlias.Name = "TB_ArtistAlias";
-            this.TB_ArtistAlias.Size = new System.Drawing.Size(100, 24);
-            this.TB_ArtistAlias.TabIndex = 5;
-            this.TB_ArtistAlias.TabStop = false;
-            this.TB_ArtistAlias.Text = "Artist Alias";
-            this.toolTip_Display.SetToolTip(this.TB_ArtistAlias, "Click to set Artist Alias.\r\nArtist Alias automaticaly tags images with set artist" +
-        " tag for given Artist.\r\n\r\nCtrl+Click to remove Alias.");
-            this.TB_ArtistAlias.UseVisualStyleBackColor = true;
-            this.TB_ArtistAlias.Click += new System.EventHandler(this.TB_ArtistAlias_Click);
-            // 
-            // TB_Description
-            // 
-            this.TB_Description.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.TB_Description.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.TB_Description.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.TB_Description.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.TB_Description.Location = new System.Drawing.Point(1, 24);
-            this.TB_Description.Margin = new System.Windows.Forms.Padding(0);
-            this.TB_Description.Name = "TB_Description";
-            this.TB_Description.Size = new System.Drawing.Size(100, 24);
-            this.TB_Description.TabIndex = 4;
-            this.TB_Description.TabStop = false;
-            this.TB_Description.Text = "< Description";
-            this.toolTip_Display.SetToolTip(this.TB_Description, "Click to show/hide post description.\r\nHiding will save any changes.\r\n\r\nCtrl+Click" +
-        " to copy title and description to clipboard.");
-            this.TB_Description.UseVisualStyleBackColor = true;
-            this.TB_Description.Click += new System.EventHandler(this.TB_Description_Click);
-            // 
             // TB_Done
             // 
             this.TB_Done.BackgroundImage = global::e621_ReBot_v2.Properties.Resources.CheckMark_Icon;
@@ -361,12 +363,12 @@
             this.Load += new System.EventHandler(this.Form_Tagger_Load);
             this.Shown += new System.EventHandler(this.Form_Tagger_Shown);
             this.Move += new System.EventHandler(this.Form_Tagger_Move);
+            this.cGroupBoxColored_AutocompleteSelector.ResumeLayout(false);
+            this.cGroupBoxColored_AutocompleteSelector.PerformLayout();
             this.contextMenuStrip_EditItem.ResumeLayout(false);
             this.contextMenuStrip_EditCat.ResumeLayout(false);
             this.contextMenuStrip_AddCat.ResumeLayout(false);
             this.panel_TagBoxOutline.ResumeLayout(false);
-            this.cGroupBoxColored_AutocompleteSelector.ResumeLayout(false);
-            this.cGroupBoxColored_AutocompleteSelector.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
