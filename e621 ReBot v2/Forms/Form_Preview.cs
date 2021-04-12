@@ -103,7 +103,7 @@ namespace e621_ReBot_v2.Forms
                 e.SuppressKeyPress = true; // fix alt key causing cursor to become arrow and act strange
                 Label_AlreadyUploaded.Cursor = Form_Loader.Cursor_BrowserNav;
             }
-            base.KeyDown -= Form_Preview_KeyDown;
+            KeyDown -= Form_Preview_KeyDown;
         }
 
         private void Form_Preview_KeyUp(object sender, KeyEventArgs e)
@@ -112,7 +112,7 @@ namespace e621_ReBot_v2.Forms
             {
                 Label_AlreadyUploaded.Cursor = Form_Loader.Cursor_ReBotNav;
             }
-            base.KeyDown += Form_Preview_KeyDown;
+            KeyDown += Form_Preview_KeyDown;
         }
 
         private void ResizeBrowserAndZoom()
@@ -931,7 +931,7 @@ namespace e621_ReBot_v2.Forms
             {
                 Process.Start(E6Post);
                 // Fix keyup not triggering when losing focus
-                base.KeyDown += Form_Preview_KeyDown;
+                KeyDown += Form_Preview_KeyDown;
             }
             else
             {

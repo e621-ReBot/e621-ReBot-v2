@@ -98,7 +98,7 @@ namespace ACM_AutocompleteMenu
         {
             SetStyle(
                 ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint, true);
-            base.Font = new Font(FontFamily.GenericSansSerif, 9);
+            base.Font = new Font(FontFamily.GenericSansSerif, 11F, FontStyle.Regular, GraphicsUnit.Pixel, 0);
             ItemHeight = Font.Height + 2;
             VerticalScroll.SmallChange = ItemHeight;
             BackColor = Color.White;
@@ -298,14 +298,14 @@ namespace ACM_AutocompleteMenu
         protected override void OnMouseEnter(EventArgs e)
         {
             base.OnMouseEnter(e);
-            mouseEnterPoint = Control.MousePosition;
+            mouseEnterPoint = MousePosition;
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);
 
-            if (mouseEnterPoint != Control.MousePosition)
+            if (mouseEnterPoint != MousePosition)
             {
                 HighlightedItemIndex = PointToItemIndex(e.Location);
                 Invalidate();

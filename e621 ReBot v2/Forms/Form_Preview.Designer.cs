@@ -82,6 +82,7 @@ namespace e621_ReBot_v2.Forms
             this.PB_Next.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SteelBlue;
             this.PB_Next.FlatAppearance.MouseOverBackColor = System.Drawing.Color.SteelBlue;
             this.PB_Next.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PB_Next.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.PB_Next.Location = new System.Drawing.Point(26, 0);
             this.PB_Next.Margin = new System.Windows.Forms.Padding(0);
             this.PB_Next.MaximumSize = new System.Drawing.Size(32, 32);
@@ -105,6 +106,7 @@ namespace e621_ReBot_v2.Forms
             this.PB_Previous.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SteelBlue;
             this.PB_Previous.FlatAppearance.MouseOverBackColor = System.Drawing.Color.SteelBlue;
             this.PB_Previous.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PB_Previous.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.PB_Previous.Location = new System.Drawing.Point(0, 0);
             this.PB_Previous.Margin = new System.Windows.Forms.Padding(0);
             this.PB_Previous.MaximumSize = new System.Drawing.Size(32, 32);
@@ -138,7 +140,7 @@ namespace e621_ReBot_v2.Forms
             this.PB_Safe.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LimeGreen;
             this.PB_Safe.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LimeGreen;
             this.PB_Safe.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PB_Safe.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PB_Safe.Font = new System.Drawing.Font("Arial Black", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.PB_Safe.ForeColor = System.Drawing.Color.LimeGreen;
             this.PB_Safe.Location = new System.Drawing.Point(52, 0);
             this.PB_Safe.Margin = new System.Windows.Forms.Padding(0);
@@ -163,7 +165,7 @@ namespace e621_ReBot_v2.Forms
             this.PB_Questionable.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gold;
             this.PB_Questionable.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gold;
             this.PB_Questionable.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PB_Questionable.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PB_Questionable.Font = new System.Drawing.Font("Arial Black", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.PB_Questionable.ForeColor = System.Drawing.Color.Gold;
             this.PB_Questionable.Location = new System.Drawing.Point(26, 0);
             this.PB_Questionable.Margin = new System.Windows.Forms.Padding(0);
@@ -188,7 +190,7 @@ namespace e621_ReBot_v2.Forms
             this.PB_Explicit.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Red;
             this.PB_Explicit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
             this.PB_Explicit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PB_Explicit.Font = new System.Drawing.Font("Arial Black", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.PB_Explicit.Font = new System.Drawing.Font("Arial Black", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.PB_Explicit.ForeColor = System.Drawing.Color.Red;
             this.PB_Explicit.Location = new System.Drawing.Point(0, 0);
             this.PB_Explicit.Margin = new System.Windows.Forms.Padding(0);
@@ -246,7 +248,7 @@ namespace e621_ReBot_v2.Forms
             // 
             this.Label_DownloadWarning.BackColor = System.Drawing.Color.Transparent;
             this.Label_DownloadWarning.ExtraSize = 0;
-            this.Label_DownloadWarning.Font = new System.Drawing.Font("Arial Black", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label_DownloadWarning.Font = new System.Drawing.Font("Arial Black", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.Label_DownloadWarning.ForeColor = System.Drawing.Color.Orange;
             this.Label_DownloadWarning.Location = new System.Drawing.Point(36, 0);
             this.Label_DownloadWarning.Margin = new System.Windows.Forms.Padding(0);
@@ -304,7 +306,7 @@ namespace e621_ReBot_v2.Forms
             this.PB_LoadAllImages.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SteelBlue;
             this.PB_LoadAllImages.FlatAppearance.MouseOverBackColor = System.Drawing.Color.SteelBlue;
             this.PB_LoadAllImages.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PB_LoadAllImages.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PB_LoadAllImages.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.PB_LoadAllImages.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.PB_LoadAllImages.Location = new System.Drawing.Point(486, 8);
             this.PB_LoadAllImages.Margin = new System.Windows.Forms.Padding(0);
@@ -326,7 +328,7 @@ namespace e621_ReBot_v2.Forms
             this.PB_SauceNao.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SteelBlue;
             this.PB_SauceNao.FlatAppearance.MouseOverBackColor = System.Drawing.Color.SteelBlue;
             this.PB_SauceNao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PB_SauceNao.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PB_SauceNao.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.PB_SauceNao.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.PB_SauceNao.Location = new System.Drawing.Point(0, 0);
             this.PB_SauceNao.Margin = new System.Windows.Forms.Padding(8, 0, 0, 0);
@@ -347,7 +349,7 @@ namespace e621_ReBot_v2.Forms
             this.PB_IQDBQ.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SteelBlue;
             this.PB_IQDBQ.FlatAppearance.MouseOverBackColor = System.Drawing.Color.SteelBlue;
             this.PB_IQDBQ.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PB_IQDBQ.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PB_IQDBQ.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.PB_IQDBQ.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.PB_IQDBQ.Location = new System.Drawing.Point(104, 0);
             this.PB_IQDBQ.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
@@ -364,6 +366,7 @@ namespace e621_ReBot_v2.Forms
             // Label_Tags
             // 
             this.Label_Tags.BackColor = System.Drawing.Color.Transparent;
+            this.Label_Tags.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.Label_Tags.Location = new System.Drawing.Point(0, 35);
             this.Label_Tags.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
             this.Label_Tags.Name = "Label_Tags";
@@ -386,7 +389,7 @@ namespace e621_ReBot_v2.Forms
             this.Label_AlreadyUploaded.BackColor = System.Drawing.Color.Transparent;
             this.Label_AlreadyUploaded.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Label_AlreadyUploaded.ExtraSize = 0;
-            this.Label_AlreadyUploaded.Font = new System.Drawing.Font("Arial Black", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label_AlreadyUploaded.Font = new System.Drawing.Font("Arial Black", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.Label_AlreadyUploaded.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.Label_AlreadyUploaded.Location = new System.Drawing.Point(513, 7);
             this.Label_AlreadyUploaded.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
@@ -411,7 +414,7 @@ namespace e621_ReBot_v2.Forms
             this.PB_Upload.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SteelBlue;
             this.PB_Upload.FlatAppearance.MouseOverBackColor = System.Drawing.Color.SteelBlue;
             this.PB_Upload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PB_Upload.Font = new System.Drawing.Font("Arial Black", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.PB_Upload.Font = new System.Drawing.Font("Arial Black", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.PB_Upload.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.PB_Upload.Location = new System.Drawing.Point(203, 2);
             this.PB_Upload.Margin = new System.Windows.Forms.Padding(8, 0, 0, 0);
@@ -435,7 +438,7 @@ namespace e621_ReBot_v2.Forms
             this.PB_Tagger.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SteelBlue;
             this.PB_Tagger.FlatAppearance.MouseOverBackColor = System.Drawing.Color.SteelBlue;
             this.PB_Tagger.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PB_Tagger.Font = new System.Drawing.Font("Arial Black", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.PB_Tagger.Font = new System.Drawing.Font("Arial Black", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.PB_Tagger.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.PB_Tagger.Location = new System.Drawing.Point(163, 2);
             this.PB_Tagger.Margin = new System.Windows.Forms.Padding(8, 0, 0, 0);
@@ -485,7 +488,7 @@ namespace e621_ReBot_v2.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.DimGray;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(1084, 621);
+            this.ClientSize = new System.Drawing.Size(1077, 590);
             this.Controls.Add(this.panel_Search);
             this.Controls.Add(this.Label_Tags);
             this.Controls.Add(this.Pic_WebBrowser);

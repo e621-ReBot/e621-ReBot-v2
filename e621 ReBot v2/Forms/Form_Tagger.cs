@@ -39,7 +39,7 @@ namespace e621_ReBot_v2.Forms
             }
             _FormReference.Tagger_RowHolder = DataRowPass;
             _FormReference.Owner = FormOwnerPass;
-            if (Point.Equals(TaggerLocation, new Point(0, 0)))
+            if (Equals(TaggerLocation, new Point(0, 0)))
             {
                 _FormReference.CenterToScreen();
             }
@@ -64,6 +64,7 @@ namespace e621_ReBot_v2.Forms
                     GroupBox TempGroupBox = new GroupBox()
                     {
                         Text = GroupString[0],
+                        Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Pixel, ((byte)(0))),
                         Size = new Size(flowLayoutPanel_Holder.Width, 24),
                         MinimumSize = new Size(flowLayoutPanel_Holder.Width, 0),
                         MaximumSize = new Size(flowLayoutPanel_Holder.Width, 512),
@@ -90,6 +91,7 @@ namespace e621_ReBot_v2.Forms
                             Margin = new Padding(2, 2, 2, 2),
                             AutoSize = true,
                             Text = GroupString[x],
+                            Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Pixel, ((byte)(0))),
                             ContextMenuStrip = contextMenuStrip_EditItem,
                             TabStop = false
                         };
