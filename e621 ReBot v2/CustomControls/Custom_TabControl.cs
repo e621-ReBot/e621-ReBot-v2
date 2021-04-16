@@ -35,5 +35,16 @@ namespace e621_ReBot_v2.CustomControls
 
             Region = new Region(new Rectangle(new Point(4, 5), new Size(Width - 8, Height - 9)));
         }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // Custom_TabControl
+            // 
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.ResumeLayout(false);
+
+        }
     }
 }

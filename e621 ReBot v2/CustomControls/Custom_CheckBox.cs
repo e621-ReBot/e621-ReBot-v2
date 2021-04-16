@@ -20,5 +20,16 @@ namespace e621_ReBot_v2.CustomControls
                 e.Graphics.FillRectangle(new SolidBrush(Color.DimGray), new Rectangle(new Point(1, 1), new Size(15, 15)));
             }
         }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // Custom_CheckBox
+            // 
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.ResumeLayout(false);
+
+        }
     }
 }

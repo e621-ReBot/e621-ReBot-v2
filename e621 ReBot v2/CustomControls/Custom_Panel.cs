@@ -39,13 +39,15 @@ namespace e621_ReBot_v2.CustomControls
 
         private void InitializeComponent()
         {
-            SuspendLayout();
+            this.SuspendLayout();
             // 
             // Custom_Panel
             // 
-            SizeChanged += new System.EventHandler(Custom_Panel_SizeChanged);
-            Paint += new PaintEventHandler(Custom_Panel_Paint);
-            ResumeLayout(false);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.SizeChanged += new System.EventHandler(this.Custom_Panel_SizeChanged);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Custom_Panel_Paint);
+            this.ResumeLayout(false);
+
         }
 
         private GraphicsPath GetGraphicPath()
