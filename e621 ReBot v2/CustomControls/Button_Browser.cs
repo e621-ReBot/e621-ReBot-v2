@@ -55,5 +55,15 @@ namespace e621_ReBot_v2.CustomControls
             e.Graphics.DrawLine(new Pen(Color.Black, 2), HexagonPoints[7], HexagonPoints[0]);
         }
 
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // Button_Browser
+            // 
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.ResumeLayout(false);
+
+        }
     }
 }

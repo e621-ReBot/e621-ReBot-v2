@@ -344,20 +344,35 @@
     <EmbeddedResource Include="CustomControls\Button_App_Minimize.resx">
       <DependentUpon>Button_App_Minimize.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\Button_Browser.resx">
+      <DependentUpon>Button_Browser.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\Button_BrowserSmall.resx">
       <DependentUpon>Button_BrowserSmall.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\Button_Menu.resx">
       <DependentUpon>Button_Menu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\Button_MenuClose.resx">
+      <DependentUpon>Button_MenuClose.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\Button_Unfocusable.resx">
       <DependentUpon>Button_Unfocusable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\Custom_CheckBox.resx">
+      <DependentUpon>Custom_CheckBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\Custom_FlowLayoutPanel.resx">
+      <DependentUpon>Custom_FlowLayoutPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\Custom_GroupBoxColored.resx">
       <DependentUpon>Custom_GroupBoxColored.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\Custom_InputBox.resx">
       <DependentUpon>Custom_InputBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\Custom_TreeView.resx">
+      <DependentUpon>Custom_TreeView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\PuzzleGamePanel.resx">
       <DependentUpon>PuzzleGamePanel.cs</DependentUpon>
