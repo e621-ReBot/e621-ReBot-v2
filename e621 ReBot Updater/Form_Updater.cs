@@ -39,7 +39,7 @@ namespace e621_ReBot_Updater
         {
             try
             {
-                string OnlineVersion;
+                string OFVString;
                 CookieContainer RequestCookieContainer = new CookieContainer();
                 string[] SplitCookieString = WebBrowser_Updater.Document.Cookie.Split(new[] { "=" }, StringSplitOptions.RemoveEmptyEntries);
                 Cookie CreateCookie = new Cookie()
@@ -54,12 +54,16 @@ namespace e621_ReBot_Updater
                 HttpWebResponse VersionResponse = (HttpWebResponse)VersionRequest.GetResponse();
                 using (StreamReader DownloadStream = new StreamReader(VersionResponse.GetResponseStream()))
                 {
-                    OnlineVersion = DownloadStream.ReadToEnd();
-                    Label_Latest.Text = string.Format("Latest Version: {0}", OnlineVersion);
+                    OFVString = DownloadStream.ReadToEnd();
+                    Label_Latest.Text = string.Format("Latest Version: {0}", OFVString);
                 }
 
-                int CurrentVersion = int.Parse(FileVersionInfo.GetVersionInfo("e621 ReBot v2.exe").FileVersion.Replace(".", ""));
-                if (int.Parse(OnlineVersion.Replace(".", "")) <= CurrentVersion)
+                string CFVString = FileVersionInfo.GetVersionInfo("e621 ReBot v2.exe").FileVersion;
+                string[] CFVHolder = CFVString.Split(new string[] { "." }, StringSplitOptions.RemoveEmptyEntries);
+                string[] OFVHolder = OFVString.Split(new string[] { "." }, StringSplitOptions.RemoveEmptyEntries);
+                int CurrentVersion = (int)(int.Parse(CFVHolder[1]) * Math.Pow(10, 6) + int.Parse(CFVHolder[2]) * Math.Pow(10, 3) + int.Parse(CFVHolder[3]));
+                int OnlineVersion = (int)(int.Parse(OFVHolder[1]) * Math.Pow(10, 6) + int.Parse(OFVHolder[2]) * Math.Pow(10, 3) + int.Parse(OFVHolder[3]));
+                if (OnlineVersion <= CurrentVersion)
                 {
                     timer_Close.Start();
                 }
@@ -69,12 +73,11 @@ namespace e621_ReBot_Updater
                     Label_Download.Visible = true;
                     backgroundWorker_Update.RunWorkerAsync(RequestCookieContainer);
                 }
-
             }
             catch
             {
                 Close();
-            }         
+            }
         }
 
         private void BackgroundWorker_Update_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
