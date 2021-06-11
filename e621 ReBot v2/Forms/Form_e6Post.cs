@@ -175,7 +175,7 @@ namespace e621_ReBot_v2.Forms
                 if (!PostTest.StartsWith("{")) // no notes then
                 {
                     RowRefference["Inferior_HasNotes"] = true;
-                    double NewNoteSizeRatio = Math.Max((int)RowRefference["Image_Width"], (int)RowRefference["Image_Height"]) / (double)Math.Max(PostData["file"]["width"].Value<int>(), PostData["file"]["height"].Value<int>());
+                    double NewNoteSizeRatio = Math.Max((int)RowRefference["Info_MediaWidth"], (int)RowRefference["Info_MediaHeight"]) / (double)Math.Max(PostData["file"]["width"].Value<int>(), PostData["file"]["height"].Value<int>());
                     RowRefference["Inferior_NotesSizeRatio"] = NewNoteSizeRatio;
                 }
             }

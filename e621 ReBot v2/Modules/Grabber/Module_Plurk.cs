@@ -218,10 +218,7 @@ namespace e621_ReBot_v2.Modules.Grabber
             TempDataRow["Grab_URL"] = URL;
             TempDataRow["Grab_DateTime"] = DateTime;
             TempDataRow["Grab_Title"] = WebUtility.HtmlDecode(string.Format("Plurk by {0}", Artist)); ;
-            if (TextBody != null)
-            {
-                TempDataRow["Grab_TextBody"] = TextBody;
-            }
+            if (TextBody != null) TempDataRow["Grab_TextBody"] = TextBody;
             TempDataRow["Grab_MediaURL"] = MediaURL;
             string ThubnailURLTemp = MediaURL.Replace("https://images.plurk.com/", "https://images.plurk.com/mx_");
             ThubnailURLTemp = ThubnailURLTemp.Remove(ThubnailURLTemp.Length - 4) + ".jpg";
@@ -231,6 +228,5 @@ namespace e621_ReBot_v2.Modules.Grabber
             TempDataRow["Upload_Tags"] = DateTime.Year;
             TempDataRow["Artist"] = Artist;
         }
-
     }
 }

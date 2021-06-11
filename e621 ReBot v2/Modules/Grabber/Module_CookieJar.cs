@@ -14,13 +14,11 @@ namespace e621_ReBot_v2.Modules
         public static CookieContainer Cookies_Newgrounds;
         public static CookieContainer Cookies_SoFurry;
         public static CookieContainer Cookies_Plurk;
+        public static CookieContainer Cookies_DeviantArt;
 
         public static void GetCookies(string WebAdress, ref CookieContainer WhichCookie)
         {
-            if (WhichCookie == null)
-            {
-                WhichCookie = new CookieContainer();
-            }
+            if (WhichCookie == null) WhichCookie = new CookieContainer();
             string BaseURL = new Uri(WebAdress).Scheme + "://" + new Uri(WebAdress).Host;
             var CookieList = Cef.GetGlobalCookieManager().VisitUrlCookiesAsync(BaseURL, true).Result;
             foreach (var CookieHolder in CookieList)
@@ -35,6 +33,5 @@ namespace e621_ReBot_v2.Modules
                 WhichCookie.Add(TempCookie);
             }
         }
-
     }
 }

@@ -39,6 +39,26 @@ namespace e621_ReBot_v2.Modules
                 WorkerSupportsCancellation = true
             };
             e6APIDL_BGW.RunWorkerCompleted += E6APIDL_BGW_Done;
+            timer_DownloadRemovalThreading = new Timer
+            {
+                Interval = 250
+            };
+            timer_DownloadRemovalThreading.Tick += DownloadRemovalThreading_Tick;
+            for (int i = 0; i < 4; i++)
+            {
+                Custom_WebClient ThumbClient = new Custom_WebClient();
+                ThumbClient.DownloadDataCompleted += DownloadThumbFinished;
+                Holder_ThumbClient.Add(ThumbClient);
+                Custom_WebClient FileClient = new Custom_WebClient();
+                FileClient.DownloadProgressChanged += Download_ProgressReport;
+                FileClient.DownloadFileCompleted += DownloadFileFinished;
+                Holder_FileClient.Add(FileClient);
+            }
+            timer_CacheProgressTimer = new Timer
+            {
+                Interval = 1000
+            };
+            timer_CacheProgressTimer.Tick += CacheProgressTimer_Tick;
         }
 
         public static void DownloadEnabler(string WebAdress)
@@ -55,7 +75,12 @@ namespace e621_ReBot_v2.Modules
 
 
 
+        // - - - - - - - - - - -
+
+
+
         public static Dictionary<string, string> IEDownload_Cache = new Dictionary<string, string>();
+
         public static void Load_IECache()
         {
             //IEDownload_Cache.Clear();
@@ -81,6 +106,12 @@ namespace e621_ReBot_v2.Modules
                 }
             }
         }
+
+        public static List<string> Download_AlreadyDownloaded = new List<string>();
+
+
+
+        // - - - - - - - - - - -
 
 
 
@@ -177,6 +208,10 @@ namespace e621_ReBot_v2.Modules
 
 
 
+        // - - - - - - - - - - -
+
+
+
         public static void UpdateTreeViewText()
         {
             Form_Loader._FormReference.BeginInvoke(new Action(() => { Form_Loader._FormReference.cCheckGroupBox_Download.Text = "Download Queue" + (Module_TableHolder.Download_Table.Rows.Count > 0 ? string.Format(" ({0})", Module_TableHolder.Download_Table.Rows.Count) : null); }));
@@ -184,6 +219,7 @@ namespace e621_ReBot_v2.Modules
 
         public static int DownloadNodeMax = 0;
         public static int TreeViewPage = 0;
+
         public static void UpdateTreeViewNodes()
         {
             Form_Loader._FormReference.BeginInvoke(new Action(() =>
@@ -222,7 +258,10 @@ namespace e621_ReBot_v2.Modules
 
 
 
-        public static List<string> Download_AlreadyDownloaded = new List<string>();
+        // - - - - - - - - - - -
+
+
+
         public static void AddDownloadQueueItem(DataRow DataRowRef, string URL, string Media_URL, string Thumbnail_URL, string Artist = null, string Grab_Title = null, string e6_PostID = null, string e6_PoolName = null, string e6_PoolPostIndex = null)
         {
             DataRow DataRowTemp = Module_TableHolder.Download_Table.NewRow();
@@ -244,16 +283,37 @@ namespace e621_ReBot_v2.Modules
 
 
 
+        // - - - - - - - - - - -
 
-        public static void DownloadThumb(ref e6_DownloadItem e6_DownloadItemRef)
+
+
+        private static readonly List<Custom_WebClient> Holder_ThumbClient = new List<Custom_WebClient>();
+        private static readonly List<Custom_WebClient> Holder_FileClient = new List<Custom_WebClient>();
+
+        private static void StarDLClient(ref e6_DownloadItem e6_DownloadItemRef, string DLType)
         {
             DataRow DataRowTemp = (DataRow)e6_DownloadItemRef.Tag;
-            string SiteReferer = "https://" + new Uri((string)DataRowTemp["Grab_URL"]).Host; ;
-            using (WebClient ThumbClient = new WebClient())
+            string SiteReferer = "https://" + new Uri((string)DataRowTemp["Grab_URL"]).Host;
+
+            WebClient WebClientSelected = null;
+            foreach (WebClient WebClientTemp in (DLType.Equals("Thumb") ? Holder_ThumbClient : Holder_FileClient))
             {
-                ThumbClient.Headers.Add(HttpRequestHeader.Referer, SiteReferer);
-                ThumbClient.DownloadDataCompleted += DownloadThumbFinished;
-                ThumbClient.DownloadDataAsync(new Uri((string)DataRowTemp["Grab_ThumbnailURL"]), e6_DownloadItemRef);
+                if (!WebClientTemp.IsBusy)
+                {
+                    WebClientSelected = WebClientTemp;
+                    break;
+                }
+            }
+            if (SiteReferer.Equals("https://e621.net")) WebClientSelected.Headers.Add(HttpRequestHeader.UserAgent, Properties.Settings.Default.AppName);
+            WebClientSelected.Headers.Add(HttpRequestHeader.Referer, SiteReferer);
+            if (DLType.Equals("Thumb"))
+            {
+                WebClientSelected.DownloadDataAsync(new Uri((string)DataRowTemp["Grab_ThumbnailURL"]), e6_DownloadItemRef);
+            }
+            else
+            {
+                e6_DownloadItemRef.SetTooltip((string)DataRowTemp["Grab_MediaURL"]);
+                WebClientSelected.DownloadFileAsync(new Uri((string)DataRowTemp["Grab_MediaURL"]), e6_DownloadItemRef.DL_FolderIcon.Tag.ToString(), e6_DownloadItemRef);
             }
         }
 
@@ -284,12 +344,13 @@ namespace e621_ReBot_v2.Modules
                 }
                 if (DataRow4Grid["Thumbnail_Image"] == DBNull.Value)
                 {
-                    string Text2Draw = DownloadedImage.GetFrameCount(new FrameDimension(DownloadedImage.FrameDimensionsList[0])) > 1 ? "Animated" : null;
+                    string Text2Draw = null;
+                    if (ImageFormat.Gif.Equals(DownloadedImage.RawFormat)) Text2Draw = DownloadedImage.GetFrameCount(new FrameDimension(DownloadedImage.FrameDimensionsList[0])) > 1 ? "Animated" : null;
                     if (Text2Draw == null)
                     {
                         Text2Draw = ((string)DataRow4Grid["Grab_MediaURL"]).Contains("ugoira") ? "ugoira" : null;
                     }
-                    if (Text2Draw != null)
+                    else
                     {
                         Bitmap NewBitmapTemp = new Bitmap(200, 200);
                         using (Graphics gTemp = Graphics.FromImage(NewBitmapTemp))
@@ -324,10 +385,7 @@ namespace e621_ReBot_v2.Modules
                     DataRow4Grid["Thumbnail_Image"] = ResizedImage;
 
                     e6_GridItem e6_GridItemTemp = Form_Loader._FormReference.IsE6PicVisibleInGrid(ref DataRow4Grid);
-                    if (e6_GridItemTemp != null)
-                    {
-                        e6_GridItemTemp.LoadImage();
-                    }
+                    if (e6_GridItemTemp != null) e6_GridItemTemp.LoadImage();
                 }
             }
             else
@@ -345,21 +403,6 @@ namespace e621_ReBot_v2.Modules
             e6_DownloadItemRef.picBox_ImageHolder.BackgroundImage = ResizedImage;
 
             DownloadedImage.Dispose();
-            ((WebClient)sender).Dispose();
-        }
-
-        public static void DownloadFile(ref e6_DownloadItem e6_DownloadItemRef)
-        {
-            DataRow DataRowTemp = (DataRow)e6_DownloadItemRef.Tag;
-            string SiteReferer = "https://" + new Uri((string)DataRowTemp["Grab_URL"]).Host;
-            e6_DownloadItemRef.SetTooltip((string)DataRowTemp["Grab_MediaURL"]);
-            using (WebClient FileClient = new WebClient())
-            {
-                FileClient.Headers.Add(HttpRequestHeader.Referer, SiteReferer);
-                FileClient.DownloadProgressChanged += Download_ProgressReport;
-                FileClient.DownloadFileCompleted += DownloadFileFinished;
-                FileClient.DownloadFileAsync(new Uri((string)DataRowTemp["Grab_MediaURL"]), e6_DownloadItemRef.DL_FolderIcon.Tag.ToString(), e6_DownloadItemRef);
-            }
         }
 
         private static void Download_ProgressReport(object sender, DownloadProgressChangedEventArgs e)
@@ -370,17 +413,96 @@ namespace e621_ReBot_v2.Modules
         public static void DownloadFileFinished(object sender, AsyncCompletedEventArgs e)
         {
             e6_DownloadItem e6_DownloadItemRef = (e6_DownloadItem)e.UserState;
-            DataRow DataRowTemp = (DataRow)e6_DownloadItemRef.Tag;
+            e6_DownloadItemRef._DownloadFinished = true;
+            e6_DownloadItemRef.DL_ProgressBar.Visible = false;
 
-            lock (Download_AlreadyDownloaded)
+            if (e.Cancelled) //timeout detected, cancelled it;
             {
-                Download_AlreadyDownloaded.Add((string)DataRowTemp["Grab_MediaURL"]);
-            }
-            Image ImageHolder = e6_DownloadItemRef.picBox_ImageHolder.Tag == null ? e6_DownloadItemRef.picBox_ImageHolder.BackgroundImage : null;
-            AddPic2FLP((string)DataRowTemp["Grab_MediaURL"], e6_DownloadItemRef.DL_FolderIcon.Tag.ToString(), ImageHolder);
+                Form_Loader._FormReference.cCheckGroupBox_Download.Checked = false;
+                MessageBox.Show("Timeout has been detected, further downloads have been paused!", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                e6_DownloadItemRef._DownloadFinished = true;
 
-            ((e6_DownloadItem)e.UserState).Dispose();
-            ((WebClient)sender).Dispose();
+                string PicURL = (string)((DataRow)e6_DownloadItemRef.Tag)["Grab_MediaURL"];
+                if (!Module_TableHolder.DownloadQueueContainsURL(PicURL) && !Download_AlreadyDownloaded.Contains(PicURL))
+                {
+                    lock (Module_TableHolder.Download_Table)
+                    {
+                        Module_TableHolder.Download_Table.Rows.InsertAt((DataRow)e6_DownloadItemRef.Tag, 0);
+                    }
+                }
+                e6_DownloadItemRef.Dispose();
+                UpdateTreeViewText();
+            }
+            else
+            {
+                if (e.Error != null)
+                {
+                    if (e.Error.InnerException.Message.Contains("An existing connection was forcibly closed by the remote host."))
+                    {
+                        string PicURL = (string)((DataRow)e6_DownloadItemRef.Tag)["Grab_MediaURL"];
+                        if (!Module_TableHolder.DownloadQueueContainsURL(PicURL) && !Download_AlreadyDownloaded.Contains(PicURL))
+                        {
+                            lock (Module_TableHolder.Download_Table)
+                            {
+                                Module_TableHolder.Download_Table.Rows.InsertAt((DataRow)e6_DownloadItemRef.Tag, 0);
+                            }
+                        }
+                        e6_DownloadItemRef.Dispose();
+                        UpdateTreeViewText();
+                    }
+                    else
+                    {
+                        MessageBox.Show(e.Error.InnerException.Message, "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        throw e.Error;
+                    }
+                }
+            }
+            if (!timer_DownloadRemovalThreading.Enabled) timer_DownloadRemovalThreading.Start();
+        }
+
+        private static readonly Timer timer_DownloadRemovalThreading;
+
+        public static void DownloadRemovalThreading_Tick(object sender, EventArgs e)
+        {
+            timer_DownloadRemovalThreading.Stop();
+            UIDrawController.SuspendDrawing(Form_Loader._FormReference.DownloadFLP_Downloaded);
+            Form_Loader._FormReference.DownloadFLP_InProgress.SuspendLayout();
+            Form_Loader._FormReference.DownloadFLP_Downloaded.SuspendLayout();
+            for (int i = Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Count - 1; i >= 0; i--)
+            {
+                e6_DownloadItem e6_DownloadItemTemp = (e6_DownloadItem)Form_Loader._FormReference.DownloadFLP_InProgress.Controls[i];
+                if (e6_DownloadItemTemp._DownloadFinished && !e6_DownloadItemTemp._AlreadyCopied)
+                {
+                    DataRow DataRowTemp = (DataRow)e6_DownloadItemTemp.Tag;
+
+                    lock (Download_AlreadyDownloaded)
+                    {
+                        Download_AlreadyDownloaded.Add((string)DataRowTemp["Grab_MediaURL"]);
+                    }
+                    Image ImageHolder = e6_DownloadItemTemp.picBox_ImageHolder.Tag == null ? e6_DownloadItemTemp.picBox_ImageHolder.BackgroundImage : null;
+                    AddPic2FLP((string)DataRowTemp["Grab_MediaURL"], e6_DownloadItemTemp.DL_FolderIcon.Tag.ToString(), ImageHolder);
+
+                    if (Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Count > DLThreadsCount || !Form_Loader._FormReference.cCheckGroupBox_Download.Checked || Module_TableHolder.Download_Table.Rows.Count == 0)
+                    {
+                        e6_DownloadItemTemp.Dispose();
+                    }
+                    //else
+                    //{
+                    //    Form_Loader._FormReference.DownloadFLP_InProgress.Controls.SetChildIndex(e6_DownloadItemTemp, 69); //it fill fix index on it's own, just move to the end
+                    //}
+                    e6_DownloadItemTemp._AlreadyCopied = true;
+                }
+            }
+            Form_Loader._FormReference.DownloadFLP_InProgress.ResumeLayout();
+            Form_Loader._FormReference.DownloadFLP_Downloaded.ResumeLayout();
+            UIDrawController.ResumeDrawing(Form_Loader._FormReference.DownloadFLP_Downloaded);
+
+            DLThreadsWaiting = 0;
+            foreach (e6_DownloadItem e6_DownloadItemTemp in Form_Loader._FormReference.DownloadFLP_InProgress.Controls)
+            {
+                if (e6_DownloadItemTemp._DownloadFinished) DLThreadsWaiting += 1;
+            }
+
 
             if (Download_AlreadyDownloaded.Count % 1000 == 0)
             {
@@ -391,9 +513,6 @@ namespace e621_ReBot_v2.Modules
 
         public static void AddPic2FLP(string ThumbURL, string FilePath, Image e6Pic = null)
         {
-            UIDrawController.SuspendDrawing(Form_Loader._FormReference.DownloadFLP_Downloaded);
-            Form_Loader._FormReference.DownloadFLP_Downloaded.SuspendLayout();
-
             e6_DownloadItem e6_DownloadItemTemp;
             if (Form_Loader._FormReference.DownloadFLP_Downloaded.Controls.Count < Form_Loader._DLHistoryMaxControls)
             {
@@ -420,6 +539,7 @@ namespace e621_ReBot_v2.Modules
             e6_DownloadItemTemp.DL_FolderIcon.Tag = FilePath;
             if (e6Pic == null)
             {
+
                 if (FilePath.EndsWith("webm") || FilePath.EndsWith("swf"))
                 {
                     e6_DownloadItemTemp.picBox_ImageHolder.LoadAsync(ThumbURL);
@@ -450,12 +570,7 @@ namespace e621_ReBot_v2.Modules
             {
                 GC.Collect();
             }
-
-            Form_Loader._FormReference.DownloadFLP_Downloaded.ResumeLayout();
-            UIDrawController.ResumeDrawing(Form_Loader._FormReference.DownloadFLP_Downloaded);
         }
-
-
 
         public static Timer timer_Download;
         private static void DownloadTimer_Tick(object sender, EventArgs e)
@@ -478,30 +593,55 @@ namespace e621_ReBot_v2.Modules
             timer_Download.Start();
         }
 
-
-
         public static int DLThreadsCount = 4;
+        private static int DLThreadsWaiting = 0;
+
         public static void Download_Start()
         {
-            while (Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Count < DLThreadsCount && Form_Loader._FormReference.cCheckGroupBox_Download.Checked && Module_TableHolder.Download_Table.Rows.Count > 0)
+            if (Form_Loader._FormReference.cCheckGroupBox_Download.Checked && Module_TableHolder.Download_Table.Rows.Count > 0)
             {
-                DataRow DataRowTemp = Module_TableHolder.Download_Table.NewRow();
-                DataRowTemp.ItemArray = (object[])Module_TableHolder.Download_Table.Rows[0].ItemArray.Clone();
-                if (DataRowTemp["DataRowRef"] != DBNull.Value)
+                int HowMany2Start = Math.Max(0, DLThreadsCount - Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Count) + DLThreadsWaiting;
+                while (HowMany2Start > 0)
                 {
-                    DownloadFrom_URL(DataRowTemp);
-                }
-                else // e6 download
-                {
-                    DownloadFrom_e6URL(DataRowTemp);
-                }
-                lock (Module_TableHolder.Download_Table)
-                {
-                    Module_TableHolder.Download_Table.Rows.RemoveAt(0);
+                    if (Module_TableHolder.Download_Table.Rows.Count == 0) break;
+                    HowMany2Start -= 1;
+                    DLThreadsWaiting = Math.Max(0, DLThreadsWaiting - 1);
+                    DataRow DataRowTemp = Module_TableHolder.Download_Table.NewRow();
+                    DataRowTemp.ItemArray = (object[])Module_TableHolder.Download_Table.Rows[0].ItemArray.Clone();
+                    if (DataRowTemp["DataRowRef"] != DBNull.Value)
+                    {
+                        DownloadFrom_URL(DataRowTemp);
+                    }
+                    else // e6 download
+                    {
+                        DownloadFrom_e6URL(DataRowTemp);
+                    }
+                    lock (Module_TableHolder.Download_Table)
+                    {
+                        Module_TableHolder.Download_Table.Rows.RemoveAt(0);
+                    }
                 }
             }
             UpdateTreeViewText();
             UpdateTreeViewNodes();
+        }
+
+        private static e6_DownloadItem FindDownloadItem()
+        {
+            foreach (e6_DownloadItem e6_DownloadItemTemp in Form_Loader._FormReference.DownloadFLP_InProgress.Controls)
+            {
+                if (e6_DownloadItemTemp._DownloadFinished)
+                {
+                    e6_DownloadItemTemp.DL_ProgressBar.Value = 0;
+                    e6_DownloadItemTemp.DL_ProgressBar.Visible = true;
+                    e6_DownloadItemTemp.picBox_ImageHolder.BackgroundImage = null;
+                    e6_DownloadItemTemp.picBox_ImageHolder.Image = null;
+                    e6_DownloadItemTemp._DownloadFinished = false;
+                    e6_DownloadItemTemp._AlreadyCopied = false;
+                    return e6_DownloadItemTemp;
+                }
+            }
+            return null;
         }
 
         private static void DownloadFrom_URL(DataRow DataRowRef)
@@ -524,21 +664,32 @@ namespace e621_ReBot_v2.Modules
                 string FilePath = Path.Combine(FolderPath, ImageRename).ToString();
                 if (File.Exists(FilePath))
                 {
-                    Form_Loader._FormReference.BeginInvoke(new Action(() => { AddPic2FLP((string)DataRowRef["Grab_ThumbnailURL"], FilePath); }));
+                    Form_Loader._FormReference.BeginInvoke(new Action(() =>
+                    {
+                        Form_Loader._FormReference.DownloadFLP_Downloaded.SuspendLayout();
+                        UIDrawController.SuspendDrawing(Form_Loader._FormReference.DownloadFLP_Downloaded);
+                        AddPic2FLP((string)DataRowRef["Grab_ThumbnailURL"], FilePath);
+                        Form_Loader._FormReference.DownloadFLP_Downloaded.ResumeLayout();
+                        UIDrawController.ResumeDrawing(Form_Loader._FormReference.DownloadFLP_Downloaded);
+                    }));
                 }
                 else
                 {
                     Form_Loader._FormReference.Invoke(new Action(() =>
                     {
-                        e6_DownloadItem e6_DownloadItemTemp = new e6_DownloadItem()
+                        e6_DownloadItem e6_DownloadItemTemp = FindDownloadItem();
+                        bool AddNew = false;
+                        if (e6_DownloadItemTemp == null)
                         {
-                            Tag = DataRowRef,
-                        };
+                            e6_DownloadItemTemp = new e6_DownloadItem();
+                            AddNew = true;
+                        }
+                        e6_DownloadItemTemp.Tag = DataRowRef;
                         e6_DownloadItemTemp.DL_ProgressBar.Visible = true;
                         e6_DownloadItemTemp.DL_ProgressBar.BarColor = Color.Orange;
                         e6_DownloadItemTemp.DL_FolderIcon.Tag = FilePath;
-                        DownloadThumb(ref e6_DownloadItemTemp);
-                        Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Add(e6_DownloadItemTemp);
+                        StarDLClient(ref e6_DownloadItemTemp, "Thumb");
+                        if (AddNew) Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Add(e6_DownloadItemTemp);
                         Module_FFmpeg.DownloadQueue_ConvertUgoira2WebM(ref e6_DownloadItemTemp);
                     }));
                 }
@@ -551,28 +702,38 @@ namespace e621_ReBot_v2.Modules
                 {
                     if (ReSaveMedia(DataRowRef))
                     {
-                        Form_Loader._FormReference.BeginInvoke(new Action(() => { AddPic2FLP((string)DataRowRef["Grab_ThumbnailURL"], FilePath); }));
+                        Form_Loader._FormReference.BeginInvoke(new Action(() =>
+                        {
+                            Form_Loader._FormReference.DownloadFLP_Downloaded.SuspendLayout();
+                            UIDrawController.SuspendDrawing(Form_Loader._FormReference.DownloadFLP_Downloaded);
+                            AddPic2FLP((string)DataRowRef["Grab_ThumbnailURL"], FilePath);
+                            Form_Loader._FormReference.DownloadFLP_Downloaded.ResumeLayout();
+                            UIDrawController.ResumeDrawing(Form_Loader._FormReference.DownloadFLP_Downloaded);
+                        }));
                     }
                 }
                 else
                 {
                     Form_Loader._FormReference.Invoke(new Action(() =>
                     {
-                        e6_DownloadItem e6_DownloadItemTemp = new e6_DownloadItem()
+                        e6_DownloadItem e6_DownloadItemTemp = FindDownloadItem();
+                        bool AddNew = false;
+                        if (e6_DownloadItemTemp == null)
                         {
-                            Tag = DataRowRef,
-                        };
+                            e6_DownloadItemTemp = new e6_DownloadItem();
+                            AddNew = true;
+                        }
+                        e6_DownloadItemTemp.Tag = DataRowRef;
                         e6_DownloadItemTemp.DL_ProgressBar.Visible = true;
                         e6_DownloadItemTemp.DL_ProgressBar.BarColor = Color.Orange;
                         e6_DownloadItemTemp.DL_FolderIcon.Tag = FilePath;
-
                         DataRow DataRow4Grid = DataRowRef["DataRowRef"] != DBNull.Value ? (DataRow)DataRowRef["DataRowRef"] : null;
                         if (DataRow4Grid != null && DataRow4Grid.RowState != DataRowState.Detached)
                         {
                             if (DataRow4Grid["Thumbnail_Image"] == DBNull.Value)
                             {
                                 DataRow4Grid["Thumbnail_DLStart"] = true;
-                                DownloadThumb(ref e6_DownloadItemTemp);
+                                StarDLClient(ref e6_DownloadItemTemp, "Thumb");
                             }
                             else
                             {
@@ -581,10 +742,10 @@ namespace e621_ReBot_v2.Modules
                         }
                         else
                         {
-                            DownloadThumb(ref e6_DownloadItemTemp);
+                            StarDLClient(ref e6_DownloadItemTemp, "Thumb");
                         }
-                        Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Add(e6_DownloadItemTemp);
-                        DownloadFile(ref e6_DownloadItemTemp);
+                        if (AddNew) Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Add(e6_DownloadItemTemp);
+                        StarDLClient(ref e6_DownloadItemTemp, "File");
                     }));
                 }
             }
@@ -602,10 +763,8 @@ namespace e621_ReBot_v2.Modules
 
             string DLPath = Path.Combine(Properties.Settings.Default.DownloadsFolderLocation, @"e621\").ToString();
             string PoolName = DataRowRef["e6_PoolName"] != DBNull.Value ? (string)DataRowRef["e6_PoolName"] : null;
-            if (PoolName != null)
-            {
-                DLPath += PoolName + @"\";
-            }
+            if (PoolName != null) DLPath += PoolName + @"\";
+
             Directory.CreateDirectory(DLPath);
 
             string PoolPostIndex = DataRowRef["e6_PoolPostIndex"] != DBNull.Value ? (string)DataRowRef["e6_PoolPostIndex"] : null;
@@ -615,10 +774,7 @@ namespace e621_ReBot_v2.Modules
             {
                 case 1:
                     {
-                        if (PoolName != null)
-                        {
-                            GetFileNameOnly = string.Format("{0}_{1}", PostID, GetFileNameOnly);
-                        }
+                        if (PoolName != null) GetFileNameOnly = string.Format("{0}_{1}", PostID, GetFileNameOnly);
                         break;
                     }
 
@@ -628,18 +784,19 @@ namespace e621_ReBot_v2.Modules
                         break;
                     }
             }
-            if (PoolPostIndex != null)
-            {
-                GetFileNameOnly = string.Format("{0}_{1}", PoolPostIndex, GetFileNameOnly);
-            }
+            if (PoolPostIndex != null) GetFileNameOnly = string.Format("{0}_{1}", PoolPostIndex, GetFileNameOnly);
             string FilePath = Path.Combine(DLPath, GetFileNameOnly).ToString();
 
             Form_Loader._FormReference.Invoke(new Action(() =>
             {
-                e6_DownloadItem e6_DownloadItemTemp = new e6_DownloadItem()
+                e6_DownloadItem e6_DownloadItemTemp = FindDownloadItem();
+                bool AddNew = false;
+                if (e6_DownloadItemTemp == null)
                 {
-                    Tag = DataRowRef,
-                };
+                    e6_DownloadItemTemp = new e6_DownloadItem();
+                    AddNew = true;
+                }
+                e6_DownloadItemTemp.Tag = DataRowRef;
                 e6_DownloadItemTemp.DL_ProgressBar.Visible = true;
                 e6_DownloadItemTemp.DL_ProgressBar.BarColor = Color.Orange;
                 e6_DownloadItemTemp.DL_FolderIcon.Tag = FilePath;
@@ -652,8 +809,8 @@ namespace e621_ReBot_v2.Modules
                     e6_DownloadItemTemp.picBox_ImageHolder.Tag = true;
                     e6_DownloadItemTemp.picBox_ImageHolder.LoadAsync(ThumbLink);
                 }
-                DownloadFile(ref e6_DownloadItemTemp);
-                Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Add(e6_DownloadItemTemp);
+                StarDLClient(ref e6_DownloadItemTemp, "File");
+                if (AddNew) Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Add(e6_DownloadItemTemp);
             }));
         }
 
@@ -903,12 +1060,25 @@ namespace e621_ReBot_v2.Modules
 
 
 
-        public static List<string> DownloadFolderCache;
+        // - - - - - - - - - - -
+
+
+
+        public static List<string> DownloadFolderCache = new List<string>();
+
         public static void Load_DownloadFolderCache()
         {
-            DownloadFolderCache = new List<string>();
+            DownloadFolderCache.Clear();
+            timer_CacheProgressTimer.Start();
             Thread ThreadTemp = new Thread(Load_DownloadFolderCache_BGW);
             ThreadTemp.Start();
+        }
+
+        private static readonly Timer timer_CacheProgressTimer;
+
+        private static void CacheProgressTimer_Tick(object sender, EventArgs e)
+        {
+            Form_Loader._FormReference.BeginInvoke(new Action(() => { Form_Loader._FormReference.bU_SkipDLCache.Text = DownloadFolderCache.Count.ToString(); }));
         }
 
         private static void Load_DownloadFolderCache_BGW()
@@ -925,10 +1095,17 @@ namespace e621_ReBot_v2.Modules
             }
             Form_Loader._FormReference.BeginInvoke(new Action(() =>
             {
+                timer_CacheProgressTimer.Stop();
+                Form_Loader._FormReference.bU_SkipDLCache.Text = Form_Loader._FormReference.bU_SkipDLCache.Tag.ToString();
                 Form_Loader._FormReference.bU_SkipDLCache.Enabled = true;
                 MessageBox.Show(string.Format("Cached {0} files.", DownloadFolderCache.Count), "e621 ReBot");
             }));
         }
+
+
+
+        // - - - - - - - - - - -
+
 
 
         public static void GrabAllImagesWithGivenTags(object sender, DoWorkEventArgs e)

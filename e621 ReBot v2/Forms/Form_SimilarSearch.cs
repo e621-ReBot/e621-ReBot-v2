@@ -65,7 +65,7 @@ namespace e621_ReBot_v2.Forms
             {
                 SiteRequest = (HttpWebRequest)WebRequest.Create("https://e621.net/iqdb_queries");
             }
-            SiteRequest.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0";
+            SiteRequest.UserAgent = Form_Loader.GlobalUserAgent;
             SiteRequest.Method = "HEAD";
             SiteRequest.Timeout = 5000;
             string LabelText = null;
@@ -343,7 +343,7 @@ namespace e621_ReBot_v2.Forms
                 else
                 {
                     PicBox.InitialImage = Properties.Resources.E6Image_Loading;
-                    if (_FormReference == null) Invoke(new Action(() => PicBox.LoadAsync(PicPreview)));
+                    if (_FormReference != null) Invoke(new Action(() => PicBox.LoadAsync(PicPreview)));
                 }
                 toolTip_Display.SetToolTip(PicBox, string.Format("Resolution: {0}x{1}\nFile size: {2} KB {3}\nMD5: {4}", PicWidth, PicHeight, FileSize, PicFormat, PicMD5));
                 PicGB.Controls.Add(PicBox);

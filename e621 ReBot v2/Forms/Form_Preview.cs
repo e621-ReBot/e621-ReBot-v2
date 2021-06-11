@@ -9,8 +9,11 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Threading;
+using System.Web;
 using System.Windows.Forms;
 
 namespace e621_ReBot_v2.Forms
@@ -63,6 +66,8 @@ namespace e621_ReBot_v2.Forms
             Resize += Form_Preview_Resize;
         }
 
+        [DllImport("wininet.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        static extern bool InternetSetCookie(string UrlName, string CookieName, string CookieData);
         public void NavURL(string URL2Navigate)
         {
             if (URL2Navigate.Contains("pximg.net"))
@@ -71,6 +76,13 @@ namespace e621_ReBot_v2.Forms
             }
             else
             {
+                if (URL2Navigate.Contains("deviantart.com"))
+                {
+                    foreach (Cookie CookieTemp in Module_CookieJar.Cookies_DeviantArt.GetCookies(new Uri("https://www.deviantart.com")))
+                    {
+                        InternetSetCookie(CookieTemp.Domain, CookieTemp.Name,  HttpUtility.UrlDecode(CookieTemp.Value));
+                    }
+                }
                 Pic_WebBrowser.Navigate(URL2Navigate);
             }
         }
@@ -401,7 +413,7 @@ namespace e621_ReBot_v2.Forms
                         }
                         catch (IOException)
                         {
-                                Thread.Sleep(500);
+                            Thread.Sleep(500);
                         }
                         finally
                         {

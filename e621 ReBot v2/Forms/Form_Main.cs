@@ -222,6 +222,7 @@ namespace e621_ReBot_v2
             AutoTags.AllowsTabKey = true;
             AutoTags.LeftPadding = 0;
             Read_Genders();
+            Read_DNPs();
 
             ((RadioButton)cGroupBoxColored_Update.Controls.Find("UpdateDays_" + Properties.Settings.Default.UpdateDays, false).FirstOrDefault()).Checked = true;
 
@@ -298,7 +299,7 @@ namespace e621_ReBot_v2
                     TrackBar_Volume_Scroll(null, null);
                     panel_Browser.Visible = true;
                     Module_CefSharp.CefSharpBrowser.Load("https://e621.net/session/new");
-                    MessageBox.Show("Thanks for trying me out.\n\nFor start, you should log in into e621 and provide me with API key so I could do the tasks you require.\n\nI opened the login page for you.", "e621 ReBot");
+                    MessageBox.Show("Thanks for trying me out.\n\nFor a start, you should log in into e621 and provide me with API key so I could do the tasks you require.\n\nI opened the login page for you.", "e621 ReBot");
                 }
 
                 if (Properties.Settings.Default.Note.Equals(""))
@@ -774,7 +775,7 @@ namespace e621_ReBot_v2
 
             HttpWebRequest URLChecker = (HttpWebRequest)WebRequest.Create(WebURLCheck);
             URLChecker.CookieContainer = new CookieContainer();
-            URLChecker.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0";
+            URLChecker.UserAgent = Form_Loader.GlobalUserAgent;
             URLChecker.Method = "HEAD";
             URLChecker.Timeout = 5000;
             HttpWebResponse UrlCheckerRepose;
@@ -803,7 +804,7 @@ namespace e621_ReBot_v2
                 }
                 UrlCheckerRepose.Dispose();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 Module_CefSharp.CefSharpBrowser.Load("https://www.google.com/search?q=" + WebURL);
             }
@@ -2446,16 +2447,16 @@ namespace e621_ReBot_v2
                 GenderStringList.Add(GenderTag);
 
                 //add all tags that are alliased to this tag
-                JArray GenderJArray = JArray.Parse(Module_e621Info.e621InfoDownload("https://e621.net/tag_aliases.json?search[name_matches]=" + GenderTag)); //name_matches~=consequent_name
-                Thread.Sleep(1000);
+                JArray GenderJArray = JArray.Parse(Module_e621Info.e621InfoDownload("https://e621.net/tag_aliases.json?limit=1000&search[name_matches]=" + GenderTag)); //name_matches~=consequent_name
+                Thread.Sleep(500);
                 foreach (JToken GenderAlias in GenderJArray)
                 {
                     if (GenderAlias["status"].Value<string>().Equals("active")) GenderStringList.Add(GenderAlias["antecedent_name"].Value<string>());
                 }
 
                 //add all tags that implicate this tag
-                GenderJArray = JArray.Parse(Module_e621Info.e621InfoDownload("https://e621.net/tag_implications.json?search[name_matches]=" + GenderTag)); //name_matches~=consequent_name
-                Thread.Sleep(1000);
+                GenderJArray = JArray.Parse(Module_e621Info.e621InfoDownload("https://e621.net/tag_implications.json?limit=1000&search[name_matches]=" + GenderTag)); //name_matches~=consequent_name
+                Thread.Sleep(500);
                 foreach (JToken GenderImplications in GenderJArray)
                 {
                     if (GenderImplications["status"].Value<string>().Equals("active"))
@@ -2465,9 +2466,9 @@ namespace e621_ReBot_v2
                         GenderStringList.Add(SubGenderTag);
 
                         //add all tags that are alliased to this tag
-                        string GenderSubAliasString = Module_e621Info.e621InfoDownload("https://e621.net/tag_aliases.json?search[name_matches]=" + SubGenderTag);
-                        Thread.Sleep(1000);
-                        if (GenderSubAliasString.Substring(0, 1).Equals("["))
+                        string GenderSubAliasString = Module_e621Info.e621InfoDownload("https://e621.net/tag_aliases.json?limit=1000&search[name_matches]=" + SubGenderTag);
+                        Thread.Sleep(500);
+                        if (GenderSubAliasString.StartsWith("[", StringComparison.OrdinalIgnoreCase))
                         {
                             JArray SubGenderJArray = JArray.Parse(GenderSubAliasString);
                             foreach (JToken SubGenderAlias in SubGenderJArray)
@@ -2476,9 +2477,9 @@ namespace e621_ReBot_v2
                             }
 
                             //add all tags that implicate this tag
-                            string GenderSubImplicationsString = Module_e621Info.e621InfoDownload("https://e621.net/tag_implications.json?search[name_matches]=" + SubGenderTag);
-                            Thread.Sleep(1000);
-                            if (GenderSubImplicationsString.Substring(0, 1).Equals("["))
+                            string GenderSubImplicationsString = Module_e621Info.e621InfoDownload("https://e621.net/tag_implications.json?limit=1000&search[name_matches]=" + SubGenderTag);
+                            Thread.Sleep(500);
+                            if (GenderSubImplicationsString.StartsWith("[", StringComparison.OrdinalIgnoreCase))
                             {
                                 SubGenderJArray = JArray.Parse(GenderSubImplicationsString);
                                 foreach (JToken SubGenderImplications in SubGenderJArray)
@@ -2488,9 +2489,9 @@ namespace e621_ReBot_v2
                                         GenderStringList.Add(SubGenderImplications["antecedent_name"].Value<string>());
 
                                         //add all tags that are alliased to this tag
-                                        string GenderSub2AliasString = Module_e621Info.e621InfoDownload("https://e621.net/tag_aliases.json?search[name_matches]=" + GenderStringList.Last());
+                                        string GenderSub2AliasString = Module_e621Info.e621InfoDownload("https://e621.net/tag_aliases.json?limit=1000&search[name_matches]=" + GenderStringList.Last());
                                         Thread.Sleep(1000);
-                                        if (GenderSub2AliasString.Substring(0, 1).Equals("["))
+                                        if (GenderSub2AliasString.StartsWith("[", StringComparison.OrdinalIgnoreCase))
                                         {
                                             JArray Sub2GenderJArray = JArray.Parse(GenderSub2AliasString);
                                             foreach (JToken Sub2GenderAlias in Sub2GenderJArray)
@@ -2506,7 +2507,8 @@ namespace e621_ReBot_v2
                     }
                 }
             }
-            GenderStringList.Distinct();
+            GenderStringList = GenderStringList.Distinct().ToList();
+            GenderStringList.Sort();
             File.WriteAllText("genders.txt", string.Join("✄", GenderStringList));
             MessageBox.Show("Downloaded all genders.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -2515,6 +2517,59 @@ namespace e621_ReBot_v2
         private void Read_Genders()
         {
             Gender_Tags.AddRange(Properties.Resources.genders.Split(new string[] { "✄" }, StringSplitOptions.RemoveEmptyEntries));
+        }
+
+        private void BU_GetDNPs_Click(object sender, EventArgs e)
+        {
+            List<string> DNPStringList = new List<string>();
+
+            foreach (string DNPTag in new string[] { "avoid_posting", "conditional_dnp" })
+            {
+                for (int p = 1; p <= 999; p++)
+                {
+                    string e6DNPs_Response = Module_e621Info.e621InfoDownload(string.Format("https://e621.net/tag_implications.json?limit=320&search[name_matches]={0}&page={1}", DNPTag, p)); //name_matches~=consequent_name
+                    Thread.Sleep(500);
+                    if (e6DNPs_Response.StartsWith("{", StringComparison.OrdinalIgnoreCase))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        //add all tags that implicate this tag
+                        JArray DNPJArray = JArray.Parse(e6DNPs_Response);
+                        foreach (JToken DNPImplications in DNPJArray)
+                        {
+                            if (DNPImplications["status"].Value<string>().Equals("active"))
+                            {
+                                string SubDNPTag = DNPImplications["antecedent_name"].Value<string>();
+                                DNPStringList.Add(SubDNPTag);
+
+                                //add all tags that are alliased to this tag
+                                string DNPSubAliasString = Module_e621Info.e621InfoDownload("https://e621.net/tag_aliases.json?limit=320&search[name_matches]=" + SubDNPTag);
+                                Thread.Sleep(500);
+                                if (DNPSubAliasString.StartsWith("[", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    JArray SubDNPJArray = JArray.Parse(DNPSubAliasString);
+                                    foreach (JToken SubDNPAlias in SubDNPJArray)
+                                    {
+                                        if (SubDNPAlias["status"].Value<string>().Equals("active")) DNPStringList.Add(SubDNPAlias["antecedent_name"].Value<string>());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            DNPStringList = DNPStringList.Distinct().ToList();
+            DNPStringList.Sort();
+            File.WriteAllText("DNPs.txt", string.Join("✄", DNPStringList));
+            MessageBox.Show("Downloaded all DNPs.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        public List<string> DNP_Tags = new List<string>();
+        private void Read_DNPs()
+        {
+            DNP_Tags.AddRange(Properties.Resources.DNPs.Split(new string[] { "✄" }, StringSplitOptions.RemoveEmptyEntries));
         }
 
         private void BU_AppData_Click(object sender, EventArgs e)

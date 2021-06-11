@@ -7,6 +7,9 @@ namespace e621_ReBot_v2.CustomControls
 {
     public partial class e6_DownloadItem : UserControl
     {
+        public bool _DownloadFinished = false;
+        public bool _AlreadyCopied = false;
+
         public e6_DownloadItem()
         {
             InitializeComponent();

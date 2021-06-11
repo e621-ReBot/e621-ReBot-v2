@@ -99,17 +99,16 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack, Version=1.11.32.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.11.32\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.11.34.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.34\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.SQLite, Version=1.0.113.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\lib\net46\System.Data.SQLite.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="System.Data.SQLite, Version=1.0.114.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.114.0\lib\net46\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
@@ -308,11 +307,15 @@
     <Compile Include="Modules\CefSharp\CefSharp_RequestHandler.cs" />
     <Compile Include="Modules\CefSharp\CefSharp_ResourceRequestHandler.cs" />
     <Compile Include="Modules\CefSharp\Module_CefSharp.cs" />
+    <Compile Include="CustomControls\Custom_WebClient.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Modules\Grabber\Module_CookieJar.cs" />
     <Compile Include="Modules\Grabber\Module_FurAffinity.cs" />
     <Compile Include="Modules\Grabber\Module_Grabber.cs" />
     <Compile Include="Modules\Grabber\Module_HicceArs.cs" />
     <Compile Include="Modules\Grabber\Module_Html2Text.cs" />
+    <Compile Include="Modules\Grabber\Module_DeviantArt.cs" />
     <Compile Include="Modules\Grabber\Module_Inkbunny.cs" />
     <Compile Include="Modules\Grabber\Module_Mastodon.cs" />
     <Compile Include="Modules\Grabber\Module_Newgrounds.cs" />
@@ -489,6 +492,7 @@
     <EmbeddedResource Include="Resources\Files\Newtonsoft.Json.dll" />
     <EmbeddedResource Include="Resources\Files\System.Data.SQLite.dll" />
     <EmbeddedResource Include="Resources\Files\genders.txt" />
+    <EmbeddedResource Include="Resources\Files\DNPs.txt" />
     <Content Include="Resources\Form\CheckMark_Icon.png" />
     <Content Include="Resources\Form\CloseBtn_Active.png" />
     <Content Include="Resources\Form\Cursor_e6.png" />
@@ -514,7 +518,7 @@
     <None Include="Resources\Ko-Fi Button.png" />
     <None Include="Resources\Ko-Fi ButtonSmall.png" />
     <None Include="Resources\GitHubLogo.png" />
-    <None Include="Resources\Files\HtmlAgilityPack.dll" />
+    <EmbeddedResource Include="Resources\Files\HtmlAgilityPack.dll" />
     <Content Include="Resources\Menu\MenuButton_Browser.png" />
     <Content Include="Resources\Menu\MenuButton_Browser_Highlight.png" />
     <Content Include="Resources\Menu\MenuButton_Download.png" />
@@ -552,19 +556,19 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
     <Error Condition="!Exists('..\packages\cef.redist.x64.86.0.24\build\cef.redist.x64.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x64.86.0.24\build\cef.redist.x64.props'))" />
     <Error Condition="!Exists('..\packages\cef.redist.x86.86.0.24\build\cef.redist.x86.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x86.86.0.24\build\cef.redist.x86.props'))" />
     <Error Condition="!Exists('..\packages\CefSharp.Common.86.0.241\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.86.0.241\build\CefSharp.Common.props'))" />
     <Error Condition="!Exists('..\packages\CefSharp.Common.86.0.241\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.86.0.241\build\CefSharp.Common.targets'))" />
     <Error Condition="!Exists('..\packages\CefSharp.WinForms.86.0.241\build\CefSharp.WinForms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.WinForms.86.0.241\build\CefSharp.WinForms.props'))" />
     <Error Condition="!Exists('..\packages\CefSharp.WinForms.86.0.241\build\CefSharp.WinForms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.WinForms.86.0.241\build\CefSharp.WinForms.targets'))" />
+    <Error Condition="!Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.114.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.114.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
   </Target>
-  <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\CefSharp.Common.86.0.241\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.86.0.241\build\CefSharp.Common.targets')" />
   <Import Project="..\packages\CefSharp.WinForms.86.0.241\build\CefSharp.WinForms.targets" Condition="Exists('..\packages\CefSharp.WinForms.86.0.241\build\CefSharp.WinForms.targets')" />
+  <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.114.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.114.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
 </Project>

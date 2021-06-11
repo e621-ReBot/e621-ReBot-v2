@@ -88,6 +88,7 @@
             this.label_FlashPlayer = new System.Windows.Forms.Label();
             this.label_Forum = new System.Windows.Forms.Label();
             this.pictureBox_Discord = new System.Windows.Forms.PictureBox();
+            this.bU_GetDNPs = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.bU_AppData = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.cGroupBoxColored_NamingWeb = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
             this.Naming_web_0 = new System.Windows.Forms.RadioButton();
@@ -294,7 +295,7 @@
             // label_Credit_Flag
             // 
             this.label_Credit_Flag.BackColor = System.Drawing.Color.Transparent;
-            this.label_Credit_Flag.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_Credit_Flag.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.label_Credit_Flag.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.label_Credit_Flag.Image = global::e621_ReBot_v2.Properties.Resources.Icon_Flag;
             this.label_Credit_Flag.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -310,7 +311,7 @@
             // label_Credit_Note
             // 
             this.label_Credit_Note.BackColor = System.Drawing.Color.Transparent;
-            this.label_Credit_Note.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_Credit_Note.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.label_Credit_Note.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.label_Credit_Note.Image = global::e621_ReBot_v2.Properties.Resources.Icon_Note;
             this.label_Credit_Note.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -326,7 +327,7 @@
             // label_Credit_Upload
             // 
             this.label_Credit_Upload.BackColor = System.Drawing.Color.Transparent;
-            this.label_Credit_Upload.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_Credit_Upload.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.label_Credit_Upload.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.label_Credit_Upload.Image = global::e621_ReBot_v2.Properties.Resources.Icon_Upload;
             this.label_Credit_Upload.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -342,7 +343,7 @@
             // label_UserLevel
             // 
             this.label_UserLevel.BackColor = System.Drawing.Color.Transparent;
-            this.label_UserLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_UserLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.label_UserLevel.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.label_UserLevel.Location = new System.Drawing.Point(872, 18);
             this.label_UserLevel.Margin = new System.Windows.Forms.Padding(0, 0, 16, 0);
@@ -898,6 +899,7 @@
             this.bU_SkipDLCache.Size = new System.Drawing.Size(120, 23);
             this.bU_SkipDLCache.TabIndex = 8;
             this.bU_SkipDLCache.TabStop = false;
+            this.bU_SkipDLCache.Tag = "Cache downloads";
             this.bU_SkipDLCache.Text = "Cache downloads";
             this.toolTip_Display.SetToolTip(this.bU_SkipDLCache, "Load all files from e621 download folder into cache so they are skipped when down" +
         "loading.\r\nPress this and wait for it to finish before starting to download.");
@@ -1132,7 +1134,7 @@
             this.bU_ReverseDownload.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bU_ReverseDownload.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.bU_ReverseDownload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bU_ReverseDownload.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bU_ReverseDownload.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_ReverseDownload.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.bU_ReverseDownload.Location = new System.Drawing.Point(467, 6);
             this.bU_ReverseDownload.Margin = new System.Windows.Forms.Padding(4);
@@ -1269,6 +1271,25 @@
             this.toolTip_Display.SetToolTip(this.pictureBox_Discord, "https://discord.gg/7ncEzah");
             this.pictureBox_Discord.Click += new System.EventHandler(this.PictureBox_Discord_Click);
             // 
+            // bU_GetDNPs
+            // 
+            this.bU_GetDNPs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.bU_GetDNPs.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bU_GetDNPs.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.bU_GetDNPs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bU_GetDNPs.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.bU_GetDNPs.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.bU_GetDNPs.Location = new System.Drawing.Point(64, 588);
+            this.bU_GetDNPs.Margin = new System.Windows.Forms.Padding(4);
+            this.bU_GetDNPs.Name = "bU_GetDNPs";
+            this.bU_GetDNPs.Size = new System.Drawing.Size(120, 28);
+            this.bU_GetDNPs.TabIndex = 151;
+            this.bU_GetDNPs.TabStop = false;
+            this.bU_GetDNPs.Text = "Get DNPs";
+            this.toolTip_Display.SetToolTip(this.bU_GetDNPs, "Refresh Uploads, Flags, Notes (credit) display.");
+            this.bU_GetDNPs.UseVisualStyleBackColor = true;
+            this.bU_GetDNPs.Click += new System.EventHandler(this.BU_GetDNPs_Click);
+            // 
             // bU_AppData
             // 
             this.bU_AppData.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
@@ -1369,7 +1390,6 @@
             this.bU_GetGenders.Text = "Get Genders";
             this.toolTip_Display.SetToolTip(this.bU_GetGenders, "Refresh Uploads, Flags, Notes (credit) display.");
             this.bU_GetGenders.UseVisualStyleBackColor = true;
-            this.bU_GetGenders.Visible = false;
             this.bU_GetGenders.Click += new System.EventHandler(this.BU_GetGenders_Click);
             // 
             // label_DragDropConvert
@@ -2289,7 +2309,7 @@
             this.Version_Label.AutoSize = true;
             this.Version_Label.BackColor = System.Drawing.Color.Transparent;
             this.Version_Label.Cursor = System.Windows.Forms.Cursors.NoMove2D;
-            this.Version_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Version_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.Version_Label.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.Version_Label.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.Version_Label.Location = new System.Drawing.Point(136, 22);
@@ -2305,7 +2325,7 @@
             this.Title_Label.AutoSize = true;
             this.Title_Label.BackColor = System.Drawing.Color.Transparent;
             this.Title_Label.Cursor = System.Windows.Forms.Cursors.NoMove2D;
-            this.Title_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Title_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.Title_Label.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.Title_Label.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.Title_Label.Location = new System.Drawing.Point(44, 20);
@@ -2591,7 +2611,7 @@
             this.flowLayoutPanel_BrowserButtons.Controls.Add(this.BB_Download);
             this.flowLayoutPanel_BrowserButtons.Controls.Add(this.DevTools_Button);
             this.flowLayoutPanel_BrowserButtons.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel_BrowserButtons.Location = new System.Drawing.Point(950, 2);
+            this.flowLayoutPanel_BrowserButtons.Location = new System.Drawing.Point(951, 2);
             this.flowLayoutPanel_BrowserButtons.Margin = new System.Windows.Forms.Padding(0, 2, 2, 0);
             this.flowLayoutPanel_BrowserButtons.Name = "flowLayoutPanel_BrowserButtons";
             this.flowLayoutPanel_BrowserButtons.Size = new System.Drawing.Size(309, 24);
@@ -2758,7 +2778,7 @@
             this.cCheckGroupBox_Retry.TabStop = false;
             this.cCheckGroupBox_Retry.Text = "Retry Queue";
             this.cCheckGroupBox_Retry.TextOffset = 0;
-            this.cCheckGroupBox_Retry.TooltipTextOnCheckbox = "Toggle this (On) to retry failed jobs";
+            this.cCheckGroupBox_Retry.TooltipTextOnCheckbox = "Toggle this (On) to retry failed jobs.";
             this.cCheckGroupBox_Retry.CheckedChanged += new System.EventHandler(this.CCheckGroupBox_Retry_CheckedChanged);
             // 
             // cTreeView_RetryQueue
@@ -2804,7 +2824,7 @@
             this.cCheckGroupBox_Convert.TabStop = false;
             this.cCheckGroupBox_Convert.Text = "Conversionist";
             this.cCheckGroupBox_Convert.TextOffset = 0;
-            this.cCheckGroupBox_Convert.TooltipTextOnCheckbox = "Toggle this (On) to retry failed jobs";
+            this.cCheckGroupBox_Convert.TooltipTextOnCheckbox = "Conversionist converts the media formats.";
             this.cCheckGroupBox_Convert.CheckedChanged += new System.EventHandler(this.CCheckGroupBox_Convert_CheckedChanged);
             // 
             // cTreeView_ConversionQueue
@@ -2850,7 +2870,7 @@
             this.cCheckGroupBox_Upload.TabStop = false;
             this.cCheckGroupBox_Upload.Text = "Uploader";
             this.cCheckGroupBox_Upload.TextOffset = 0;
-            this.cCheckGroupBox_Upload.TooltipTextOnCheckbox = "Toggle this (On) to retry failed jobs";
+            this.cCheckGroupBox_Upload.TooltipTextOnCheckbox = "Uploader uploads the media.";
             this.cCheckGroupBox_Upload.CheckedChanged += new System.EventHandler(this.CCheckGroupBox_Upload_CheckedChanged);
             // 
             // cTreeView_UploadQueue
@@ -2897,7 +2917,7 @@
             this.cCheckGroupBox_Grab.TabStop = false;
             this.cCheckGroupBox_Grab.Text = "Grabber";
             this.cCheckGroupBox_Grab.TextOffset = 0;
-            this.cCheckGroupBox_Grab.TooltipTextOnCheckbox = "Toggle this (On) to retry failed jobs";
+            this.cCheckGroupBox_Grab.TooltipTextOnCheckbox = "Grabber grabs the media.";
             this.cCheckGroupBox_Grab.CheckedChanged += new System.EventHandler(this.CCheckGroupBox_Grab_CheckedChanged);
             this.cCheckGroupBox_Grab.Paint += new System.Windows.Forms.PaintEventHandler(this.CCheckGroupBox_Grab_Paint);
             // 
@@ -2986,7 +3006,7 @@
             this.tabPage_Download.Controls.Add(this.cCheckGroupBox_Download);
             this.tabPage_Download.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Download.Name = "tabPage_Download";
-            this.tabPage_Download.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Download.Size = new System.Drawing.Size(1262, 695);
             this.tabPage_Download.TabIndex = 2;
             this.tabPage_Download.Text = "tabPage_Download";
             // 
@@ -3062,6 +3082,7 @@
             // 
             this.tabPage_Settings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
             this.tabPage_Settings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tabPage_Settings.Controls.Add(this.bU_GetDNPs);
             this.tabPage_Settings.Controls.Add(this.bU_AppData);
             this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_NamingWeb);
             this.tabPage_Settings.Controls.Add(this.bU_GetGenders);
@@ -3088,7 +3109,7 @@
             this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_AppName);
             this.tabPage_Settings.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Settings.Name = "tabPage_Settings";
-            this.tabPage_Settings.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Settings.Size = new System.Drawing.Size(192, 91);
             this.tabPage_Settings.TabIndex = 5;
             this.tabPage_Settings.Text = "tabPage_Settings";
             this.tabPage_Settings.Enter += new System.EventHandler(this.TabPage_Settings_Enter);
@@ -3647,7 +3668,6 @@
         private CustomControls.Button_Browser BQB_Inkbunny;
         private CustomControls.Button_Browser BQB_HicceArs;
         protected internal System.Windows.Forms.Panel panel_Browser;
-        private System.Windows.Forms.Panel panel_ComboBoxBlocker;
         protected internal System.Windows.Forms.Panel panel_BrowserDisplay;
         protected internal System.Windows.Forms.Button BB_Navigate;
         protected internal System.Windows.Forms.ComboBox URL_ComboBox;
@@ -3765,6 +3785,8 @@
         protected internal CustomControls.Custom_GroupBoxColored cGroupBox_GameCheats;
         protected internal System.Windows.Forms.Label labelPuzzle_SelectedPost;
         protected internal CustomControls.Button_Unfocusable BB_Bookmarks;
+        protected internal CustomControls.Button_Unfocusable bU_GetDNPs;
+        protected internal System.Windows.Forms.Panel panel_ComboBoxBlocker;
     }
 }
 

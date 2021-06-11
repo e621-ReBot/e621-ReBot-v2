@@ -60,6 +60,7 @@ namespace e621_ReBot_v2.Modules
             _GrabEnabler.Add("sofurry.com/view/");
             _GrabEnabler.Add("sofurry.com/browse/user/art");
             _GrabEnabler.Add("mastodon.social/@");
+            //_GrabEnabler.Add("deviantart.com/");
         }
 
 
@@ -123,11 +124,16 @@ namespace e621_ReBot_v2.Modules
                 Module_Plurk.QueuePrep(WebAdress);
                 return;
             }
+            if (WebAdress.Contains("deviantart.com"))
+            {
+                Module_DeviantArt.QueuePrep(WebAdress);
+                return;
+            }
         }
 
 
 
-        public static TreeNode CreateOrFindParentTreeNode(string NodeText, string NodeName, bool SkipSearch = false, string[] TagPass = null)
+        public static TreeNode CreateOrFindParentTreeNode(string NodeText, string NodeName, bool SkipSearch = false, object TagPass = null)
         {
             TreeNode TreeViewParentNode;
             if (SkipSearch || !Form_Loader._FormReference.cTreeView_GrabQueue.Nodes.ContainsKey(NodeName))
@@ -144,7 +150,7 @@ namespace e621_ReBot_v2.Modules
             }
             return TreeViewParentNode;
         }
-        public static bool CreateChildTreeNode(ref TreeNode ParentNode, string NodeText, string NodeName, string[] TagPass = null)
+        public static bool CreateChildTreeNode(ref TreeNode ParentNode, string NodeText, string NodeName, object TagPass = null)
         {
             if (!Form_Loader._FormReference.cTreeView_GrabQueue.Nodes.Find(NodeText, true).Any())
             {
@@ -295,6 +301,12 @@ namespace e621_ReBot_v2.Modules
                 BGWTemp.RunWorkerAsync(WebAdress);
                 return;
             }
+            if (WebAdress.Contains("deviantart.com"))
+            {
+                BGWTemp.DoWork += Module_DeviantArt.RunGrabber;
+                BGWTemp.RunWorkerAsync(NeededData ?? WebAdress);
+                return;
+            }
 
         }
 
@@ -373,7 +385,7 @@ namespace e621_ReBot_v2.Modules
             HTMLRequest.CookieContainer = CookieRef ?? new CookieContainer();
             if (NewgroundsSpecialRequest) HTMLRequest.Headers.Add("X-Requested-With", "XMLHttpRequest");
             HTMLRequest.Timeout = 5000;
-            HTMLRequest.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0";
+            HTMLRequest.UserAgent = Form_Loader.GlobalUserAgent;
             try
             {
                 using (HttpWebResponse HTMLResponse = (HttpWebResponse)HTMLRequest.GetResponse())
@@ -391,7 +403,7 @@ namespace e621_ReBot_v2.Modules
                     }
                 }
             }
-            catch
+            catch (WebException ex)
             {
                 return null;
             }
@@ -401,8 +413,8 @@ namespace e621_ReBot_v2.Modules
         {
             HttpWebRequest GetSizeRequest = (HttpWebRequest)WebRequest.Create(MediaURL);
             GetSizeRequest.Method = "HEAD";
-            GetSizeRequest.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0";
-            GetSizeRequest.CookieContainer = new CookieContainer(); //twitter sometimes not working otherwise
+            GetSizeRequest.UserAgent = Form_Loader.GlobalUserAgent;
+            GetSizeRequest.CookieContainer = MediaURL.Contains("deviantart.com") ? Module_CookieJar.Cookies_DeviantArt : new CookieContainer(); //twitter sometimes not working otherwise
             if (MediaURL.Contains("pximg.net")) GetSizeRequest.Referer = "http://www.pixiv.net";
             GetSizeRequest.Timeout = 3000;
             try
@@ -429,7 +441,7 @@ namespace e621_ReBot_v2.Modules
         {
             HttpWebRequest CheckExistsRequest = (HttpWebRequest)WebRequest.Create(MediaURL);
             CheckExistsRequest.Method = "HEAD";
-            CheckExistsRequest.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0";
+            CheckExistsRequest.UserAgent = Form_Loader.GlobalUserAgent;
             CheckExistsRequest.Timeout = 3000;
             try
             {
@@ -456,6 +468,7 @@ namespace e621_ReBot_v2.Modules
             string SiteReferer = "https://" + new Uri((string)RowRef["Grab_URL"]).Host;
             using (WebClient ThumbClient = new WebClient())
             {
+                ThumbClient.Headers.Add(HttpRequestHeader.UserAgent, Form_Loader.GlobalUserAgent);
                 ThumbClient.Headers.Add(HttpRequestHeader.Referer, SiteReferer);
                 ThumbClient.DownloadDataCompleted += DownloadThumbFinished;
                 ThumbClient.DownloadDataAsync(new Uri((string)RowRef["Grab_ThumbnailURL"]), RowRef);
@@ -530,8 +543,6 @@ namespace e621_ReBot_v2.Modules
             }
 
             DownloadedImage.Dispose();
-            ((WebClient)sender).Dispose();
         }
     }
-
 }

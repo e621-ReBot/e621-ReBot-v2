@@ -1,4 +1,5 @@
-﻿using e621_ReBot_v2.CustomControls;
+﻿using e621_ReBot.Modules;
+using e621_ReBot_v2.CustomControls;
 using e621_ReBot_v2.Forms;
 using Newtonsoft.Json.Linq;
 using System;
@@ -26,7 +27,7 @@ namespace e621_ReBot_v2.Modules
             HttpWebRequest PixivDownload = (HttpWebRequest)WebRequest.Create(string.Format("https://www.pixiv.net/ajax/illust/{0}/ugoira_meta", WorkID));
             PixivDownload.CookieContainer = Module_CookieJar.Cookies_Pixiv;
             PixivDownload.Timeout = 5000;
-            PixivDownload.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0";
+            PixivDownload.UserAgent = Form_Loader.GlobalUserAgent;
             using (var PixivStreamReader = new StreamReader(PixivDownload.GetResponse().GetResponseStream()))
             {
                 return PixivStreamReader.ReadToEnd();
@@ -660,7 +661,11 @@ namespace e621_ReBot_v2.Modules
             }
 
             Image ImageHolder = e6_DownloadItemRef.picBox_ImageHolder.Image ?? e6_DownloadItemRef.picBox_ImageHolder.BackgroundImage;
+            Form_Loader._FormReference.DownloadFLP_Downloaded.ResumeLayout();
+            UIDrawController.SuspendDrawing(Form_Loader._FormReference.DownloadFLP_Downloaded);
             Module_Downloader.AddPic2FLP((string)DataRowTemp["Grab_ThumbnailURL"], e6_DownloadItemRef.DL_FolderIcon.Tag.ToString(), ImageHolder);
+            Form_Loader._FormReference.DownloadFLP_Downloaded.ResumeLayout();
+            UIDrawController.ResumeDrawing(Form_Loader._FormReference.DownloadFLP_Downloaded);
 
             e6_DownloadItemRef.Dispose();
             ((BackgroundWorker)sender).Dispose();
@@ -704,7 +709,5 @@ namespace e621_ReBot_v2.Modules
                 }
             }
         }
-
     }
-
 }
