@@ -174,10 +174,7 @@ namespace e621_ReBot_v2.Modules.Grabber
             TempDataRow["Grab_URL"] = URL;
             TempDataRow["Grab_DateTime"] = DateTime;
             TempDataRow["Grab_Title"] = WebUtility.HtmlDecode(string.Format("\"{0}\" by {1} on SoFurry", Title, Artist)); ;
-            if (TextBody != null)
-            {
-                TempDataRow["Grab_TextBody"] = TextBody;
-            }
+            if (TextBody != null) TempDataRow["Grab_TextBody"] = TextBody;
             TempDataRow["Grab_MediaURL"] = MediaURL;
             TempDataRow["Grab_ThumbnailURL"] = ThumbnailURL;
             TempDataRow["Info_MediaFormat"] = MediaURL.Substring(MediaURL.LastIndexOf(".") + 1);
@@ -185,6 +182,5 @@ namespace e621_ReBot_v2.Modules.Grabber
             TempDataRow["Upload_Tags"] = DateTime.Year;
             TempDataRow["Artist"] = Artist;
         }
-
     }
 }

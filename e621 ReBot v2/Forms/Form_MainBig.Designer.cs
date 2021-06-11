@@ -510,6 +510,15 @@
             // 
             this.labelPuzzle_SelectedPost.Location = new System.Drawing.Point(1715, 242);
             // 
+            // bU_GetDNPs
+            // 
+            this.bU_GetDNPs.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.bU_GetDNPs.Location = new System.Drawing.Point(392, 744);
+            // 
+            // panel_ComboBoxBlocker
+            // 
+            this.panel_ComboBoxBlocker.Location = new System.Drawing.Point(1379, 3);
+            // 
             // Form_MainBig
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;

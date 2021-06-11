@@ -95,6 +95,7 @@ namespace e621_ReBot_v2.Forms
                 {
                     //Wrong API Key, e621 denies connection
                 }
+                MessageBox.Show(ex.Message + "\n\nStatus Code: " + TempException.StatusCode);
                 e621Request.Abort();
                 TempException.Dispose();
                 EncodedContentStream.Dispose();

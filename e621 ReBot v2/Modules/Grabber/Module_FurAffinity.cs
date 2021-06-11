@@ -179,10 +179,7 @@ namespace e621_ReBot_v2.Modules.Grabber
             TempDataRow["Grab_URL"] = URL;
             TempDataRow["Grab_DateTime"] = DateTime;
             TempDataRow["Grab_Title"] = WebUtility.HtmlDecode(string.Format("⮚ \"{0}\" ⮘ by {1} on FurAffinity", Title, Artist)); ;
-            if (TextBody != null)
-            {
-                TempDataRow["Grab_TextBody"] = TextBody;
-            }
+            if (TextBody != null) TempDataRow["Grab_TextBody"] = TextBody;
             TempDataRow["Grab_MediaURL"] = MediaURL;
             string ThumbnailURLTemp = string.Format("https://t.facdn.net/{0}@200-{1}.jpg", URL.Split(new[] { "/" }, StringSplitOptions.RemoveEmptyEntries).Last(), MediaURL.Remove(MediaURL.LastIndexOf("/")).Split(new[] { "/" }, StringSplitOptions.RemoveEmptyEntries).Last());
             TempDataRow["Grab_ThumbnailURL"] = ThumbnailURLTemp;
@@ -194,6 +191,5 @@ namespace e621_ReBot_v2.Modules.Grabber
             TempDataRow["Upload_Tags"] = DateTime.Year;
             TempDataRow["Artist"] = Artist;
         }
-
     }
 }

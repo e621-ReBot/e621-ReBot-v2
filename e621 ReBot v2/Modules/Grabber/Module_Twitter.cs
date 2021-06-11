@@ -476,7 +476,7 @@ namespace e621_ReBot_v2.Modules.Grabber
         {
             string StatusID = StatusPermalink.Substring(StatusPermalink.IndexOf("/status/") + "/status/".Length);
             HttpWebRequest Twitter_HTMLRequest = (HttpWebRequest)WebRequest.Create("https://api.twitter.com/1.1/statuses/show.json?tweet_mode=extended&id=" + StatusID); //("https://twitter.com/i/api/2/timeline/conversation/" & StatusID & ".json")
-            Twitter_HTMLRequest.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0";
+            Twitter_HTMLRequest.UserAgent = Form_Loader.GlobalUserAgent;
 
             Module_CookieJar.GetCookies(StatusPermalink, ref Module_CookieJar.Cookies_Twitter);
             Twitter_HTMLRequest.CookieContainer = Module_CookieJar.Cookies_Twitter;

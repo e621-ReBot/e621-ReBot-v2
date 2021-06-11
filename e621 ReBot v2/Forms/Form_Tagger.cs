@@ -673,6 +673,15 @@ namespace e621_ReBot_v2.Forms
             if (TagsAdded)
             {
                 List<string> TagListOnClose = new List<string>(textBox_Tags.Text.Trim().Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries));
+                string DNPArtist = TagListOnClose.Intersect(Form_Loader._FormReference.DNP_Tags).FirstOrDefault();
+                if (DNPArtist != null && (MessageBox.Show("Artist: " + DNPArtist + " is on DNP list, are you sure you want to proceed?", "e621 ReBot", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No))
+                {
+                    textBox_Tags.AppendText(" ");
+                    textBox_Tags.SelectionStart = textBox_Tags.Text.Length;
+                    TagsAdded = false;
+                    e.Cancel = true;
+                    return;
+                }
                 if (!TagListOnClose.Intersect(Form_Loader._FormReference.Gender_Tags).Any() && (MessageBox.Show("You have not added any gender tags, are you sure you want to close?", "e621 ReBot", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No))
                 {
                     textBox_Tags.AppendText(" ");

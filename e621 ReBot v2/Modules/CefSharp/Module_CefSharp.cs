@@ -76,6 +76,7 @@ namespace e621_ReBot_v2.Modules
                 FrameLoad.Add(Form_Loader._FormReference.URL_ComboBox.Text, 0);
                 Form_Loader._FormReference.timer_TwitterGrabber.Stop();
                 Module_Twitter.TwitterJSONHolder = null;
+                Module_DeviantArt.FolderID = null;
             }));
         }
 
@@ -201,16 +202,20 @@ namespace e621_ReBot_v2.Modules
         {
             timer_CefTutorial.Stop();
 
+            MessageBox.Show("I will grab some needed data from this page, then I'm going to point you to next step.", "e621 ReBot");
+
             HtmlDocument WebDoc = new HtmlDocument();
             WebDoc.LoadHtml(CefSharpBrowser.GetSourceAsync().Result);
 
             string TextNode = WebDoc.DocumentNode.SelectSingleNode(".//a[@id='subnav-profile-link']").Attributes["href"].Value;
             TextNode = TextNode.Substring(TextNode.LastIndexOf("/") + 1);
+
             Properties.Settings.Default.UserID = TextNode;
             Properties.Settings.Default.Save();
 
-            Thread ThreadTemp = new Thread(Module_Credits.Check_Credit_All);
-            ThreadTemp.Start();
+            //Thread ThreadTemp = new Thread(Module_Credits.Check_Credit_All);
+            //ThreadTemp.Start();
+            Module_Credits.Check_Credit_All(); //Doing it in bg causes no username issue?
 
             CefSharpBrowser.Load(string.Format("https://e621.net/users/{0}/api_key", Properties.Settings.Default.UserID));
         }
@@ -246,6 +251,14 @@ namespace e621_ReBot_v2.Modules
             if (WebAdress.StartsWith("https://www.plurk.com/", StringComparison.OrdinalIgnoreCase))
             {
                 timer_Plurk.Start();
+                return;
+            }
+
+            List<string> DeviantArtGrabEnabler = new List<string>(new string[] { "/gallery" , "/art/" });
+            if (WebAdress.Contains("https://www.deviantart.com/") && DeviantArtGrabEnabler.Any(s => WebAdress.Contains(s)))
+            {
+                Form_Loader._FormReference.BB_Grab.Visible = true;
+                Form_Loader._FormReference.BB_Grab_All.Visible = false;
             }
         }
 

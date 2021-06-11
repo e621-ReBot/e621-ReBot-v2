@@ -449,6 +449,5 @@ namespace e621_ReBot_v2.CustomControls
             }
             base.Dispose(disposing);
         }
-
     }
 }

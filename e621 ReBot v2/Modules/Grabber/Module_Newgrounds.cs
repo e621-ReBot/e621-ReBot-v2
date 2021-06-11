@@ -240,22 +240,15 @@ namespace e621_ReBot_v2.Modules.Grabber
             TempDataRow["Grab_URL"] = URL;
             TempDataRow["Grab_DateTime"] = DateTime;
             TempDataRow["Grab_Title"] = WebUtility.HtmlDecode(string.Format("⮚ \"{0}\" ⮘ by {1} on Newgrounds", Title, Artist)); ;
-            if (TextBody != null)
-            {
-                TempDataRow["Grab_TextBody"] = TextBody;
-            }
+            if (TextBody != null) TempDataRow["Grab_TextBody"] = TextBody;
             TempDataRow["Grab_MediaURL"] = MediaURL;
             TempDataRow["Grab_ThumbnailURL"] = ThumbURL;
             string FormatTemp = MediaURL.Substring(MediaURL.LastIndexOf(".") + 1);
-            if (FormatTemp.Contains("?"))
-            {
-                FormatTemp = FormatTemp.Substring(0, FormatTemp.IndexOf("?"));
-            }
+            if (FormatTemp.Contains("?")) FormatTemp = FormatTemp.Substring(0, FormatTemp.IndexOf("?"));
             TempDataRow["Info_MediaFormat"] = FormatTemp;
             TempDataRow["Info_MediaByteLength"] = Module_Grabber.GetMediaSize(MediaURL);
             TempDataRow["Upload_Tags"] = DateTime.Year;
             TempDataRow["Artist"] = Artist;
         }
-
     }
 }

@@ -18,6 +18,7 @@ namespace e621_ReBot_v2
         public static FlowLayoutPanel _GridFLPHolder;
         public static int _GridMaxControls;
         public static int _DLHistoryMaxControls;
+        public static readonly string GlobalUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:87.0) Gecko/20100101 Firefox/87.0";
 
         public Form_Loader()
         {
@@ -31,10 +32,7 @@ namespace e621_ReBot_v2
 
         protected override void WndProc(ref Message m)
         {
-            if (m.Msg == NativeMethods.WM_SHOWME)
-            {
-                ShowMe();
-            }
+            if (m.Msg == NativeMethods.WM_SHOWME) ShowMe();
             base.WndProc(ref m);
         }
         private void ShowMe()
