@@ -1565,9 +1565,7 @@
             this.bU_DLPools.TabIndex = 140;
             this.bU_DLPools.TabStop = false;
             this.bU_DLPools.Text = "DL Pools";
-            this.toolTip_Display.SetToolTip(this.bU_DLPools, "DL all Pools (data) from e621 (used for autocomplete suggestions).\r\nPlease don\'t " +
-        "do other e621 API taks at the same time as you will pass the requests per second" +
-        " limit.");
+            this.toolTip_Display.SetToolTip(this.bU_DLPools, "DL all Pools (data) from e621 (used for autocomplete suggestions).");
             this.bU_DLPools.UseVisualStyleBackColor = true;
             this.bU_DLPools.Click += new System.EventHandler(this.BU_DLPools_Click);
             // 
@@ -1586,9 +1584,7 @@
             this.bU_DLTags.TabIndex = 139;
             this.bU_DLTags.TabStop = false;
             this.bU_DLTags.Text = "DL Tags";
-            this.toolTip_Display.SetToolTip(this.bU_DLTags, "DL all Tags (data) from e621 (used for autocomplete suggestions).\r\nPlease don\'t d" +
-        "o other e621 API taks at the same time as you will pass the requests per second " +
-        "limit.");
+            this.toolTip_Display.SetToolTip(this.bU_DLTags, "DL all Tags (data) from e621 (used for autocomplete suggestions).");
             this.bU_DLTags.UseVisualStyleBackColor = true;
             this.bU_DLTags.Click += new System.EventHandler(this.BU_DLTags_Click);
             // 
@@ -3006,7 +3002,7 @@
             this.tabPage_Download.Controls.Add(this.cCheckGroupBox_Download);
             this.tabPage_Download.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Download.Name = "tabPage_Download";
-            this.tabPage_Download.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Download.Size = new System.Drawing.Size(192, 91);
             this.tabPage_Download.TabIndex = 2;
             this.tabPage_Download.Text = "tabPage_Download";
             // 
@@ -3109,7 +3105,7 @@
             this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_AppName);
             this.tabPage_Settings.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Settings.Name = "tabPage_Settings";
-            this.tabPage_Settings.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Settings.Size = new System.Drawing.Size(1262, 695);
             this.tabPage_Settings.TabIndex = 5;
             this.tabPage_Settings.Text = "tabPage_Settings";
             this.tabPage_Settings.Enter += new System.EventHandler(this.TabPage_Settings_Enter);
