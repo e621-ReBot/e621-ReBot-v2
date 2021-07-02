@@ -5,6 +5,7 @@ using e621_ReBot_v2.CustomControls;
 using e621_ReBot_v2.Forms;
 using e621_ReBot_v2.Modules;
 using e621_ReBot_v2.Modules.Grabber;
+using Microsoft.VisualBasic.FileIO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -17,6 +18,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Media;
 using System.Net;
@@ -208,7 +210,7 @@ namespace e621_ReBot_v2
             }
             else
             {
-                DownloadWhat = "tags";
+                DownloadWhat = "tag";
                 cGroupBoxColored_AutocompleteTagEditor.Enabled = false;
             }
             if (File.Exists("pools.txt"))
@@ -217,7 +219,7 @@ namespace e621_ReBot_v2
             }
             else
             {
-                DownloadWhat = (DownloadWhat == null ? "pools" : "tags and pools");
+                DownloadWhat = (DownloadWhat == null ? "pool" : "tag and pool");
             }
             AutoTags.AllowsTabKey = true;
             AutoTags.LeftPadding = 0;
@@ -291,7 +293,7 @@ namespace e621_ReBot_v2
 
                 Module_UpdaterUpdater.UpdateTheUpdater();
 
-                if (Properties.Settings.Default.AutocompleteTags && DownloadWhat != null) MessageBox.Show("You should download " + DownloadWhat + " if you intend to use autocomplete feature.\n\nYou can do so by going to the settings tab and clicking the button for it.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (Properties.Settings.Default.AutocompleteTags && DownloadWhat != null) MessageBox.Show("You should download " + DownloadWhat + " data if you intend to use the autocomplete feature.\n\nYou can do so by going to the settings tab and clicking the button for it.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 if (Properties.Settings.Default.FirstRun)
                 {
@@ -2181,33 +2183,73 @@ namespace e621_ReBot_v2
 
         private void DLWork_Tags()
         {
-            List<string> TagList = new List<string>();
-            string[] TempStringHold;
-            List<string> PageList;
-            string TempTagHolder;
-            for (int p = 1; p <= 999; p++)
+            List<string> TagList;
+            using (MemoryStream DownloadedBytes = new MemoryStream())
             {
-                string e6Tags_Response = Module_e621Info.e621InfoDownload("https://e621.net/tags.json?search[order]=count&limit=1000&page=" + p);
-                if (e6Tags_Response.StartsWith("{", StringComparison.OrdinalIgnoreCase))
+                int RetryCount = 0;
+                DateTime DateTimeTempUTC = DateTime.UtcNow;
+                HttpWebRequest UpdateDownloader = (HttpWebRequest)WebRequest.Create(string.Format("https://e621.net/db_export/tags-{0}-{1}-{2}.csv.gz", DateTimeTempUTC.Year, DateTimeTempUTC.ToString("MM"), DateTimeTempUTC.ToString("dd")));
+            RetryDate:
+                if (RetryCount == 3) return;
+                try
                 {
-                    break;
-                }
-                else
-                {
-                    // Uses ~50 extra MB at the end but is less than <500 initally and it's faster
-                    TempStringHold = e6Tags_Response.Split(new[] { "\"name\":\"" }, StringSplitOptions.RemoveEmptyEntries);
-                    PageList = new List<string>();
-                    foreach (string StringSection in TempStringHold)
+                    using (HttpWebResponse UpdateDownloaderReponse = (HttpWebResponse)UpdateDownloader.GetResponse())
                     {
-                        TempTagHolder = StringSection.Substring(0, StringSection.IndexOf("\""));
-                        PageList.Add(Regex.Unescape(TempTagHolder));
+                        using (Stream DownloadStream = UpdateDownloaderReponse.GetResponseStream())
+                        {
+                            byte[] DownloadBuffer = new byte[65536]; // 64 kB buffer
+                            while (DownloadedBytes.Length < UpdateDownloaderReponse.ContentLength)
+                            {
+                                int DownloadStreamPartLength = DownloadStream.Read(DownloadBuffer, 0, DownloadBuffer.Length);
+                                if (DownloadStreamPartLength > 0)
+                                {
+                                    DownloadedBytes.Write(DownloadBuffer, 0, DownloadStreamPartLength);
+                                    double ReportPercentage = DownloadedBytes.Length / (double)UpdateDownloaderReponse.ContentLength;
+                                    bU_DLTags.BeginInvoke(new Action(() => { bU_DLTags.Text = string.Format("Downloading: {0}", ReportPercentage.ToString("P2")); }));
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+                        }
                     }
-                    PageList.RemoveAt(0);
-                    TagList.AddRange(PageList);
                 }
-                BeginInvoke(new Action(() => { bU_DLTags.Text = string.Format("DLed {0}k Tags", p); }));
-                Thread.Sleep(1000);
+                catch
+                {
+                    DateTimeTempUTC = DateTimeTempUTC.AddDays(-1);
+                    goto RetryDate;
+                }
+
+                bU_DLTags.BeginInvoke(new Action(() => { bU_DLTags.Text = "Processing..."; }));
+                DownloadedBytes.Position = 0;
+                using (GZipStream TagsZip = new GZipStream(DownloadedBytes, CompressionMode.Decompress))
+                {
+                    using (StreamReader StreamReaderTemp = new StreamReader(TagsZip))
+                    {
+                        StreamReaderTemp.ReadLine();
+                        string ReadCSV = StreamReaderTemp.ReadToEnd();
+                        TextFieldParser CSVParser = new TextFieldParser(new StringReader(ReadCSV))
+                        {
+                            HasFieldsEnclosedInQuotes = true
+                        };
+                        CSVParser.SetDelimiters(",");
+
+                        List<Tuple<int, string>> TagListTemp = new List<Tuple<int, string>>();
+
+                        string[] CSVFields;
+                        while (!CSVParser.EndOfData)
+                        {
+                            CSVFields = CSVParser.ReadFields();
+                            TagListTemp.Add(new Tuple<int, string>(int.Parse(CSVFields[3]), CSVFields[1]));
+                        }
+                        TagListTemp.Sort((x, y) => y.Item1.CompareTo(x.Item1));
+                        TagList = TagListTemp.Select(x => x.Item2).ToList();
+                        TagListTemp.Clear();
+                    }
+                }
             }
+
             TagList = TagList.Distinct().ToList();
             File.WriteAllText("tags.txt", string.Join("✄", TagList));
             BeginInvoke(new Action(() =>
@@ -2232,7 +2274,8 @@ namespace e621_ReBot_v2
             CloneTags.Sort();
             AutoCompleteStringCollection TempACSC = new AutoCompleteStringCollection();
             TempACSC.AddRange(CloneTags.ToArray());
-            BeginInvoke(new Action(() => {
+            BeginInvoke(new Action(() =>
+            {
                 textbox_AutoTagsEditor.AutoCompleteCustomSource = TempACSC;
                 cGroupBoxColored_AutocompleteTagEditor.Enabled = true;
             }));
@@ -2249,34 +2292,68 @@ namespace e621_ReBot_v2
         private void DLWork_Pools()
         {
             List<string> PoolList = new List<string>();
-            string Pool_ID;
-            string Pool_Name;
-            string[] TempStringHold;
-            List<string> PageList = new List<string>();
-            for (int p = 1; p <= 999; p++)
+            using (MemoryStream DownloadedBytes = new MemoryStream())
             {
-                string e6Pool_Response = Module_e621Info.e621InfoDownload("https://e621.net/pools.json?search[order]=created_at&limit=1000&page=" + p);
-                if (e6Pool_Response.Length < 10)
+                int RetryCount = 0;
+                DateTime DateTimeTempUTC = DateTime.UtcNow;
+                HttpWebRequest UpdateDownloader = (HttpWebRequest)WebRequest.Create(string.Format("https://e621.net/db_export/pools-{0}-{1}-{2}.csv.gz", DateTimeTempUTC.Year, DateTimeTempUTC.ToString("MM"), DateTimeTempUTC.ToString("dd")));
+            RetryDate:
+                if (RetryCount == 3) return;
+                try
                 {
-                    break;
-                }
-                else
-                {
-                    TempStringHold = e6Pool_Response.Split(new[] { "},{\"" }, StringSplitOptions.RemoveEmptyEntries);
-                    PageList = new List<string>();
-                    foreach (string StringSection in TempStringHold)
+                    using (HttpWebResponse UpdateDownloaderReponse = (HttpWebResponse)UpdateDownloader.GetResponse())
                     {
-                        Pool_ID = StringSection.Substring(StringSection.IndexOf("\"id\":") + 5);
-                        Pool_ID = Pool_ID.Substring(0, Pool_ID.IndexOf("\"name\":") - 1);
-                        Pool_Name = StringSection.Substring(StringSection.IndexOf("\"name\":") + 8);
-                        Pool_Name = Pool_Name.Substring(0, Pool_Name.IndexOf("\"created_at\":") - 2);
-                        PageList.Add(string.Format("{0},{1}", Pool_ID, Regex.Unescape(Pool_Name)));
+                        using (Stream DownloadStream = UpdateDownloaderReponse.GetResponseStream())
+                        {
+                            byte[] DownloadBuffer = new byte[65536]; // 64 kB buffer
+                            while (DownloadedBytes.Length < UpdateDownloaderReponse.ContentLength)
+                            {
+                                int DownloadStreamPartLength = DownloadStream.Read(DownloadBuffer, 0, DownloadBuffer.Length);
+                                if (DownloadStreamPartLength > 0)
+                                {
+                                    DownloadedBytes.Write(DownloadBuffer, 0, DownloadStreamPartLength);
+                                    double ReportPercentage = DownloadedBytes.Length / (double)UpdateDownloaderReponse.ContentLength;
+                                    bU_DLPools.BeginInvoke(new Action(() => { bU_DLPools.Text = string.Format("Downloading: {0}", ReportPercentage.ToString("P2")); }));
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+                        }
                     }
-                    PoolList.AddRange(PageList);
                 }
-                BeginInvoke(new Action(() => { bU_DLPools.Text = string.Format("DLed {0}k Pools", p); }));
-                Thread.Sleep(1000);
+                catch
+                {
+                    DateTimeTempUTC = DateTimeTempUTC.AddDays(-1);
+                    goto RetryDate;
+                }
+
+                bU_DLPools.BeginInvoke(new Action(() => { bU_DLPools.Text = "Processing..."; }));
+                DownloadedBytes.Position = 0;
+                using (GZipStream TagsZip = new GZipStream(DownloadedBytes, CompressionMode.Decompress))
+                {
+                    using (StreamReader StreamReaderTemp = new StreamReader(TagsZip))
+                    {
+                        StreamReaderTemp.ReadLine();
+                        string ReadCSV = StreamReaderTemp.ReadToEnd();
+                        TextFieldParser CSVParser = new TextFieldParser(new StringReader(ReadCSV))
+                        {
+                            HasFieldsEnclosedInQuotes = true
+                        };
+                        CSVParser.SetDelimiters(",");
+
+                        string[] CSVFields;
+                        while (!CSVParser.EndOfData)
+                        {
+                            CSVFields = CSVParser.ReadFields();
+                            PoolList.Add(string.Format("{0},{1}", CSVFields[0], CSVFields[1]));
+                        }
+                    }
+                }
             }
+
+            PoolList = PoolList.Distinct().ToList();
             File.WriteAllText("pools.txt", string.Join("✄", PoolList));
             BeginInvoke(new Action(() =>
             {
@@ -2446,7 +2523,7 @@ namespace e621_ReBot_v2
             {
                 GenderStringList.Add(GenderTag);
 
-                //add all tags that are alliased to this tag
+                //add all tags that are aliased to this tag
                 JArray GenderJArray = JArray.Parse(Module_e621Info.e621InfoDownload("https://e621.net/tag_aliases.json?limit=1000&search[name_matches]=" + GenderTag)); //name_matches~=consequent_name
                 Thread.Sleep(500);
                 foreach (JToken GenderAlias in GenderJArray)
@@ -2465,7 +2542,7 @@ namespace e621_ReBot_v2
 
                         GenderStringList.Add(SubGenderTag);
 
-                        //add all tags that are alliased to this tag
+                        //add all tags that are aliased to this tag
                         string GenderSubAliasString = Module_e621Info.e621InfoDownload("https://e621.net/tag_aliases.json?limit=1000&search[name_matches]=" + SubGenderTag);
                         Thread.Sleep(500);
                         if (GenderSubAliasString.StartsWith("[", StringComparison.OrdinalIgnoreCase))
@@ -2488,7 +2565,7 @@ namespace e621_ReBot_v2
                                     {
                                         GenderStringList.Add(SubGenderImplications["antecedent_name"].Value<string>());
 
-                                        //add all tags that are alliased to this tag
+                                        //add all tags that are aliased to this tag
                                         string GenderSub2AliasString = Module_e621Info.e621InfoDownload("https://e621.net/tag_aliases.json?limit=1000&search[name_matches]=" + GenderStringList.Last());
                                         Thread.Sleep(1000);
                                         if (GenderSub2AliasString.StartsWith("[", StringComparison.OrdinalIgnoreCase))
