@@ -616,7 +616,11 @@ namespace e621_ReBot_v2.Modules
                     }
                     else // e6 download
                     {
-                        DownloadFrom_e6URL(DataRowTemp);
+                        if (!DownloadFrom_e6URL(DataRowTemp)) //Duplicate skip
+                        {
+                            DLThreadsWaiting += 1;
+                            HowMany2Start += 1;
+                        }
                     }
                     lock (Module_TableHolder.Download_Table)
                     {
@@ -753,16 +757,12 @@ namespace e621_ReBot_v2.Modules
             }
         }
 
-        private static void DownloadFrom_e6URL(DataRow DataRowRef)
+        private static bool DownloadFrom_e6URL(DataRow DataRowRef)
         {
             string PicURL = (string)DataRowRef["Grab_MediaURL"];
 
             string GetFileNameOnly = GetMediasFileNameOnly(PicURL);
-            if (DownloadFolderCache != null && DownloadFolderCache.Contains(GetFileNameOnly))
-            {
-                DLThreadsWaiting += 1;
-                return;
-            }
+            if (DownloadFolderCache != null && DownloadFolderCache.Contains(GetFileNameOnly)) return false;
 
             string ThumbLink = PicURL.Replace("net/data/", "net/data/preview/");
             ThumbLink = ThumbLink.Remove(ThumbLink.LastIndexOf(".") + 1) + "jpg";
@@ -818,6 +818,7 @@ namespace e621_ReBot_v2.Modules
                 StarDLClient(ref e6_DownloadItemTemp, "File");
                 if (AddNew) Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Add(e6_DownloadItemTemp);
             }));
+            return true;
         }
 
         private static string LastGrabFolder = null;
