@@ -486,11 +486,14 @@ namespace e621_ReBot_v2.Modules
                     {
                         e6_DownloadItemTemp.Dispose();
                     }
+                    else
+                    {
+                        e6_DownloadItemTemp._AlreadyCopied = true;
+                    }
                     //else
                     //{
                     //    Form_Loader._FormReference.DownloadFLP_InProgress.Controls.SetChildIndex(e6_DownloadItemTemp, 69); //it fill fix index on it's own, just move to the end
                     //}
-                    e6_DownloadItemTemp._AlreadyCopied = true;
                 }
             }
             Form_Loader._FormReference.DownloadFLP_InProgress.ResumeLayout();
@@ -502,7 +505,6 @@ namespace e621_ReBot_v2.Modules
             {
                 if (e6_DownloadItemTemp._DownloadFinished) DLThreadsWaiting += 1;
             }
-
 
             if (Download_AlreadyDownloaded.Count % 1000 == 0)
             {
@@ -756,7 +758,11 @@ namespace e621_ReBot_v2.Modules
             string PicURL = (string)DataRowRef["Grab_MediaURL"];
 
             string GetFileNameOnly = GetMediasFileNameOnly(PicURL);
-            if (DownloadFolderCache != null && DownloadFolderCache.Contains(GetFileNameOnly)) return;
+            if (DownloadFolderCache != null && DownloadFolderCache.Contains(GetFileNameOnly))
+            {
+                DLThreadsWaiting += 1;
+                return;
+            }
 
             string ThumbLink = PicURL.Replace("net/data/", "net/data/preview/");
             ThumbLink = ThumbLink.Remove(ThumbLink.LastIndexOf(".") + 1) + "jpg";
@@ -1070,8 +1076,7 @@ namespace e621_ReBot_v2.Modules
         {
             DownloadFolderCache.Clear();
             timer_CacheProgressTimer.Start();
-            Thread ThreadTemp = new Thread(Load_DownloadFolderCache_BGW);
-            ThreadTemp.Start();
+            new Thread(Load_DownloadFolderCache_BGW).Start();
         }
 
         private static readonly Timer timer_CacheProgressTimer;

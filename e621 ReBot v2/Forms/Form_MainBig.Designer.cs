@@ -353,7 +353,7 @@
             // 
             // textbox_AutoTagsEditor
             // 
-            this.textbox_AutoTagsEditor.Size = new System.Drawing.Size(507, 13);
+            this.textBox_AutoTagsEditor.Size = new System.Drawing.Size(507, 13);
             // 
             // label_DownloadsFolder
             // 

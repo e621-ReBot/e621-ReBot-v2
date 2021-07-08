@@ -1958,12 +1958,12 @@ namespace e621_ReBot_v2
 
         private void Textbox_AutoTagsEditor_Enter(object sender, EventArgs e)
         {
-            textbox_AutoTagsEditor.Text = null;
+            textBox_AutoTagsEditor.Text = null;
         }
 
         private void Textbox_AutoTagsEditor_Leave(object sender, EventArgs e)
         {
-            textbox_AutoTagsEditor.Text = "Type here";
+            textBox_AutoTagsEditor.Text = "Type here";
             bU_AutoTagsAdd.Enabled = false;
             bU_AutoTagsRemove.Enabled = false;
         }
@@ -1986,7 +1986,7 @@ namespace e621_ReBot_v2
                     {
                         if (!AutoTags.Visible)
                         {
-                            textbox_AutoTagsEditor.Focus();
+                            textBox_AutoTagsEditor.Focus();
                         }
                         e.SuppressKeyPress = true;
                         break;
@@ -1996,9 +1996,9 @@ namespace e621_ReBot_v2
 
         private void Textbox_AutoTagsEditor_TextChanged(object sender, EventArgs e)
         {
-            if (textbox_AutoTagsEditor.TextLength > 0)
+            if (textBox_AutoTagsEditor.TextLength > 0)
             {
-                if (AutoTagsList_Tags.Contains(textbox_AutoTagsEditor.Text))
+                if (AutoTagsList_Tags.Contains(textBox_AutoTagsEditor.Text))
                 {
                     bU_AutoTagsAdd.Enabled = false;
                     bU_AutoTagsRemove.Enabled = true;
@@ -2018,18 +2018,18 @@ namespace e621_ReBot_v2
 
         private void BU_AutoTagsAdd_Click(object sender, EventArgs e)
         {
-            textbox_AutoTagsEditor.Text = textbox_AutoTagsEditor.Text.ToLower();
-            Module_DB.DB_CreateCTRecord(textbox_AutoTagsEditor.Text);
-            AutoTagsList_Tags.Add(textbox_AutoTagsEditor.Text);
+            textBox_AutoTagsEditor.Text = textBox_AutoTagsEditor.Text.ToLower();
+            Module_DB.DB_CreateCTRecord(textBox_AutoTagsEditor.Text);
+            AutoTagsList_Tags.Add(textBox_AutoTagsEditor.Text);
             AutoTags.SetAutocompleteItems(AutoTagsList_Tags);
             cGroupBoxColored_AutocompleteTagEditor.Focus();
         }
 
         private void BU_AutoTagsRemove_Click(object sender, EventArgs e)
         {
-            textbox_AutoTagsEditor.Text = textbox_AutoTagsEditor.Text.ToLower();
-            Module_DB.DB_DeleteCTRecord(textbox_AutoTagsEditor.Text);
-            AutoTagsList_Tags.Remove(textbox_AutoTagsEditor.Text);
+            textBox_AutoTagsEditor.Text = textBox_AutoTagsEditor.Text.ToLower();
+            Module_DB.DB_DeleteCTRecord(textBox_AutoTagsEditor.Text);
+            AutoTagsList_Tags.Remove(textBox_AutoTagsEditor.Text);
             AutoTags.SetAutocompleteItems(AutoTagsList_Tags);
             AutoTagsListChanged = true;
             cGroupBoxColored_AutocompleteTagEditor.Focus();
@@ -2177,8 +2177,7 @@ namespace e621_ReBot_v2
         {
             bU_DLTags.Enabled = false;
             bU_DLPools.Enabled = false;
-            Thread ThreadTemp = new Thread(DLWork_Tags);
-            ThreadTemp.Start();
+            new Thread(DLWork_Tags).Start();
         }
 
         private void DLWork_Tags()
@@ -2217,6 +2216,7 @@ namespace e621_ReBot_v2
                 }
                 catch
                 {
+                    RetryCount += 1;
                     DateTimeTempUTC = DateTimeTempUTC.AddDays(-1);
                     goto RetryDate;
                 }
@@ -2276,7 +2276,7 @@ namespace e621_ReBot_v2
             TempACSC.AddRange(CloneTags.ToArray());
             BeginInvoke(new Action(() =>
             {
-                textbox_AutoTagsEditor.AutoCompleteCustomSource = TempACSC;
+                textBox_AutoTagsEditor.AutoCompleteCustomSource = TempACSC;
                 cGroupBoxColored_AutocompleteTagEditor.Enabled = true;
             }));
         }
@@ -2285,8 +2285,7 @@ namespace e621_ReBot_v2
         {
             bU_DLPools.Enabled = false;
             bU_DLTags.Enabled = false;
-            Thread ThreadTemp = new Thread(DLWork_Pools);
-            ThreadTemp.Start();
+            new Thread(DLWork_Pools).Start();
         }
 
         private void DLWork_Pools()
@@ -2325,6 +2324,7 @@ namespace e621_ReBot_v2
                 }
                 catch
                 {
+                    RetryCount += 1;
                     DateTimeTempUTC = DateTimeTempUTC.AddDays(-1);
                     goto RetryDate;
                 }

@@ -122,7 +122,7 @@
             this.bU_ResetSettings = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.cGroupBoxColored_AutocompleteTagEditor = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
             this.bU_AutoTagsAdd = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.textbox_AutoTagsEditor = new System.Windows.Forms.TextBox();
+            this.textBox_AutoTagsEditor = new System.Windows.Forms.TextBox();
             this.bU_AutoTagsRemove = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.cGroupBoxColored_NamingE621 = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
             this.Naming_e6_0 = new System.Windows.Forms.RadioButton();
@@ -1820,7 +1820,7 @@
             this.cGroupBoxColored_AutocompleteTagEditor.BorderColor = System.Drawing.Color.Black;
             this.cGroupBoxColored_AutocompleteTagEditor.BottomBorderFix = 1;
             this.cGroupBoxColored_AutocompleteTagEditor.Controls.Add(this.bU_AutoTagsAdd);
-            this.cGroupBoxColored_AutocompleteTagEditor.Controls.Add(this.textbox_AutoTagsEditor);
+            this.cGroupBoxColored_AutocompleteTagEditor.Controls.Add(this.textBox_AutoTagsEditor);
             this.cGroupBoxColored_AutocompleteTagEditor.Controls.Add(this.bU_AutoTagsRemove);
             this.cGroupBoxColored_AutocompleteTagEditor.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_AutocompleteTagEditor.ForeColor = System.Drawing.Color.LightSteelBlue;
@@ -1854,26 +1854,26 @@
             this.bU_AutoTagsAdd.UseVisualStyleBackColor = true;
             this.bU_AutoTagsAdd.Click += new System.EventHandler(this.BU_AutoTagsAdd_Click);
             // 
-            // textbox_AutoTagsEditor
+            // textBox_AutoTagsEditor
             // 
-            this.textbox_AutoTagsEditor.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.textbox_AutoTagsEditor.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textbox_AutoTagsEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
-            this.textbox_AutoTagsEditor.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textbox_AutoTagsEditor.Dock = System.Windows.Forms.DockStyle.Left;
-            this.textbox_AutoTagsEditor.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.textbox_AutoTagsEditor.Location = new System.Drawing.Point(4, 14);
-            this.textbox_AutoTagsEditor.Margin = new System.Windows.Forms.Padding(0);
-            this.textbox_AutoTagsEditor.Name = "textbox_AutoTagsEditor";
-            this.textbox_AutoTagsEditor.ShortcutsEnabled = false;
-            this.textbox_AutoTagsEditor.Size = new System.Drawing.Size(415, 13);
-            this.textbox_AutoTagsEditor.TabIndex = 123;
-            this.textbox_AutoTagsEditor.TabStop = false;
-            this.textbox_AutoTagsEditor.Text = "Type here";
-            this.textbox_AutoTagsEditor.TextChanged += new System.EventHandler(this.Textbox_AutoTagsEditor_TextChanged);
-            this.textbox_AutoTagsEditor.Enter += new System.EventHandler(this.Textbox_AutoTagsEditor_Enter);
-            this.textbox_AutoTagsEditor.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Textbox_AutoTagsEditor_KeyDown);
-            this.textbox_AutoTagsEditor.Leave += new System.EventHandler(this.Textbox_AutoTagsEditor_Leave);
+            this.textBox_AutoTagsEditor.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.textBox_AutoTagsEditor.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.textBox_AutoTagsEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
+            this.textBox_AutoTagsEditor.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox_AutoTagsEditor.Dock = System.Windows.Forms.DockStyle.Left;
+            this.textBox_AutoTagsEditor.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.textBox_AutoTagsEditor.Location = new System.Drawing.Point(4, 14);
+            this.textBox_AutoTagsEditor.Margin = new System.Windows.Forms.Padding(0);
+            this.textBox_AutoTagsEditor.Name = "textBox_AutoTagsEditor";
+            this.textBox_AutoTagsEditor.ShortcutsEnabled = false;
+            this.textBox_AutoTagsEditor.Size = new System.Drawing.Size(415, 13);
+            this.textBox_AutoTagsEditor.TabIndex = 123;
+            this.textBox_AutoTagsEditor.TabStop = false;
+            this.textBox_AutoTagsEditor.Text = "Type here";
+            this.textBox_AutoTagsEditor.TextChanged += new System.EventHandler(this.Textbox_AutoTagsEditor_TextChanged);
+            this.textBox_AutoTagsEditor.Enter += new System.EventHandler(this.Textbox_AutoTagsEditor_Enter);
+            this.textBox_AutoTagsEditor.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Textbox_AutoTagsEditor_KeyDown);
+            this.textBox_AutoTagsEditor.Leave += new System.EventHandler(this.Textbox_AutoTagsEditor_Leave);
             // 
             // bU_AutoTagsRemove
             // 
@@ -2062,7 +2062,7 @@
             this.cGroupBoxColored_Update.TabStop = false;
             this.cGroupBoxColored_Update.Text = "Check for update every x days ";
             this.cGroupBoxColored_Update.TextOffset = 0;
-            this.toolTip_Display.SetToolTip(this.cGroupBoxColored_Update, "How offten to check for update.");
+            this.toolTip_Display.SetToolTip(this.cGroupBoxColored_Update, "How often to check for an update.");
             // 
             // UpdateDays_30
             // 
@@ -3002,7 +3002,7 @@
             this.tabPage_Download.Controls.Add(this.cCheckGroupBox_Download);
             this.tabPage_Download.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Download.Name = "tabPage_Download";
-            this.tabPage_Download.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Download.Size = new System.Drawing.Size(1262, 695);
             this.tabPage_Download.TabIndex = 2;
             this.tabPage_Download.Text = "tabPage_Download";
             // 
@@ -3105,7 +3105,7 @@
             this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_AppName);
             this.tabPage_Settings.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Settings.Name = "tabPage_Settings";
-            this.tabPage_Settings.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Settings.Size = new System.Drawing.Size(192, 91);
             this.tabPage_Settings.TabIndex = 5;
             this.tabPage_Settings.Text = "tabPage_Settings";
             this.tabPage_Settings.Enter += new System.EventHandler(this.TabPage_Settings_Enter);
@@ -3713,7 +3713,7 @@
         protected internal CustomControls.Button_Unfocusable bU_AutoTagsAdd;
         protected internal CustomControls.Button_Unfocusable bU_AutoTagsRemove;
         protected internal CustomControls.Button_Unfocusable bU_DownloadFolderChange;
-        protected internal System.Windows.Forms.TextBox textbox_AutoTagsEditor;
+        protected internal System.Windows.Forms.TextBox textBox_AutoTagsEditor;
         protected internal System.Windows.Forms.Label label_DownloadsFolder;
         internal System.Windows.Forms.ContextMenuStrip contextMenuStrip_Conversion;
         internal System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_RemoveConversionNode;
