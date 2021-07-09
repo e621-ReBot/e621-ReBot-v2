@@ -304,22 +304,6 @@ namespace e621_ReBot_v2.Forms
                 }
                 else
                 {
-                    if (Preview_RowHolder["Thumbnail_FullInfo"] == DBNull.Value)
-                    {
-                        Preview_RowHolder["Info_MediaWidth"] = Pic_WebBrowser.Document.Images[0].ClientRectangle.Size.Width;
-                        Preview_RowHolder["Info_MediaHeight"] = Pic_WebBrowser.Document.Images[0].ClientRectangle.Size.Height;
-                        Preview_RowHolder["Thumbnail_FullInfo"] = true;
-                        e6_GridItem GridItemTemp = Form_Loader._FormReference.IsE6PicVisibleInGrid(ref Preview_RowHolder);
-                        if (GridItemTemp != null)
-                        {
-                            GridItemTemp.LoadImage();
-                        }
-                        else
-                        {
-                            e6_GridItem.WriteImageInfo(Preview_RowHolder);
-                        }
-                    }
-
                     if (Preview_RowHolder["Info_MediaMD5"] == DBNull.Value)
                     {
                         GetCachedImage();
@@ -327,6 +311,28 @@ namespace e621_ReBot_v2.Forms
                         AutoTags();
                         Preview_RowHolder["Info_TooBig"] = Module_Uploader.Media2BigCheck(ref Preview_RowHolder);
                     }
+
+                    if (Preview_RowHolder["Thumbnail_FullInfo"] == DBNull.Value)
+                    {
+                        Preview_RowHolder["Info_MediaWidth"] = Pic_WebBrowser.Document.Images[0].ClientRectangle.Size.Width;
+                        Preview_RowHolder["Info_MediaHeight"] = Pic_WebBrowser.Document.Images[0].ClientRectangle.Size.Height;
+                        Preview_RowHolder["Thumbnail_FullInfo"] = true;
+                        e6_GridItem GridItemTemp = Form_Loader._FormReference.IsE6PicVisibleInGrid(ref Preview_RowHolder);
+                        if (GridItemTemp == null)
+                        {
+                            if (Preview_RowHolder["Thumbnail_Image"] == DBNull.Value && Preview_RowHolder["Thumbnail_DLStart"] == DBNull.Value)
+                            {
+                                string CachedImagePath = Module_Downloader.IEDownload_Cache[Module_Downloader.GetMediasFileNameOnly((string)Preview_RowHolder["Grab_MediaURL"])];
+                                Preview_RowHolder["Thumbnail_Image"] = Module_Grabber.MakeImageThumb(Image.FromFile(CachedImagePath));
+                                e6_GridItem.WriteImageInfo(Preview_RowHolder);
+                            }
+                        }
+                        else
+                        {
+                            GridItemTemp.LoadImage();
+                        }
+                    }
+
                     Text = string.Format("Preview ({0}) - {1} x {2}, {3:N0} kB   .{4}     [MD5: {5}]", Preview_RowIndex + 1, Pic_WebBrowser.Document.Images[0].ClientRectangle.Size.Width, Pic_WebBrowser.Document.Images[0].ClientRectangle.Size.Height, (int)Preview_RowHolder["Info_MediaByteLength"] / 1024, (string)Preview_RowHolder["Info_MediaFormat"], (string)Preview_RowHolder["Info_MediaMD5"]);
                 }
             }
@@ -402,22 +408,19 @@ namespace e621_ReBot_v2.Forms
                     byte[] ImageBytes = null;
                     for (int numTries = 0; numTries < 10; numTries++)
                     {
-                        FileStream FileStreamTemp = null;
                         try
                         {
-                            FileStreamTemp = new FileStream(FileFound.FullName, FileMode.Open, FileAccess.Read);
-                            int FileStreamTempLenght = (int)FileStreamTemp.Length;
-                            ImageBytes = new byte[FileStreamTempLenght];
-                            FileStreamTemp.Read(ImageBytes, 0, FileStreamTempLenght);
+                            using (FileStream FileStreamTemp = new FileStream(FileFound.FullName, FileMode.Open, FileAccess.Read))
+                            {
+                                int FileStreamTempLenght = (int)FileStreamTemp.Length;
+                                ImageBytes = new byte[FileStreamTempLenght];
+                                FileStreamTemp.Read(ImageBytes, 0, FileStreamTempLenght);
+                            }
                             break;
                         }
                         catch (IOException)
                         {
                             Thread.Sleep(500);
-                        }
-                        finally
-                        {
-                            if (FileStreamTemp != null) FileStreamTemp.Dispose();
                         }
                     }
                     if (ImageBytes == null | ImageBytes.Length == 0) return;

@@ -484,24 +484,34 @@ namespace e621_ReBot_v2.Modules
             {
                 DownloadedImage = Image.FromStream(TempStream);
             }
+            Bitmap ResizedImage = MakeImageThumb(DownloadedImage, ((string)RowReference["Grab_MediaURL"]).Contains("ugoira") ? "Ugoira" : null);
+            DownloadedImage.Dispose();
+            RowReference["Thumbnail_Image"] = ResizedImage;
 
+            e6_GridItem e6_GridItemTemp = Form_Loader._FormReference.IsE6PicVisibleInGrid(ref RowReference);
+            if (e6_GridItemTemp != null)
+            {
+                e6_GridItemTemp.LoadImage();
+            }
+        }
+
+        public static Bitmap MakeImageThumb(Image ImagePass, string Text2DrawPass = null)
+        {
             Bitmap ResizedImage;
-            int LargerSize = Math.Max(DownloadedImage.Width, DownloadedImage.Height);
+            int LargerSize = Math.Max(ImagePass.Width, ImagePass.Height);
             if (LargerSize > 200)
             {
                 float scale_factor = 200f / LargerSize;
-                ResizedImage = new Bitmap(DownloadedImage, (int)(DownloadedImage.Width * scale_factor), (int)(DownloadedImage.Height * scale_factor)); // , Imaging.PixelFormat.Format32bppArgb)
+                ResizedImage = new Bitmap(ImagePass, (int)(ImagePass.Width * scale_factor), (int)(ImagePass.Height * scale_factor)); // , Imaging.PixelFormat.Format32bppArgb)
             }
             else
             {
-                ResizedImage = new Bitmap(DownloadedImage, DownloadedImage.Width, DownloadedImage.Height);
+                ResizedImage = new Bitmap(ImagePass, ImagePass.Width, ImagePass.Height);
             }
 
-            string Text2Draw = DownloadedImage.GetFrameCount(new FrameDimension(DownloadedImage.FrameDimensionsList[0])) > 1 ? "Animated" : null;
-            if (Text2Draw == null)
-            {
-                Text2Draw = ((string)RowReference["Grab_MediaURL"]).Contains("ugoira") ? "Ugoira" : null;
-            }
+            string Text2Draw = ImagePass.GetFrameCount(new FrameDimension(ImagePass.FrameDimensionsList[0])) > 1 ? "Animated" : null;
+            if (Text2Draw == null) Text2Draw = Text2DrawPass;
+
             if (Text2Draw != null)
             {
                 Bitmap NewBitmapTemp = new Bitmap(200, 200);
@@ -534,15 +544,7 @@ namespace e621_ReBot_v2.Modules
                 ResizedImage.Dispose();
                 ResizedImage = NewBitmapTemp;
             }
-            RowReference["Thumbnail_Image"] = ResizedImage;
-
-            e6_GridItem e6_GridItemTemp = Form_Loader._FormReference.IsE6PicVisibleInGrid(ref RowReference);
-            if (e6_GridItemTemp != null)
-            {
-                e6_GridItemTemp.LoadImage();
-            }
-
-            DownloadedImage.Dispose();
+            return ResizedImage;
         }
     }
 }
