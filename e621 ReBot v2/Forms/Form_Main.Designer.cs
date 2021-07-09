@@ -1288,6 +1288,7 @@
             this.bU_GetDNPs.Text = "Get DNPs";
             this.toolTip_Display.SetToolTip(this.bU_GetDNPs, "Refresh Uploads, Flags, Notes (credit) display.");
             this.bU_GetDNPs.UseVisualStyleBackColor = true;
+            this.bU_GetDNPs.Visible = false;
             this.bU_GetDNPs.Click += new System.EventHandler(this.BU_GetDNPs_Click);
             // 
             // bU_AppData
@@ -1390,6 +1391,7 @@
             this.bU_GetGenders.Text = "Get Genders";
             this.toolTip_Display.SetToolTip(this.bU_GetGenders, "Refresh Uploads, Flags, Notes (credit) display.");
             this.bU_GetGenders.UseVisualStyleBackColor = true;
+            this.bU_GetGenders.Visible = false;
             this.bU_GetGenders.Click += new System.EventHandler(this.BU_GetGenders_Click);
             // 
             // label_DragDropConvert
@@ -3002,7 +3004,7 @@
             this.tabPage_Download.Controls.Add(this.cCheckGroupBox_Download);
             this.tabPage_Download.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Download.Name = "tabPage_Download";
-            this.tabPage_Download.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Download.Size = new System.Drawing.Size(192, 91);
             this.tabPage_Download.TabIndex = 2;
             this.tabPage_Download.Text = "tabPage_Download";
             // 
@@ -3105,7 +3107,7 @@
             this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_AppName);
             this.tabPage_Settings.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Settings.Name = "tabPage_Settings";
-            this.tabPage_Settings.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Settings.Size = new System.Drawing.Size(1262, 695);
             this.tabPage_Settings.TabIndex = 5;
             this.tabPage_Settings.Text = "tabPage_Settings";
             this.tabPage_Settings.Enter += new System.EventHandler(this.TabPage_Settings_Enter);
