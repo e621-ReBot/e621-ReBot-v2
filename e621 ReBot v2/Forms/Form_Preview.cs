@@ -891,7 +891,7 @@ namespace e621_ReBot_v2.Forms
         {
             panel_Search.Focus();
             Button SenderButton = (Button)sender;
-            if (ModifierKeys.HasFlag(Keys.Control))
+            if (ModifierKeys.HasFlag(Keys.Control) || ModifierKeys.HasFlag(Keys.Shift))
             {
                 if (Form_e6Post._FormReference == null)
                 {
@@ -899,17 +899,17 @@ namespace e621_ReBot_v2.Forms
                 }
                 Form_e6Post._FormReference.Show();
                 Form_e6Post._FormReference.BringToFront();
+                if (ModifierKeys.HasFlag(Keys.Shift))
+                {
+                    Form_e6Post._FormReference.Tag = "Inferior";
+                    Form_e6Post._FormReference.BackColor = Color.DarkOrange;
+                } 
             }
             else
             {
                 new Form_SimilarSearch(SenderButton.Text, SenderButton.PointToScreen(Point.Empty), this);
                 Form_SimilarSearch._FormReference.ShowDialog();
             }
-        }
-
-        private void PB_IQDBQ_Click(object sender, EventArgs e)
-        {
-            panel_Search.Focus();
         }
 
         private bool LoadAllImagesMod;
@@ -1103,6 +1103,5 @@ namespace e621_ReBot_v2.Forms
             _FormReference = null;
             Form_Loader._FormReference.Activate(); // Focus back the Main Form
         }
-
     }
 }

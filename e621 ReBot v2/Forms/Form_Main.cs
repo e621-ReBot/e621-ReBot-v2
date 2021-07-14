@@ -186,10 +186,11 @@ namespace e621_ReBot_v2
 
             CheckBox_ConverterKeepOriginal.Checked = Properties.Settings.Default.Converter_KeepOriginal;
             CheckBox_ConverterDontConvertVideos.Checked = Properties.Settings.Default.Converter_DontConvertVideos;
-            CheckBox_RemoveBVAS.Checked = Properties.Settings.Default.RemoveBVAS;
-            CheckBox_ExpandedDescription.Checked = Properties.Settings.Default.ExpandedDescription;
-            CheckBox_AutocompleteTags.Checked = Properties.Settings.Default.AutocompleteTags;
             CheckBox_BigMode.Checked = Properties.Settings.Default.LoadBigForm;
+            CheckBox_AutocompleteTags.Checked = Properties.Settings.Default.AutocompleteTags;
+            CheckBox_ManualInferiorSave.Checked = Properties.Settings.Default.ManualInferiorSave;
+            CheckBox_ExpandedDescription.Checked = Properties.Settings.Default.ExpandedDescription;
+            CheckBox_RemoveBVAS.Checked = Properties.Settings.Default.RemoveBVAS;
             CheckBox_DontFlag.Checked = Properties.Settings.Default.DontFlag;
             CheckBox_DontFlag.Visible = !Properties.Settings.Default.UserLevel.Equals("") && Module_Credits.UserLevels[Properties.Settings.Default.UserLevel] > 2;
 
@@ -1899,15 +1900,9 @@ namespace e621_ReBot_v2
             bU_NoteRemove.Enabled = false;
         }
 
-        private void CheckBox_RemoveBVAS_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox_BigMode_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.RemoveBVAS = CheckBox_RemoveBVAS.Checked;
-            Properties.Settings.Default.Save();
-        }
-
-        private void CheckBox_ExpandedDescription_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.ExpandedDescription = CheckBox_ExpandedDescription.Checked;
+            Properties.Settings.Default.LoadBigForm = CheckBox_BigMode.Checked;
             Properties.Settings.Default.Save();
         }
 
@@ -1917,9 +1912,21 @@ namespace e621_ReBot_v2
             Properties.Settings.Default.Save();
         }
 
-        private void CheckBox_BigMode_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox_ManualInferiorSave_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.LoadBigForm = CheckBox_BigMode.Checked;
+            Properties.Settings.Default.ManualInferiorSave = CheckBox_ManualInferiorSave.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void CheckBox_ExpandedDescription_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.ExpandedDescription = CheckBox_ExpandedDescription.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void CheckBox_RemoveBVAS_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.RemoveBVAS = CheckBox_RemoveBVAS.Checked;
             Properties.Settings.Default.Save();
         }
 
@@ -2098,10 +2105,10 @@ namespace e621_ReBot_v2
 
         private void Panel_CheckBoxOptions_Paint(object sender, PaintEventArgs e)
         {
-            int TempHeightHolder = panel_CheckBoxOptions.Height - (CheckBox_DontFlag.Visible ? 0 : 24);
+            int TempHeightHolder = panel_CheckBoxOptions.Height - (CheckBox_DontFlag.Visible ? 0 : 24) - 1;
             e.Graphics.DrawLine(new Pen(Color.Black, 1), new Point(0, 0), new Point(0, TempHeightHolder));
-            e.Graphics.DrawLine(new Pen(Color.Black, 1), new Point(0, 0), new Point(9, 0));
-            e.Graphics.DrawLine(new Pen(Color.Black, 1), new Point(0, TempHeightHolder), new Point(9, TempHeightHolder));
+            e.Graphics.DrawLine(new Pen(Color.Black, 1), new Point(0, 0), new Point(8, 0));
+            e.Graphics.DrawLine(new Pen(Color.Black, 1), new Point(0, TempHeightHolder), new Point(8, TempHeightHolder));
         }
 
         private void RadioButton_GridItemStyle_CheckedChanged(object sender, EventArgs e)
@@ -2712,5 +2719,6 @@ namespace e621_ReBot_v2
         }
 
         #endregion
+
     }
 }

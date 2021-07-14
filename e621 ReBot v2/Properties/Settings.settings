@@ -26,19 +26,22 @@
     <Setting Name="Bookmarks" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="RemoveBVAS" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+    <Setting Name="LoadBigForm" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+	<Setting Name="AutocompleteTags" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+	<Setting Name="ManualInferiorSave" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="ExpandedDescription" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="AutocompleteTags" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+	<Setting Name="RemoveBVAS" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="LoadBigForm" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="DontFlag" Type="System.Boolean" Scope="User">
+	<Setting Name="DontFlag" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="Note" Type="System.String" Scope="User">

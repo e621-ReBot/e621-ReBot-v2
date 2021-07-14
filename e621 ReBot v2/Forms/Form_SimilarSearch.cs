@@ -390,15 +390,19 @@ namespace e621_ReBot_v2.Forms
                 return;
             }
 
-            Form_Preview._FormReference.Preview_RowHolder["Upload_Rating"] = Post.Tag.ToString();
-            Form_Preview._FormReference.Preview_RowHolder["Uploaded_As"] = Post.Name;
             DataRow DataRowTemp = Form_Preview._FormReference.Preview_RowHolder;
+            DataRowTemp["Upload_Rating"] = Post.Tag.ToString();
+            DataRowTemp["Uploaded_As"] = Post.Name;
             e6_GridItem e6_GridItemTemp = Form_Loader._FormReference.IsE6PicVisibleInGrid(ref DataRowTemp);
             if (e6_GridItemTemp != null)
             {
                 e6_GridItemTemp.cLabel_isUploaded.Text = Post.Name;
-            }
+            } 
             Form_Preview._FormReference.Label_AlreadyUploaded.Text = string.Format("Already uploaded as #{0}", Post.Name);
+            if (Properties.Settings.Default.ManualInferiorSave)
+            {
+                Module_DB.DB_CreateMediaRecord(ref DataRowTemp);
+            } 
             Close();
         }
 
