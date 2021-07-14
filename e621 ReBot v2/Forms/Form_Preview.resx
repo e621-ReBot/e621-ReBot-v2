@@ -120,13 +120,11 @@
   <metadata name="toolTip_Display.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>20, 21</value>
   </metadata>
-  <metadata name="toolTip_Display.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>20, 21</value>
-  </metadata>
   <data name="PB_SauceNao.ToolTip" xml:space="preserve">
     <value>Search similar images with SauceNao.
 You can also use "F" key on keyboard.
 Ctrl+Click to set superior ID manually.
+Shift+Click to set inferior ID manually.
 
 Image actions:
 Click on image to set your image as duplicate of it.
@@ -137,6 +135,7 @@ Alt+Click on image to open that image in your default browser.</value>
     <value>Search similar images with IQDB Query.
 You can also use "I" key on keyboard.
 Ctrl+Click to set superior ID manually.
+Shift+Click to set inferior ID manually.
 
 Image actions:
 Click on image to set your image as duplicate of it.

@@ -295,8 +295,8 @@ namespace e621_ReBot_v2.Modules
             DataRow DataRowTemp = (DataRow)e6_DownloadItemRef.Tag;
             string SiteReferer = "https://" + new Uri((string)DataRowTemp["Grab_URL"]).Host;
 
-            WebClient WebClientSelected = null;
-            foreach (WebClient WebClientTemp in (DLType.Equals("Thumb") ? Holder_ThumbClient : Holder_FileClient))
+            Custom_WebClient WebClientSelected = null;
+            foreach (Custom_WebClient WebClientTemp in (DLType.Equals("Thumb") ? Holder_ThumbClient : Holder_FileClient))
             {
                 if (!WebClientTemp.IsBusy)
                 {
@@ -457,7 +457,7 @@ namespace e621_ReBot_v2.Modules
                     }
                 }
             }
-            if (!timer_DownloadRemovalThreading.Enabled) timer_DownloadRemovalThreading.Start();
+            timer_DownloadRemovalThreading.Start();
         }
 
         private static readonly Timer timer_DownloadRemovalThreading;
@@ -490,10 +490,6 @@ namespace e621_ReBot_v2.Modules
                     {
                         e6_DownloadItemTemp._AlreadyCopied = true;
                     }
-                    //else
-                    //{
-                    //    Form_Loader._FormReference.DownloadFLP_InProgress.Controls.SetChildIndex(e6_DownloadItemTemp, 69); //it fill fix index on it's own, just move to the end
-                    //}
                 }
             }
             Form_Loader._FormReference.DownloadFLP_InProgress.ResumeLayout();

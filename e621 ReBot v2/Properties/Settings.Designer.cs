@@ -117,19 +117,52 @@ namespace e621_ReBot_v2.Properties {
                 this["Bookmarks"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool RemoveBVAS {
-            get {
-                return ((bool)(this["RemoveBVAS"]));
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LoadBigForm
+        {
+            get
+            {
+                return ((bool)(this["LoadBigForm"]));
             }
-            set {
-                this["RemoveBVAS"] = value;
+            set
+            {
+                this["LoadBigForm"] = value;
             }
         }
-        
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutocompleteTags
+        {
+            get
+            {
+                return ((bool)(this["AutocompleteTags"]));
+            }
+            set
+            {
+                this["AutocompleteTags"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ManualInferiorSave
+        {
+            get
+            {
+                return ((bool)(this["ManualInferiorSave"]));
+            }
+            set
+            {
+                this["ManualInferiorSave"] = value;
+            }
+        }
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -141,31 +174,22 @@ namespace e621_ReBot_v2.Properties {
                 this["ExpandedDescription"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AutocompleteTags {
-            get {
-                return ((bool)(this["AutocompleteTags"]));
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool RemoveBVAS
+        {
+            get
+            {
+                return ((bool)(this["RemoveBVAS"]));
             }
-            set {
-                this["AutocompleteTags"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool LoadBigForm {
-            get {
-                return ((bool)(this["LoadBigForm"]));
-            }
-            set {
-                this["LoadBigForm"] = value;
+            set
+            {
+                this["RemoveBVAS"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]

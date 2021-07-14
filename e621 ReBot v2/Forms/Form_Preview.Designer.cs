@@ -361,7 +361,6 @@ namespace e621_ReBot_v2.Forms
             this.PB_IQDBQ.Text = "IQDBQ";
             this.toolTip_Display.SetToolTip(this.PB_IQDBQ, resources.GetString("PB_IQDBQ.ToolTip"));
             this.PB_IQDBQ.UseVisualStyleBackColor = false;
-            this.PB_IQDBQ.Click += new System.EventHandler(this.PB_IQDBQ_Click);
             // 
             // Label_Tags
             // 

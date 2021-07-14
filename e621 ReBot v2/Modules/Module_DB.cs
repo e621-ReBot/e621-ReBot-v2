@@ -56,6 +56,16 @@ namespace e621_ReBot_v2.Modules
             }
         }
 
+        public static void DB_DeleteMediaRecord(string PostID)
+        {
+            using (SQLiteCommand SQL_Command = SQL_Connection.CreateCommand())
+            {
+                SQL_Command.CommandText = "DELETE FROM [Database] WHERE ([PostID]=@postID)";
+                SQL_Command.Parameters.AddWithValue("@postID", PostID);
+                SQL_Command.ExecuteNonQuery();
+            }
+        }
+
         public static void DB_CreateAADB()
         {
             SQLiteCommand SQL_Command = SQL_Connection.CreateCommand();

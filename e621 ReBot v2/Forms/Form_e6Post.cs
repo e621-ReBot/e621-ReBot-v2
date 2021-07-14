@@ -97,7 +97,14 @@ namespace e621_ReBot_v2.Forms
                 }
                 else
                 {
-                    PuzzlePostID = ID_TextBox.Text;
+                    if (Tag.Equals("Inferior"))
+                    {
+                        InferiorSub(ID_TextBox.Text, Form_Preview._FormReference.Preview_RowHolder);
+                    }
+                    else // (Tag.Equals("Puzzle"))
+                    {
+                        PuzzlePostID = ID_TextBox.Text;
+                    }
                 }
                 Close();
             }
@@ -193,7 +200,7 @@ namespace e621_ReBot_v2.Forms
                 int TagCounter = ((string)RowRefference["Upload_Tags"]).Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).Count();
                 e6_GridItemTemp.cLabel_TagWarning.Visible = TagCounter < 5;
                 e6_GridItemTemp.cCheckBox_UPDL.Checked = true;
-                e6_GridItemTemp.toolTip_Display.SetToolTip(e6_GridItemTemp.cLabel_isSuperior, string.Format("Image will be uploaded as superior of #{0}\n{1}", PostID, e6_GridItemTemp.cLabel_isSuperior.Tag)); ;
+                e6_GridItemTemp.toolTip_Display.SetToolTip(e6_GridItemTemp.cLabel_isSuperior, string.Format("Media will be uploaded as superior of #{0}\n{1}", PostID, e6_GridItemTemp.cLabel_isSuperior.Tag)); ;
                 e6_GridItemTemp.cLabel_isSuperior.Visible = true;
             }
             else
@@ -214,6 +221,33 @@ namespace e621_ReBot_v2.Forms
                     }
                     Form_Loader._FormReference.GB_Download.Enabled = Form_Loader._FormReference.DownloadCounter != 0;
                 }
+            }
+            Form_Preview._FormReference.UpdateButtons();
+        }
+
+        public static void InferiorSub(string PostID, DataRow RowRefference)
+        {
+            string PostTest = Module_e621Info.e621InfoDownload(string.Format("https://e621.net/posts/{0}.json", PostID), true);
+            if (PostTest == null || PostTest.Length < 10)
+            {
+                if (_FormReference != null) _FormReference.ID_TextBox.Text = null;
+                MessageBox.Show(string.Format("Post with ID#{0} does not exist.", PostID), "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            JToken PostData = JObject.Parse(PostTest)["post"];
+            RowRefference["Upload_Rating"] = PostData["rating"].Value<string>().ToUpper();
+            RowRefference["Uploaded_As"] = PostID;
+            e6_GridItem e6_GridItemTemp = Form_Loader._FormReference.IsE6PicVisibleInGrid(ref RowRefference);
+            if (e6_GridItemTemp != null)
+            {
+                e6_GridItemTemp._Rating = (string)RowRefference["Upload_Rating"];
+                e6_GridItemTemp.cLabel_isUploaded.Text = PostID;
+            }
+            Form_Preview._FormReference.Label_AlreadyUploaded.Text = string.Format("Already uploaded as #{0}", PostID);
+            if (Properties.Settings.Default.ManualInferiorSave)
+            {
+                Module_DB.DB_CreateMediaRecord(ref RowRefference);
             }
             Form_Preview._FormReference.UpdateButtons();
         }

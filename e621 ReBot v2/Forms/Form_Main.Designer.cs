@@ -114,6 +114,7 @@
             this.bU_PoolWatcher = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.cGroupBoxColored_Volume = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
             this.TrackBar_Volume = new System.Windows.Forms.TrackBar();
+            this.CheckBox_ManualInferiorSave = new System.Windows.Forms.CheckBox();
             this.CheckBox_DontFlag = new System.Windows.Forms.CheckBox();
             this.CheckBox_BigMode = new System.Windows.Forms.CheckBox();
             this.CheckBox_ExpandedDescription = new System.Windows.Forms.CheckBox();
@@ -1279,7 +1280,7 @@
             this.bU_GetDNPs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bU_GetDNPs.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_GetDNPs.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.bU_GetDNPs.Location = new System.Drawing.Point(64, 588);
+            this.bU_GetDNPs.Location = new System.Drawing.Point(64, 598);
             this.bU_GetDNPs.Margin = new System.Windows.Forms.Padding(4);
             this.bU_GetDNPs.Name = "bU_GetDNPs";
             this.bU_GetDNPs.Size = new System.Drawing.Size(120, 28);
@@ -1382,7 +1383,7 @@
             this.bU_GetGenders.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bU_GetGenders.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_GetGenders.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.bU_GetGenders.Location = new System.Drawing.Point(64, 552);
+            this.bU_GetGenders.Location = new System.Drawing.Point(200, 598);
             this.bU_GetGenders.Margin = new System.Windows.Forms.Padding(4);
             this.bU_GetGenders.Name = "bU_GetGenders";
             this.bU_GetGenders.Size = new System.Drawing.Size(120, 28);
@@ -1713,13 +1714,30 @@
             this.TrackBar_Volume.Scroll += new System.EventHandler(this.TrackBar_Volume_Scroll);
             this.TrackBar_Volume.ValueChanged += new System.EventHandler(this.TrackBar_Volume_ValueChanged);
             // 
+            // CheckBox_ManualInferiorSave
+            // 
+            this.CheckBox_ManualInferiorSave.AutoSize = true;
+            this.CheckBox_ManualInferiorSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.CheckBox_ManualInferiorSave.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.CheckBox_ManualInferiorSave.Location = new System.Drawing.Point(4, 54);
+            this.CheckBox_ManualInferiorSave.Margin = new System.Windows.Forms.Padding(4);
+            this.CheckBox_ManualInferiorSave.Name = "CheckBox_ManualInferiorSave";
+            this.CheckBox_ManualInferiorSave.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.CheckBox_ManualInferiorSave.Size = new System.Drawing.Size(152, 17);
+            this.CheckBox_ManualInferiorSave.TabIndex = 128;
+            this.CheckBox_ManualInferiorSave.TabStop = false;
+            this.CheckBox_ManualInferiorSave.Text = "Save manual inferior to DB";
+            this.toolTip_Display.SetToolTip(this.CheckBox_ManualInferiorSave, "Save ID of superior media to DB when marking media as inferior of another.\r\n");
+            this.CheckBox_ManualInferiorSave.UseVisualStyleBackColor = true;
+            this.CheckBox_ManualInferiorSave.CheckedChanged += new System.EventHandler(this.CheckBox_ManualInferiorSave_CheckedChanged);
+            // 
             // CheckBox_DontFlag
             // 
             this.CheckBox_DontFlag.AutoSize = true;
             this.CheckBox_DontFlag.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.CheckBox_DontFlag.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.CheckBox_DontFlag.Location = new System.Drawing.Point(4, 104);
-            this.CheckBox_DontFlag.Margin = new System.Windows.Forms.Padding(4, 4, 8, 4);
+            this.CheckBox_DontFlag.Location = new System.Drawing.Point(4, 129);
+            this.CheckBox_DontFlag.Margin = new System.Windows.Forms.Padding(4);
             this.CheckBox_DontFlag.Name = "CheckBox_DontFlag";
             this.CheckBox_DontFlag.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.CheckBox_DontFlag.Size = new System.Drawing.Size(132, 17);
@@ -1736,7 +1754,7 @@
             this.CheckBox_BigMode.AutoSize = true;
             this.CheckBox_BigMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.CheckBox_BigMode.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.CheckBox_BigMode.Location = new System.Drawing.Point(4, 79);
+            this.CheckBox_BigMode.Location = new System.Drawing.Point(4, 4);
             this.CheckBox_BigMode.Margin = new System.Windows.Forms.Padding(4);
             this.CheckBox_BigMode.Name = "CheckBox_BigMode";
             this.CheckBox_BigMode.Size = new System.Drawing.Size(93, 17);
@@ -1752,7 +1770,7 @@
             this.CheckBox_ExpandedDescription.AutoSize = true;
             this.CheckBox_ExpandedDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.CheckBox_ExpandedDescription.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.CheckBox_ExpandedDescription.Location = new System.Drawing.Point(4, 29);
+            this.CheckBox_ExpandedDescription.Location = new System.Drawing.Point(4, 79);
             this.CheckBox_ExpandedDescription.Margin = new System.Windows.Forms.Padding(4);
             this.CheckBox_ExpandedDescription.Name = "CheckBox_ExpandedDescription";
             this.CheckBox_ExpandedDescription.Size = new System.Drawing.Size(130, 17);
@@ -1768,7 +1786,7 @@
             this.CheckBox_AutocompleteTags.AutoSize = true;
             this.CheckBox_AutocompleteTags.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.CheckBox_AutocompleteTags.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.CheckBox_AutocompleteTags.Location = new System.Drawing.Point(4, 54);
+            this.CheckBox_AutocompleteTags.Location = new System.Drawing.Point(4, 29);
             this.CheckBox_AutocompleteTags.Margin = new System.Windows.Forms.Padding(4);
             this.CheckBox_AutocompleteTags.Name = "CheckBox_AutocompleteTags";
             this.CheckBox_AutocompleteTags.Size = new System.Drawing.Size(149, 17);
@@ -1786,7 +1804,7 @@
             this.CheckBox_RemoveBVAS.CheckState = System.Windows.Forms.CheckState.Checked;
             this.CheckBox_RemoveBVAS.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.CheckBox_RemoveBVAS.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.CheckBox_RemoveBVAS.Location = new System.Drawing.Point(4, 4);
+            this.CheckBox_RemoveBVAS.Location = new System.Drawing.Point(4, 104);
             this.CheckBox_RemoveBVAS.Margin = new System.Windows.Forms.Padding(4);
             this.CheckBox_RemoveBVAS.Name = "CheckBox_RemoveBVAS";
             this.CheckBox_RemoveBVAS.Size = new System.Drawing.Size(97, 17);
@@ -3107,7 +3125,7 @@
             this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_AppName);
             this.tabPage_Settings.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Settings.Name = "tabPage_Settings";
-            this.tabPage_Settings.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Settings.Size = new System.Drawing.Size(192, 91);
             this.tabPage_Settings.TabIndex = 5;
             this.tabPage_Settings.Text = "tabPage_Settings";
             this.tabPage_Settings.Enter += new System.EventHandler(this.TabPage_Settings_Enter);
@@ -3245,6 +3263,7 @@
             // 
             // panel_CheckBoxOptions
             // 
+            this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_ManualInferiorSave);
             this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_DontFlag);
             this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_BigMode);
             this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_ExpandedDescription);
@@ -3253,7 +3272,7 @@
             this.panel_CheckBoxOptions.Location = new System.Drawing.Point(64, 422);
             this.panel_CheckBoxOptions.Margin = new System.Windows.Forms.Padding(64, 32, 4, 4);
             this.panel_CheckBoxOptions.Name = "panel_CheckBoxOptions";
-            this.panel_CheckBoxOptions.Size = new System.Drawing.Size(256, 122);
+            this.panel_CheckBoxOptions.Size = new System.Drawing.Size(256, 148);
             this.panel_CheckBoxOptions.TabIndex = 128;
             this.panel_CheckBoxOptions.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel_CheckBoxOptions_Paint);
             // 
@@ -3325,7 +3344,7 @@
             this.tabPage_PuzzleGame.Controls.Add(this.panel_GameStart);
             this.tabPage_PuzzleGame.Location = new System.Drawing.Point(4, 5);
             this.tabPage_PuzzleGame.Name = "tabPage_PuzzleGame";
-            this.tabPage_PuzzleGame.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_PuzzleGame.Size = new System.Drawing.Size(1262, 695);
             this.tabPage_PuzzleGame.TabIndex = 6;
             this.tabPage_PuzzleGame.Text = "tabPage_PuzzleGame";
             // 
@@ -3403,7 +3422,7 @@
             this.gamePanel_Main.Margin = new System.Windows.Forms.Padding(8, 4, 4, 4);
             this.gamePanel_Main.MaximumSize = new System.Drawing.Size(1000, 680);
             this.gamePanel_Main.Name = "gamePanel_Main";
-            this.gamePanel_Main.Size = new System.Drawing.Size(0, 76);
+            this.gamePanel_Main.Size = new System.Drawing.Size(1000, 680);
             this.gamePanel_Main.TabIndex = 0;
             // 
             // panel_GameStart
@@ -3785,6 +3804,7 @@
         protected internal CustomControls.Button_Unfocusable BB_Bookmarks;
         protected internal CustomControls.Button_Unfocusable bU_GetDNPs;
         protected internal System.Windows.Forms.Panel panel_ComboBoxBlocker;
+        protected internal System.Windows.Forms.CheckBox CheckBox_ManualInferiorSave;
     }
 }
 

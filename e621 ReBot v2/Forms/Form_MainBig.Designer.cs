@@ -351,7 +351,7 @@
             this.bU_DownloadFolderChange.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.bU_DownloadFolderChange.Location = new System.Drawing.Point(515, 6);
             // 
-            // textbox_AutoTagsEditor
+            // textBox_AutoTagsEditor
             // 
             this.textBox_AutoTagsEditor.Size = new System.Drawing.Size(507, 13);
             // 
@@ -383,7 +383,7 @@
             // bU_GetGenders
             // 
             this.bU_GetGenders.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_GetGenders.Location = new System.Drawing.Point(256, 744);
+            this.bU_GetGenders.Location = new System.Drawing.Point(256, 779);
             // 
             // bU_DownloadPageDown
             // 
@@ -513,7 +513,7 @@
             // bU_GetDNPs
             // 
             this.bU_GetDNPs.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_GetDNPs.Location = new System.Drawing.Point(392, 744);
+            this.bU_GetDNPs.Location = new System.Drawing.Point(393, 779);
             // 
             // panel_ComboBoxBlocker
             // 
