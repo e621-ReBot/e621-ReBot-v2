@@ -1011,7 +1011,14 @@ namespace e621_ReBot_v2.Modules
                     }
                     else
                     {
-                        TagQuery = TagQuery.Substring(TagQuery.IndexOf("?") + 1);
+                        if (TagQuery.Contains("?"))
+                        {
+                            TagQuery = TagQuery.Substring(TagQuery.IndexOf("?") + 1);
+                        }
+                        else
+                        {
+                            TagQuery = WebDoc.DocumentNode.SelectSingleNode("//input[@id='tags']").Attributes["value"].Value;
+                        }
                     }
                     e6APIDL_BGW.RunWorkerAsync(new string[] { TagQuery, inputtext });
                     return;
@@ -1122,10 +1129,12 @@ namespace e621_ReBot_v2.Modules
         GrabAnotherPage:
             Report_Status(string.Format("Working on Tags page {0}.", PageCounter), true);
             string TempRequestStringHolder = PostRequestString + (PageCounter > 1 ? "&page=" + PageCounter : null);
-            JToken JSON_Object = JObject.Parse(Module_e621Info.e621InfoDownload(TempRequestStringHolder, true))["posts"];
+            string test = Module_e621Info.e621InfoDownload(TempRequestStringHolder, true);
+            JToken JSON_Object = JObject.Parse(test)["posts"];
             foreach (JObject cPost in JSON_Object.Children())
             {
-                if (!Blacklist_Check(cPost["tags"]))
+                List<string> TempTagList = CreateTagList(cPost["tags"], cPost["rating"].Value<string>());
+                if (!Blacklist_Check(TempTagList))
                 {
                     string PostID = cPost["id"].Value<string>();
                     AddDownloadQueueItem(null, "https://e621.net/posts/" + PostID, cPost["file"]["url"].Value<string>(), null, null, null, PostID, FolderName, null);
@@ -1217,22 +1226,26 @@ namespace e621_ReBot_v2.Modules
             Form_Loader._FormReference.BeginInvoke(new Action(() => { if (SkippedPagesCounter > 0) Form_Loader._FormReference.textBox_Info.Text = string.Format("{0} Downloader >>> {1}: {2} page{3} skipped as they already exist\n{4}", DateTime.Now.ToLongTimeString(), PoolName, SkippedPagesCounter, SkippedPagesCounter > 1 ? "s" : null, Form_Loader._FormReference.textBox_Info.Text); }));
         }
 
-        private static bool Blacklist_Check(JToken PostTags)
+        private static List<string> CreateTagList(JToken PostTags, string RatingTag)
+        {
+            List<string> TempList = new List<string>();
+            foreach (JProperty TagCategory in PostTags.Children())
+            {
+                TempList.AddRange(TagCategory.First.ToObject<string[]>());
+            }
+            TempList.Add("rating:" + RatingTag);
+            return TempList;
+        }
+
+        private static bool Blacklist_Check(List<string> PostTags)
         {
             if (Form_Loader._FormReference.Blacklist.Count > 0)
             {
-                string TagsString = "";
-                foreach (JProperty TagCategory in PostTags.Children())
-                {
-                    TagsString += string.Join(" ", TagCategory.First.ToObject<string[]>()).Trim() + " ";
-                }
 
                 foreach (string BlacklistLine in Form_Loader._FormReference.Blacklist)
                 {
                     if (BlacklistLine.Contains("-"))
                     {
-                        List<string> TagStringList = new List<string>();
-                        TagStringList.AddRange(TagsString.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries));
                         List<string> BlacklistLineList = new List<string>();
                         BlacklistLineList.AddRange(BlacklistLine.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries));
                         int HitCounter = 0;
@@ -1242,14 +1255,14 @@ namespace e621_ReBot_v2.Modules
                             if (BlacklistTag.StartsWith("-"))
                             {
                                 BlacklistTagTemp = BlacklistTag.Substring(1);
-                                if (!TagStringList.Contains(BlacklistTagTemp))
+                                if (!PostTags.Contains(BlacklistTagTemp))
                                 {
                                     HitCounter += 1;
                                 }
                                 continue;
                             }
 
-                            if (TagStringList.Contains(BlacklistTagTemp))
+                            if (PostTags.Contains(BlacklistTagTemp))
                             {
                                 HitCounter += 1;
                             }
@@ -1262,7 +1275,7 @@ namespace e621_ReBot_v2.Modules
                         continue;
                     }
 
-                    if (BlacklistLine.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).All(f => TagsString.Contains(f)))
+                    if (BlacklistLine.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).All(f => PostTags.Contains(f)))
                     {
                         return true;
                     }

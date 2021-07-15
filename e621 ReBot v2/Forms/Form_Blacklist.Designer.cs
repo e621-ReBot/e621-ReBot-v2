@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Blacklist));
             this.toolTip_Display = new System.Windows.Forms.ToolTip(this.components);
             this.textBox_Blacklist = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
@@ -52,9 +53,7 @@
             this.textBox_Blacklist.Name = "textBox_Blacklist";
             this.textBox_Blacklist.Size = new System.Drawing.Size(302, 139);
             this.textBox_Blacklist.TabIndex = 1;
-            this.toolTip_Display.SetToolTip(this.textBox_Blacklist, "Tags can be combined by entering them on the same line, separated by a space. Eac" +
-        "h line is regarded separately.\r\nBlacklist applies to downloads from e621 via API" +
-        " (pools ignore it).");
+            this.toolTip_Display.SetToolTip(this.textBox_Blacklist, resources.GetString("textBox_Blacklist.ToolTip"));
             this.textBox_Blacklist.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_Blacklist_KeyDown);
             // 
             // Form_Blacklist
