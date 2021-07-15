@@ -120,4 +120,12 @@
   <metadata name="toolTip_Display.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="textBox_Blacklist.ToolTip" xml:space="preserve">
+    <value>Tags can be combined by entering them on the same line, separated by a space.
+Each line is regarded separately.
+Use shortened terms "e", "q", "s" for ratings.
+
+Blacklist applies to downloads from e621 via API (pool downloads ignore it).
+</value>
+  </data>
 </root>

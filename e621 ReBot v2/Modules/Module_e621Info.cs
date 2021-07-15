@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Windows.Forms;
 
 namespace e621_ReBot_v2.Modules
 {
