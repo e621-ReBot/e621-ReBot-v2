@@ -1,21 +1,23 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Data;
+using System.Linq;
 using System.Net;
+using System.Web;
 using System.Windows.Forms;
 using HtmlAgilityPack;
+using Newtonsoft.Json.Linq;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
 namespace e621_ReBot_v2.Modules.Grabber
 {
     public static class Module_Mastodon
     {
-
         public static void QueuePrep(string WebAdress)
         {
             //Module_CookieJar.GetCookies(WebAdress, ref Module_CookieJar.Cookies_Mastodon);
-            string NumericPartCheck = WebAdress.Substring(WebAdress.LastIndexOf("/"));
-            if (int.TryParse(NumericPartCheck, out _))
+            string NumericPartCheck = WebAdress.Substring(WebAdress.LastIndexOf("/") + 1);
+            if (NumericPartCheck.All(char.IsDigit))
             {
                 Queue_Single(WebAdress, Module_CefSharp.GetHTMLSource());
             }
@@ -106,8 +108,8 @@ namespace e621_ReBot_v2.Modules.Grabber
 
             DateTime Post_Time = DateTime.Parse(PostNode.SelectSingleNode(".//time").Attributes["datetime"].Value);
 
-            string ArtistName = PostNode.SelectSingleNode(".//span[@class='display-name']").InnerText.Trim();
-            ArtistName = ArtistName.Replace("@mastodon.social", ")").Replace(" @", " (");
+            string ArtistName = PostNode.SelectSingleNode(".//span[@class='display-name']//strong[@class='display-name__html p-name emojify']").InnerText.Trim();
+            ArtistName += " (" + PostNode.SelectSingleNode(".//span[@class='display-name']/span[@class='display-name__account']").InnerText.Trim() + ")";
 
             HtmlNode Post_TextNode = PostNode.SelectSingleNode(".//div[@class='status__content emojify']");
             string Post_Text = Post_TextNode.InnerText;
@@ -118,28 +120,32 @@ namespace e621_ReBot_v2.Modules.Grabber
 
             string Post_MediaURL;
             int SkipCounter = 0;
-            HtmlNodeCollection ImageNodes = PostNode.SelectNodes(".//div[@data-component='MediaGallery']//img");
-            if (ImageNodes != null)
+            if (PostNode.SelectSingleNode(".//div[@data-component='MediaGallery']") != null)
             {
-                foreach (HtmlNode ImageNode in ImageNodes)
-                {
-                    Post_MediaURL = ImageNode.ParentNode.Attributes["href"].Value;
-                    if (Module_Grabber._Grabbed_MediaURLs.Contains(Post_MediaURL))
-                    {
-                        SkipCounter += 1;
-                        continue;
-                    }
-                    else
-                    {
-                        lock (Module_Grabber._Grabbed_MediaURLs)
-                        {
-                            Module_Grabber._Grabbed_MediaURLs.Add(Post_MediaURL);
-                        }
-                    }
+                JObject MediaJObject = JObject.Parse(HttpUtility.HtmlDecode(PostNode.SelectSingleNode(".//div[@data-component='MediaGallery']").Attributes["data-props"].Value));
 
-                    DataRow TempDataRow = TempDataTable.NewRow();
-                    FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Text, Post_MediaURL, ImageNode.Attributes["src"].Value, ArtistName);
-                    TempDataTable.Rows.Add(TempDataRow);
+                if (MediaJObject["media"].Children().Any())
+                {
+                    foreach (JToken ImageNode in MediaJObject["media"].Children())
+                    {
+                        Post_MediaURL = ImageNode["url"].Value<string>();
+                        if (Module_Grabber._Grabbed_MediaURLs.Contains(Post_MediaURL))
+                        {
+                            SkipCounter += 1;
+                            continue;
+                        }
+                        else
+                        {
+                            lock (Module_Grabber._Grabbed_MediaURLs)
+                            {
+                                Module_Grabber._Grabbed_MediaURLs.Add(Post_MediaURL);
+                            }
+                        }
+
+                        DataRow TempDataRow = TempDataTable.NewRow();
+                        FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Text, Post_MediaURL, ImageNode["preview_url"].Value<string>(), ImageNode["meta"]["original"]["width"].Value<string>(), ImageNode["meta"]["original"]["height"].Value<string>(), ArtistName);
+                        TempDataTable.Rows.Add(TempDataRow);
+                    }
                 }
             }
 
@@ -167,15 +173,18 @@ namespace e621_ReBot_v2.Modules.Grabber
             }
         }
 
-        private static void FillDataRow(ref DataRow TempDataRow, string URL, DateTime DateTime, string TextBody, string MediaURL, string ThumbnailURL, string Artist)
+        private static void FillDataRow(ref DataRow TempDataRow, string URL, DateTime DateTime, string TextBody, string MediaURL, string ThumbnailURL, string ImageWidth, string ImageHeight, string Artist)
         {
             TempDataRow["Grab_URL"] = URL;
             TempDataRow["Grab_DateTime"] = DateTime;
-            TempDataRow["Grab_Title"] = WebUtility.HtmlDecode(string.Format("Created by {0} on Mastodon", Artist)); ;
+            TempDataRow["Grab_Title"] = WebUtility.HtmlDecode(string.Format("Created by {0}", Artist)); ;
             if (TextBody != null) TempDataRow["Grab_TextBody"] = TextBody;
             TempDataRow["Grab_MediaURL"] = MediaURL;
             TempDataRow["Grab_ThumbnailURL"] = ThumbnailURL;
+            TempDataRow["Thumbnail_FullInfo"] = true;
             TempDataRow["Info_MediaFormat"] = MediaURL.Substring(MediaURL.LastIndexOf(".") + 1);
+            TempDataRow["Info_MediaWidth"] = ImageWidth;
+            TempDataRow["Info_MediaHeight"] = ImageHeight;
             TempDataRow["Info_MediaByteLength"] = Module_Grabber.GetMediaSize(MediaURL);
             TempDataRow["Upload_Tags"] = DateTime.Year;
             TempDataRow["Artist"] = Artist;

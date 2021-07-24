@@ -3,14 +3,12 @@ using e621_ReBot_v2.Modules;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.IO;
 using System.Net;
-using System.Security.Cryptography;
 using System.Threading;
 using System.Windows.Forms;
 

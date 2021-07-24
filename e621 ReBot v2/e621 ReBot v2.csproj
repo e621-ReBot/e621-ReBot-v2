@@ -322,6 +322,7 @@
     <Compile Include="Modules\Grabber\Module_Newgrounds.cs" />
     <Compile Include="Modules\Grabber\Module_Pixiv.cs" />
     <Compile Include="Modules\Grabber\Module_Plurk.cs" />
+    <Compile Include="Modules\Grabber\Module_Weasyl.cs" />
     <Compile Include="Modules\Grabber\Module_SoFurry.cs" />
     <Compile Include="Modules\Grabber\Module_Twitter.cs" />
     <Compile Include="Modules\Module_Converter.cs" />
@@ -454,7 +455,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="bin\x64\e621 ReBot v2\e621 ReBot Updater.zip" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
@@ -484,10 +484,12 @@
     <Content Include="Resources\Browser\BrowserIcon_Inkbunny.png" />
     <Content Include="Resources\Browser\BrowserIcon_Mastodon.png" />
     <Content Include="Resources\Browser\BrowserIcon_Newgrounds.png" />
+    <None Include="Resources\Browser\BrowserIcon_Pawoo.png" />
     <Content Include="Resources\Browser\BrowserIcon_Pixiv.png" />
     <Content Include="Resources\Browser\BrowserIcon_Plurk.png" />
     <Content Include="Resources\Browser\BrowserIcon_SoFurry.png" />
     <Content Include="Resources\Browser\BrowserIcon_Twitter.png" />
+    <None Include="Resources\Browser\BrowserIcon_Weasly.png" />
     <Content Include="Resources\Browser\Browser_QuickButtons.png" />
     <Content Include="Resources\Browser\ComboBox_Disabled.png" />
     <EmbeddedResource Include="Resources\Files\Newtonsoft.Json.dll" />

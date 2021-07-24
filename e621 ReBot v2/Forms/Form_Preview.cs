@@ -80,7 +80,7 @@ namespace e621_ReBot_v2.Forms
                 {
                     foreach (Cookie CookieTemp in Module_CookieJar.Cookies_DeviantArt.GetCookies(new Uri("https://www.deviantart.com")))
                     {
-                        InternetSetCookie(CookieTemp.Domain, CookieTemp.Name,  HttpUtility.UrlDecode(CookieTemp.Value));
+                        InternetSetCookie(CookieTemp.Domain, CookieTemp.Name, HttpUtility.UrlDecode(CookieTemp.Value));
                     }
                 }
                 Pic_WebBrowser.Navigate(URL2Navigate);
@@ -317,7 +317,19 @@ namespace e621_ReBot_v2.Forms
                         Preview_RowHolder["Info_MediaWidth"] = Pic_WebBrowser.Document.Images[0].ClientRectangle.Size.Width;
                         Preview_RowHolder["Info_MediaHeight"] = Pic_WebBrowser.Document.Images[0].ClientRectangle.Size.Height;
                         Preview_RowHolder["Thumbnail_FullInfo"] = true;
+
                         e6_GridItem GridItemTemp = Form_Loader._FormReference.IsE6PicVisibleInGrid(ref Preview_RowHolder);
+
+                        //Weasyl special
+                        if (Preview_RowHolder["Grab_ThumbnailURL"] == DBNull.Value)
+                        {
+                            ((Image)Preview_RowHolder["Thumbnail_Image"]).Dispose();
+                            Preview_RowHolder["Grab_ThumbnailURL"] = "";
+                            string CachedImagePath = Module_Downloader.IEDownload_Cache[Module_Downloader.GetMediasFileNameOnly((string)Preview_RowHolder["Grab_MediaURL"])];
+                            Preview_RowHolder["Thumbnail_Image"] = Module_Grabber.MakeImageThumb(Image.FromFile(CachedImagePath));
+                            if (GridItemTemp == null) e6_GridItem.WriteImageInfo(Preview_RowHolder);
+                        }
+
                         if (GridItemTemp == null)
                         {
                             if (Preview_RowHolder["Thumbnail_Image"] == DBNull.Value && Preview_RowHolder["Thumbnail_DLStart"] == DBNull.Value)
@@ -903,7 +915,7 @@ namespace e621_ReBot_v2.Forms
                 {
                     Form_e6Post._FormReference.Tag = "Inferior";
                     Form_e6Post._FormReference.BackColor = Color.DarkOrange;
-                } 
+                }
             }
             else
             {

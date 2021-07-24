@@ -290,7 +290,7 @@ namespace e621_ReBot_v2.Modules
         private static readonly List<Custom_WebClient> Holder_ThumbClient = new List<Custom_WebClient>();
         private static readonly List<Custom_WebClient> Holder_FileClient = new List<Custom_WebClient>();
 
-        private static void StarDLClient(ref e6_DownloadItem e6_DownloadItemRef, string DLType)
+        private static void StartDLClient(ref e6_DownloadItem e6_DownloadItemRef, string DLType)
         {
             DataRow DataRowTemp = (DataRow)e6_DownloadItemRef.Tag;
             string SiteReferer = "https://" + new Uri((string)DataRowTemp["Grab_URL"]).Host;
@@ -457,7 +457,7 @@ namespace e621_ReBot_v2.Modules
                     }
                 }
             }
-            timer_DownloadRemovalThreading.Start();
+            if (!timer_DownloadRemovalThreading.Enabled) timer_DownloadRemovalThreading.Start();
         }
 
         private static readonly Timer timer_DownloadRemovalThreading;
@@ -480,7 +480,9 @@ namespace e621_ReBot_v2.Modules
                         Download_AlreadyDownloaded.Add((string)DataRowTemp["Grab_MediaURL"]);
                     }
                     Image ImageHolder = e6_DownloadItemTemp.picBox_ImageHolder.Tag == null ? e6_DownloadItemTemp.picBox_ImageHolder.BackgroundImage : null;
+
                     AddPic2FLP((string)DataRowTemp["Grab_MediaURL"], e6_DownloadItemTemp.DL_FolderIcon.Tag.ToString(), ImageHolder);
+                    e6_DownloadItemTemp.picBox_ImageHolder.Tag = null;
 
                     if (Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Count > DLThreadsCount || !Form_Loader._FormReference.cCheckGroupBox_Download.Checked || Module_TableHolder.Download_Table.Rows.Count == 0)
                     {
@@ -690,7 +692,7 @@ namespace e621_ReBot_v2.Modules
                         e6_DownloadItemTemp.DL_ProgressBar.Visible = true;
                         e6_DownloadItemTemp.DL_ProgressBar.BarColor = Color.Orange;
                         e6_DownloadItemTemp.DL_FolderIcon.Tag = FilePath;
-                        StarDLClient(ref e6_DownloadItemTemp, "Thumb");
+                        StartDLClient(ref e6_DownloadItemTemp, "Thumb");
                         if (AddNew) Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Add(e6_DownloadItemTemp);
                         Module_FFmpeg.DownloadQueue_ConvertUgoira2WebM(ref e6_DownloadItemTemp);
                     }));
@@ -732,22 +734,40 @@ namespace e621_ReBot_v2.Modules
                         DataRow DataRow4Grid = DataRowRef["DataRowRef"] != DBNull.Value ? (DataRow)DataRowRef["DataRowRef"] : null;
                         if (DataRow4Grid != null && DataRow4Grid.RowState != DataRowState.Detached)
                         {
-                            if (DataRow4Grid["Thumbnail_Image"] == DBNull.Value)
+                            //Weasyl special
+                            if (DataRow4Grid["Grab_ThumbnailURL"] == DBNull.Value || DataRow4Grid["Grab_ThumbnailURL"].Equals(""))
                             {
-                                DataRow4Grid["Thumbnail_DLStart"] = true;
-                                StarDLClient(ref e6_DownloadItemTemp, "Thumb");
+                                e6_DownloadItemTemp.picBox_ImageHolder.BackgroundImage = Properties.Resources.BrowserIcon_Weasly;
+                                e6_DownloadItemTemp.picBox_ImageHolder.Tag = true;
                             }
                             else
                             {
-                                e6_DownloadItemTemp.picBox_ImageHolder.BackgroundImage = (Image)((Image)DataRow4Grid["Thumbnail_Image"]).Clone();
+                                if (DataRow4Grid["Thumbnail_Image"] == DBNull.Value)
+                                {
+                                    DataRow4Grid["Thumbnail_DLStart"] = true;
+                                    StartDLClient(ref e6_DownloadItemTemp, "Thumb");
+                                }
+                                else
+                                {
+                                    e6_DownloadItemTemp.picBox_ImageHolder.BackgroundImage = (Image)((Image)DataRow4Grid["Thumbnail_Image"]).Clone();
+                                }
                             }
                         }
                         else
                         {
-                            StarDLClient(ref e6_DownloadItemTemp, "Thumb");
+                            //Weasyl special
+                            if (((string)DataRowRef["Grab_ThumbnailURL"]).Contains("cdn.weasyl.com"))
+                            {
+                                e6_DownloadItemTemp.picBox_ImageHolder.BackgroundImage = Properties.Resources.BrowserIcon_Weasly;
+                                e6_DownloadItemTemp.picBox_ImageHolder.Tag = true;
+                            }
+                            else
+                            {
+                                StartDLClient(ref e6_DownloadItemTemp, "Thumb");
+                            }
                         }
                         if (AddNew) Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Add(e6_DownloadItemTemp);
-                        StarDLClient(ref e6_DownloadItemTemp, "File");
+                        StartDLClient(ref e6_DownloadItemTemp, "File");
                     }));
                 }
             }
@@ -811,7 +831,7 @@ namespace e621_ReBot_v2.Modules
                     e6_DownloadItemTemp.picBox_ImageHolder.Tag = true;
                     e6_DownloadItemTemp.picBox_ImageHolder.LoadAsync(ThumbLink);
                 }
-                StarDLClient(ref e6_DownloadItemTemp, "File");
+                StartDLClient(ref e6_DownloadItemTemp, "File");
                 if (AddNew) Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Add(e6_DownloadItemTemp);
             }));
             return true;

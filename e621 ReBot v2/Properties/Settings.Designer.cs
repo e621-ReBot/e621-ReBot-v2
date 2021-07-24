@@ -12,7 +12,7 @@ namespace e621_ReBot_v2.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.8.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -117,52 +117,43 @@ namespace e621_ReBot_v2.Properties {
                 this["Bookmarks"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool LoadBigForm
-        {
-            get
-            {
+        public bool LoadBigForm {
+            get {
                 return ((bool)(this["LoadBigForm"]));
             }
-            set
-            {
+            set {
                 this["LoadBigForm"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AutocompleteTags
-        {
-            get
-            {
+        public bool AutocompleteTags {
+            get {
                 return ((bool)(this["AutocompleteTags"]));
             }
-            set
-            {
+            set {
                 this["AutocompleteTags"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ManualInferiorSave
-        {
-            get
-            {
+        public bool ManualInferiorSave {
+            get {
                 return ((bool)(this["ManualInferiorSave"]));
             }
-            set
-            {
+            set {
                 this["ManualInferiorSave"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -174,22 +165,31 @@ namespace e621_ReBot_v2.Properties {
                 this["ExpandedDescription"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool RemoveBVAS
-        {
-            get
-            {
+        public bool RemoveBVAS {
+            get {
                 return ((bool)(this["RemoveBVAS"]));
             }
-            set
-            {
+            set {
                 this["RemoveBVAS"] = value;
             }
         }
-
+                
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ClearCache {
+            get {
+                return ((bool)(this["ClearCache"]));
+            }
+            set {
+                this["ClearCache"] = value;
+            }
+        }
+		
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]

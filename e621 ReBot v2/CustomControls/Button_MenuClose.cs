@@ -65,7 +65,7 @@ namespace e621_ReBot_v2.CustomControls
             // 
             // Button_MenuClose
             // 
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.Font = new Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.ResumeLayout(false);
 
         }

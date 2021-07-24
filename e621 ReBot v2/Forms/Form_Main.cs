@@ -73,6 +73,8 @@ namespace e621_ReBot_v2
             BQB_SoFurry.Click += BrowserQuickButton_Click;
             BQB_Mastodon.Click += BrowserQuickButton_Click;
             BQB_Plurk.Click += BrowserQuickButton_Click;
+            BQB_Pawoo.Click += BrowserQuickButton_Click;
+            BQB_Weasyl.Click += BrowserQuickButton_Click;
 
             cCheckGroupBox_Grab.Paint += CCheckGroupBox_Jobs_Paint;
             cCheckGroupBox_Upload.Paint += CCheckGroupBox_Jobs_Paint;
@@ -191,6 +193,7 @@ namespace e621_ReBot_v2
             CheckBox_ManualInferiorSave.Checked = Properties.Settings.Default.ManualInferiorSave;
             CheckBox_ExpandedDescription.Checked = Properties.Settings.Default.ExpandedDescription;
             CheckBox_RemoveBVAS.Checked = Properties.Settings.Default.RemoveBVAS;
+            CheckBox_ClearCache.Checked = Properties.Settings.Default.ClearCache;
             CheckBox_DontFlag.Checked = Properties.Settings.Default.DontFlag;
             CheckBox_DontFlag.Visible = !Properties.Settings.Default.UserLevel.Equals("") && Module_Credits.UserLevels[Properties.Settings.Default.UserLevel] > 2;
 
@@ -331,14 +334,32 @@ namespace e621_ReBot_v2
                     return;
                 }
             }
-            Cef.Shutdown();
 
+            Cef.Shutdown();
             Module_CefSharp.CefSharpBrowser.Dispose();
+
             Properties.Settings.Default.LastStats = string.Format("{0},{1},{2}", label_Credit_Upload.Text, label_Credit_Flag.Text, label_Credit_Note.Text);
             RetryQueue_Save();
             if (AutoTagsListChanged)
             {
                 File.WriteAllText("tags.txt", string.Join("✄", AutoTagsList_Tags));
+            }
+
+            if (Properties.Settings.Default.ClearCache)
+            {
+                bool DeleteWorked = false;
+                do
+                {
+                    try
+                    {
+                        Directory.Delete("CefSharp Cache", true);
+                        DeleteWorked = true;
+                    }
+                    catch (Exception)
+                    {
+                            Thread.Sleep(500);
+                    }
+                } while (DeleteWorked == false);
             }
         }
 
@@ -588,7 +609,7 @@ namespace e621_ReBot_v2
             for (int y = 20; y <= BGHeight - 76; y++)
             {
                 LineStart = 0;
-                for (int x = 79; x <= BGWidth - 79; x++)
+                for (int x = 79; x <= BGWidth - 30; x++)
                 {
                     // Get the various pixel locations  This calculation is for a 32bpp Argb bitmap
                     int ByteLocation = (y * BGWidth * PixelSize) + (x * PixelSize);
@@ -905,7 +926,7 @@ namespace e621_ReBot_v2
             cTreeView_GrabQueue.BeginUpdate();
             BB_Grab.Visible = false;
             Worker_Sound();
-            Module_Grabber.PrepareLink(Module_CefSharp.CefSharpBrowser.Address);
+            Module_Grabber.PrepareLink(BB_Grab.Tag.ToString());
             cTreeView_GrabQueue.EndUpdate();
             cTreeView_GrabQueue.ResumeLayout();
         }
@@ -990,6 +1011,7 @@ namespace e621_ReBot_v2
                 flowLayoutPanel_Grid.ResumeLayout();
                 UIDrawController.ResumeDrawing(flowLayoutPanel_Grid);
             }
+            if (Form_Preview._FormReference != null) Form_Preview._FormReference.UpdateNavButtons();
         }
 
         public void Paginator()
@@ -1315,6 +1337,7 @@ namespace e621_ReBot_v2
                         }
                         else
                         {
+                            if (e6_GridItemTemp._DataRowReference["Grab_ThumbnailURL"] == DBNull.Value) e6_GridItemTemp._DataRowReference["Grab_ThumbnailURL"] = ""; //Weasyl fix
                             Module_Downloader.AddDownloadQueueItem(e6_GridItemTemp._DataRowReference, (string)e6_GridItemTemp._DataRowReference["Grab_URL"], (string)e6_GridItemTemp._DataRowReference["Grab_MediaURL"], (string)e6_GridItemTemp._DataRowReference["Grab_ThumbnailURL"], (string)e6_GridItemTemp._DataRowReference["Artist"], (string)e6_GridItemTemp._DataRowReference["Grab_Title"]);
                         }
                     }
@@ -1332,6 +1355,7 @@ namespace e621_ReBot_v2
                         }
                         else
                         {
+                            if (DataRowTemp["Grab_ThumbnailURL"] == DBNull.Value) DataRowTemp["Grab_ThumbnailURL"] = ""; //Weasyl fix
                             Module_Downloader.AddDownloadQueueItem(DataRowTemp, (string)DataRowTemp["Grab_URL"], (string)DataRowTemp["Grab_MediaURL"], (string)DataRowTemp["Grab_ThumbnailURL"], (string)DataRowTemp["Artist"], (string)DataRowTemp["Grab_Title"]);
                         }
                     }
@@ -1563,7 +1587,8 @@ namespace e621_ReBot_v2
 
         private void ToolStripMenuItem_RemoveNode_Click(object sender, EventArgs e)
         {
-            TreeNode ParentNode = WhichNodeIsIt.Parent ?? WhichNodeIsIt;
+            TreeNode ParentNode = WhichNodeIsIt.Parent;
+
             if (WhichNodeIsIt.TreeView.Name.Contains("Grab"))
             {
                 if (ParentNode != null)
@@ -1576,6 +1601,26 @@ namespace e621_ReBot_v2
                         }
                     }
                 }
+                if (WhichNodeIsIt.Nodes.Count > 1)
+                {
+                    lock (Module_Grabber._GrabQueue_URLs)
+                    {
+                        foreach (TreeNode TreeNodeTemp in WhichNodeIsIt.Nodes)
+                        {
+                            Module_Grabber._GrabQueue_URLs.Remove(TreeNodeTemp.Name);
+                        }
+                    }
+                }
+                else
+                {
+                    if (Module_Grabber._GrabQueue_URLs.Contains(WhichNodeIsIt.Name))
+                    {
+                        lock (Module_Grabber._GrabQueue_URLs)
+                        {
+                            Module_Grabber._GrabQueue_URLs.Remove(WhichNodeIsIt.Name);
+                        }
+                    }
+                }
                 WhichNodeIsIt.TreeView.Nodes.Remove(WhichNodeIsIt);
                 if (ParentNode != null)
                 {
@@ -1583,6 +1628,7 @@ namespace e621_ReBot_v2
                 }
                 return;
             }
+
             if (WhichNodeIsIt.TreeView.Name.Contains("Upload"))
             {
                 DataRow DataRowTemp = (DataRow)ParentNode.Tag;
@@ -1604,11 +1650,20 @@ namespace e621_ReBot_v2
                 }
                 return;
             }
+
             WhichNodeIsIt.Remove();
         }
 
         private void ToolStripMenuItem_RemoveAll_Click(object sender, EventArgs e)
         {
+            if (WhichNodeIsIt.TreeView.Name.Contains("Grab"))
+            {
+                lock (Module_Grabber._GrabQueue_URLs)
+                {
+                    Module_Grabber._GrabQueue_URLs.Clear();
+                }
+            }
+
             if (WhichNodeIsIt.TreeView.Name.Contains("Upload"))
             {
                 lock (Module_TableHolder.Upload_Table)
@@ -1616,6 +1671,7 @@ namespace e621_ReBot_v2
                     Module_TableHolder.Upload_Table.Rows.Clear();
                 }
             }
+
             WhichNodeIsIt.TreeView.Nodes.Clear();
         }
 
@@ -1637,7 +1693,6 @@ namespace e621_ReBot_v2
 
         public void UpdateParentNode_Tooltip(TreeNode ParentNode)
         {
-
             int CheckedChildNodesCount = int.Parse(ParentNode.Tag.ToString());
             ParentNode.Tag = CheckedChildNodesCount;
             ParentNode.ToolTipText = string.Format("Selected: {0}/{1}", CheckedChildNodesCount, ParentNode.Nodes.Count);
@@ -1927,6 +1982,12 @@ namespace e621_ReBot_v2
         private void CheckBox_RemoveBVAS_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.RemoveBVAS = CheckBox_RemoveBVAS.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void CheckBox_ClearCache_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.ClearCache = CheckBox_ClearCache.Checked;
             Properties.Settings.Default.Save();
         }
 
@@ -2719,6 +2780,7 @@ namespace e621_ReBot_v2
         }
 
         #endregion
+
 
     }
 }

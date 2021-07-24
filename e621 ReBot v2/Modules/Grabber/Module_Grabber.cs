@@ -1,6 +1,7 @@
 ﻿using e621_ReBot_v2.CustomControls;
 using e621_ReBot_v2.Modules.Grabber;
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -13,6 +14,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace e621_ReBot_v2.Modules
@@ -31,36 +33,22 @@ namespace e621_ReBot_v2.Modules
             timer_Grab.Start();
         }
 
-        public static readonly List<string> _GrabEnabler = new List<string>();
+        public static readonly List<Regex> _GrabEnabler = new List<Regex>();
         private static void Initilize_GrabEnabler()
         {
-            _GrabEnabler.Add("inkbunny.net/s/");
-            _GrabEnabler.Add("inkbunny.net/gallery/");
-            _GrabEnabler.Add("inkbunny.net/scraps/");
-            _GrabEnabler.Add("inkbunny.net/submissionsviewall.php");
-            _GrabEnabler.Add("pixiv.net/member_illust.php");
-            _GrabEnabler.Add("pixiv.net/member.php");
-            _GrabEnabler.Add("pixiv.net/en/artworks/");
-            _GrabEnabler.Add("pixiv.net/en/users/");
-            _GrabEnabler.Add("hiccears.com/artist-content.php");
-            _GrabEnabler.Add("hiccears.com/gallery.php");
-            _GrabEnabler.Add("hiccears.com/picture.php");
-            _GrabEnabler.Add("furaffinity.net/gallery/");
-            _GrabEnabler.Add("furaffinity.net/scraps/");
-            _GrabEnabler.Add("furaffinity.net/favorites/");
-            _GrabEnabler.Add("furaffinity.net/view/");
-            _GrabEnabler.Add("furaffinity.net/full/");
-            _GrabEnabler.Add("furaffinity.net/search/");
-            // GrabberList_GrabEnabler.Add("twitter.com")
-            _GrabEnabler.Add("newgrounds.com/art");
-            _GrabEnabler.Add("newgrounds.com/movies");
-            _GrabEnabler.Add("newgrounds.com/portal/view");
-            //_GrabEnabler.Add("plurk.com/");
-            _GrabEnabler.Add("plurk.com/p/");
-            _GrabEnabler.Add("sofurry.com/view/");
-            _GrabEnabler.Add("sofurry.com/browse/user/art");
-            _GrabEnabler.Add("mastodon.social/@");
-            //_GrabEnabler.Add("deviantart.com/");
+            _GrabEnabler.Add(new Regex(@".+(inkbunny.net)/(s|gallery|scraps)/\w+"));
+            _GrabEnabler.Add(new Regex(@".+(inkbunny.net/submissionsviewall.php)"));
+            _GrabEnabler.Add(new Regex(@".+(pixiv.net)/\w+/(artworks|users)\d+"));
+            _GrabEnabler.Add(new Regex(@".+(furaffinity.net)/((view|full)/\d+/|(gallery|scraps|favorites)/\w+/)"));
+            _GrabEnabler.Add(new Regex(@".+(furaffinity.net/search/)"));
+            _GrabEnabler.Add(new Regex(@".+(twitter.com)/(\w+/(media|status/\d+)|\w+)"));
+            _GrabEnabler.Add(new Regex(@".+(newgrounds.com)/(art/view.+|art/page/\d+|portal/view/\d+)"));
+            _GrabEnabler.Add(new Regex(@".+(hiccears.com)/(picture|gallery|artist-profile).+"));
+            _GrabEnabler.Add(new Regex(@".+(sofurry.com)/(view/\d+|browse/\w+/art.+)"));
+            _GrabEnabler.Add(new Regex(@".+(mastodon.social)/@(\w+)?(/\d+|/media|)"));
+            _GrabEnabler.Add(new Regex(@".+(plurk.com)/(p/\w+|\w+(?!.))"));
+            _GrabEnabler.Add(new Regex(@".+(pawoo.net)/@(\w+)?(/\d+|/media|)"));
+            _GrabEnabler.Add(new Regex(@".+(weasyl.com)/(search.+|submissions.+|collections.+|~\w+/submissions/\d+/.+)"));
         }
 
 
@@ -79,56 +67,70 @@ namespace e621_ReBot_v2.Modules
         public static List<string> _GrabQueue_URLs = new List<string>();
         public static void PrepareLink(string WebAdress)
         {
-            if (WebAdress.Contains("hiccears.com"))
+            Uri TempURI = new Uri(WebAdress);
+            switch (TempURI.Host)
             {
-                Module_HicceArs.QueuePrep(WebAdress);
-                return;
+                case "inkbunny.net":
+                    {
+                        Module_Inkbunny.QueuePrep(WebAdress);
+                        break;
+                    }
+                case "pixiv.net":
+                    {
+                        Module_Pixiv.QueuePrep(WebAdress);
+                        break;
+                    }
+                case "furaffinity.net":
+                    {
+                        Module_FurAffinity.QueuePrep(WebAdress);
+                        break;
+                    }
+                case "twitter.com":
+                    {
+                        Module_Twitter.QueuePrep(WebAdress);
+                        break;
+                    }
+                case "newgrounds.com":
+                    {
+                        Module_Newgrounds.QueuePrep(WebAdress);
+                        break;
+                    }
+                case "hiccears.com":
+                    {
+                        Module_HicceArs.QueuePrep(WebAdress);
+                        break;
+                    }
+                case "sofurry.com":
+                    {
+                        Module_SoFurry.QueuePrep(WebAdress);
+                        break;
+                    }
+                case "mastodon.social":
+                    {
+                        Module_Mastodon.QueuePrep(WebAdress);
+                        break;
+                    }
+                case "plurk.com":
+                    {
+                        Module_Plurk.QueuePrep(WebAdress);
+                        break;
+                    }
+                case "pawoo.net":
+                    {
+                        Module_Mastodon.QueuePrep(WebAdress);
+                        break;
+                    }
+                case "www.weasyl.com":
+                    {
+                        Module_Weasyl.QueuePrep(WebAdress);
+                        break;
+                    }
             }
-            if (WebAdress.Contains("inkbunny.net"))
-            {
-                Module_Inkbunny.QueuePrep(WebAdress);
-                return;
-            }
-            if (WebAdress.Contains("pixiv.net"))
-            {
-                Module_Pixiv.QueuePrep(WebAdress);
-                return;
-            }
-            if (WebAdress.Contains("furaffinity.net"))
-            {
-                Module_FurAffinity.QueuePrep(WebAdress);
-                return;
-            }
-            if (WebAdress.Contains("twitter.com"))
-            {
-                Module_Twitter.QueuePrep(WebAdress);
-                return;
-            }
-            if (WebAdress.Contains("newgrounds.com"))
-            {
-                Module_Newgrounds.QueuePrep(WebAdress);
-                return;
-            }
-            if (WebAdress.Contains("sofurry.com"))
-            {
-                Module_SoFurry.QueuePrep(WebAdress);
-                return;
-            }
-            if (WebAdress.Contains("mastodon.social/@"))
-            {
-                Module_Mastodon.QueuePrep(WebAdress);
-                return;
-            }
-            if (WebAdress.Contains("plurk.com"))
-            {
-                Module_Plurk.QueuePrep(WebAdress);
-                return;
-            }
-            if (WebAdress.Contains("deviantart.com"))
-            {
-                Module_DeviantArt.QueuePrep(WebAdress);
-                return;
-            }
+            //if (WebAdress.Contains("deviantart.com"))
+            //{
+            //    Module_DeviantArt.QueuePrep(WebAdress);
+            //    return;
+            //}
         }
 
 
@@ -247,67 +249,77 @@ namespace e621_ReBot_v2.Modules
 
             Report_Status();
 
-            if (WebAdress.Contains("hiccears.com"))
-            {
-                BGWTemp.DoWork += Module_HicceArs.RunGrabber;
-                BGWTemp.RunWorkerAsync(WebAdress);
-                return;
-            }
-            if (WebAdress.Contains("inkbunny.net"))
-            {
-                BGWTemp.DoWork += Module_Inkbunny.RunGrabber;
-                BGWTemp.RunWorkerAsync(WebAdress);
-                return;
-            }
-            if (WebAdress.Contains("pixiv.net"))
-            {
-                BGWTemp.DoWork += Module_Pixiv.RunGrabber;
-                BGWTemp.RunWorkerAsync(WebAdress);
-                return;
-            }
-            if (WebAdress.Contains("furaffinity.net"))
-            {
-                BGWTemp.DoWork += Module_FurAffinity.RunGrabber;
-                BGWTemp.RunWorkerAsync(WebAdress);
-                return;
-            }
-            if (WebAdress.Contains("twitter.com"))
-            {
-                BGWTemp.DoWork += Module_Twitter.RunGrabber;
-                BGWTemp.RunWorkerAsync(NeededData);
-                return;
-            }
-            if (WebAdress.Contains("newgrounds.com"))
-            {
-                BGWTemp.DoWork += Module_Newgrounds.RunGrabber;
-                BGWTemp.RunWorkerAsync(WebAdress);
-                return;
-            }
-            if (WebAdress.Contains("sofurry.com"))
-            {
-                BGWTemp.DoWork += Module_SoFurry.RunGrabber;
-                BGWTemp.RunWorkerAsync(WebAdress);
-                return;
-            }
-            if (WebAdress.Contains("mastodon.social/@"))
-            {
-                BGWTemp.DoWork += Module_Mastodon.RunGrabber;
-                BGWTemp.RunWorkerAsync(NeededData);
-                return;
-            }
-            if (WebAdress.Contains("plurk.com"))
-            {
-                BGWTemp.DoWork += Module_Plurk.RunGrabber;
-                BGWTemp.RunWorkerAsync(WebAdress);
-                return;
-            }
-            if (WebAdress.Contains("deviantart.com"))
-            {
-                BGWTemp.DoWork += Module_DeviantArt.RunGrabber;
-                BGWTemp.RunWorkerAsync(NeededData ?? WebAdress);
-                return;
-            }
 
+            Uri TempURI = new Uri(WebAdress);
+            switch (TempURI.Host)
+            {
+                case "inkbunny.net":
+                    {
+                        BGWTemp.DoWork += Module_Inkbunny.RunGrabber;
+                        break;
+                    }
+                case "pixiv.net":
+                    {
+                        BGWTemp.DoWork += Module_Pixiv.RunGrabber;
+                        break;
+                    }
+                case "furaffinity.net":
+                    {
+                        BGWTemp.DoWork += Module_FurAffinity.RunGrabber;
+                        break;
+                    }
+                case "twitter.com":
+                    {
+                        BGWTemp.DoWork += Module_Twitter.RunGrabber;
+                        BGWTemp.RunWorkerAsync(NeededData);
+                        return;
+                    }
+                case "newgrounds.com":
+                    {
+                        BGWTemp.DoWork += Module_Newgrounds.RunGrabber;
+                        break;
+                    }
+                case "hiccears.com":
+                    {
+                        BGWTemp.DoWork += Module_HicceArs.RunGrabber;
+                        break;
+                    }
+                case "sofurry.com":
+                    {
+                        BGWTemp.DoWork += Module_SoFurry.RunGrabber;
+                        break;
+                    }
+                case "mastodon.social":
+                    {
+                        BGWTemp.DoWork += Module_Mastodon.RunGrabber;
+                        BGWTemp.RunWorkerAsync(NeededData);
+                        return;
+                    }
+                case "plurk.com":
+                    {
+                        BGWTemp.DoWork += Module_Plurk.RunGrabber;
+                        break;
+                    }
+                case "pawoo.net":
+                    {
+                        BGWTemp.DoWork += Module_Mastodon.RunGrabber;
+                        BGWTemp.RunWorkerAsync(NeededData);
+                        return;
+                    }
+                case "www.weasyl.com":
+                    {
+                        BGWTemp.DoWork += Module_Weasyl.RunGrabber;
+                        break;
+                    }
+            }
+            BGWTemp.RunWorkerAsync(WebAdress);
+
+            //if (WebAdress.Contains("deviantart.com"))
+            //{
+            //    BGWTemp.DoWork += Module_DeviantArt.RunGrabber;
+            //    BGWTemp.RunWorkerAsync(NeededData ?? WebAdress);
+            //    return;
+            //}
         }
 
         private static void GrabberBGWDone(object sender, RunWorkerCompletedEventArgs e)

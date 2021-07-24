@@ -203,6 +203,16 @@ namespace e621_ReBot_v2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BrowserIcon_Pawoo {
+            get {
+                object obj = ResourceManager.GetObject("BrowserIcon_Pawoo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BrowserIcon_Pixiv {
             get {
                 object obj = ResourceManager.GetObject("BrowserIcon_Pixiv", resourceCulture);
@@ -236,6 +246,16 @@ namespace e621_ReBot_v2.Properties {
         internal static System.Drawing.Bitmap BrowserIcon_Twitter {
             get {
                 object obj = ResourceManager.GetObject("BrowserIcon_Twitter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BrowserIcon_Weasly {
+            get {
+                object obj = ResourceManager.GetObject("BrowserIcon_Weasly", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

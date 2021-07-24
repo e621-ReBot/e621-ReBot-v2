@@ -6,14 +6,16 @@ namespace e621_ReBot_v2.Modules
 {
     public static class Module_CookieJar
     {
-        public static CookieContainer Cookies_HicceArs;
         public static CookieContainer Cookies_Inkbunny;
         public static CookieContainer Cookies_Pixiv;
         public static CookieContainer Cookies_FurAffinity;
         public static CookieContainer Cookies_Twitter;
         public static CookieContainer Cookies_Newgrounds;
+        public static CookieContainer Cookies_HicceArs;
         public static CookieContainer Cookies_SoFurry;
+        //Mastadon?
         public static CookieContainer Cookies_Plurk;
+        public static CookieContainer Cookies_Weasyl;
         public static CookieContainer Cookies_DeviantArt;
 
         public static void GetCookies(string WebAdress, ref CookieContainer WhichCookie)
