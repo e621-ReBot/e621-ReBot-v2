@@ -20,42 +20,6 @@ namespace e621_ReBot_v2.Modules.Grabber
 
 
 
-        public static string Html2Text_HicceArs(HtmlNode TextHolderNode)
-        {
-            string TextString = null;
-
-            HtmlNodeCollection SelectPNodes = TextHolderNode.SelectNodes("./p");
-            foreach (HtmlNode Line in SelectPNodes)
-            {
-                TextString += ParseNode_HicceArs(Line);
-            }
-
-            return DecodeText(TextString);
-        }
-
-        private static string ParseNode_HicceArs(HtmlNode TextHolderNode)
-        {
-            string TextHolder = null;
-            switch (TextHolderNode.FirstChild.Name)
-            {
-                case "#text":
-                    {
-                        TextHolder += TextHolderNode.InnerText;
-                        break;
-                    }
-
-                default:
-                    {
-                        TextHolder += "UNKNOWN ELEMENT";
-                        break;
-                    }
-            }
-
-            return TextHolder;
-        }
-
-
-
         public static string Html2Text_Inkbunny(HtmlNode TextHolderNode)
         {
             string TextString = null;
@@ -200,6 +164,64 @@ namespace e621_ReBot_v2.Modules.Grabber
                         {
                             TextHolder += "UNKNOWN ELEMENT";
                         }
+                        break;
+                    }
+            }
+
+            return TextHolder;
+        }
+
+
+
+        public static string Html2Text_Pixiv(HtmlNode TextHolderNode)
+        {
+            string TextString = null;
+
+            foreach (HtmlNode Line in TextHolderNode.ChildNodes)
+            {
+                TextString += ParseNode_Pixiv(Line);
+            }
+
+            return DecodeText(TextString);
+        }
+
+        private static string ParseNode_Pixiv(HtmlNode TextHolderNode)
+        {
+            string TextHolder = null;
+            switch (TextHolderNode.Name)
+            {
+                case "#text":
+                    {
+                        TextHolder += TextHolderNode.InnerText;
+                        break;
+                    }
+
+                case "br":
+                    {
+                        TextHolder += Environment.NewLine;
+                        break;
+                    }
+
+                case "strong":
+                    {
+                        TextHolder += !TextHolderNode.FirstChild.Name.Equals("#text") ? "[b]" + ParseNode_Pixiv(TextHolderNode.FirstChild) + " [/b]" : "[b]" + TextHolderNode.InnerText + "[/b]";
+                        break;
+                    }
+
+                case "a":
+                    {
+                        string aURL = WebUtility.UrlDecode(TextHolderNode.Attributes["href"].Value);
+                        if (aURL.StartsWith("/jump.php?", StringComparison.OrdinalIgnoreCase))
+                        {
+                            aURL = aURL.Substring(10);
+                        }
+                        TextHolder += string.Format("\"{0}\":{1} ", TextHolderNode.InnerText, aURL);
+                        break;
+                    }
+
+                default:
+                    {
+                        TextHolder += "UNKNOWN ELEMENT";
                         break;
                     }
             }
@@ -363,64 +385,6 @@ namespace e621_ReBot_v2.Modules.Grabber
 
 
 
-        public static string Html2Text_Pixiv(HtmlNode TextHolderNode)
-        {
-            string TextString = null;
-
-            foreach (HtmlNode Line in TextHolderNode.ChildNodes)
-            {
-                TextString += ParseNode_Pixiv(Line);
-            }
-
-            return DecodeText(TextString);
-        }
-
-        private static string ParseNode_Pixiv(HtmlNode TextHolderNode)
-        {
-            string TextHolder = null;
-            switch (TextHolderNode.Name)
-            {
-                case "#text":
-                    {
-                        TextHolder += TextHolderNode.InnerText;
-                        break;
-                    }
-
-                case "br":
-                    {
-                        TextHolder += Environment.NewLine;
-                        break;
-                    }
-
-                case "strong":
-                    {
-                        TextHolder += !TextHolderNode.FirstChild.Name.Equals("#text") ? "[b]" + ParseNode_Pixiv(TextHolderNode.FirstChild) + " [/b]" : "[b]" + TextHolderNode.InnerText + "[/b]";
-                        break;
-                    }
-
-                case "a":
-                    {
-                        string aURL = WebUtility.UrlDecode(TextHolderNode.Attributes["href"].Value);
-                        if (aURL.StartsWith("/jump.php?", StringComparison.OrdinalIgnoreCase))
-                        {
-                            aURL = aURL.Substring(10);
-                        }
-                        TextHolder += string.Format("\"{0}\":{1} ", TextHolderNode.InnerText, aURL);
-                        break;
-                    }
-
-                default:
-                    {
-                        TextHolder += "UNKNOWN ELEMENT";
-                        break;
-                    }
-            }
-
-            return TextHolder;
-        }
-
-
-
         public static string Html2Text_Newgrounds(HtmlNode TextHolderNode)
         {
             string TextString = null;
@@ -496,6 +460,43 @@ namespace e621_ReBot_v2.Modules.Grabber
 
 
 
+        public static string Html2Text_HicceArs(HtmlNode TextHolderNode)
+        {
+            string TextString = null;
+
+            HtmlNodeCollection SelectPNodes = TextHolderNode.SelectNodes("./p");
+            foreach (HtmlNode Line in SelectPNodes)
+            {
+                TextString += ParseNode_HicceArs(Line);
+            }
+
+            return DecodeText(TextString);
+        }
+
+        private static string ParseNode_HicceArs(HtmlNode TextHolderNode)
+        {
+            string TextHolder = null;
+            switch (TextHolderNode.FirstChild.Name)
+            {
+                case "#text":
+                    {
+                        TextHolder += TextHolderNode.InnerText;
+                        break;
+                    }
+
+                default:
+                    {
+                        TextHolder += "UNKNOWN ELEMENT";
+                        break;
+                    }
+            }
+
+            return TextHolder;
+        }
+
+
+
+
         public static string Html2Text_SoFurry(HtmlNode TextHolderNode)
         {
             string TextString = null;
@@ -554,5 +555,71 @@ namespace e621_ReBot_v2.Modules.Grabber
             return TextHolder;
         }
 
+
+
+        public static string Html2Text_Weasyl(HtmlNode TextHolderNode)
+        {
+            string TextString = null;
+
+
+            if (TextHolderNode == null)
+            {
+                return null;
+            }
+
+            foreach (HtmlNode Line in TextHolderNode.ChildNodes)
+            {
+                TextString += ParseNode_Weasyl(Line);
+            }
+
+            return DecodeText(TextString);
+        }
+
+        private static string ParseNode_Weasyl(HtmlNode TextHolderNode)
+        {
+            string TextHolder = null;
+            switch (TextHolderNode.Name)
+            {
+                case "#text":
+                    {
+                        TextHolder += TextHolderNode.InnerText;
+                        break;
+                    }
+
+                case "br":
+                    {
+                        TextHolder += Environment.NewLine;
+                        break;
+                    }
+
+                case "a":
+                    {
+                        string aURL = WebUtility.UrlDecode(TextHolderNode.Attributes["href"].Value);
+                        TextHolder += string.Format("\"{0}\":{1} ", TextHolderNode.InnerText, aURL);
+                        break;
+                    }
+
+                case "em":
+                    {
+                        TextHolder += "[i]" + TextHolderNode.InnerText + "[/i]";
+                        break;
+                    }
+
+                case "p":
+                case "div":
+                    {
+                        TextHolder += Html2Text_Weasyl(TextHolderNode);
+                        break;
+                    }
+
+                default:
+                    {
+                        TextHolder += "UNKNOWN ELEMENT";
+                        break;
+                    }
+            }
+
+            return TextHolder;
+        }
     }
 }

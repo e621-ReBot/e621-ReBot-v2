@@ -86,7 +86,7 @@
             this.MB_Browser.TabIndex = 8;
             this.MB_Browser.TabStop = false;
             this.MB_Browser.Tag = "0";
-            this.toolTip_Display.SetToolTip(this.MB_Browser, "Webbrowser");
+            this.toolTip_Display.SetToolTip(this.MB_Browser, "Web Browser");
             // 
             // MB_Grid
             // 

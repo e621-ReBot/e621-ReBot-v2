@@ -1,9 +1,6 @@
-﻿using HtmlAgilityPack;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
 
 namespace e621_ReBot_v2.Modules
 {

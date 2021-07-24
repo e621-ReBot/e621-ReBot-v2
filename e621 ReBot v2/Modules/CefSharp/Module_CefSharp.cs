@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Net;
-using System.Threading;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 using Timer = System.Windows.Forms.Timer;
@@ -195,7 +195,7 @@ namespace e621_ReBot_v2.Modules
             }
         }
 
-
+        // = = = = = 
 
         private static Timer timer_CefTutorial;
         private static void Timer_CefTutorial_Tick(object sender, EventArgs e)
@@ -220,29 +220,31 @@ namespace e621_ReBot_v2.Modules
             CefSharpBrowser.Load(string.Format("https://e621.net/users/{0}/api_key", Properties.Settings.Default.UserID));
         }
 
-
-
+        // = = = = = 
 
         private static void GrabEnabler(string WebAdress)
         {
             timer_Twitter.Stop();
-
-            if (Module_Grabber._GrabEnabler.Any(s => WebAdress.Contains(s)))
+            foreach (Regex URLTest in Module_Grabber._GrabEnabler)
             {
-                Form_Loader._FormReference.BB_Grab.Visible = true;
-                Form_Loader._FormReference.BB_Grab_All.Visible = false;
-                return;
-            }
-
-            // Twitter is special
-            if (WebAdress.Contains("https://twitter.com/"))
-            {
-                Form_Loader._FormReference.BB_Grab_All.Text = "Grab All";
-                Form_Loader._FormReference.LastBrowserPosition = 0;
-                Form_Loader._FormReference.LastBrowserPositionCounter = 0;
-                if (WebAdress.Contains("/status/") || !WebAdress.Contains("/search?"))
+                Match MatchTemp = URLTest.Match(WebAdress);
+                if (MatchTemp.Success)
                 {
-                    timer_Twitter.Start();
+                    Form_Loader._FormReference.BB_Grab.Tag = MatchTemp.Value;
+                    Form_Loader._FormReference.BB_Grab.Visible = true;
+                    Form_Loader._FormReference.BB_Grab_All.Visible = false;
+
+                    // Twitter is special
+                    if (WebAdress.Contains("https://twitter.com/"))
+                    {
+                        Form_Loader._FormReference.BB_Grab_All.Text = "Grab All";
+                        Form_Loader._FormReference.LastBrowserPosition = 0;
+                        Form_Loader._FormReference.LastBrowserPositionCounter = 0;
+                        if (WebAdress.Contains("/status/") || !WebAdress.Contains("/search?"))
+                        {
+                            timer_Twitter.Start();
+                        }
+                    }
                     return;
                 }
             }
@@ -254,7 +256,7 @@ namespace e621_ReBot_v2.Modules
                 return;
             }
 
-            List<string> DeviantArtGrabEnabler = new List<string>(new string[] { "/gallery" , "/art/" });
+            List<string> DeviantArtGrabEnabler = new List<string>(new string[] { "/gallery", "/art/" });
             if (WebAdress.Contains("https://www.deviantart.com/") && DeviantArtGrabEnabler.Any(s => WebAdress.Contains(s)))
             {
                 Form_Loader._FormReference.BB_Grab.Visible = true;
