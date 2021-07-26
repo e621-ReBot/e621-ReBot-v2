@@ -475,35 +475,38 @@ namespace e621_ReBot_v2.Modules
             }
         }
 
-        public static void DownloadThumb(ref DataRow RowRef)
+        public static void GrabDownloadThumb(ref DataRow RowRef)
         {
             string SiteReferer = "https://" + new Uri((string)RowRef["Grab_URL"]).Host;
-            using (WebClient ThumbClient = new WebClient())
+            using (Custom_WebClient ThumbClient = new Custom_WebClient())
             {
                 ThumbClient.Headers.Add(HttpRequestHeader.UserAgent, Form_Loader.GlobalUserAgent);
                 ThumbClient.Headers.Add(HttpRequestHeader.Referer, SiteReferer);
-                ThumbClient.DownloadDataCompleted += DownloadThumbFinished;
+                ThumbClient.DownloadDataCompleted += GrabDownloadThumbFinished;
                 ThumbClient.DownloadDataAsync(new Uri((string)RowRef["Grab_ThumbnailURL"]), RowRef);
             }
         }
 
-        public static void DownloadThumbFinished(object sender, DownloadDataCompletedEventArgs e)
+        public static void GrabDownloadThumbFinished(object sender, DownloadDataCompletedEventArgs e)
         {
             DataRow RowReference = (DataRow)e.UserState;
 
             Image DownloadedImage;
-            using (var TempStream = new MemoryStream(e.Result))
+            using (MemoryStream MemoryStreamTemp = new MemoryStream(e.Result))
             {
-                DownloadedImage = Image.FromStream(TempStream);
+                DownloadedImage = Image.FromStream(MemoryStreamTemp);
             }
-            Bitmap ResizedImage = MakeImageThumb(DownloadedImage, ((string)RowReference["Grab_MediaURL"]).Contains("ugoira") ? "Ugoira" : null);
+            RowReference["Thumbnail_Image"] = MakeImageThumb(DownloadedImage, ((string)RowReference["Grab_MediaURL"]).Contains("ugoira") ? "Ugoira" : null);
             DownloadedImage.Dispose();
-            RowReference["Thumbnail_Image"] = ResizedImage;
 
             e6_GridItem e6_GridItemTemp = Form_Loader._FormReference.IsE6PicVisibleInGrid(ref RowReference);
             if (e6_GridItemTemp != null)
             {
                 e6_GridItemTemp.LoadImage();
+            }
+            else
+            {
+                WriteImageInfo(RowReference);
             }
         }
 
@@ -557,6 +560,89 @@ namespace e621_ReBot_v2.Modules
                 ResizedImage = NewBitmapTemp;
             }
             return ResizedImage;
+        }
+
+        public static Image WriteImageInfo(DataRow DataRowRef)
+        {
+            Image TempImage = new Bitmap(200, 200);
+            using (Graphics gTemp = Graphics.FromImage(TempImage))
+            {
+                gTemp.SmoothingMode = SmoothingMode.HighQuality;
+                gTemp.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+
+                Image HoldTempImage = (Image)DataRowRef["Thumbnail_Image"];
+                Point CenterPoint = new Point(100 - (HoldTempImage.Width / 2), 100 - (HoldTempImage.Height / 2));
+                gTemp.DrawImage(HoldTempImage, CenterPoint);
+
+                if (DataRowRef["Info_MediaByteLength"] != DBNull.Value)
+                {
+                    using (Font fontTemp = new Font("Arial Black", 14, FontStyle.Bold, GraphicsUnit.Pixel))
+                    {
+                        using (GraphicsPath gpTemp = new GraphicsPath())
+                        {
+                            using (StringFormat sfTemp = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
+                            {
+                                int bytestokB = (int)DataRowRef["Info_MediaByteLength"] / 1024;
+                                gpTemp.AddString(string.Format("{0:N0} kB", bytestokB), fontTemp.FontFamily, (int)fontTemp.Style, fontTemp.Size, new Rectangle(new Point(0, 178), new Size(200, 20)), sfTemp);
+                            }
+                            using (Pen penTemp = new Pen(Color.Black, 3))
+                            {
+                                gTemp.DrawPath(penTemp, gpTemp);
+                            }
+                            using (SolidBrush brushTemp = new SolidBrush(Color.LightSteelBlue))
+                            {
+                                gTemp.FillPath(brushTemp, gpTemp);
+                            }
+                        }
+                    }
+                }
+
+                if (DataRowRef["Thumbnail_FullInfo"] != DBNull.Value)
+                {
+                    using (Font fontTemp = new Font("Arial Black", 14, FontStyle.Bold, GraphicsUnit.Pixel))
+                    {
+                        using (GraphicsPath gpTemp = new GraphicsPath())
+                        {
+                            using (StringFormat sfTemp = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
+                            {
+                                gpTemp.AddString(string.Format("{0} x {1} - {2}", DataRowRef["Info_MediaWidth"].ToString(), DataRowRef["Info_MediaHeight"].ToString(), DataRowRef["Info_MediaFormat"].ToString()), fontTemp.FontFamily, (int)fontTemp.Style, fontTemp.Size, new Rectangle(new Point(0, 0), new Size(200, 20)), sfTemp);
+                            }
+                            using (Pen penTemp = new Pen(Color.Black, 3))
+                            {
+                                gTemp.DrawPath(penTemp, gpTemp);
+                            }
+                            using (SolidBrush brushTemp = new SolidBrush(Color.LightSteelBlue))
+                            {
+                                gTemp.FillPath(brushTemp, gpTemp);
+                            }
+                        }
+                    }
+                    HoldTempImage.Dispose();
+                    DataRowRef["Thumbnail_Image"] = TempImage;
+                }
+                else
+                {
+                    using (Font fontTemp = new Font("Arial Black", 14, FontStyle.Bold, GraphicsUnit.Pixel))
+                    {
+                        using (GraphicsPath gpTemp = new GraphicsPath())
+                        {
+                            using (StringFormat sfTemp = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
+                            {
+                                gpTemp.AddString(DataRowRef["Info_MediaFormat"].ToString(), fontTemp.FontFamily, (int)fontTemp.Style, fontTemp.Size, new Rectangle(new Point(0, 0), new Size(200, 20)), sfTemp);
+                            }
+                            using (Pen penTemp = new Pen(Color.Black, 3))
+                            {
+                                gTemp.DrawPath(penTemp, gpTemp);
+                            }
+                            using (SolidBrush brushTemp = new SolidBrush(Color.LightSteelBlue))
+                            {
+                                gTemp.FillPath(brushTemp, gpTemp);
+                            }
+                        }
+                    }
+                }
+                return TempImage;
+            }
         }
     }
 }

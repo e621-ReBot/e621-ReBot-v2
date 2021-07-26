@@ -327,7 +327,7 @@ namespace e621_ReBot_v2.Forms
                             Preview_RowHolder["Grab_ThumbnailURL"] = "";
                             string CachedImagePath = Module_Downloader.IEDownload_Cache[Module_Downloader.GetMediasFileNameOnly((string)Preview_RowHolder["Grab_MediaURL"])];
                             Preview_RowHolder["Thumbnail_Image"] = Module_Grabber.MakeImageThumb(Image.FromFile(CachedImagePath));
-                            if (GridItemTemp == null) e6_GridItem.WriteImageInfo(Preview_RowHolder);
+                            if (GridItemTemp == null) Module_Grabber.WriteImageInfo(Preview_RowHolder);
                         }
 
                         if (GridItemTemp == null)
@@ -336,7 +336,7 @@ namespace e621_ReBot_v2.Forms
                             {
                                 string CachedImagePath = Module_Downloader.IEDownload_Cache[Module_Downloader.GetMediasFileNameOnly((string)Preview_RowHolder["Grab_MediaURL"])];
                                 Preview_RowHolder["Thumbnail_Image"] = Module_Grabber.MakeImageThumb(Image.FromFile(CachedImagePath));
-                                e6_GridItem.WriteImageInfo(Preview_RowHolder);
+                                Module_Grabber.WriteImageInfo(Preview_RowHolder);
                             }
                         }
                         else

@@ -988,7 +988,7 @@ namespace e621_ReBot_v2
                 if (RowReff["Thumbnail_DLStart"] == DBNull.Value)
                 {
                     RowReff["Thumbnail_DLStart"] = true;
-                    Module_Grabber.DownloadThumb(ref RowReff);
+                    Module_Grabber.GrabDownloadThumb(ref RowReff);
                 }
             }
             else
