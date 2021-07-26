@@ -357,7 +357,7 @@ namespace e621_ReBot_v2
                     }
                     catch (Exception)
                     {
-                            Thread.Sleep(500);
+                        Thread.Sleep(500);
                     }
                 } while (DeleteWorked == false);
             }
@@ -1122,11 +1122,7 @@ namespace e621_ReBot_v2
                 GridIndexTracker = 0;
                 GB_Left.Visible = false;
             }
-
-            if (Module_TableHolder.Database_Table.Rows.Count - Form_Loader._GridMaxControls > GridIndexTracker)
-            {
-                GB_Right.Visible = true;
-            }
+            GB_Right.Visible = Module_TableHolder.Database_Table.Rows.Count - Form_Loader._GridMaxControls > GridIndexTracker;
             PopulateGrid(GridIndexTracker);
             Paginator();
             flowLayoutPanel_Grid.ResumeLayout();
@@ -1144,15 +1140,7 @@ namespace e621_ReBot_v2
             flowLayoutPanel_Grid.SuspendLayout();
             ClearGrid();
             GridIndexTracker += Form_Loader._GridMaxControls;
-            if (GridIndexTracker > Module_TableHolder.Database_Table.Rows.Count - Form_Loader._GridMaxControls)
-            {
-                GB_Right.Visible = false;
-            }
-            else
-            {
-                GB_Right.Visible = true;
-            }
-
+            GB_Right.Visible = Module_TableHolder.Database_Table.Rows.Count - Form_Loader._GridMaxControls > GridIndexTracker;
             GB_Left.Visible = true;
             PopulateGrid(GridIndexTracker);
             Paginator();
