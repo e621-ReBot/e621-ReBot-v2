@@ -389,7 +389,7 @@ namespace e621_ReBot_v2.Forms
             this.Label_AlreadyUploaded.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Label_AlreadyUploaded.ExtraSize = 0;
             this.Label_AlreadyUploaded.Font = new System.Drawing.Font("Arial Black", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.Label_AlreadyUploaded.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.Label_AlreadyUploaded.ForeColor = System.Drawing.Color.Orange;
             this.Label_AlreadyUploaded.Location = new System.Drawing.Point(513, 7);
             this.Label_AlreadyUploaded.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
             this.Label_AlreadyUploaded.Name = "Label_AlreadyUploaded";

@@ -1280,14 +1280,18 @@ namespace e621_ReBot_v2
                     }
                     else
                     {
+                        int CurrentPage = (int)((float)GridIndexTracker / Form_Loader._GridMaxControls);
+                        int NewCurrentPage = (int)((float)Module_TableHolder.Database_Table.Rows.Count / Form_Loader._GridMaxControls);
+                        NewCurrentPage = NewCurrentPage < CurrentPage ? NewCurrentPage : CurrentPage;
+                        GridIndexTracker = NewCurrentPage * Form_Loader._GridMaxControls;
+
                         UIDrawController.SuspendDrawing(flowLayoutPanel_Grid);
                         flowLayoutPanel_Grid.SuspendLayout();
                         ClearGrid();
-                        GridIndexTracker = 0;
-                        GB_Left.Visible = false;
-                        if (Module_TableHolder.Database_Table.Rows.Count - Form_Loader._GridMaxControls > GridIndexTracker) GB_Right.Visible = true;
                         PopulateGrid(GridIndexTracker);
                         Paginator();
+                        GB_Left.Visible = GridIndexTracker >= Form_Loader._GridMaxControls;
+                        GB_Right.Visible = Module_TableHolder.Database_Table.Rows.Count - Form_Loader._GridMaxControls > GridIndexTracker;
                         flowLayoutPanel_Grid.ResumeLayout();
                         UIDrawController.ResumeDrawing(flowLayoutPanel_Grid);
                     }
