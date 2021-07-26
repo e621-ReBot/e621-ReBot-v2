@@ -75,12 +75,12 @@ namespace e621_ReBot_v2.Modules
                         Module_Inkbunny.QueuePrep(WebAdress);
                         break;
                     }
-                case "pixiv.net":
+                case "www.pixiv.net":
                     {
                         Module_Pixiv.QueuePrep(WebAdress);
                         break;
                     }
-                case "furaffinity.net":
+                case "www.furaffinity.net":
                     {
                         Module_FurAffinity.QueuePrep(WebAdress);
                         break;
@@ -90,17 +90,17 @@ namespace e621_ReBot_v2.Modules
                         Module_Twitter.QueuePrep(WebAdress);
                         break;
                     }
-                case "newgrounds.com":
+                case "www.newgrounds.com":
                     {
                         Module_Newgrounds.QueuePrep(WebAdress);
                         break;
                     }
-                case "hiccears.com":
+                case "www.hiccears.com":
                     {
                         Module_HicceArs.QueuePrep(WebAdress);
                         break;
                     }
-                case "sofurry.com":
+                case "www.sofurry.com":
                     {
                         Module_SoFurry.QueuePrep(WebAdress);
                         break;
@@ -110,7 +110,7 @@ namespace e621_ReBot_v2.Modules
                         Module_Mastodon.QueuePrep(WebAdress);
                         break;
                     }
-                case "plurk.com":
+                case "www.plurk.com":
                     {
                         Module_Plurk.QueuePrep(WebAdress);
                         break;
@@ -258,12 +258,12 @@ namespace e621_ReBot_v2.Modules
                         BGWTemp.DoWork += Module_Inkbunny.RunGrabber;
                         break;
                     }
-                case "pixiv.net":
+                case "www.pixiv.net":
                     {
                         BGWTemp.DoWork += Module_Pixiv.RunGrabber;
                         break;
                     }
-                case "furaffinity.net":
+                case "www.furaffinity.net":
                     {
                         BGWTemp.DoWork += Module_FurAffinity.RunGrabber;
                         break;
@@ -274,17 +274,17 @@ namespace e621_ReBot_v2.Modules
                         BGWTemp.RunWorkerAsync(NeededData);
                         return;
                     }
-                case "newgrounds.com":
+                case "www.newgrounds.com":
                     {
                         BGWTemp.DoWork += Module_Newgrounds.RunGrabber;
                         break;
                     }
-                case "hiccears.com":
+                case "www.hiccears.com":
                     {
                         BGWTemp.DoWork += Module_HicceArs.RunGrabber;
                         break;
                     }
-                case "sofurry.com":
+                case "www.sofurry.com":
                     {
                         BGWTemp.DoWork += Module_SoFurry.RunGrabber;
                         break;
@@ -295,7 +295,7 @@ namespace e621_ReBot_v2.Modules
                         BGWTemp.RunWorkerAsync(NeededData);
                         return;
                     }
-                case "plurk.com":
+                case "www.plurk.com":
                     {
                         BGWTemp.DoWork += Module_Plurk.RunGrabber;
                         break;
