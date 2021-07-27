@@ -149,7 +149,17 @@ namespace e621_ReBot_v2.Forms
             RowRefference["Upload_Tags"] = string.Join(" ", SortTags);
             RowRefference["Inferior_ID"] = PostID;
             string InferiorDescription = PostData["description"].Value<string>();
-            string CurrentDescriptionConstruct = string.Format("[section{0}={1}]\n{2}\n[/section]", Properties.Settings.Default.ExpandedDescription ? ",expanded" : "", (string)RowRefference["Grab_Title"], (string)RowRefference["Grab_TextBody"]);
+
+            string CurrentDescriptionConstruct = null;
+            if (RowRefference["Grab_TextBody"] == DBNull.Value)
+            {
+                CurrentDescriptionConstruct = string.Format("[code]{0}[/code]", (string)RowRefference["Grab_Title"]);
+            }
+            else
+            {
+                CurrentDescriptionConstruct = string.Format("[section{0}={1}]\n{2}\n[/section]", Properties.Settings.Default.ExpandedDescription ? ",expanded" : "", (string)RowRefference["Grab_Title"], (string)RowRefference["Grab_TextBody"]);
+            }
+
             if (!InferiorDescription.Equals("") && InferiorDescription != CurrentDescriptionConstruct)
             {
                 RowRefference["Inferior_Description"] = InferiorDescription;
