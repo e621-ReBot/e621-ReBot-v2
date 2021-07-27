@@ -27,11 +27,11 @@ namespace e621_ReBot_v2.Modules.Grabber
             }
             else // WebAdress.Contains("inkbunny.net/s/")
             {
-                Queue_Single(WebAdress);
+                Queue_Single(WebAdress, Module_CefSharp.GetHTMLSource());
             }
         }
 
-        private static void Queue_Single(string WebAdress)
+        private static void Queue_Single(string WebAdress, string HTMLSource)
         {
             string InkbunnyLinkFix = WebAdress;
             if (InkbunnyLinkFix.Contains("-"))
@@ -41,6 +41,15 @@ namespace e621_ReBot_v2.Modules.Grabber
             if (InkbunnyLinkFix.Contains("#"))
             {
                 InkbunnyLinkFix = InkbunnyLinkFix.Replace("#pictop", "");
+            }
+
+            HtmlDocument WebDoc = new HtmlDocument();
+            WebDoc.LoadHtml(HTMLSource);
+            string SubmissionType = WebDoc.DocumentNode.SelectSingleNode(".//div[@class='elephant elephant_bottom elephant_white']/div[@class='content']/div[3]/div[1]/div[2]/div[1]/div/text()").InnerText.Trim();
+            if (SubmissionType.Equals("Writing - Document") || SubmissionType.Equals("Music - Single Track"))
+            {
+                Module_Grabber.Report_Info(string.Format("Skipped grabbing - Unsupported submission type: {0} [@{1}]", SubmissionType, InkbunnyLinkFix));
+                return;
             }
 
             if (Module_Grabber._GrabQueue_URLs.Contains(InkbunnyLinkFix))
