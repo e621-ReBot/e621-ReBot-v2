@@ -138,7 +138,7 @@ namespace e621_ReBot_v2.Modules
             {
                 Timestamps_Flag.Clear();
 
-                string HTML_FlagHistory = Module_e621Info.e621InfoDownload("https://e621.net/post_flags.json?search[creator_id]=" + Properties.Settings.Default.UserID);
+                string HTML_FlagHistory = Module_e621Info.e621InfoDownload("https://e621.net/post_flags.json?search[creator_id]=" + Properties.Settings.Default.UserID, true);
                 if (HTML_FlagHistory != null && HTML_FlagHistory.Length > 24)
                 {
                     JArray FlagHistory = JArray.Parse(HTML_FlagHistory);
