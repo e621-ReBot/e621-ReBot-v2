@@ -1016,7 +1016,7 @@ namespace e621_ReBot_v2
 
         public void Paginator()
         {
-            int CurrentPage = (int)((float)GridIndexTracker / Form_Loader._GridMaxControls + 1);
+            int CurrentPage = GridIndexTracker / Form_Loader._GridMaxControls + 1;
             int TotalPages = (int)Math.Ceiling((float)Module_TableHolder.Database_Table.Rows.Count / Form_Loader._GridMaxControls);
             Label_PageShower.Text = string.Format("{0} / {1}", CurrentPage, TotalPages);
             Label_LeftPage.Text = (CurrentPage - 1).ToString();
@@ -1280,10 +1280,10 @@ namespace e621_ReBot_v2
                     }
                     else
                     {
-                        int CurrentPage = (int)((float)GridIndexTracker / Form_Loader._GridMaxControls);
-                        int NewCurrentPage = (int)((float)Module_TableHolder.Database_Table.Rows.Count / Form_Loader._GridMaxControls);
-                        NewCurrentPage = NewCurrentPage < CurrentPage ? NewCurrentPage : CurrentPage;
-                        GridIndexTracker = NewCurrentPage * Form_Loader._GridMaxControls;
+                        int CurrentPage = GridIndexTracker / Form_Loader._GridMaxControls;
+                        int NewEndPage = (int)Math.Floor((float)Module_TableHolder.Database_Table.Rows.Count / Form_Loader._GridMaxControls - 0.01);
+                        NewEndPage = NewEndPage < CurrentPage ? NewEndPage : CurrentPage;
+                        GridIndexTracker = NewEndPage * Form_Loader._GridMaxControls;
 
                         UIDrawController.SuspendDrawing(flowLayoutPanel_Grid);
                         flowLayoutPanel_Grid.SuspendLayout();
@@ -2301,11 +2301,16 @@ namespace e621_ReBot_v2
                         while (!CSVParser.EndOfData)
                         {
                             CSVFields = CSVParser.ReadFields();
-                            TagListTemp.Add(new Tuple<int, string>(int.Parse(CSVFields[3]), CSVFields[1]));
+                            if (!CSVFields[3].Equals("0"))
+                            {
+                                TagListTemp.Add(new Tuple<int, string>(int.Parse(CSVFields[3]), CSVFields[1]));
+                            }
                         }
                         TagListTemp.Sort((x, y) => y.Item1.CompareTo(x.Item1));
                         TagList = TagListTemp.Select(x => x.Item2).ToList();
                         TagListTemp.Clear();
+                        GC.WaitForPendingFinalizers();
+                        GC.Collect();
                     }
                 }
             }
