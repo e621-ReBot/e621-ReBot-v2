@@ -2228,7 +2228,19 @@ namespace e621_ReBot_v2
             {
                 Properties.Settings.Default.Reset();
                 Cef.Shutdown();
-                Directory.Delete(Application.StartupPath + @"\CefSharp Cache", true); // Delete CefSharp Cache Folder
+                bool DeleteWorked = false;
+                do
+                {
+                    try
+                    {
+                        Directory.Delete("CefSharp Cache", true);
+                        DeleteWorked = true;
+                    }
+                    catch (Exception)
+                    {
+                        Thread.Sleep(500);
+                    }
+                } while (DeleteWorked == false);
                 Close();
             }
         }

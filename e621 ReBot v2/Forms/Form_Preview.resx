@@ -123,8 +123,8 @@
   <data name="PB_SauceNao.ToolTip" xml:space="preserve">
     <value>Search similar images with SauceNao.
 You can also use "F" key on keyboard.
-Ctrl+Click to set superior ID manually.
-Shift+Click to set inferior ID manually.
+Ctrl+Click to set as superior manually.
+Shift+Click to set as inferior manually.
 
 Image actions:
 Click on image to set your image as duplicate of it.
@@ -134,8 +134,8 @@ Alt+Click on image to open that image in your default browser.</value>
   <data name="PB_IQDBQ.ToolTip" xml:space="preserve">
     <value>Search similar images with IQDB Query.
 You can also use "I" key on keyboard.
-Ctrl+Click to set superior ID manually.
-Shift+Click to set inferior ID manually.
+Ctrl+Click to set as superior manually.
+Shift+Click to set as inferior manually.
 
 Image actions:
 Click on image to set your image as duplicate of it.
