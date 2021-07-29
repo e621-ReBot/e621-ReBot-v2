@@ -803,7 +803,7 @@ namespace e621_ReBot_v2.Forms
             else
             {
                 Preview_RowHolder["UPDL_Queued"] = !(bool)Preview_RowHolder["UPDL_Queued"];
-                if (Preview_RowHolder["Info_TooBig"] != DBNull.Value && Module_Uploader.Media2Big4User(Preview_RowHolder, !(PB_Upload.BackColor == Color.LimeGreen)))
+                if (Preview_RowHolder["Info_TooBig"] != DBNull.Value && Module_Uploader.Media2Big4User(ref Preview_RowHolder, !(PB_Upload.BackColor == Color.LimeGreen)))
                 {
                     // e6_GridItemTemp.cCheckBox_UPDL.Checked = false;
                 }
@@ -843,7 +843,7 @@ namespace e621_ReBot_v2.Forms
                 }
                 else
                 {
-                    Module_Downloader.ReSaveMedia(Preview_RowHolder);
+                    Module_Downloader.ReSaveMedia(ref Preview_RowHolder);
                     PB_ViewFile.Visible = true;
                     PB_ViewFile.Text = "🔍";
                 }
@@ -1027,7 +1027,7 @@ namespace e621_ReBot_v2.Forms
                         {
                             if (PB_Upload.BackColor == Color.LimeGreen)
                             {
-                                if (Preview_RowHolder["Info_TooBig"] != DBNull.Value && Module_Uploader.Media2Big4User(Preview_RowHolder, false))
+                                if (Preview_RowHolder["Info_TooBig"] != DBNull.Value && Module_Uploader.Media2Big4User(ref Preview_RowHolder, false))
                                 {
                                     // cCheckBox_UPDL.Checked = false;
                                 }
@@ -1062,7 +1062,7 @@ namespace e621_ReBot_v2.Forms
                         {
                             if (PB_Upload.BackColor != Color.LimeGreen)
                             {
-                                if (Preview_RowHolder["Info_TooBig"] != DBNull.Value && Module_Uploader.Media2Big4User(Preview_RowHolder))
+                                if (Preview_RowHolder["Info_TooBig"] != DBNull.Value && Module_Uploader.Media2Big4User(ref Preview_RowHolder))
                                 {
                                     // cCheckBox_UPDL.Checked = false;
                                 }

@@ -216,7 +216,7 @@ namespace e621_ReBot_v2.Forms
             else
             {
 
-                if (DataRowTemp["Info_TooBig"] != DBNull.Value && Module_Uploader.Media2Big4User(DataRowTemp, true))
+                if (DataRowTemp["Info_TooBig"] != DBNull.Value && Module_Uploader.Media2Big4User(ref DataRowTemp, true))
                 {
                     // e6_GridItemTemp.cCheckBox_UPDL.Checked = false;
                 }

@@ -170,7 +170,7 @@ namespace e621_ReBot_v2.Modules
             return NewFileName;
         }
 
-        public static bool ReSaveMedia(DataRow DataRowRef)
+        public static bool ReSaveMedia(ref DataRow DataRowRef)
         {
             Uri DomainURL = new Uri((string)DataRowRef["Grab_URL"]);
             string HostString = DomainURL.Host.Remove(DomainURL.Host.LastIndexOf(".")).Replace("www.", "");
@@ -704,7 +704,7 @@ namespace e621_ReBot_v2.Modules
                 string FilePath = Path.Combine(FolderPath, ImageRename).ToString();
                 if (IEDownload_Cache.Keys.Contains(GetFileNameOnly))
                 {
-                    if (ReSaveMedia(DataRowRef))
+                    if (ReSaveMedia(ref DataRowRef))
                     {
                         Form_Loader._FormReference.BeginInvoke(new Action(() =>
                         {

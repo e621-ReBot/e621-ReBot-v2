@@ -81,7 +81,7 @@ namespace e621_ReBot_v2.Modules
             return false;
         }
 
-        public static bool Media2Big4User(DataRow DataRowPass, bool ShowMsgBox = true)
+        public static bool Media2Big4User(ref DataRow DataRowPass, bool ShowMsgBox = true)
         {
             if ((bool)DataRowPass["Info_TooBig"])
             {
@@ -491,13 +491,15 @@ namespace e621_ReBot_v2.Modules
                         FileData = Module_FFmpeg.UploadQueue_Videos2WebM(ref DataRowRef);
                     }
                     bytes2Send = FileData.Value;
-                    POST_Dictionary["upload[file]"] = FileData.Key;
+                    string[] DataExtract = FileData.Key.Split(new string[] { "✄" }, StringSplitOptions.RemoveEmptyEntries);
+                    Upload_Sources = DataExtract[1] + "%0A" + Upload_Sources;
+                    POST_Dictionary["upload[file]"] = DataExtract[0];
                 }
             }
 
             if (DataRowRef["Inferior_Description"] != DBNull.Value)
             {
-                Upload_Description += string.Format("\n  - - - - - \n{0}", DataRowRef["Inferior_Description"]);
+                Upload_Description += string.Format("\n - - - - - \n{0}", DataRowRef["Inferior_Description"]);
             }
 
             string ParentTag = null;

@@ -250,7 +250,8 @@ namespace e621_ReBot_v2.CustomControls
         private void CCheckBox_UPDL_CheckedChanged(object sender, EventArgs e)
         {
             bool cCheckBox_State = cCheckBox_UPDL.Checked;
-            if (cCheckBox_State && _DataRowReference["Info_TooBig"] != DBNull.Value && Module_Uploader.Media2Big4User(_DataRowReference, false))
+            DataRow DataRowTemp = _DataRowReference;
+            if (cCheckBox_State && _DataRowReference["Info_TooBig"] != DBNull.Value && Module_Uploader.Media2Big4User(ref DataRowTemp, false))
             {
                 //cCheckBox_UPDL.Checked = false;
             }

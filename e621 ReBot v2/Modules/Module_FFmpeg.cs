@@ -28,7 +28,7 @@ namespace e621_ReBot_v2.Modules
             PixivDownload.CookieContainer = Module_CookieJar.Cookies_Pixiv;
             PixivDownload.Timeout = 5000;
             PixivDownload.UserAgent = Form_Loader.GlobalUserAgent;
-            using (var PixivStreamReader = new StreamReader(PixivDownload.GetResponse().GetResponseStream()))
+            using (StreamReader PixivStreamReader = new StreamReader(PixivDownload.GetResponse().GetResponseStream()))
             {
                 return PixivStreamReader.ReadToEnd();
             }
@@ -152,6 +152,7 @@ namespace e621_ReBot_v2.Modules
 
             Module_Uploader.Report_Status("Converting Ugoira to WebM...");
             string UgoiraFileName = UgoiraJObject["originalSrc"].Value<string>();
+            string ZipSourceURL = UgoiraFileName;
             UgoiraFileName = UgoiraFileName.Remove(UgoiraFileName.Length - 4).Substring(UgoiraFileName.LastIndexOf("/") + 1);
             using (Process FFmpeg = new Process())
             {
@@ -184,7 +185,7 @@ namespace e621_ReBot_v2.Modules
             byte[] ReadBytes = File.ReadAllBytes(string.Format(@"UgoiraTemp\{0}.webm", UgoiraFileName));
             Directory.Delete("UgoiraTemp", true);
 
-            return new KeyValuePair<string, byte[]>(UgoiraFileName + ".webm", ReadBytes);
+            return new KeyValuePair<string, byte[]>(UgoiraFileName + ".webm" + "✄" + ZipSourceURL, ReadBytes);
         }
 
         public static KeyValuePair<string, byte[]> UploadQueue_Videos2WebM(ref DataRow DataRowRef)
@@ -270,7 +271,7 @@ namespace e621_ReBot_v2.Modules
             byte[] ReadBytes = File.ReadAllBytes(string.Format(@"VideoTemp\{0}.webm", VideoFileName));
             Directory.Delete("VideoTemp", true);
 
-            return new KeyValuePair<string, byte[]>(VideoFileName + ".webm", ReadBytes);
+            return new KeyValuePair<string, byte[]>(VideoFileName + ".webm" + "✄" + WorkURL, ReadBytes);
         }
 
 
