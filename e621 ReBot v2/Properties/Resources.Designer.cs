@@ -153,6 +153,16 @@ namespace e621_ReBot_v2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BrowserIcon_Baraag {
+            get {
+                object obj = ResourceManager.GetObject("BrowserIcon_Baraag", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BrowserIcon_FurAffinity {
             get {
                 object obj = ResourceManager.GetObject("BrowserIcon_FurAffinity", resourceCulture);

@@ -75,6 +75,7 @@ namespace e621_ReBot_v2
             BQB_Plurk.Click += BrowserQuickButton_Click;
             BQB_Pawoo.Click += BrowserQuickButton_Click;
             BQB_Weasyl.Click += BrowserQuickButton_Click;
+            BQB_Baraag.Click += BrowserQuickButton_Click;
 
             cCheckGroupBox_Grab.Paint += CCheckGroupBox_Jobs_Paint;
             cCheckGroupBox_Upload.Paint += CCheckGroupBox_Jobs_Paint;
@@ -609,7 +610,7 @@ namespace e621_ReBot_v2
             for (int y = 20; y <= BGHeight - 76; y++)
             {
                 LineStart = 0;
-                for (int x = 79; x <= BGWidth - 30; x++)
+                for (int x = 31; x <= BGWidth - 30; x++)
                 {
                     // Get the various pixel locations  This calculation is for a 32bpp Argb bitmap
                     int ByteLocation = (y * BGWidth * PixelSize) + (x * PixelSize);

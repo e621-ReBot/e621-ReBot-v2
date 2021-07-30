@@ -45,10 +45,11 @@ namespace e621_ReBot_v2.Modules
             _GrabEnabler.Add(new Regex(@".+(newgrounds.com)/(art/view.+|art/page/\d+|portal/view/\d+)"));
             _GrabEnabler.Add(new Regex(@".+(hiccears.com)/(picture|gallery|artist-profile).+"));
             _GrabEnabler.Add(new Regex(@".+(sofurry.com)/(view/\d+|browse/\w+/art.+)"));
-            _GrabEnabler.Add(new Regex(@".+(mastodon.social)/@(\w+)?(/\d+|/media|)"));
+            _GrabEnabler.Add(new Regex(@".+(mastodon.social)/@(\w+)?(/\d+|/media)"));
             _GrabEnabler.Add(new Regex(@".+(plurk.com)/(p/\w+|\w+(?!.))"));
-            _GrabEnabler.Add(new Regex(@".+(pawoo.net)/@(\w+)?(/\d+|/media|)"));
+            _GrabEnabler.Add(new Regex(@".+(pawoo.net)/@(\w+)?(/\d+|/media)"));
             _GrabEnabler.Add(new Regex(@".+(weasyl.com)/(search.+|submissions.+|collections.+|~\w+/submissions/\d+/.+)"));
+            _GrabEnabler.Add(new Regex(@".+(baraag.net)/@(\w+)?(/\d+|/media)"));
         }
 
 
@@ -123,6 +124,11 @@ namespace e621_ReBot_v2.Modules
                 case "www.weasyl.com":
                     {
                         Module_Weasyl.QueuePrep(WebAdress);
+                        break;
+                    }
+                case "baraag.net":
+                    {
+                        Module_Mastodon.QueuePrep(WebAdress);
                         break;
                     }
             }
@@ -310,6 +316,12 @@ namespace e621_ReBot_v2.Modules
                     {
                         BGWTemp.DoWork += Module_Weasyl.RunGrabber;
                         break;
+                    }
+                case "baraag.net":
+                    {
+                        BGWTemp.DoWork += Module_Mastodon.RunGrabber;
+                        BGWTemp.RunWorkerAsync(NeededData);
+                        return;
                     }
             }
             BGWTemp.RunWorkerAsync(WebAdress);

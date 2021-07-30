@@ -479,6 +479,7 @@
     <Content Include="Resources\Browser\BB_Forward_True.png" />
     <Content Include="Resources\Browser\BrowserButtonsRegion.png" />
     <Content Include="Resources\Browser\BrowserButtonsRegion_Button.png" />
+    <None Include="Resources\Browser\BrowserIcon_Baraag.png" />
     <Content Include="Resources\Browser\BrowserIcon_FurAffinity.png" />
     <Content Include="Resources\Browser\BrowserIcon_HicceArs.png" />
     <Content Include="Resources\Browser\BrowserIcon_Inkbunny.png" />

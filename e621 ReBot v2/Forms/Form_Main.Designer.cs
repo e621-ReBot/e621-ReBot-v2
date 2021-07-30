@@ -155,6 +155,7 @@
             this.rb_GameStart_1 = new System.Windows.Forms.RadioButton();
             this.rb_GameStart_2 = new System.Windows.Forms.RadioButton();
             this.bU_KoFi = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.BQB_Baraag = new e621_ReBot_v2.CustomControls.Button_Browser();
             this.Version_Label = new System.Windows.Forms.Label();
             this.Title_Label = new System.Windows.Forms.Label();
             this.Panel_Holder = new System.Windows.Forms.Panel();
@@ -236,6 +237,7 @@
             this.panel_GameStart = new System.Windows.Forms.Panel();
             this.comboBox_PuzzleCollumns = new System.Windows.Forms.ComboBox();
             this.comboBox_PuzzleRows = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.button_AppMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.button_AppClose)).BeginInit();
             this.cGroupBoxColored_DLThreads.SuspendLayout();
@@ -2380,6 +2382,26 @@
             this.bU_KoFi.UseVisualStyleBackColor = true;
             this.bU_KoFi.Click += new System.EventHandler(this.BU_KoFi_Click);
             // 
+            // BQB_Baraag
+            // 
+            this.BQB_Baraag.BackColor = System.Drawing.Color.Transparent;
+            this.BQB_Baraag.BackgroundImage = global::e621_ReBot_v2.Properties.Resources.BrowserIcon_Baraag;
+            this.BQB_Baraag.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BQB_Baraag.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BQB_Baraag.FlatAppearance.BorderSize = 0;
+            this.BQB_Baraag.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.BQB_Baraag.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.BQB_Baraag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BQB_Baraag.Location = new System.Drawing.Point(30, 76);
+            this.BQB_Baraag.MaximumSize = new System.Drawing.Size(64, 56);
+            this.BQB_Baraag.MinimumSize = new System.Drawing.Size(64, 56);
+            this.BQB_Baraag.Name = "BQB_Baraag";
+            this.BQB_Baraag.Size = new System.Drawing.Size(64, 56);
+            this.BQB_Baraag.TabIndex = 12;
+            this.BQB_Baraag.Tag = "https://baraag.net/";
+            this.toolTip_Display.SetToolTip(this.BQB_Baraag, "Baraag.net");
+            this.BQB_Baraag.UseVisualStyleBackColor = false;
+            // 
             // Version_Label
             // 
             this.Version_Label.AutoSize = true;
@@ -2580,6 +2602,8 @@
             this.QuickButtonPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.QuickButtonPanel.BackColor = System.Drawing.Color.Transparent;
             this.QuickButtonPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.QuickButtonPanel.Controls.Add(this.label1);
+            this.QuickButtonPanel.Controls.Add(this.BQB_Baraag);
             this.QuickButtonPanel.Controls.Add(this.BQB_Weasyl);
             this.QuickButtonPanel.Controls.Add(this.BQB_Pawoo);
             this.QuickButtonPanel.Controls.Add(this.BQB_Plurk);
@@ -2728,7 +2752,7 @@
             this.tabPage_Grid.Controls.Add(this.flowLayoutPanel_Grid);
             this.tabPage_Grid.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Grid.Name = "tabPage_Grid";
-            this.tabPage_Grid.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Grid.Size = new System.Drawing.Size(192, 91);
             this.tabPage_Grid.TabIndex = 1;
             this.tabPage_Grid.Text = "tabPage_Grid";
             this.tabPage_Grid.Paint += new System.Windows.Forms.PaintEventHandler(this.TabPage_Grid_Paint);
@@ -2819,7 +2843,7 @@
             this.flowLayoutPanel_Grid.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel_Grid.Name = "flowLayoutPanel_Grid";
             this.flowLayoutPanel_Grid.Padding = new System.Windows.Forms.Padding(0, 16, 0, 0);
-            this.flowLayoutPanel_Grid.Size = new System.Drawing.Size(1262, 650);
+            this.flowLayoutPanel_Grid.Size = new System.Drawing.Size(192, 650);
             this.flowLayoutPanel_Grid.TabIndex = 0;
             this.flowLayoutPanel_Grid.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.FlowLayoutPanel_Grid_ControlAdded);
             this.flowLayoutPanel_Grid.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.FlowLayoutPanel_Grid_ControlRemoved);
@@ -3560,6 +3584,15 @@
             this.comboBox_PuzzleRows.TabIndex = 9;
             this.comboBox_PuzzleRows.TabStop = false;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(39, 153);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(47, 13);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Soon™?";
+            // 
             // Form_Main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -3623,6 +3656,7 @@
             this.cTabControl_e621ReBot.ResumeLayout(false);
             this.tabPage_Browser.ResumeLayout(false);
             this.QuickButtonPanel.ResumeLayout(false);
+            this.QuickButtonPanel.PerformLayout();
             this.panel_Browser.ResumeLayout(false);
             this.flowLayoutPanel_BrowserButtons.ResumeLayout(false);
             this.tabPage_Grid.ResumeLayout(false);
@@ -3871,6 +3905,8 @@
         private CustomControls.Button_Browser BQB_Weasyl;
         private CustomControls.Button_Browser BQB_Pawoo;
         protected internal System.Windows.Forms.CheckBox CheckBox_ClearCache;
+        private CustomControls.Button_Browser BQB_Baraag;
+        private System.Windows.Forms.Label label1;
     }
 }
 
