@@ -143,7 +143,8 @@ namespace e621_ReBot_v2.Modules.Grabber
                         }
 
                         DataRow TempDataRow = TempDataTable.NewRow();
-                        FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Text, Post_MediaURL, ImageNode["preview_url"].Value<string>(), ImageNode["meta"]["original"]["width"].Value<string>(), ImageNode["meta"]["original"]["height"].Value<string>(), ArtistName);
+                        JToken OrigData = ImageNode["meta"].Any() && ImageNode["meta"]["original"] != null ? ImageNode["meta"]["original"]: null;
+                        FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Text, Post_MediaURL, ImageNode["preview_url"].Value<string>(), OrigData == null ? null : OrigData["width"].Value<string>(), OrigData == null ? null : OrigData["height"].Value<string>(), ArtistName);
                         TempDataTable.Rows.Add(TempDataRow);
                     }
                 }
@@ -181,10 +182,10 @@ namespace e621_ReBot_v2.Modules.Grabber
             if (TextBody != null) TempDataRow["Grab_TextBody"] = TextBody;
             TempDataRow["Grab_MediaURL"] = MediaURL;
             TempDataRow["Grab_ThumbnailURL"] = ThumbnailURL;
-            TempDataRow["Thumbnail_FullInfo"] = true;
+            if (ImageWidth != null) TempDataRow["Thumbnail_FullInfo"] = true;
             TempDataRow["Info_MediaFormat"] = MediaURL.Substring(MediaURL.LastIndexOf(".") + 1);
-            TempDataRow["Info_MediaWidth"] = ImageWidth;
-            TempDataRow["Info_MediaHeight"] = ImageHeight;
+            if (ImageWidth != null) TempDataRow["Info_MediaWidth"] = ImageWidth;
+            if (ImageHeight != null) TempDataRow["Info_MediaHeight"] = ImageHeight;
             TempDataRow["Info_MediaByteLength"] = Module_Grabber.GetMediaSize(MediaURL);
             TempDataRow["Upload_Tags"] = DateTime.Year;
             TempDataRow["Artist"] = Artist;
