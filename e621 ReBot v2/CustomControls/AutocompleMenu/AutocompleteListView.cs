@@ -335,8 +335,12 @@ namespace ACM_AutocompleteMenu
         {
             var host = Parent as AutocompleteMenuHost;
             if (host != null)
-                if (host.Menu.ProcessKey((char) keyData, Keys.None))
+            {
+                if (host.Menu.ProcessKey((char)keyData, Keys.None))
+                {
                     return true;
+                }
+            }
 
             return base.ProcessCmdKey(ref msg, keyData);
         }

@@ -290,7 +290,10 @@ namespace e621_ReBot_v2.CustomControls
             {
                 Form_Loader._FormReference.BringToFront();
                 Form_Loader._FormReference.cTabControl_e621ReBot.SelectedIndex = 0;
-                if (!Module_CefSharp.CefSharpBrowser.Address.Equals(e6Post)) Module_CefSharp.CefSharpBrowser.Load(e6Post);
+                if (!Module_CefSharp.CefSharpBrowser.Address.Equals(e6Post))
+                {
+                    Module_CefSharp.CefSharpBrowser.Load(e6Post);
+                }
             }
         }
 

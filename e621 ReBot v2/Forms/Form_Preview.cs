@@ -327,7 +327,10 @@ namespace e621_ReBot_v2.Forms
                             Preview_RowHolder["Grab_ThumbnailURL"] = "";
                             string CachedImagePath = Module_Downloader.IEDownload_Cache[Module_Downloader.GetMediasFileNameOnly((string)Preview_RowHolder["Grab_MediaURL"])];
                             Preview_RowHolder["Thumbnail_Image"] = Module_Grabber.MakeImageThumb(Image.FromFile(CachedImagePath));
-                            if (GridItemTemp == null) Module_Grabber.WriteImageInfo(Preview_RowHolder);
+                            if (GridItemTemp == null)
+                            {
+                                Module_Grabber.WriteImageInfo(Preview_RowHolder);
+                            } 
                         }
 
                         if (GridItemTemp == null)
@@ -435,7 +438,10 @@ namespace e621_ReBot_v2.Forms
                             Thread.Sleep(500);
                         }
                     }
-                    if (ImageBytes == null | ImageBytes.Length == 0) return;
+                    if (ImageBytes == null | ImageBytes.Length == 0)
+                    {
+                        return;
+                    }
                     Preview_RowHolder["Info_MediaByteLength"] = ImageBytes.Length;
 
                     // Get MD5

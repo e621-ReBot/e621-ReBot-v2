@@ -150,8 +150,14 @@ namespace e621_ReBot_v2.Modules
 
                 case 1: //Artist_Title
                     {
-                        if (((string)DataRowPass["Grab_Title"]).Contains("Created by")) goto case 2;
-                        if (((string)DataRowPass["Grab_Title"]).Contains("Plurk by")) goto case 2;
+                        if (((string)DataRowPass["Grab_Title"]).Contains("Created by"))
+                        {
+                            goto case 2;
+                        }
+                        if (((string)DataRowPass["Grab_Title"]).Contains("Plurk by"))
+                        {
+                            goto case 2;
+                        }
                         string TitleSubstring = (string)DataRowPass["Grab_Title"];
                         TitleSubstring = TitleSubstring.Substring(0, TitleSubstring.IndexOf(" ⮘ by ")).Substring(2);
                         NewFileName += string.Format("{0}_{1}.{2}", TitleSubstring, FileName.Substring(0, 4), FileFormat);
@@ -196,7 +202,10 @@ namespace e621_ReBot_v2.Modules
                 }
             }
 
-            if (!Download_AlreadyDownloaded.Contains(ImageURL)) Download_AlreadyDownloaded.Add(ImageURL);
+            if (!Download_AlreadyDownloaded.Contains(ImageURL))
+            {
+                Download_AlreadyDownloaded.Add(ImageURL);
+            }
 
             if (!File.Exists(FilePath) && IEDownload_Cache.ContainsKey(ImageName))
             {
@@ -262,13 +271,13 @@ namespace e621_ReBot_v2.Modules
 
 
 
-        public static void AddDownloadQueueItem(DataRow DataRowRef, string URL, string Media_URL, string Thumbnail_URL, string Artist = null, string Grab_Title = null, string e6_PostID = null, string e6_PoolName = null, string e6_PoolPostIndex = null)
+        public static void AddDownloadQueueItem(DataRow DataRowRef, string URL, string Media_URL, string Thumbnail_URL = null, string Artist = null, string Grab_Title = null, string e6_PostID = null, string e6_PoolName = null, string e6_PoolPostIndex = null)
         {
             DataRow DataRowTemp = Module_TableHolder.Download_Table.NewRow();
             if (DataRowRef != null) DataRowTemp["DataRowRef"] = DataRowRef;
             DataRowTemp["Grab_URL"] = URL;
             DataRowTemp["Grab_MediaURL"] = Media_URL;
-            DataRowTemp["Grab_ThumbnailURL"] = Thumbnail_URL;
+            if (Thumbnail_URL != null) DataRowTemp["Grab_ThumbnailURL"] = Thumbnail_URL;
             if (Artist != null) DataRowTemp["Artist"] = Artist;
             if (Grab_Title != null) DataRowTemp["Grab_Title"] = Grab_Title;
             if (e6_PostID != null) DataRowTemp["e6_PostID"] = e6_PostID;
@@ -304,7 +313,10 @@ namespace e621_ReBot_v2.Modules
                     break;
                 }
             }
-            if (SiteReferer.Equals("https://e621.net")) WebClientSelected.Headers.Add(HttpRequestHeader.UserAgent, Properties.Settings.Default.AppName);
+            if (SiteReferer.Equals("https://e621.net"))
+            {
+                WebClientSelected.Headers.Add(HttpRequestHeader.UserAgent, Properties.Settings.Default.AppName);
+            }
             WebClientSelected.Headers.Add(HttpRequestHeader.Referer, SiteReferer);
             if (DLType.Equals("Thumb"))
             {
@@ -345,7 +357,10 @@ namespace e621_ReBot_v2.Modules
                 if (DataRow4Grid["Thumbnail_Image"] == DBNull.Value)
                 {
                     string Text2Draw = null;
-                    if (ImageFormat.Gif.Equals(DownloadedImage.RawFormat)) Text2Draw = DownloadedImage.GetFrameCount(new FrameDimension(DownloadedImage.FrameDimensionsList[0])) > 1 ? "Animated" : null;
+                    if (ImageFormat.Gif.Equals(DownloadedImage.RawFormat))
+                    {
+                        Text2Draw = DownloadedImage.GetFrameCount(new FrameDimension(DownloadedImage.FrameDimensionsList[0])) > 1 ? "Animated" : null;
+                    }
                     if (Text2Draw == null)
                     {
                         Text2Draw = ((string)DataRow4Grid["Grab_MediaURL"]).Contains("ugoira") ? "ugoira" : null;
@@ -385,7 +400,10 @@ namespace e621_ReBot_v2.Modules
                     DataRow4Grid["Thumbnail_Image"] = ResizedImage;
 
                     e6_GridItem e6_GridItemTemp = Form_Loader._FormReference.IsE6PicVisibleInGrid(ref DataRow4Grid);
-                    if (e6_GridItemTemp != null) e6_GridItemTemp.LoadImage();
+                    if (e6_GridItemTemp != null)
+                    {
+                        e6_GridItemTemp.LoadImage();
+                    }
                 }
             }
             else
@@ -457,7 +475,10 @@ namespace e621_ReBot_v2.Modules
                     }
                 }
             }
-            if (!timer_DownloadRemovalThreading.Enabled) timer_DownloadRemovalThreading.Start();
+            if (!timer_DownloadRemovalThreading.Enabled)
+            {
+                timer_DownloadRemovalThreading.Start();
+            }
         }
 
         private static readonly Timer timer_DownloadRemovalThreading;
@@ -501,7 +522,10 @@ namespace e621_ReBot_v2.Modules
             DLThreadsWaiting = 0;
             foreach (e6_DownloadItem e6_DownloadItemTemp in Form_Loader._FormReference.DownloadFLP_InProgress.Controls)
             {
-                if (e6_DownloadItemTemp._DownloadFinished) DLThreadsWaiting += 1;
+                if (e6_DownloadItemTemp._DownloadFinished)
+                {
+                    DLThreadsWaiting += 1;
+                }
             }
 
             if (Download_AlreadyDownloaded.Count % 1000 == 0)
@@ -603,7 +627,10 @@ namespace e621_ReBot_v2.Modules
                 int HowMany2Start = Math.Max(0, DLThreadsCount - Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Count) + DLThreadsWaiting;
                 while (HowMany2Start > 0)
                 {
-                    if (Module_TableHolder.Download_Table.Rows.Count == 0) break;
+                    if (Module_TableHolder.Download_Table.Rows.Count == 0)
+                    {
+                        break;
+                    }
                     HowMany2Start -= 1;
                     DLThreadsWaiting = Math.Max(0, DLThreadsWaiting - 1);
                     DataRow DataRowTemp = Module_TableHolder.Download_Table.NewRow();
@@ -693,7 +720,10 @@ namespace e621_ReBot_v2.Modules
                         e6_DownloadItemTemp.DL_ProgressBar.BarColor = Color.Orange;
                         e6_DownloadItemTemp.DL_FolderIcon.Tag = FilePath;
                         StartDLClient(ref e6_DownloadItemTemp, "Thumb");
-                        if (AddNew) Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Add(e6_DownloadItemTemp);
+                        if (AddNew)
+                        {
+                            Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Add(e6_DownloadItemTemp);
+                        }
                         Module_FFmpeg.DownloadQueue_ConvertUgoira2WebM(ref e6_DownloadItemTemp);
                     }));
                 }
@@ -766,7 +796,10 @@ namespace e621_ReBot_v2.Modules
                                 StartDLClient(ref e6_DownloadItemTemp, "Thumb");
                             }
                         }
-                        if (AddNew) Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Add(e6_DownloadItemTemp);
+                        if (AddNew)
+                        {
+                            Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Add(e6_DownloadItemTemp);
+                        }
                         StartDLClient(ref e6_DownloadItemTemp, "File");
                     }));
                 }
@@ -778,14 +811,20 @@ namespace e621_ReBot_v2.Modules
             string PicURL = (string)DataRowRef["Grab_MediaURL"];
 
             string GetFileNameOnly = GetMediasFileNameOnly(PicURL);
-            if (DownloadFolderCache != null && DownloadFolderCache.Contains(GetFileNameOnly)) return false;
+            if (DownloadFolderCache != null && DownloadFolderCache.Contains(GetFileNameOnly))
+            {
+                return false;
+            }
 
             string ThumbLink = PicURL.Replace("net/data/", "net/data/preview/");
             ThumbLink = ThumbLink.Remove(ThumbLink.LastIndexOf(".") + 1) + "jpg";
 
             string DLPath = Path.Combine(Properties.Settings.Default.DownloadsFolderLocation, @"e621\").ToString();
             string PoolName = DataRowRef["e6_PoolName"] != DBNull.Value ? (string)DataRowRef["e6_PoolName"] : null;
-            if (PoolName != null) DLPath += PoolName + @"\";
+            if (PoolName != null)
+            {
+                DLPath += PoolName + @"\";
+            }
 
             Directory.CreateDirectory(DLPath);
 
@@ -796,7 +835,10 @@ namespace e621_ReBot_v2.Modules
             {
                 case 1:
                     {
-                        if (PoolName != null) GetFileNameOnly = string.Format("{0}_{1}", PostID, GetFileNameOnly);
+                        if (PoolName != null)
+                        {
+                            GetFileNameOnly = string.Format("{0}_{1}", PostID, GetFileNameOnly);
+                        }
                         break;
                     }
 
@@ -806,7 +848,10 @@ namespace e621_ReBot_v2.Modules
                         break;
                     }
             }
-            if (PoolPostIndex != null) GetFileNameOnly = string.Format("{0}_{1}", PoolPostIndex, GetFileNameOnly);
+            if (PoolPostIndex != null)
+            {
+                GetFileNameOnly = string.Format("{0}_{1}", PoolPostIndex, GetFileNameOnly);
+            }
             string FilePath = Path.Combine(DLPath, GetFileNameOnly).ToString();
 
             Form_Loader._FormReference.Invoke(new Action(() =>
@@ -832,7 +877,10 @@ namespace e621_ReBot_v2.Modules
                     e6_DownloadItemTemp.picBox_ImageHolder.LoadAsync(ThumbLink);
                 }
                 StartDLClient(ref e6_DownloadItemTemp, "File");
-                if (AddNew) Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Add(e6_DownloadItemTemp);
+                if (AddNew)
+                {
+                    Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Add(e6_DownloadItemTemp);
+                }
             }));
             return true;
         }
@@ -853,9 +901,12 @@ namespace e621_ReBot_v2.Modules
                 }
 
                 string PostID = BrowserAdress;
-                if (PostID.Contains("?")) PostID = PostID.Substring(0, PostID.IndexOf("?"));
+                if (PostID.Contains("?"))
+                {
+                    PostID = PostID.Substring(0, PostID.IndexOf("?"));
+                }
                 PostID = PostID.Substring(PostID.LastIndexOf("/") + 1);
-                AddDownloadQueueItem(null, BrowserAdress, PicURL, null, null, null, PostID, null, null);
+                AddDownloadQueueItem(DataRowRef: null, URL: BrowserAdress, Media_URL: PicURL, e6_PostID: PostID);
                 return;
             }
 
@@ -914,7 +965,7 @@ namespace e621_ReBot_v2.Modules
                             {
                                 continue;
                             }
-                            AddDownloadQueueItem(null, BrowserAdress, PicURL, null, null, null, Post.Attributes["data-id"].Value, inputtext, null);
+                            AddDownloadQueueItem(DataRowRef: null, URL: BrowserAdress, Media_URL: PicURL, e6_PostID: Post.Attributes["data-id"].Value, e6_PoolName: inputtext);
                         }
                     }
                 }
@@ -968,7 +1019,7 @@ namespace e621_ReBot_v2.Modules
                         string PoolName = WebDoc.DocumentNode.SelectSingleNode("//div[@id='a-show']//a").InnerText;
                         PoolName = string.Join("", PoolName.Split(Path.GetInvalidFileNameChars()));
                         string PoolPostIndex = GetCurrentPage > 1 ? ComicPages.IndexOf(PostID).ToString() : PoolIndex.ToString();
-                        AddDownloadQueueItem(null, BrowserAdress, PicURL, null, null, null, PostID, PoolName, PoolPostIndex);
+                        AddDownloadQueueItem(DataRowRef: null, URL: BrowserAdress, Media_URL: PicURL, e6_PostID: PostID, e6_PoolName: PoolName, e6_PoolPostIndex: PoolPostIndex);
                         PoolIndex += 1;
                     }
                 }
@@ -989,7 +1040,7 @@ namespace e621_ReBot_v2.Modules
                             {
                                 continue;
                             }
-                            AddDownloadQueueItem(null, BrowserAdress, PicURL, null, null, null, Post.Attributes["data-id"].Value, null, null);
+                            AddDownloadQueueItem(DataRowRef: null, URL: BrowserAdress, Media_URL: PicURL, e6_PostID: Post.Attributes["data-id"].Value);
                         }
                     }
                 }
@@ -1057,7 +1108,7 @@ namespace e621_ReBot_v2.Modules
                             {
                                 continue;
                             }
-                            AddDownloadQueueItem(null, BrowserAdress, PicURL, null, null, null, Post.Attributes["data-id"].Value, null, null);
+                            AddDownloadQueueItem(DataRowRef: null, URL: BrowserAdress, Media_URL: PicURL, e6_PostID: Post.Attributes["data-id"].Value);
                         }
                     }
                 }
@@ -1117,10 +1168,16 @@ namespace e621_ReBot_v2.Modules
             foreach (FileInfo FileFound in CacheFolder.GetFiles("*", SearchOption.AllDirectories))
             {
                 string GetFileMD5 = FileFound.Name;
-                if (GetFileMD5.Contains("_")) GetFileMD5 = GetFileMD5.Substring(GetFileMD5.LastIndexOf("_") + 1);
+                if (GetFileMD5.Contains("_"))
+                {
+                    GetFileMD5 = GetFileMD5.Substring(GetFileMD5.LastIndexOf("_") + 1);
+                }
                 //GetFileMD5 = GetFileMD5.Substring(0, GetFileMD5.LastIndexOf("."));
 
-                if (!DownloadFolderCache.Contains(GetFileMD5)) DownloadFolderCache.Add(GetFileMD5);
+                if (!DownloadFolderCache.Contains(GetFileMD5))
+                {
+                    DownloadFolderCache.Add(GetFileMD5);
+                }
             }
             Form_Loader._FormReference.BeginInvoke(new Action(() =>
             {
@@ -1157,7 +1214,7 @@ namespace e621_ReBot_v2.Modules
                 if (!Blacklist_Check(TempTagList))
                 {
                     string PostID = cPost["id"].Value<string>();
-                    AddDownloadQueueItem(null, "https://e621.net/posts/" + PostID, cPost["file"]["url"].Value<string>(), null, null, null, PostID, FolderName, null);
+                    AddDownloadQueueItem(DataRowRef: null, URL: "https://e621.net/posts/" + PostID, Media_URL: cPost["file"]["url"].Value<string>(), e6_PostID: PostID, e6_PoolName: FolderName);
                 }
             }
             PageCounter += 1;
@@ -1225,7 +1282,14 @@ namespace e621_ReBot_v2.Modules
                     }
 
                     string PostID = Post["id"].Value<string>();
-                    AddDownloadQueueItem(null, "https://e621.net/posts/" + PostID, PicURL, null, null, null, PostID, PoolName, ComicPages.IndexOf(PostID).ToString());
+                    AddDownloadQueueItem(
+                        DataRowRef: null,
+                        URL: "https://e621.net/posts/" + PostID,
+                        Media_URL: PicURL,
+                        e6_PostID: PostID,
+                        e6_PoolName: PoolName,
+                        e6_PoolPostIndex: ComicPages.IndexOf(PostID).ToString()
+                        );
                 }
                 Form_Loader._FormReference.BeginInvoke(new Action(() =>
                 {
@@ -1243,7 +1307,13 @@ namespace e621_ReBot_v2.Modules
                 Thread.Sleep(500);
                 JSON_Object = null;
             }
-            Form_Loader._FormReference.BeginInvoke(new Action(() => { if (SkippedPagesCounter > 0) Form_Loader._FormReference.textBox_Info.Text = string.Format("{0} Downloader >>> {1}: {2} page{3} skipped as they already exist\n{4}", DateTime.Now.ToLongTimeString(), PoolName, SkippedPagesCounter, SkippedPagesCounter > 1 ? "s" : null, Form_Loader._FormReference.textBox_Info.Text); }));
+            Form_Loader._FormReference.BeginInvoke(new Action(() =>
+            {
+                if (SkippedPagesCounter > 0)
+                {
+                    Form_Loader._FormReference.textBox_Info.Text = string.Format("{0} Downloader >>> {1}: {2} page{3} skipped as they already exist\n{4}", DateTime.Now.ToLongTimeString(), PoolName, SkippedPagesCounter, SkippedPagesCounter > 1 ? "s" : null, Form_Loader._FormReference.textBox_Info.Text);
+                }
+            }));
         }
 
         private static List<string> CreateTagList(JToken PostTags, string RatingTag)

@@ -114,12 +114,16 @@ namespace ACM_AutocompleteMenu
         ACM_TextBoxWrapper CreateWrapper(Control control)
         {
             if (WrapperByControls.ContainsKey(control))
+            {
                 return WrapperByControls[control];
+            }
 
             var args = new WrapperNeededEventArgs(control);
             OnWrapperNeeded(args);
             if (args.Wrapper != null)
+            {
                 WrapperByControls[control] = args.Wrapper;
+            }
 
             return args.Wrapper;
         }
@@ -333,14 +337,26 @@ namespace ACM_AutocompleteMenu
         {
             //find  AutocompleteMenu with lowest hashcode
             if (Container != null)
+            {
                 foreach (object comp in Container.Components)
+                {
                     if (comp is AutocompleteMenu)
+                    {
                         if (comp.GetHashCode() < GetHashCode())
+                        {
                             return false;
+                        }
+                    }
+                }
+            }
+
             //we are main autocomplete menu on form ...
             //check extendee as TextBox
             if (!(extendee is Control))
+            {
                 return false;
+            }
+
             var temp = TextBoxWrapper.Create(extendee as Control);
             return temp != null;
         }
@@ -350,14 +366,25 @@ namespace ACM_AutocompleteMenu
             if (menu != null)
             {
                 if (WrapperByControls.ContainsKey(control))
+                {
                     return;
+                }
+
                 var wrapper = menu.CreateWrapper(control);
-                if (wrapper == null) return;
+                if (wrapper == null)
+
+                {
+                    return;
+                }
                 //
                 if (control.IsHandleCreated)
+                {
                     menu.SubscribeForm(wrapper);
+                }
                 else
+                {
                     control.HandleCreated += (o, e) => menu.SubscribeForm(wrapper);
+                }
                 //
                 AutocompleteMenuByControls[control] = this;
                 //
@@ -420,13 +447,21 @@ namespace ACM_AutocompleteMenu
 
         void SubscribeForm(ACM_TextBoxWrapper wrapper)
         {
-            if (wrapper == null) return;
+            if (wrapper == null)
+            {
+                return;
+            }
             var form = wrapper.TargetControl.FindForm();
-            if (form == null) return;
+            if (form == null)
+            {
+                return;
+            }
             if (myForm != null)
             {
                 if (myForm == form)
+                {
                     return;
+                }
                 UnsubscribeForm(wrapper);
             }
 
@@ -440,9 +475,15 @@ namespace ACM_AutocompleteMenu
 
         void UnsubscribeForm(ACM_TextBoxWrapper wrapper)
         {
-            if (wrapper == null) return;
+            if (wrapper == null)
+            {
+                return;
+            }
             var form = wrapper.TargetControl.FindForm();
-            if (form == null) return;
+            if (form == null)
+            {
+                return;
+            }
 
             form.LocationChanged -= new EventHandler(form_LocationChanged);
             form.ResizeBegin -= new EventHandler(form_LocationChanged);
@@ -561,7 +602,10 @@ namespace ACM_AutocompleteMenu
 
         private void control_LostFocus(object sender, EventArgs e)
         {
-            if (!Host.Focused) Close();
+            if (!Host.Focused)
+            {
+                Close();
+            }
         }
 
         public AutocompleteMenu GetAutocompleteMenu(Control control)
@@ -694,7 +738,10 @@ namespace ACM_AutocompleteMenu
         {
             var tb = TargetControlWrapper;
 
-            if (tb.SelectionLength > 0) return new Range(tb);
+            if (tb.SelectionLength > 0)
+            {
+                return new Range(tb);
+            }
 
             string text = tb.Text;
             var regex = new Regex(searchPattern);
@@ -706,7 +753,9 @@ namespace ACM_AutocompleteMenu
             while (i >= 0 && i < text.Length)
             {
                 if (!regex.IsMatch(text[i].ToString()))
+                {
                     break;
+                }
                 i++;
             }
             result.End = i;
@@ -716,7 +765,9 @@ namespace ACM_AutocompleteMenu
             while (i > 0 && (i - 1) < text.Length)
             {
                 if (!regex.IsMatch(text[i - 1].ToString()))
+                {
                     break;
+                }
                 i--;
             }
             result.Start = i;
@@ -739,7 +790,9 @@ namespace ACM_AutocompleteMenu
                 return;
             }
             foreach (string item in items)
+            {
                 list.Add(new ACM_AutocompleteItem(item));
+            }
             SetAutocompleteItems(list);
         }
 
@@ -756,12 +809,18 @@ namespace ACM_AutocompleteMenu
         public void AddItem(ACM_AutocompleteItem item)
         {
             if (sourceItems == null)
+            {
                 sourceItems = new List<ACM_AutocompleteItem>();
+            }
 
             if (sourceItems is IList)
+            {
                 (sourceItems as IList).Add(item);
+            }
             else
+            {
                 throw new Exception("Current autocomplete items does not support adding");
+            }
         }
 
         /// <summary>
@@ -778,7 +837,9 @@ namespace ACM_AutocompleteMenu
         internal virtual void OnSelecting()
         {
             if (SelectedItemIndex < 0 || SelectedItemIndex >= VisibleItems.Count)
+            {
                 return;
+            }
 
             ACM_AutocompleteItem item = VisibleItems[SelectedItemIndex];
             var args = new SelectingEventArgs
@@ -824,13 +885,17 @@ namespace ACM_AutocompleteMenu
         internal void OnSelecting(SelectingEventArgs args)
         {
             if (Selecting != null)
+            {
                 Selecting(this, args);
+            }
         }
 
         public void OnSelected(SelectedEventArgs args)
         {
             if (Selected != null)
+            {
                 Selected(this, args);
+            }
         }
 
         public void SelectNext(int shift)

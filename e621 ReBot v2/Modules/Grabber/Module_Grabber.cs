@@ -407,7 +407,10 @@ namespace e621_ReBot_v2.Modules
         {
             HttpWebRequest HTMLRequest = (HttpWebRequest)WebRequest.Create(WebAdress);
             HTMLRequest.CookieContainer = CookieRef ?? new CookieContainer();
-            if (NewgroundsSpecialRequest) HTMLRequest.Headers.Add("X-Requested-With", "XMLHttpRequest");
+            if (NewgroundsSpecialRequest)
+            {
+                HTMLRequest.Headers.Add("X-Requested-With", "XMLHttpRequest");
+            } 
             HTMLRequest.Timeout = 5000;
             HTMLRequest.UserAgent = Form_Loader.GlobalUserAgent;
             try
@@ -439,7 +442,10 @@ namespace e621_ReBot_v2.Modules
             GetSizeRequest.Method = "HEAD";
             GetSizeRequest.UserAgent = Form_Loader.GlobalUserAgent;
             GetSizeRequest.CookieContainer = MediaURL.Contains("deviantart.com") ? Module_CookieJar.Cookies_DeviantArt : new CookieContainer(); //twitter sometimes not working otherwise
-            if (MediaURL.Contains("pximg.net")) GetSizeRequest.Referer = "http://www.pixiv.net";
+            if (MediaURL.Contains("pximg.net"))
+            {
+                GetSizeRequest.Referer = "http://www.pixiv.net";
+            }
             GetSizeRequest.Timeout = 3000;
             try
             {
@@ -537,7 +543,10 @@ namespace e621_ReBot_v2.Modules
             }
 
             string Text2Draw = ImagePass.GetFrameCount(new FrameDimension(ImagePass.FrameDimensionsList[0])) > 1 ? "Animated" : null;
-            if (Text2Draw == null) Text2Draw = Text2DrawPass;
+            if (Text2Draw == null)
+            {
+                Text2Draw = Text2DrawPass;
+            }
 
             if (Text2Draw != null)
             {

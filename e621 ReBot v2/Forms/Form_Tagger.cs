@@ -267,7 +267,10 @@ namespace e621_ReBot_v2.Forms
 
                 case Keys.Escape:
                     {
-                        if (!Form_Loader._FormReference.AutoTags.Visible) Close();
+                        if (!Form_Loader._FormReference.AutoTags.Visible)
+                        {
+                            Close();
+                        }
                         e.SuppressKeyPress = true;
                         break;
                     }
@@ -319,7 +322,10 @@ namespace e621_ReBot_v2.Forms
         private void TB_Done_Click(object sender, EventArgs e)
         {
             AddTags();
-            if (Form_Preview._FormReference != null) Form_Preview._FormReference.TaggerLocator = Location;
+            if (Form_Preview._FormReference != null)
+            {
+                Form_Preview._FormReference.TaggerLocator = Location;
+            }
             Close();
         }
 
