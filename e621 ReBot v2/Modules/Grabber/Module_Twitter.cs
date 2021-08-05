@@ -49,7 +49,10 @@ namespace e621_ReBot_v2.Modules.Grabber
                 WebDoc.LoadHtml(HTMLSource);
 
                 HtmlNode TweetNode = WebDoc.DocumentNode.SelectSingleNode(".//a[@rel='noopener noreferrer' and preceding-sibling::span[.='·']]/ancestor::article"); //[text()='·'] does not work, AND should be and
-                if (TweetNode == null) TweetNode = WebDoc.DocumentNode.SelectSingleNode(".//span[.='·']/ancestor::article");
+                if (TweetNode == null)
+                {
+                    TweetNode = WebDoc.DocumentNode.SelectSingleNode(".//span[.='·']/ancestor::article");
+                }
                 
                 if (TweetNode.InnerHtml.Contains("This Tweet is unavailable."))
                 {
@@ -168,10 +171,16 @@ namespace e621_ReBot_v2.Modules.Grabber
 
             HtmlNodeCollection TestTextNodes = PostNode.SelectNodes(".//div[@dir='auto']/span");
             HtmlNode TestTextNode = TestTextNodes[1];
-            if (FullName.Contains(TestTextNode.InnerText)) TestTextNode = TestTextNodes[2];
+            if (FullName.Contains(TestTextNode.InnerText))
+            {
+                TestTextNode = TestTextNodes[2];
+            } 
 
             string Post_Text = TestTextNode.InnerText;
-            if (Post_Text != null) Post_Text = WebUtility.HtmlDecode(Post_Text).Trim();
+            if (Post_Text != null)
+            {
+                Post_Text = WebUtility.HtmlDecode(Post_Text).Trim();
+            }
 
             string Post_MediaURL;
             int SkipCounter = 0;
@@ -213,7 +222,10 @@ namespace e621_ReBot_v2.Modules.Grabber
                 {
                     KeyValuePair<string, string> VideoData = Grab_TwitterStatus_API(Post_URL);
                     string VideoURL = VideoData.Key;
-                    if (VideoURL.Contains("?")) VideoURL = VideoURL.Substring(0, VideoURL.IndexOf("?"));
+                    if (VideoURL.Contains("?"))
+                    {
+                        VideoURL = VideoURL.Substring(0, VideoURL.IndexOf("?"));
+                    } 
 
                     if (Module_Grabber._Grabbed_MediaURLs.Contains(VideoURL))
                     {

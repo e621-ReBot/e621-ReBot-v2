@@ -61,7 +61,10 @@ namespace e621_ReBot_v2.CustomControls
                 _RowCount = int.Parse(Form_Loader._FormReference.comboBox_PuzzleRows.Text);
                 _CollumnCount = int.Parse(Form_Loader._FormReference.comboBox_PuzzleCollumns.Text);
 
-                if (CompleteImage != null) CompleteImage.Dispose();
+                if (CompleteImage != null)
+                {
+                    CompleteImage.Dispose();
+                }
 
                 Bitmap TempBitmap = new Bitmap(PreloadImage);
 
@@ -126,7 +129,10 @@ namespace e621_ReBot_v2.CustomControls
                 int ImageWidth = RandomJSON["file"]["width"].Value<int>();
                 int ImageHeight = RandomJSON["file"]["height"].Value<int>();
                 double ImageRatio = (double)Math.Max(ImageWidth, ImageHeight) / Math.Min(ImageWidth, ImageHeight);
-                if (ImageRatio > 3) goto Repeat_Random;
+                if (ImageRatio > 3)
+                {
+                    goto Repeat_Random;
+                }
 
                 string FileURL = string.Format("https://static1.e621.net/data/{0}/{1}/{2}.{3}", RandomJSON["file"]["md5"].Value<string>().Substring(0, 2), RandomJSON["file"]["md5"].Value<string>().Substring(2, 2), RandomJSON["file"]["md5"].Value<string>(), RandomJSON["file"]["ext"].Value<string>());
                 if (RandomJSON["file"]["ext"].Value<string>().Equals("jpg") || RandomJSON["file"]["ext"].Value<string>().Equals("png"))
@@ -294,10 +300,22 @@ namespace e621_ReBot_v2.CustomControls
             for (int ShuffleCount = 0; ShuffleCount < PuzzlePieces.Count * 256; ShuffleCount++)
             {
                 MovablePieces.Clear();
-                if (BlankPieceRow > 0) MovablePieces.Add(new int[] { BlankPieceRow - 1, BlankPieceCollumn });
-                if (BlankPieceRow < (_RowCount - 1)) MovablePieces.Add(new int[] { BlankPieceRow + 1, BlankPieceCollumn });
-                if (BlankPieceCollumn > 0) MovablePieces.Add(new int[] { BlankPieceRow, BlankPieceCollumn - 1 });
-                if (BlankPieceCollumn < (_CollumnCount - 1)) MovablePieces.Add(new int[] { BlankPieceRow, BlankPieceCollumn + 1 });
+                if (BlankPieceRow > 0)
+                {
+                    MovablePieces.Add(new int[] { BlankPieceRow - 1, BlankPieceCollumn });
+                }
+                if (BlankPieceRow < (_RowCount - 1))
+                {
+                    MovablePieces.Add(new int[] { BlankPieceRow + 1, BlankPieceCollumn });
+                }
+                if (BlankPieceCollumn > 0)
+                {
+                    MovablePieces.Add(new int[] { BlankPieceRow, BlankPieceCollumn - 1 });
+                }
+                if (BlankPieceCollumn < (_CollumnCount - 1))
+                {
+                    MovablePieces.Add(new int[] { BlankPieceRow, BlankPieceCollumn + 1 });
+                } 
 
                 int RndSelected = RandomGenerator.Next(0, MovablePieces.Count); //max is actually max-1
 
@@ -334,7 +352,10 @@ namespace e621_ReBot_v2.CustomControls
 
         private void DrawPuzzlePieces()
         {
-            if (BackgroundImage != null) BackgroundImage.Dispose();
+            if (BackgroundImage != null)
+            {
+                BackgroundImage.Dispose();
+            } 
 
             Bitmap TempBitmap = new Bitmap(CompleteImage);
 
@@ -394,18 +415,36 @@ namespace e621_ReBot_v2.CustomControls
             int ClickCollumn = e.X / _PieceWidth;
             int ClickIndex = ClickRow * _CollumnCount + ClickCollumn;
 
-            if (ClickIndex == _BlankPiece) return;
+            if (ClickIndex == _BlankPiece)
+            {
+                return;
+            } 
 
             int BlankPieceRow = _BlankPiece / _CollumnCount;
             int BlankPieceCollumn = _BlankPiece - (BlankPieceRow * _CollumnCount);
 
             List<int> MovablePieces = new List<int>();
-            if (BlankPieceRow > 0) MovablePieces.Add(_BlankPiece - _CollumnCount);
-            if (BlankPieceRow < (_RowCount - 1)) MovablePieces.Add(_BlankPiece + _CollumnCount);
-            if (BlankPieceCollumn > 0) MovablePieces.Add(_BlankPiece - 1);
-            if (BlankPieceCollumn < (_CollumnCount - 1)) MovablePieces.Add(_BlankPiece + 1);
+            if (BlankPieceRow > 0)
+            {
+                MovablePieces.Add(_BlankPiece - _CollumnCount);
+            }
+            if (BlankPieceRow < (_RowCount - 1))
+            {
+                MovablePieces.Add(_BlankPiece + _CollumnCount);
+            }
+            if (BlankPieceCollumn > 0)
+            {
+                MovablePieces.Add(_BlankPiece - 1);
+            }
+            if (BlankPieceCollumn < (_CollumnCount - 1))
+            {
+                MovablePieces.Add(_BlankPiece + 1);
+            }
 
-            if (MovablePieces.Count == 0) return;
+            if (MovablePieces.Count == 0)
+            {
+                return;
+            }
 
             if (MovablePieces.Contains(ClickIndex))
             {
@@ -431,7 +470,10 @@ namespace e621_ReBot_v2.CustomControls
                 TempGraphics.SmoothingMode = SmoothingMode.AntiAlias;
                 TempGraphics.InterpolationMode = InterpolationMode.High;
                 TempGraphics.CompositingQuality = CompositingQuality.HighQuality;
-                if (Form_Loader._FormReference.CC_GameAnimations.Checked == false) TempGraphics.DrawImage(PuzzlePieces[PieceIndex].PieceImage, new Point(BlankPieceCollumn * _PieceWidth, BlankPieceRow * _PieceHeight));
+                if (Form_Loader._FormReference.CC_GameAnimations.Checked == false)
+                {
+                    TempGraphics.DrawImage(PuzzlePieces[PieceIndex].PieceImage, new Point(BlankPieceCollumn * _PieceWidth, BlankPieceRow * _PieceHeight));
+                } 
                 using (Brush TempBrush = new SolidBrush(Color.FromArgb(0, 45, 90)))
                 {
                     TempGraphics.FillRectangle(TempBrush, new Rectangle(new Point(ClickCollumn * _PieceWidth, ClickRow * _PieceHeight), new Size(_PieceWidth, _PieceHeight)));
@@ -441,7 +483,10 @@ namespace e621_ReBot_v2.CustomControls
             if (Form_Loader._FormReference.CC_GameAnimations.Checked)
             {
                 BackgroundImage.Dispose();
-                if (CleanBackground != null) CleanBackground.Dispose();
+                if (CleanBackground != null)
+                {
+                    CleanBackground.Dispose();
+                } 
                 CleanBackground = TempBitmap;
                 PizzleImage = PuzzlePieces[PieceIndex].PieceImage;
                 StartPoint = new Point(ClickCollumn * _PieceWidth , ClickRow * _PieceHeight);
@@ -502,7 +547,10 @@ namespace e621_ReBot_v2.CustomControls
         {
             for (int PieceIndex = 0; PieceIndex < PuzzlePieces.Count - 1; PieceIndex++)
             {
-                if (PuzzlePieces[PieceIndex].PieceIndex != PuzzlePieces[PieceIndex].BoardIndex) return;
+                if (PuzzlePieces[PieceIndex].PieceIndex != PuzzlePieces[PieceIndex].BoardIndex)
+                {
+                    return;
+                } 
             }
 
             Form_Loader._FormReference.GB_RestartGame.Enabled = false;

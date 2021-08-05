@@ -215,7 +215,10 @@ namespace e621_ReBot_v2.Modules.Grabber
             if (TextBody != null) TempDataRow["Grab_TextBody"] = TextBody;
             TempDataRow["Grab_MediaURL"] = MediaURL;
             string ThumbnailURLTemp = MediaURL.Replace("/upl0ads/imgs/", "/upl0ads/thumbnails/");
-            if (!ThumbnailURLTemp.Contains("/img/subscription")) ThumbnailURLTemp = ThumbnailURLTemp.Remove(ThumbnailURLTemp.Length - 4) + ".png";
+            if (!ThumbnailURLTemp.Contains("/img/subscription"))
+            {
+                ThumbnailURLTemp = ThumbnailURLTemp.Remove(ThumbnailURLTemp.Length - 4) + ".png";
+            } 
             TempDataRow["Grab_ThumbnailURL"] = ThumbnailURLTemp;
             TempDataRow["Info_MediaFormat"] = MediaURL.Substring(MediaURL.LastIndexOf(".") + 1);
             TempDataRow["Info_MediaByteLength"] = Module_Grabber.GetMediaSize(MediaURL);

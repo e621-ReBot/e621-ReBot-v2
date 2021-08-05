@@ -133,7 +133,7 @@ namespace e621_ReBot_v2.Modules
 
 
 
-        public static KeyValuePair<string, byte[]> UploadQueue_Ugoira2WebM(ref DataRow DataRowRef)
+        public static void UploadQueue_Ugoira2WebM(ref DataRow DataRowRef, out byte[] bytes2Send, out string FileName, out string ExtraSourceURL)
         {
             JToken UgoiraJObject = JObject.Parse(UgoiraJSONResponse((string)DataRowRef["Grab_URL"]))["body"];
 
@@ -151,8 +151,8 @@ namespace e621_ReBot_v2.Modules
             FileDownloader(UgoiraJObject["originalSrc"].Value<string>(), "U", "UgoiraTemp", null, DataRowRef, true);
 
             Module_Uploader.Report_Status("Converting Ugoira to WebM...");
-            string UgoiraFileName = UgoiraJObject["originalSrc"].Value<string>();
-            UgoiraFileName = UgoiraFileName.Remove(UgoiraFileName.Length - 4).Substring(UgoiraFileName.LastIndexOf("/") + 1);
+            ExtraSourceURL = UgoiraJObject["originalSrc"].Value<string>();
+            string UgoiraFileName = ExtraSourceURL.Remove(ExtraSourceURL.Length - 4).Substring(ExtraSourceURL.LastIndexOf("/") + 1);
             using (Process FFmpeg = new Process())
             {
                 Form_Loader._FormReference.UploadQueueProcess = FFmpeg;
@@ -181,15 +181,15 @@ namespace e621_ReBot_v2.Modules
                 FFmpeg.WaitForExit();
             }
             Form_Loader._FormReference.UploadQueueProcess = null;
-            byte[] ReadBytes = File.ReadAllBytes(string.Format(@"UgoiraTemp\{0}.webm", UgoiraFileName));
+            bytes2Send = File.ReadAllBytes(string.Format(@"UgoiraTemp\{0}.webm", UgoiraFileName));
+            FileName = UgoiraFileName + ".webm";
             Directory.Delete("UgoiraTemp", true);
-
-            return new KeyValuePair<string, byte[]>(UgoiraFileName + ".webm", ReadBytes);
         }
 
-        public static KeyValuePair<string, byte[]> UploadQueue_Videos2WebM(ref DataRow DataRowRef)
+        public static void UploadQueue_Videos2WebM(ref DataRow DataRowRef, out byte[] bytes2Send, out string FileName, out string ExtraSourceURL)
         {
             string WorkURL = (string)DataRowRef["Grab_MediaURL"];
+            ExtraSourceURL = WorkURL;
 
             Directory.CreateDirectory("VideoTemp").Attributes = FileAttributes.Hidden;
 
@@ -267,10 +267,9 @@ namespace e621_ReBot_v2.Modules
             }
             Form_Loader._FormReference.UploadQueueProcess = null;
             Module_Uploader.Report_Status("Converting Ugoira to WebM...100%");
-            byte[] ReadBytes = File.ReadAllBytes(string.Format(@"VideoTemp\{0}.webm", VideoFileName));
+            bytes2Send = File.ReadAllBytes(string.Format(@"VideoTemp\{0}.webm", VideoFileName));
+            FileName = VideoFileName + ".webm";
             Directory.Delete("VideoTemp", true);
-
-            return new KeyValuePair<string, byte[]>(VideoFileName + ".webm", ReadBytes);
         }
 
 
@@ -683,7 +682,10 @@ namespace e621_ReBot_v2.Modules
             string FolderPath = Path.GetDirectoryName(VideoPath);
             string NewFilePath = string.Format(@"{0}\{1}.webm", FolderPath, VideoFileName);
 
-            if (File.Exists(NewFilePath) && (MessageBox.Show("Converted video file already exists, do you want to continue regardless?", "e621 ReBot", MessageBoxButtons.YesNo, MessageBoxIcon.Information) != DialogResult.Yes)) return;
+            if (File.Exists(NewFilePath) && (MessageBox.Show("Converted video file already exists, do you want to continue regardless?", "e621 ReBot", MessageBoxButtons.YesNo, MessageBoxIcon.Information) != DialogResult.Yes))
+            {
+                return;
+            } 
 
             using (Process FFmpeg = new Process())
             {
@@ -705,7 +707,10 @@ namespace e621_ReBot_v2.Modules
                     }
                     FFmpeg.Start();
                     FFmpeg.WaitForExit();
-                    if (FFmpeg.ExitCode < 0) return; //canceled by user
+                    if (FFmpeg.ExitCode < 0)
+                    {
+                        return; //canceled by user
+                    }
                 }
             }
         }

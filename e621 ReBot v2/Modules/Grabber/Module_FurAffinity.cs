@@ -52,7 +52,10 @@ namespace e621_ReBot_v2.Modules.Grabber
             WebDoc.LoadHtml(HTMLSource);
 
             HtmlNodeCollection HtmlNodecollectionTemp = WebDoc.DocumentNode.SelectNodes(".//section[contains(@id, 'gallery')]/figure");
-            if (HtmlNodecollectionTemp.Count == 0) return;
+            if (HtmlNodecollectionTemp.Count == 0)
+            {
+                return;
+            }
 
             foreach (HtmlNode ChildNode in HtmlNodecollectionTemp)
             {

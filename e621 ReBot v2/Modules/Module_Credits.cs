@@ -79,7 +79,10 @@ namespace e621_ReBot_v2.Modules
             Form_Loader._FormReference.Invoke(new Action(() =>
             {
                 Form_Loader._FormReference.bU_RefreshCredit.Enabled = true;
-                if (Form_Loader._FormReference.cTreeView_RetryQueue.Nodes.Count > 0) Module_Retry.timer_Retry.Start(); //has to be created on main thread.
+                if (Form_Loader._FormReference.cTreeView_RetryQueue.Nodes.Count > 0)
+                {
+                    Module_Retry.timer_Retry.Start(); //has to be created on main thread.
+                } 
             }));
         }
 

@@ -165,8 +165,14 @@ namespace e621_ReBot_v2.Forms
                         string PoolName = PoolData_JSON["name"].Value<string>().Replace("_", " ");
                         PoolName = string.Join("", PoolName.Split(Path.GetInvalidFileNameChars()));
 
-                        Module_Downloader.AddDownloadQueueItem(null, "https://e621.net/posts/" + PoolPostID, CurrentPoolPosts_Sorted[PoolPostID]["file"]["url"].Value<string>(), null, null, null,
-                        PoolPostID, PoolName, CurrentPoolPosts_Sorted.Keys.ToList().IndexOf(PoolPostID).ToString());
+                        Module_Downloader.AddDownloadQueueItem(
+                            DataRowRef: null,
+                            URL: "https://e621.net/posts/" + PoolPostID,
+                            Media_URL: CurrentPoolPosts_Sorted[PoolPostID]["file"]["url"].Value<string>(),
+                            e6_PostID: PoolPostID,
+                            e6_PoolName: PoolName,
+                            e6_PoolPostIndex: CurrentPoolPosts_Sorted.Keys.ToList().IndexOf(PoolPostID).ToString()
+                            );
 
                         ItemsAddedCount += 1;
                     }

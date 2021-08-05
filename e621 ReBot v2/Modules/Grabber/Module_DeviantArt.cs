@@ -182,23 +182,32 @@ namespace e621_ReBot_v2.Modules.Grabber
                         string FixView = JSONHolder["media"]["types"].Last["c"].Value<string>().Replace("<prettyName>", JSONHolder["media"]["prettyName"].Value<string>());
                         FixView = string.Format("{0}100{1}", FixView.Substring(0, FixView.IndexOf(",q_") + 3), FixView.Substring(FixView.IndexOf(",strp/")));
                         Post_MediaURL = string.Format("{0}/{1}", JSONHolder["media"]["baseUri"].Value<string>(), FixView);
-                        if (TokenTest != null) Post_MediaURL += string.Format("?token={0}", TokenTest);
+                        if (TokenTest != null)
+                        {
+                            Post_MediaURL += string.Format("?token={0}", TokenTest);
+                        }
                     }
                     else
                     {
                         Post_MediaURL = JSONHolder["media"]["baseUri"].Value<string>();
-                        if (TokenTest != null) Post_MediaURL += string.Format("?token={0}", TokenTest);
+                        if (TokenTest != null)
+                        {
+                            Post_MediaURL += string.Format("?token={0}", TokenTest);
+                        }
                     }
                     if (JSONHolder["media"]["types"][2]["c"] != null)
                     {
                         Post_Thumb = string.Format("{0}/{1}", JSONHolder["media"]["baseUri"].Value<string>(), JSONHolder["media"]["types"][2]["c"].Value<string>().Replace("<prettyName>", JSONHolder["media"]["prettyName"].Value<string>()));
-                        if (TokenTest != null) Post_Thumb += string.Format("?token={0}", TokenTest);
+                        if (TokenTest != null)
+                        {
+                            Post_Thumb += string.Format("?token={0}", TokenTest);
+                        } 
                     }
                     else
                     {
                         Post_Thumb = Post_MediaURL; //gifs https://www.deviantart.com/leokatana/art/Commission-Varali-100x100-animated-pixel-doll-878961662
                     }
-                   
+
                     if (JSONHolder["extended"] != null && JSONHolder["extended"]["originalFile"] != null)
                     {
                         ImageSizes = new int[3];
@@ -228,11 +237,13 @@ namespace e621_ReBot_v2.Modules.Grabber
                     Post_MediaURL = PostNode.SelectSingleNode(".//div[@data-hook='art_stage']//img").Attributes["src"].Value.Replace(",q_75,strp/", ",q_100,strp/"); ;
                     Post_Thumb = Post_MediaURL;
                     HtmlNode DLButton = PostNode.SelectSingleNode(".//section[@data-hook='action_bar']//a[@data-hook='download_button']");
-                    if (DLButton != null) Post_MediaURL = HttpUtility.HtmlDecode(DLButton.Attributes["href"].Value);
-
+                    if (DLButton != null)
+                    {
+                        Post_MediaURL = HttpUtility.HtmlDecode(DLButton.Attributes["href"].Value);
+                    } 
 
                     //https://www.deviantart.com/rkasai14/art/Isekai-Maou-to-Shoukan-Shoujo-no-Dorei-Majutsu-18-877266841 has zip file
-                    HtmlNode ImageSizeNodeParent = PostNode.SelectSingleNode(".//div[@data-hook='deviation_meta']").ParentNode;
+                    //HtmlNode ImageSizeNodeParent = PostNode.SelectSingleNode(".//div[@data-hook='deviation_meta']").ParentNode;
                     //ImageSizes = ImageSizeNodeParent.ChildNodes[ImageSizeNodeParent.ChildNodes.Count - 3].LastChild.InnerText.Trim().Replace("Image detailsImage size", ""); //-3 is actually -2 since index starts at 0
                 }
                 if (Module_Grabber._Grabbed_MediaURLs.Contains(Post_MediaURL))
@@ -278,7 +289,10 @@ namespace e621_ReBot_v2.Modules.Grabber
             TempDataRow["Grab_URL"] = URL;
             TempDataRow["Grab_DateTime"] = DateTime;
             TempDataRow["Grab_Title"] = WebUtility.HtmlDecode(string.Format("⮚ \"{0}\" ⮘ by {1} on DeviantArt", Title, Artist)); ;
-            if (TextBody != null) TempDataRow["Grab_TextBody"] = TextBody;
+            if (TextBody != null)
+            {
+                TempDataRow["Grab_TextBody"] = TextBody;
+            } 
             TempDataRow["Grab_MediaURL"] = MediaURL;
             TempDataRow["Grab_ThumbnailURL"] = ThumbURL;
             string FormatFinder = MediaURL.Split(new string[] { "?token=" }, StringSplitOptions.RemoveEmptyEntries)[0];

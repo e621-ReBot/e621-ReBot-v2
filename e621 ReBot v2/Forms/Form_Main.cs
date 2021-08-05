@@ -298,7 +298,10 @@ namespace e621_ReBot_v2
 
                 Module_UpdaterUpdater.UpdateTheUpdater();
 
-                if (Properties.Settings.Default.AutocompleteTags && DownloadWhat != null) MessageBox.Show("You should download " + DownloadWhat + " data if you intend to use the autocomplete feature.\n\nYou can do so by going to the settings tab and clicking the button for it.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (Properties.Settings.Default.AutocompleteTags && DownloadWhat != null)
+                {
+                    MessageBox.Show("You should download " + DownloadWhat + " data if you intend to use the autocomplete feature.\n\nYou can do so by going to the settings tab and clicking the button for it.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
 
                 if (Properties.Settings.Default.FirstRun)
                 {
@@ -491,13 +494,19 @@ namespace e621_ReBot_v2
                 {
                     case Keys.Left:
                         {
-                            if (GB_Left.Visible) GB_Left_Click(null, null);
+                            if (GB_Left.Visible)
+                            {
+                                GB_Left_Click(null, null);
+                            } 
                             break;
                         }
 
                     case Keys.Right:
                         {
-                            if (GB_Right.Visible) GB_Right_Click(null, null);
+                            if (GB_Right.Visible)
+                            {
+                                GB_Right_Click(null, null);
+                            } 
                             break;
                         }
                 }
@@ -561,7 +570,10 @@ namespace e621_ReBot_v2
                                     _Selected_e6GridItem = null;
                                     flowLayoutPanel_Grid.ResumeLayout();
                                     Paginator();
-                                    if (Form_Preview._FormReference != null) Form_Preview._FormReference.Close();
+                                    if (Form_Preview._FormReference != null)
+                                    {
+                                        Form_Preview._FormReference.Close();
+                                    } 
                                 }
                                 break;
                             }
@@ -1012,7 +1024,10 @@ namespace e621_ReBot_v2
                 flowLayoutPanel_Grid.ResumeLayout();
                 UIDrawController.ResumeDrawing(flowLayoutPanel_Grid);
             }
-            if (Form_Preview._FormReference != null) Form_Preview._FormReference.UpdateNavButtons();
+            if (Form_Preview._FormReference != null)
+            {
+                Form_Preview._FormReference.UpdateNavButtons();
+            } 
         }
 
         public void Paginator()
@@ -1250,8 +1265,14 @@ namespace e621_ReBot_v2
             }
             else
             {
-                if (Form_Tagger._FormReference != null) Form_Tagger._FormReference.Close();
-                if (Form_Preview._FormReference != null) Form_Preview._FormReference.Close();
+                if (Form_Tagger._FormReference != null)
+                {
+                    Form_Tagger._FormReference.Close();
+                }
+                if (Form_Preview._FormReference != null)
+                {
+                    Form_Preview._FormReference.Close();
+                }
 
                 if (ModifierKeys.HasFlag(Keys.Control))
                 {
@@ -1259,7 +1280,10 @@ namespace e621_ReBot_v2
                     {
                         for (int i = Module_TableHolder.Database_Table.Select().Length - 1; i >= 0; i--)
                         {
-                            if (Module_TableHolder.Database_Table.Rows[i]["Uploaded_As"] != DBNull.Value) Module_TableHolder.Database_Table.Rows.RemoveAt(i);
+                            if (Module_TableHolder.Database_Table.Rows[i]["Uploaded_As"] != DBNull.Value)
+                            {
+                                Module_TableHolder.Database_Table.Rows.RemoveAt(i);
+                            } 
                         }
                     }
 
@@ -1277,7 +1301,10 @@ namespace e621_ReBot_v2
                         {
                             Module_TableHolder.Database_Table.Clear();
                         }
-                        if (Form_Menu._FormReference != null) Form_Menu._FormReference.MB_Grid.Visible = false;
+                        if (Form_Menu._FormReference != null)
+                        {
+                            Form_Menu._FormReference.MB_Grid.Visible = false;
+                        } 
                     }
                     else
                     {
@@ -1307,7 +1334,10 @@ namespace e621_ReBot_v2
                     ClearGrid();
                     GridIndexTracker = 0;
                     Module_TableHolder.Database_Table.Clear();
-                    if (Form_Menu._FormReference != null) Form_Menu._FormReference.MB_Grid.Visible = false;
+                    if (Form_Menu._FormReference != null)
+                    {
+                        Form_Menu._FormReference.MB_Grid.Visible = false;
+                    } 
                     GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
                     GC.Collect();
                 }
@@ -1330,8 +1360,19 @@ namespace e621_ReBot_v2
                         }
                         else
                         {
-                            if (e6_GridItemTemp._DataRowReference["Grab_ThumbnailURL"] == DBNull.Value) e6_GridItemTemp._DataRowReference["Grab_ThumbnailURL"] = ""; //Weasyl fix
-                            Module_Downloader.AddDownloadQueueItem(e6_GridItemTemp._DataRowReference, (string)e6_GridItemTemp._DataRowReference["Grab_URL"], (string)e6_GridItemTemp._DataRowReference["Grab_MediaURL"], (string)e6_GridItemTemp._DataRowReference["Grab_ThumbnailURL"], (string)e6_GridItemTemp._DataRowReference["Artist"], (string)e6_GridItemTemp._DataRowReference["Grab_Title"]);
+                            //Weasyl fix
+                            if (e6_GridItemTemp._DataRowReference["Grab_ThumbnailURL"] == DBNull.Value)
+                            {
+                                e6_GridItemTemp._DataRowReference["Grab_ThumbnailURL"] = "";
+                            } 
+                            Module_Downloader.AddDownloadQueueItem(
+                                DataRowRef: e6_GridItemTemp._DataRowReference,
+                                URL: (string)e6_GridItemTemp._DataRowReference["Grab_URL"],
+                                Media_URL: (string)e6_GridItemTemp._DataRowReference["Grab_MediaURL"],
+                                Thumbnail_URL: (string)e6_GridItemTemp._DataRowReference["Grab_ThumbnailURL"],
+                                Artist: (string)e6_GridItemTemp._DataRowReference["Artist"],
+                                Grab_Title: (string)e6_GridItemTemp._DataRowReference["Grab_Title"]
+                                );
                         }
                     }
                 }
@@ -1348,8 +1389,19 @@ namespace e621_ReBot_v2
                         }
                         else
                         {
-                            if (DataRowTemp["Grab_ThumbnailURL"] == DBNull.Value) DataRowTemp["Grab_ThumbnailURL"] = ""; //Weasyl fix
-                            Module_Downloader.AddDownloadQueueItem(DataRowTemp, (string)DataRowTemp["Grab_URL"], (string)DataRowTemp["Grab_MediaURL"], (string)DataRowTemp["Grab_ThumbnailURL"], (string)DataRowTemp["Artist"], (string)DataRowTemp["Grab_Title"]);
+                            //Weasyl fix
+                            if (DataRowTemp["Grab_ThumbnailURL"] == DBNull.Value)
+                            {
+                                DataRowTemp["Grab_ThumbnailURL"] = "";
+                            } 
+                            Module_Downloader.AddDownloadQueueItem(
+                                DataRowRef: DataRowTemp,
+                                URL: (string)DataRowTemp["Grab_URL"],
+                                Media_URL: (string)DataRowTemp["Grab_MediaURL"],
+                                Thumbnail_URL: (string)DataRowTemp["Grab_ThumbnailURL"],
+                                Artist: (string)DataRowTemp["Artist"],
+                                Grab_Title: (string)DataRowTemp["Grab_Title"]
+                                );
                         }
                     }
                 }
@@ -2262,7 +2314,10 @@ namespace e621_ReBot_v2
                 DateTime DateTimeTempUTC = DateTime.UtcNow;
                 HttpWebRequest UpdateDownloader = (HttpWebRequest)WebRequest.Create(string.Format("https://e621.net/db_export/tags-{0}-{1}-{2}.csv.gz", DateTimeTempUTC.Year, DateTimeTempUTC.ToString("MM"), DateTimeTempUTC.ToString("dd")));
             RetryDate:
-                if (RetryCount == 3) return;
+                if (RetryCount == 3)
+                {
+                    return;
+                } 
                 try
                 {
                     using (HttpWebResponse UpdateDownloaderReponse = (HttpWebResponse)UpdateDownloader.GetResponse())
@@ -2375,7 +2430,10 @@ namespace e621_ReBot_v2
                 DateTime DateTimeTempUTC = DateTime.UtcNow;
                 HttpWebRequest UpdateDownloader = (HttpWebRequest)WebRequest.Create(string.Format("https://e621.net/db_export/pools-{0}-{1}-{2}.csv.gz", DateTimeTempUTC.Year, DateTimeTempUTC.ToString("MM"), DateTimeTempUTC.ToString("dd")));
             RetryDate:
-                if (RetryCount == 3) return;
+                if (RetryCount == 3)
+                {
+                    return;
+                }
                 try
                 {
                     using (HttpWebResponse UpdateDownloaderReponse = (HttpWebResponse)UpdateDownloader.GetResponse())
@@ -2487,7 +2545,10 @@ namespace e621_ReBot_v2
 
         private void TextBox_Delay_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Back) return;
+            if (e.KeyChar == (char)Keys.Back)
+            {
+                return;
+            }
 
             // Don't allow anything that isn't a number
             if (!char.IsDigit(e.KeyChar))
@@ -2508,8 +2569,14 @@ namespace e621_ReBot_v2
         private void TextBox_DelayGrabber_Leave(object sender, EventArgs e)
         {
             int TBValue;
-            if (!int.TryParse(textBox_DelayGrabber.Text, out TBValue)) TBValue = 0;
-            if (TBValue < 250) TBValue = 250;
+            if (!int.TryParse(textBox_DelayGrabber.Text, out TBValue))
+            {
+                TBValue = 0;
+            }
+            if (TBValue < 250)
+            {
+                TBValue = 250;
+            } 
             textBox_DelayGrabber.Text = TBValue.ToString();
             Properties.Settings.Default.DelayGrabber = TBValue;
             Properties.Settings.Default.Save();
@@ -2517,14 +2584,23 @@ namespace e621_ReBot_v2
             bool RestartTimeCheck = Module_Grabber.timer_Grab.Enabled;
             Module_Grabber.timer_Grab.Stop();
             Module_Grabber.timer_Grab.Interval = TBValue;
-            if (RestartTimeCheck) Module_Grabber.timer_Grab.Start();
+            if (RestartTimeCheck)
+            {
+                Module_Grabber.timer_Grab.Start();
+            } 
         }
 
         private void TextBox_DelayUploader_Leave(object sender, EventArgs e)
         {
             int TBValue;
-            if (!int.TryParse(textBox_DelayUploader.Text, out TBValue)) TBValue = 0;
-            if (TBValue < 1000) TBValue = 1000;
+            if (!int.TryParse(textBox_DelayUploader.Text, out TBValue))
+            {
+                TBValue = 0;
+            }
+            if (TBValue < 1000)
+            {
+                TBValue = 1000;
+            }
             textBox_DelayUploader.Text = TBValue.ToString();
             Properties.Settings.Default.DelayUploader = TBValue;
             Properties.Settings.Default.Save();
@@ -2532,14 +2608,23 @@ namespace e621_ReBot_v2
             bool RestartTimeCheck = Module_Uploader.timer_Upload.Enabled;
             Module_Uploader.timer_Upload.Stop();
             Module_Uploader.timer_Upload.Interval = TBValue;
-            if (RestartTimeCheck) Module_Uploader.timer_Upload.Start();
+            if (RestartTimeCheck)
+            {
+                Module_Uploader.timer_Upload.Start();
+            } 
         }
 
         private void TextBox_DelayDownload_Leave(object sender, EventArgs e)
         {
             int TBValue;
-            if (!int.TryParse(textBox_DelayDownload.Text, out TBValue)) TBValue = 0;
-            if (TBValue < 250) TBValue = 250;
+            if (!int.TryParse(textBox_DelayDownload.Text, out TBValue))
+            {
+                TBValue = 0;
+            }
+            if (TBValue < 250)
+            {
+                TBValue = 250;
+            } 
             textBox_DelayDownload.Text = TBValue.ToString();
             Properties.Settings.Default.DelayDownload = TBValue;
             Properties.Settings.Default.Save();
@@ -2547,7 +2632,10 @@ namespace e621_ReBot_v2
             bool RestartTimeCheck = Module_Downloader.timer_Download.Enabled;
             Module_Downloader.timer_Download.Stop();
             Module_Downloader.timer_Download.Interval = TBValue;
-            if (RestartTimeCheck) Module_Downloader.timer_Download.Start();
+            if (RestartTimeCheck)
+            {
+                Module_Downloader.timer_Download.Start();
+            }
         }
 
         private void Label_DragDropConvert_Paint(object sender, PaintEventArgs e)
@@ -2567,7 +2655,10 @@ namespace e621_ReBot_v2
             string[] DropList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
             foreach (string FilePath in DropList)
             {
-                if (FilePath.ToLower().EndsWith(".mp4") || FilePath.ToLower().EndsWith(".swf")) fileList.Add(FilePath);
+                if (FilePath.ToLower().EndsWith(".mp4") || FilePath.ToLower().EndsWith(".swf"))
+                {
+                    fileList.Add(FilePath);
+                }
             }
 
             switch (fileList.Count)
@@ -2606,7 +2697,10 @@ namespace e621_ReBot_v2
                 Thread.Sleep(500);
                 foreach (JToken GenderAlias in GenderJArray)
                 {
-                    if (GenderAlias["status"].Value<string>().Equals("active")) GenderStringList.Add(GenderAlias["antecedent_name"].Value<string>());
+                    if (GenderAlias["status"].Value<string>().Equals("active"))
+                    {
+                        GenderStringList.Add(GenderAlias["antecedent_name"].Value<string>());
+                    } 
                 }
 
                 //add all tags that implicate this tag
@@ -2628,7 +2722,10 @@ namespace e621_ReBot_v2
                             JArray SubGenderJArray = JArray.Parse(GenderSubAliasString);
                             foreach (JToken SubGenderAlias in SubGenderJArray)
                             {
-                                if (SubGenderAlias["status"].Value<string>().Equals("active")) GenderStringList.Add(SubGenderAlias["antecedent_name"].Value<string>());
+                                if (SubGenderAlias["status"].Value<string>().Equals("active"))
+                                {
+                                    GenderStringList.Add(SubGenderAlias["antecedent_name"].Value<string>());
+                                }
                             }
 
                             //add all tags that implicate this tag
@@ -2651,7 +2748,10 @@ namespace e621_ReBot_v2
                                             JArray Sub2GenderJArray = JArray.Parse(GenderSub2AliasString);
                                             foreach (JToken Sub2GenderAlias in Sub2GenderJArray)
                                             {
-                                                if (Sub2GenderAlias["status"].Value<string>().Equals("active")) GenderStringList.Add(Sub2GenderAlias["antecedent_name"].Value<string>());
+                                                if (Sub2GenderAlias["status"].Value<string>().Equals("active"))
+                                                {
+                                                    GenderStringList.Add(Sub2GenderAlias["antecedent_name"].Value<string>());
+                                                }
                                             }
                                         }
                                     }
@@ -2707,7 +2807,10 @@ namespace e621_ReBot_v2
                                     JArray SubDNPJArray = JArray.Parse(DNPSubAliasString);
                                     foreach (JToken SubDNPAlias in SubDNPJArray)
                                     {
-                                        if (SubDNPAlias["status"].Value<string>().Equals("active")) DNPStringList.Add(SubDNPAlias["antecedent_name"].Value<string>());
+                                        if (SubDNPAlias["status"].Value<string>().Equals("active"))
+                                        {
+                                            DNPStringList.Add(SubDNPAlias["antecedent_name"].Value<string>());
+                                        } 
                                     }
                                 }
                             }
@@ -2785,12 +2888,13 @@ namespace e621_ReBot_v2
                 panel_Browser.Visible = true;
                 Form_Loader._FormReference.BringToFront();
                 Form_Loader._FormReference.cTabControl_e621ReBot.SelectedIndex = 0;
-                if (!Module_CefSharp.CefSharpBrowser.Address.Equals(e6Post)) Module_CefSharp.CefSharpBrowser.Load(e6Post);
+                if (!Module_CefSharp.CefSharpBrowser.Address.Equals(e6Post))
+                {
+                    Module_CefSharp.CefSharpBrowser.Load(e6Post);
+                }
             }
         }
 
         #endregion
-
-
     }
 }

@@ -32,7 +32,10 @@ namespace e621_ReBot_v2
 
         protected override void WndProc(ref Message m)
         {
-            if (m.Msg == NativeMethods.WM_SHOWME) ShowMe();
+            if (m.Msg == NativeMethods.WM_SHOWME)
+            {
+                ShowMe();
+            } 
             base.WndProc(ref m);
         }
         private void ShowMe()

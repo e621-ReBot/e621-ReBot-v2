@@ -240,7 +240,10 @@ namespace e621_ReBot_v2.Forms
             string PostTest = Module_e621Info.e621InfoDownload(string.Format("https://e621.net/posts/{0}.json", PostID), true);
             if (PostTest == null || PostTest.Length < 10)
             {
-                if (_FormReference != null) _FormReference.ID_TextBox.Text = null;
+                if (_FormReference != null)
+                {
+                    _FormReference.ID_TextBox.Text = null;
+                } 
                 MessageBox.Show(string.Format("Post with ID#{0} does not exist.", PostID), "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }

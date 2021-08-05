@@ -410,7 +410,10 @@ namespace e621_ReBot_v2.Modules
             {
                 foreach (string InferiorSource in (List<string>)DataRowRef["Inferior_Sources"])
                 {
-                    if (!Upload_Sources.Contains(InferiorSource)) Upload_Sources += "%0A" + InferiorSource;
+                    if (!Upload_Sources.Contains(InferiorSource))
+                    {
+                        Upload_Sources += "%0A" + InferiorSource;
+                    }
                 }
             }
 
@@ -481,17 +484,18 @@ namespace e621_ReBot_v2.Modules
                 }
                 else
                 {
-                    KeyValuePair<string, byte[]> FileData;
+                    string FileName;
+                    string ExtraSourceURL;
                     if (Upload_MediaURL.Contains("ugoira"))
                     {
-                        FileData = Module_FFmpeg.UploadQueue_Ugoira2WebM(ref DataRowRef);
+                         Module_FFmpeg.UploadQueue_Ugoira2WebM(ref DataRowRef, out bytes2Send, out FileName, out ExtraSourceURL);
                     }
                     else // videos (.mp4, .swf)
                     {
-                        FileData = Module_FFmpeg.UploadQueue_Videos2WebM(ref DataRowRef);
+                         Module_FFmpeg.UploadQueue_Videos2WebM(ref DataRowRef, out bytes2Send, out FileName, out ExtraSourceURL);
                     }
-                    bytes2Send = FileData.Value;
-                    POST_Dictionary["upload[file]"] = FileData.Key;
+                    POST_Dictionary["upload[file]"] = FileName;
+                    Upload_Sources = ExtraSourceURL + "%0A" + Upload_Sources;
                 }
             }
 
