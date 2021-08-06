@@ -1,6 +1,7 @@
 ﻿using e621_ReBot_v2.Modules.Grabber;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace CefSharp
@@ -15,24 +16,29 @@ namespace CefSharp
 
         protected override void OnResourceLoadComplete(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IResponse response, UrlRequestStatus status, long receivedContentLength)
         {
-            if (request.Url.Contains("https://twitter.com/i/api/2/timeline/") && response.MimeType.Equals("application/json"))
+            if (request.Url.Contains("https://twitter.com/i/api/graphql/") && (request.Url.Contains("/UserTweets?variables=") || request.Url.Contains("/UserMedia?variables=")) && response.MimeType.Equals("application/json"))
             {
                 byte[] byteHolder = memoryStreamHolder.ToArray();
                 string Data2String = Encoding.UTF8.GetString(byteHolder);
                 if (Data2String.Length > 64)
                 {
-                    JObject TempJHolder = JObject.Parse(Data2String);
+                    JObject JObjectTemp = JObject.Parse(Data2String);
 
-                    if (TempJHolder["globalObjects"]["tweets"] != null && Module_Twitter.TwitterJSONHolder != null)
+                    var TweetsTest = JObjectTemp.SelectTokens("data.user.result.timeline.timeline.instructions.[0].entries.[*].content.itemContent.tweet_results.result");
+                    if (TweetsTest != null)
                     {
-                        Module_Twitter.TwitterJSONHolder.Merge(TempJHolder["globalObjects"]["tweets"], new JsonMergeSettings
+                        JArray TweetHolder = new JArray(TweetsTest);
+                        if (Module_Twitter.TwitterJSONHolder != null)
                         {
-                            MergeArrayHandling = MergeArrayHandling.Union
-                        });
-                    }
-                    else
-                    {
-                        Module_Twitter.TwitterJSONHolder = TempJHolder;
+                            Module_Twitter.TwitterJSONHolder.Merge(TweetHolder, new JsonMergeSettings
+                            {
+                                MergeArrayHandling = MergeArrayHandling.Union
+                            });
+                        }
+                        else
+                        {
+                            Module_Twitter.TwitterJSONHolder = TweetHolder;
+                        }
                     }
                 } 
             }
