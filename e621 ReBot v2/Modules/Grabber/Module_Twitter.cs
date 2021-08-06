@@ -4,10 +4,12 @@ using System.ComponentModel;
 using System.Data;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Windows.Forms;
 using HtmlAgilityPack;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
@@ -53,7 +55,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                 {
                     TweetNode = WebDoc.DocumentNode.SelectSingleNode(".//span[.='·']/ancestor::article");
                 }
-                
+
                 if (TweetNode.InnerHtml.Contains("This Tweet is unavailable."))
                 {
                     Module_Grabber.Report_Info(string.Format("Skipped grabbing - Tweet deleted [@{0}]", WebAdress));
@@ -174,7 +176,7 @@ namespace e621_ReBot_v2.Modules.Grabber
             if (FullName.Contains(TestTextNode.InnerText))
             {
                 TestTextNode = TestTextNodes[2];
-            } 
+            }
 
             string Post_Text = TestTextNode.InnerText;
             if (Post_Text != null)
@@ -187,6 +189,14 @@ namespace e621_ReBot_v2.Modules.Grabber
             HtmlNodeCollection ImageNodes = PostNode.SelectNodes(".//img[@alt='Image']");
             if (ImageNodes != null)
             {
+                //twitter carousel displayes them strangely when there's 4. 1-3-2-4 (as html order).
+                if (ImageNodes.Count == 4)
+                {
+                    HtmlNode HtmlNodeTemp = ImageNodes[1];
+                    ImageNodes[1] = ImageNodes[2];
+                    ImageNodes[2] = HtmlNodeTemp;
+                }
+
                 foreach (HtmlNode ImageNode in ImageNodes)
                 {
                     string PictureLinkHolder = ImageNode.Attributes["src"].Value;
@@ -225,7 +235,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                     if (VideoURL.Contains("?"))
                     {
                         VideoURL = VideoURL.Substring(0, VideoURL.IndexOf("?"));
-                    } 
+                    }
 
                     if (Module_Grabber._Grabbed_MediaURLs.Contains(VideoURL))
                     {
@@ -307,12 +317,15 @@ namespace e621_ReBot_v2.Modules.Grabber
 
             string Post_MediaURL;
             int SkipCounter = 0;
-            if (TwitterJSONHolder != null && TwitterJSONHolder[TweetID] != null)
+            JToken TweetHolder = TwitterJSONHolder.Children().Where(JT => (string)JT["rest_id"] == TweetID).FirstOrDefault();
+            if (TwitterJSONHolder != null && TweetHolder != null)
             {
-                Post_Time = DateTime.ParseExact(TwitterJSONHolder[TweetID]["created_at"].Value<string>(), "ddd MMM dd HH:mm:ss K yyyy", null);
+                TweetHolder = TweetHolder["legacy"];
+
+                Post_Time = DateTime.ParseExact(TweetHolder["created_at"].Value<string>(), "ddd MMM dd HH:mm:ss K yyyy", null);
                 //Post_Text = TwitterJSONSteal[TweetID]["full_text"].Value<string>();
 
-                JToken MediaHolder = TwitterJSONHolder[TweetID]["extended_entities"];
+                JToken MediaHolder = TweetHolder["extended_entities"];
                 if (MediaHolder != null)
                 {
                     MediaHolder = MediaHolder["media"];
@@ -353,7 +366,7 @@ namespace e621_ReBot_v2.Modules.Grabber
 
                                 }
                             }
-                            Post_MediaURL = BestVideo["url"].Value<string>().Replace("?tag=10","");
+                            Post_MediaURL = BestVideo["url"].Value<string>().Replace("?tag=10", "");
                         }
 
                         DataRow TempDataRow = TempDataTable.NewRow();
@@ -374,6 +387,14 @@ namespace e621_ReBot_v2.Modules.Grabber
                 HtmlNodeCollection ImageNodes = PostNode.SelectNodes(".//img[@alt='Image']");
                 if (ImageNodes != null)
                 {
+                    //twitter carousel displayes them strangely when there's 4. 1-3-2-4 (as html order).
+                    if (ImageNodes.Count == 4)
+                    {
+                        HtmlNode HtmlNodeTemp = ImageNodes[1];
+                        ImageNodes[1] = ImageNodes[2];
+                        ImageNodes[2] = HtmlNodeTemp;
+                    }
+
                     foreach (HtmlNode ImageNode in ImageNodes)
                     {
                         string PictureLinkHolder = ImageNode.Attributes["src"].Value;
@@ -475,7 +496,7 @@ namespace e621_ReBot_v2.Modules.Grabber
             {
                 TempDataRow["Grab_TextBody"] = TextBody;
             }
-            TempDataRow["Grab_MediaURL"] = MediaURL + (MediaURL.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) ?  null : ":orig");
+            TempDataRow["Grab_MediaURL"] = MediaURL + (MediaURL.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) ? null : ":orig");
             TempDataRow["Grab_ThumbnailURL"] = ThumbURL + ":small";
             TempDataRow["Info_MediaFormat"] = MediaURL.Substring(MediaURL.LastIndexOf(".") + 1);
             TempDataRow["Info_MediaByteLength"] = Module_Grabber.GetMediaSize((string)TempDataRow["Grab_MediaURL"]);
@@ -531,6 +552,6 @@ namespace e621_ReBot_v2.Modules.Grabber
             return new KeyValuePair<string, string>(BestVideo["url"].Value<string>(), ParseStatusJson["extended_entities"]["media"][0]["media_url_https"].Value<string>());
         }
 
-        public static JObject TwitterJSONHolder;
+        public static JArray TwitterJSONHolder;
     }
 }

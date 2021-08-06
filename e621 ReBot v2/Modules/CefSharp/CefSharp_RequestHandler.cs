@@ -51,7 +51,7 @@ namespace CefSharp
         protected override IResourceRequestHandler GetResourceRequestHandler(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool isNavigation, bool isDownload, string requestInitiator, ref bool disableDefaultHandling)
         {
             // To allow the resource load to proceed with default handling return null. To specify a handler for the resource return a IResourceRequestHandler object. If this callback returns null the same method will be called on the associated IRequestContextHandler, if any
-            if (chromiumWebBrowser.Address.Contains("https://twitter.com") && request.Url.StartsWith("https://twitter.com/i/api/2/timeline/", StringComparison.OrdinalIgnoreCase) && request.Headers["authorization"] != null)
+            if (chromiumWebBrowser.Address.Contains("https://twitter.com") && request.Url.StartsWith("https://twitter.com/i/api/graphql/", StringComparison.OrdinalIgnoreCase) && request.Headers["authorization"] != null)
             {
                 Module_Twitter.TwitterAuthorizationBearer = request.Headers["authorization"];
                 return new CefSharp_ResourceRequestHandler();
