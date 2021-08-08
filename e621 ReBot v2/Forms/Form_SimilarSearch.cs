@@ -120,6 +120,11 @@ namespace e621_ReBot_v2.Forms
                 }
                 else
                 {
+                    if (((string)Form_Preview._FormReference.Preview_RowHolder["Grab_MediaURL"]).Contains("https://img.pawoo.net/media_attachments/"))
+                    {
+                        MessageBox.Show("e621 doesn't have Pawoo whitelisted yet.", "e621 ReBot");
+                        Close();
+                    }
                     TempBGW.DoWork += CheckIQDBQImages;
                 }
                 TempBGW.RunWorkerCompleted += BGWorkDone;

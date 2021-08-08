@@ -34,103 +34,6 @@ namespace e621_ReBot_v2.Modules
             }
         }
 
-        private static void FileDownloader(string DownloadURL, string ActionType, string TempFolder, string DownloadFolder, DataRow DataRowRef = null, bool isUgoira = false, Custom_ProgressBar RoundProgressBarRef = null)
-        {
-            if (ActionType.Equals("C") && Form_Preview._FormReference != null)
-            {
-                Label DLLabel = Form_Preview._FormReference.Label_Download;
-                DLLabel.BeginInvoke(new Action(() =>
-                {
-                    DLLabel.Text = "0%";
-                    DLLabel.Visible = true;
-                }));
-            }
-
-            HttpWebRequest FileDownloader = (HttpWebRequest)WebRequest.Create(DownloadURL);
-            if (isUgoira)
-            {
-                FileDownloader.Referer = "https://www.pixiv.net/";
-            }
-            FileDownloader.Timeout = 5000;
-            using (MemoryStream DownloadedBytes = new MemoryStream())
-            {
-                using (WebResponse UgoiraDownloaderReponse = FileDownloader.GetResponse())
-                {
-                    using (var DownloadStream = UgoiraDownloaderReponse.GetResponseStream())
-                    {
-                        byte[] DownloadBuffer = new byte[65536]; // 64 kB buffer
-                        while (DownloadedBytes.Length < UgoiraDownloaderReponse.ContentLength)
-                        {
-                            int DownloadStreamPartLength = DownloadStream.Read(DownloadBuffer, 0, DownloadBuffer.Length);
-                            if (DownloadStreamPartLength > 0)
-                            {
-                                DownloadedBytes.Write(DownloadBuffer, 0, DownloadStreamPartLength);
-                                double ReportPercentage = DownloadedBytes.Length / (double)UgoiraDownloaderReponse.ContentLength;
-
-                                switch (ActionType)
-                                {
-                                    case "U":
-                                        {
-                                            Module_Uploader.Report_Status(string.Format("Downloading {0}...{1}", isUgoira ? "Ugoira" : "Video", ReportPercentage.ToString("P0")));
-                                            break;
-                                        }
-                                    case "C":
-                                        {
-                                            string ReportType = isUgoira ? "CDU" : "CDV";
-                                            ReportConversionProgress(ReportType, ReportPercentage, ref DataRowRef);
-                                            break;
-                                        }
-
-                                    default: //case "D":
-                                        {
-                                            RoundProgressBarRef.BeginInvoke(new Action(() => { RoundProgressBarRef.Value = (int)(ReportPercentage * 100); }));
-                                            break;
-                                        }
-                                }
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-                    }
-                }
-
-                string FileName = Module_Downloader.GetMediasFileNameOnly(DownloadURL);
-                if (isUgoira)
-                {
-                    using (ZipArchive UgoiraZip = new ZipArchive(DownloadedBytes))
-                    {
-                        UgoiraZip.ExtractToDirectory(TempFolder);
-                        if (DownloadFolder != null && Properties.Settings.Default.Converter_KeepOriginal)
-                        {
-                            Directory.CreateDirectory(DownloadFolder);
-                            DownloadedBytes.Seek(0, SeekOrigin.Begin);
-                            using (FileStream TempFileStream = new FileStream(string.Format(@"{0}\{1}", DownloadFolder, FileName), FileMode.Create))
-                            {
-                                DownloadedBytes.WriteTo(TempFileStream);
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    using (FileStream TempFileStream = new FileStream(string.Format(@"{0}\{1}", TempFolder, FileName), FileMode.Create))
-                    {
-                        DownloadedBytes.WriteTo(TempFileStream);        
-                    }
-                    if (DownloadFolder != null && Properties.Settings.Default.Converter_KeepOriginal)
-                    {
-                        Directory.CreateDirectory(DownloadFolder);
-                        File.Copy(string.Format(@"{0}\{1}", TempFolder, FileName), string.Format(@"{0}\{1}", DownloadFolder, FileName), false);
-                    }
-                }
-                DownloadedBytes.Dispose();
-            }
-        }
-
-
-
 
 
         public static void UploadQueue_Ugoira2WebM(ref DataRow DataRowRef, out byte[] bytes2Send, out string FileName, out string ExtraSourceURL)
@@ -148,7 +51,7 @@ namespace e621_ReBot_v2.Modules
             Directory.CreateDirectory("UgoiraTemp").Attributes = FileAttributes.Hidden;
             File.WriteAllText(@"UgoiraTemp\input.txt", UgoiraConcat.ToString());
             DataRowRef["Upload_Tags"] = (string)DataRowRef["Upload_Tags"] + (TotalUgoiraLength < 30000 ? " short_playtime" : " long_playtime");
-            FileDownloader(UgoiraJObject["originalSrc"].Value<string>(), "U", "UgoiraTemp", null, DataRowRef, true);
+            Module_Downloader.FileDownloader(UgoiraJObject["originalSrc"].Value<string>(), "U", "UgoiraTemp", null, DataRowRef, true);
 
             Module_Uploader.Report_Status("Converting Ugoira to WebM...");
             ExtraSourceURL = UgoiraJObject["originalSrc"].Value<string>();
@@ -193,14 +96,14 @@ namespace e621_ReBot_v2.Modules
 
             Directory.CreateDirectory("VideoTemp").Attributes = FileAttributes.Hidden;
 
-            FileDownloader(WorkURL, "U", "VideoTemp", null, DataRowRef);
+            Module_Downloader.FileDownloader(WorkURL, "U", "VideoTemp", null, DataRowRef);
 
             Module_Uploader.Report_Status("Converting Video to WebM...");
             string FullVideoFileName = WorkURL.Substring(WorkURL.LastIndexOf("/") + 1);
             string VideoFileName = FullVideoFileName.Remove(FullVideoFileName.Length - 4);
             TimeSpan VideoDuration = new TimeSpan();
             int FrameCount = 0;
-            using (var FFmpeg = new Process())
+            using (Process FFmpeg = new Process())
             {
                 Form_Loader._FormReference.UploadQueueProcess = FFmpeg;
                 FFmpeg.StartInfo.FileName = "ffmpeg.exe";
@@ -315,7 +218,7 @@ namespace e621_ReBot_v2.Modules
             Directory.CreateDirectory(TempFolderName).Attributes = FileAttributes.Hidden;
             File.WriteAllText(TempFolderName + @"\input.txt", UgoiraConcat.ToString());
             DataRowRef["Upload_Tags"] = (string)DataRowRef["Upload_Tags"] + (TotalUgoiraLength < 30000 ? " short_playtime" : " long_playtime");
-            FileDownloader(UgoiraJObject["originalSrc"].Value<string>(), "C", TempFolderName, FolderPath, DataRowRef, true);
+            Module_Downloader.FileDownloader(UgoiraJObject["originalSrc"].Value<string>(), "C", TempFolderName, FolderPath, DataRowRef, true);
             Module_Converter.Report_Status("Converting Ugoira to WebM...)");
             Directory.CreateDirectory(FolderPath);
             using (Process FFmpeg = new Process())
@@ -392,7 +295,7 @@ namespace e621_ReBot_v2.Modules
             }
             Directory.CreateDirectory(TempFolderName).Attributes = FileAttributes.Hidden;
 
-            FileDownloader((string)DataRowRef["Grab_MediaURL"], "C", TempFolderName, FolderPath, DataRowRef);
+            Module_Downloader.FileDownloader((string)DataRowRef["Grab_MediaURL"], "C", TempFolderName, FolderPath, DataRowRef);
 
             Module_Converter.Report_Status(string.Format("Converting {0} Video to WebM...", VideoFormat));
             Directory.CreateDirectory(FolderPath);
@@ -480,7 +383,7 @@ namespace e621_ReBot_v2.Modules
             DataRowRef["DL_FilePath"] = FullFilePath;
         }
 
-        private static void ReportConversionProgress(string ConversionType, double PercentProgress, ref DataRow DataRowRef)
+        public static void ReportConversionProgress(string ConversionType, double PercentProgress, ref DataRow DataRowRef)
         {
             Label ConversionLabel = Form_Loader._FormReference.label_ConversionStatus;
             Custom_LabelWithStroke DLLabel = null;
@@ -587,7 +490,7 @@ namespace e621_ReBot_v2.Modules
             File.WriteAllText(TempFolderName + @"\input.txt", UgoiraConcat.ToString());
             UgoiraConcat = null;
 
-            FileDownloader(UgoiraJObject["originalSrc"].Value<string>(), "D", TempFolderName, FolderPath, null, true, e6_DownloadItemRef.DL_ProgressBar);
+            Module_Downloader.FileDownloader(UgoiraJObject["originalSrc"].Value<string>(), "D", TempFolderName, FolderPath, null, true, e6_DownloadItemRef.DL_ProgressBar);
             UgoiraJObject = null;
 
             if (GridDataRow.RowState != DataRowState.Detached)

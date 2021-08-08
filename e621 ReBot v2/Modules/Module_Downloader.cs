@@ -1,5 +1,6 @@
 ﻿using e621_ReBot.Modules;
 using e621_ReBot_v2.CustomControls;
+using e621_ReBot_v2.Forms;
 using HtmlAgilityPack;
 using Newtonsoft.Json.Linq;
 using System;
@@ -12,6 +13,7 @@ using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.Globalization;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Runtime;
@@ -1373,6 +1375,106 @@ namespace e621_ReBot_v2.Modules
                 return false;
             }
             return false;
+        }
+
+
+
+        // - - - - - - - - - - -
+
+
+
+        public static void FileDownloader(string DownloadURL, string ActionType, string TempFolder, string DownloadFolder, DataRow DataRowRef = null, bool isUgoira = false, Custom_ProgressBar RoundProgressBarRef = null)
+        {
+            if (ActionType.Equals("C") && Form_Preview._FormReference != null)
+            {
+                Label DLLabel = Form_Preview._FormReference.Label_Download;
+                DLLabel.BeginInvoke(new Action(() =>
+                {
+                    DLLabel.Text = "0%";
+                    DLLabel.Visible = true;
+                }));
+            }
+
+            HttpWebRequest FileDownloader = (HttpWebRequest)WebRequest.Create(DownloadURL);
+            if (isUgoira)
+            {
+                FileDownloader.Referer = "https://www.pixiv.net/";
+            }
+            FileDownloader.Timeout = 5000;
+            using (MemoryStream DownloadedBytes = new MemoryStream())
+            {
+                using (WebResponse DownloaderReponse = FileDownloader.GetResponse())
+                {
+                    using (Stream DownloadStream = DownloaderReponse.GetResponseStream())
+                    {
+                        byte[] DownloadBuffer = new byte[65536]; // 64 kB buffer
+                        while (DownloadedBytes.Length < DownloaderReponse.ContentLength)
+                        {
+                            int DownloadStreamPartLength = DownloadStream.Read(DownloadBuffer, 0, DownloadBuffer.Length);
+                            if (DownloadStreamPartLength > 0)
+                            {
+                                DownloadedBytes.Write(DownloadBuffer, 0, DownloadStreamPartLength);
+                                double ReportPercentage = DownloadedBytes.Length / (double)DownloaderReponse.ContentLength;
+
+                                switch (ActionType)
+                                {
+                                    case "U":
+                                        {
+                                            Module_Uploader.Report_Status(string.Format("Downloading {0}...{1}", isUgoira ? "Ugoira" : "Media", ReportPercentage.ToString("P0")));
+                                            break;
+                                        }
+                                    case "C":
+                                        {
+                                            string ReportType = isUgoira ? "CDU" : "CDV";
+                                            Module_FFmpeg.ReportConversionProgress(ReportType, ReportPercentage, ref DataRowRef);
+                                            break;
+                                        }
+
+                                    default: //case "D":
+                                        {
+                                            RoundProgressBarRef.BeginInvoke(new Action(() => { RoundProgressBarRef.Value = (int)(ReportPercentage * 100); }));
+                                            break;
+                                        }
+                                }
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                string FileName = GetMediasFileNameOnly(DownloadURL);
+                if (isUgoira)
+                {
+                    using (ZipArchive UgoiraZip = new ZipArchive(DownloadedBytes))
+                    {
+                        UgoiraZip.ExtractToDirectory(TempFolder);
+                        if (DownloadFolder != null && Properties.Settings.Default.Converter_KeepOriginal)
+                        {
+                            Directory.CreateDirectory(DownloadFolder);
+                            DownloadedBytes.Seek(0, SeekOrigin.Begin);
+                            using (FileStream TempFileStream = new FileStream(string.Format(@"{0}\{1}", DownloadFolder, FileName), FileMode.Create))
+                            {
+                                DownloadedBytes.WriteTo(TempFileStream);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    using (FileStream TempFileStream = new FileStream(string.Format(@"{0}\{1}", TempFolder, FileName), FileMode.Create))
+                    {
+                        DownloadedBytes.WriteTo(TempFileStream);
+                    }
+                    if (DownloadFolder != null && Properties.Settings.Default.Converter_KeepOriginal)
+                    {
+                        Directory.CreateDirectory(DownloadFolder);
+                        File.Copy(string.Format(@"{0}\{1}", TempFolder, FileName), string.Format(@"{0}\{1}", DownloadFolder, FileName), false);
+                    }
+                }
+            }
         }
     }
 

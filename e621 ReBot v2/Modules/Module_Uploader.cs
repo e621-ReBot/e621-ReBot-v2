@@ -225,7 +225,7 @@ namespace e621_ReBot_v2.Modules
                 }
                 else
                 {
-                    Report_Status("Uploading WebM...0%");
+                    Report_Status("Uploading Media...0%");
                     e6Uploader.AllowWriteStreamBuffering = false;
                     e6Uploader.SendChunked = true;
                     e6Uploader.Timeout = 99999; // timeout is for request start until response end    
@@ -241,12 +241,12 @@ namespace e621_ReBot_v2.Modules
                                 ReadBytes = InputStream.Read(UploadBuffer, 0, UploadBuffer.Length);
                                 UploadStream.Write(UploadBuffer, 0, ReadBytes);
                                 double ReportPercentage = SentBytesCount / (double)EncodedContentStream.Length;
-                                Report_Status(string.Format("Uploading WebM...{0}", ReportPercentage.ToString("P0")));
+                                Report_Status(string.Format("Uploading Media...{0}", ReportPercentage.ToString("P0")));
                                 SentBytesCount += ReadBytes;
                             }
                         }
                     }
-                    Report_Status("Uploading WebM...100%");
+                    Report_Status("Uploading Media...100%");
                 }
 
                 Report_Status("Waiting for e621 response...");
@@ -464,11 +464,19 @@ namespace e621_ReBot_v2.Modules
                 }
                 else
                 {
-                    // Convert https://d.facdn.net/art/dannyckoo/1589311212/1589311212.dannyckoo_такао_фа.jpg to 
-                    // https://d.facdn.net/art/dannyckoo/1589311212/1589311212.dannyckoo_%D1%82%D0%B0%D0%BA%D0%B0%D0%BE_%D1%84%D0%B0.jpg
-                    // or direct link upload will erorr
                     string EscapedURL = new Uri(Upload_MediaURL).AbsoluteUri;
-                    POST_Dictionary.Add("upload[direct_url]", EscapedURL);
+                    if (EscapedURL.Contains("https://img.pawoo.net/media_attachments/"))
+                    {
+                        POST_Dictionary.Add("upload[file]", Upload_MediaURL);
+                        isByteUpload = true;
+                    }
+                    else
+                    {
+                        // Convert https://d.facdn.net/art/dannyckoo/1589311212/1589311212.dannyckoo_такао_фа.jpg to 
+                        // https://d.facdn.net/art/dannyckoo/1589311212/1589311212.dannyckoo_%D1%82%D0%B0%D0%BA%D0%B0%D0%BE_%D1%84%D0%B0.jpg
+                        // or direct link upload will erorr
+                        POST_Dictionary.Add("upload[direct_url]", EscapedURL);
+                    }            
                 }
             }
 
@@ -486,13 +494,30 @@ namespace e621_ReBot_v2.Modules
                 {
                     string FileName;
                     string ExtraSourceURL;
-                    if (Upload_MediaURL.Contains("ugoira"))
+
+                    switch (Upload_MediaURL)
                     {
-                         Module_FFmpeg.UploadQueue_Ugoira2WebM(ref DataRowRef, out bytes2Send, out FileName, out ExtraSourceURL);
-                    }
-                    else // videos (.mp4, .swf)
-                    {
-                         Module_FFmpeg.UploadQueue_Videos2WebM(ref DataRowRef, out bytes2Send, out FileName, out ExtraSourceURL);
+                        case string Case1 when Case1.Contains("ugoira"):
+                            {
+                                Module_FFmpeg.UploadQueue_Ugoira2WebM(ref DataRowRef, out bytes2Send, out FileName, out ExtraSourceURL);
+                                break;
+                            }
+
+                        case string Case2 when Case2.Contains("https://img.pawoo.net/media_attachments/"):
+                            {
+                                Directory.CreateDirectory("MediaTemp").Attributes = FileAttributes.Hidden;
+                                Module_Downloader.FileDownloader(Upload_MediaURL, "U", "MediaTemp", null, DataRowRef);
+                                FileName = Module_Downloader.GetMediasFileNameOnly(Upload_MediaURL);
+                                ExtraSourceURL = Upload_MediaURL;
+                                bytes2Send = File.ReadAllBytes(string.Format(@"{0}\{1}", "MediaTemp", FileName));
+                                break;
+                            }
+
+                        default: // videos (.mp4, .swf)
+                            {
+                                Module_FFmpeg.UploadQueue_Videos2WebM(ref DataRowRef, out bytes2Send, out FileName, out ExtraSourceURL);
+                                break;
+                            }
                     }
                     POST_Dictionary["upload[file]"] = FileName;
                     Upload_Sources = ExtraSourceURL + "%0A" + Upload_Sources;
@@ -566,6 +591,10 @@ namespace e621_ReBot_v2.Modules
                     }
             }
             e6Response.Key.Dispose();
+            if (Directory.Exists("MediaTemp"))
+            {
+                Directory.Delete("MediaTemp", true);
+            }
         }
 
         private static void DisplayUploadSuccess(ref DataRow DataRowRef, string ID)
