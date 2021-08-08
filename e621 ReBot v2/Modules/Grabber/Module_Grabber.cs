@@ -47,7 +47,7 @@ namespace e621_ReBot_v2.Modules
             _GrabEnabler.Add(new Regex(@".+(sofurry.com)/(view/\d+|browse/\w+/art.+)"));
             _GrabEnabler.Add(new Regex(@".+(mastodon.social)/@(\w+)?(/\d+|/media)"));
             _GrabEnabler.Add(new Regex(@".+(plurk.com)/(p/\w+|\w+(?!.))"));
-            _GrabEnabler.Add(new Regex(@".+(pawoo.net)/@(\w+)?(/\d+|/media)"));
+            _GrabEnabler.Add(new Regex(@".+(pawoo.net)/@(\w+)?(/\d+|/media|\?\w+=\d+)"));
             _GrabEnabler.Add(new Regex(@".+(weasyl.com)/(search.+|submissions.+|collections.+|~\w+/submissions/\d+/.+)"));
             _GrabEnabler.Add(new Regex(@".+(baraag.net)/@(\w+)?(/\d+|/media)"));
         }
