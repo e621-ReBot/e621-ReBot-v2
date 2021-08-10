@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace e621_ReBot_v2.CustomControls
 {
-    class CustomRadioButton: RadioButton
+    public class Custom_RadioButton: RadioButton
     {
 
         protected override void OnTabStopChanged(EventArgs e)
