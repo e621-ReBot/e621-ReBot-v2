@@ -1,7 +1,6 @@
 ﻿using e621_ReBot_v2.Modules.Grabber;
 using Newtonsoft.Json.Linq;
 using System.IO;
-using System.Linq;
 using System.Text;
 
 namespace CefSharp

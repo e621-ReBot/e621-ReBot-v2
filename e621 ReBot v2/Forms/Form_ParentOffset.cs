@@ -1,5 +1,4 @@
-﻿using e621_ReBot_v2.CustomControls;
-using e621_ReBot_v2.Modules;
+﻿using e621_ReBot_v2.Modules;
 using System;
 using System.Collections.Generic;
 using System.Data;

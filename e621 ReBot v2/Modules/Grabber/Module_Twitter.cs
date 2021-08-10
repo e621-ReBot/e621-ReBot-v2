@@ -9,7 +9,6 @@ using System.Net;
 using System.Threading;
 using System.Windows.Forms;
 using HtmlAgilityPack;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 

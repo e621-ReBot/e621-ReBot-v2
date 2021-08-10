@@ -1,7 +1,6 @@
 ﻿using e621_ReBot_v2.CustomControls;
 using e621_ReBot_v2.Modules.Grabber;
 using System;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;

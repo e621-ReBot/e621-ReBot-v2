@@ -39,6 +39,7 @@
             this.button_AppMinimize = new e621_ReBot_v2.CustomControls.Button_App_Minimize();
             this.button_AppClose = new e621_ReBot_v2.CustomControls.Button_App_Close();
             this.Opene6_btn = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.BQB_Baraag = new e621_ReBot_v2.CustomControls.Button_Browser();
             this.BQB_Weasyl = new e621_ReBot_v2.CustomControls.Button_Browser();
             this.BQB_Pawoo = new e621_ReBot_v2.CustomControls.Button_Browser();
             this.BQB_Plurk = new e621_ReBot_v2.CustomControls.Button_Browser();
@@ -70,10 +71,10 @@
             this.bU_DownloadPageUp = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.bU_ClearDLHistory = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.cGroupBoxColored_DLThreads = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
-            this.RadioButton_DL1 = new System.Windows.Forms.RadioButton();
-            this.RadioButton_DL2 = new System.Windows.Forms.RadioButton();
-            this.RadioButton_DL3 = new System.Windows.Forms.RadioButton();
-            this.RadioButton_DL4 = new System.Windows.Forms.RadioButton();
+            this.RadioButton_DL1 = new e621_ReBot_v2.CustomControls.CustomRadioButton();
+            this.RadioButton_DL2 = new e621_ReBot_v2.CustomControls.CustomRadioButton();
+            this.RadioButton_DL3 = new e621_ReBot_v2.CustomControls.CustomRadioButton();
+            this.RadioButton_DL4 = new e621_ReBot_v2.CustomControls.CustomRadioButton();
             this.bU_DownloadFolder = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.cGroupBoxColored_Downloaded = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
             this.DownloadFLP_Downloaded = new e621_ReBot_v2.CustomControls.Custom_FlowLayoutPanel();
@@ -93,9 +94,9 @@
             this.bU_GetDNPs = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.bU_AppData = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.cGroupBoxColored_NamingWeb = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
-            this.Naming_web_0 = new System.Windows.Forms.RadioButton();
-            this.Naming_web_1 = new System.Windows.Forms.RadioButton();
-            this.Naming_web_2 = new System.Windows.Forms.RadioButton();
+            this.Naming_web_0 = new e621_ReBot_v2.CustomControls.CustomRadioButton();
+            this.Naming_web_1 = new e621_ReBot_v2.CustomControls.CustomRadioButton();
+            this.Naming_web_2 = new e621_ReBot_v2.CustomControls.CustomRadioButton();
             this.bU_GetGenders = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.label_DragDropConvert = new System.Windows.Forms.Label();
             this.cGroupBoxColored_ActionDelay = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
@@ -109,8 +110,8 @@
             this.CheckBox_ConverterKeepOriginal = new System.Windows.Forms.CheckBox();
             this.bU_DLPools = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.bU_DLTags = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.radioButton_GrabDisplayOrder1 = new System.Windows.Forms.RadioButton();
-            this.radioButton_GrabDisplayOrder0 = new System.Windows.Forms.RadioButton();
+            this.radioButton_GrabDisplayOrder1 = new e621_ReBot_v2.CustomControls.CustomRadioButton();
+            this.radioButton_GrabDisplayOrder0 = new e621_ReBot_v2.CustomControls.CustomRadioButton();
             this.bU_RefreshCredit = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.bU_Blacklist = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.bU_PoolWatcher = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
@@ -129,20 +130,20 @@
             this.textBox_AutoTagsEditor = new System.Windows.Forms.TextBox();
             this.bU_AutoTagsRemove = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.cGroupBoxColored_NamingE621 = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
-            this.Naming_e6_0 = new System.Windows.Forms.RadioButton();
-            this.Naming_e6_1 = new System.Windows.Forms.RadioButton();
-            this.Naming_e6_2 = new System.Windows.Forms.RadioButton();
+            this.Naming_e6_0 = new e621_ReBot_v2.CustomControls.CustomRadioButton();
+            this.Naming_e6_1 = new e621_ReBot_v2.CustomControls.CustomRadioButton();
+            this.Naming_e6_2 = new e621_ReBot_v2.CustomControls.CustomRadioButton();
             this.cGroupBoxColored_DownloadsFolderLocation = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
             this.bU_DownloadFolderChange = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.label_DownloadsFolder = new System.Windows.Forms.Label();
             this.bU_NoteRemove = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.bU_NoteAdd = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.cGroupBoxColored_Update = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
-            this.UpdateDays_30 = new System.Windows.Forms.RadioButton();
-            this.UpdateDays_15 = new System.Windows.Forms.RadioButton();
-            this.UpdateDays_7 = new System.Windows.Forms.RadioButton();
-            this.UpdateDays_3 = new System.Windows.Forms.RadioButton();
-            this.UpdateDays_1 = new System.Windows.Forms.RadioButton();
+            this.UpdateDays_30 = new e621_ReBot_v2.CustomControls.CustomRadioButton();
+            this.UpdateDays_15 = new e621_ReBot_v2.CustomControls.CustomRadioButton();
+            this.UpdateDays_7 = new e621_ReBot_v2.CustomControls.CustomRadioButton();
+            this.UpdateDays_3 = new e621_ReBot_v2.CustomControls.CustomRadioButton();
+            this.UpdateDays_1 = new e621_ReBot_v2.CustomControls.CustomRadioButton();
             this.cGroupBoxColored_AppName = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
             this.AppName_Label = new System.Windows.Forms.Label();
             this.labelPuzzle_SelectedPost = new System.Windows.Forms.Label();
@@ -151,11 +152,10 @@
             this.CC_GameAnimations = new e621_ReBot_v2.CustomControls.Custom_CheckBox();
             this.labelPuzzle_Collumns = new System.Windows.Forms.Label();
             this.labelPuzzle_Rows = new System.Windows.Forms.Label();
-            this.rb_GameStart_3 = new System.Windows.Forms.RadioButton();
-            this.rb_GameStart_1 = new System.Windows.Forms.RadioButton();
-            this.rb_GameStart_2 = new System.Windows.Forms.RadioButton();
+            this.rb_GameStart_3 = new e621_ReBot_v2.CustomControls.CustomRadioButton();
+            this.rb_GameStart_1 = new e621_ReBot_v2.CustomControls.CustomRadioButton();
+            this.rb_GameStart_2 = new e621_ReBot_v2.CustomControls.CustomRadioButton();
             this.bU_KoFi = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.BQB_Baraag = new e621_ReBot_v2.CustomControls.Button_Browser();
             this.Version_Label = new System.Windows.Forms.Label();
             this.Title_Label = new System.Windows.Forms.Label();
             this.Panel_Holder = new System.Windows.Forms.Panel();
@@ -178,6 +178,7 @@
             this.cTabControl_e621ReBot = new e621_ReBot_v2.CustomControls.Custom_TabControl();
             this.tabPage_Browser = new System.Windows.Forms.TabPage();
             this.QuickButtonPanel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel_Browser = new System.Windows.Forms.Panel();
             this.panel_ComboBoxBlocker = new System.Windows.Forms.Panel();
             this.panel_BrowserDisplay = new System.Windows.Forms.Panel();
@@ -219,11 +220,11 @@
             this.cGroupBoxColored_GrabDisplayOrder = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
             this.cGroupBoxColored_ProgressBarStyle = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
             this.panel_BorderFixer = new System.Windows.Forms.Panel();
-            this.radioButton_ProgressBarStyle1 = new System.Windows.Forms.RadioButton();
-            this.radioButton_ProgressBarStyle0 = new System.Windows.Forms.RadioButton();
+            this.radioButton_ProgressBarStyle1 = new e621_ReBot_v2.CustomControls.CustomRadioButton();
+            this.radioButton_ProgressBarStyle0 = new e621_ReBot_v2.CustomControls.CustomRadioButton();
             this.cGroupBoxColored_GridItemStyle = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
-            this.radioButton_GridItemStyle1 = new System.Windows.Forms.RadioButton();
-            this.radioButton_GridItemStyle0 = new System.Windows.Forms.RadioButton();
+            this.radioButton_GridItemStyle1 = new e621_ReBot_v2.CustomControls.CustomRadioButton();
+            this.radioButton_GridItemStyle0 = new e621_ReBot_v2.CustomControls.CustomRadioButton();
             this.panel_CheckBoxOptions = new System.Windows.Forms.Panel();
             this.cGroupBoxColored_AppNotes = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
             this.cGroupBoxColored_APIKey = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
@@ -237,7 +238,6 @@
             this.panel_GameStart = new System.Windows.Forms.Panel();
             this.comboBox_PuzzleCollumns = new System.Windows.Forms.ComboBox();
             this.comboBox_PuzzleRows = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.button_AppMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.button_AppClose)).BeginInit();
             this.cGroupBoxColored_DLThreads.SuspendLayout();
@@ -421,6 +421,26 @@
             this.toolTip_Display.SetToolTip(this.Opene6_btn, "Open e621.net");
             this.Opene6_btn.UseVisualStyleBackColor = false;
             this.Opene6_btn.Click += new System.EventHandler(this.Opene6_btn_Click);
+            // 
+            // BQB_Baraag
+            // 
+            this.BQB_Baraag.BackColor = System.Drawing.Color.Transparent;
+            this.BQB_Baraag.BackgroundImage = global::e621_ReBot_v2.Properties.Resources.BrowserIcon_Baraag;
+            this.BQB_Baraag.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BQB_Baraag.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BQB_Baraag.FlatAppearance.BorderSize = 0;
+            this.BQB_Baraag.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.BQB_Baraag.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.BQB_Baraag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BQB_Baraag.Location = new System.Drawing.Point(30, 76);
+            this.BQB_Baraag.MaximumSize = new System.Drawing.Size(64, 56);
+            this.BQB_Baraag.MinimumSize = new System.Drawing.Size(64, 56);
+            this.BQB_Baraag.Name = "BQB_Baraag";
+            this.BQB_Baraag.Size = new System.Drawing.Size(64, 56);
+            this.BQB_Baraag.TabIndex = 12;
+            this.BQB_Baraag.Tag = "https://baraag.net/";
+            this.toolTip_Display.SetToolTip(this.BQB_Baraag, "Baraag.net");
+            this.BQB_Baraag.UseVisualStyleBackColor = false;
             // 
             // BQB_Weasyl
             // 
@@ -1387,7 +1407,6 @@
             this.Naming_web_0.Name = "Naming_web_0";
             this.Naming_web_0.Size = new System.Drawing.Size(60, 17);
             this.Naming_web_0.TabIndex = 3;
-            this.Naming_web_0.TabStop = true;
             this.Naming_web_0.Tag = "0";
             this.Naming_web_0.Text = "Original";
             this.toolTip_Display.SetToolTip(this.Naming_web_0, "All downloaded media  will be named by its original filename.");
@@ -1658,7 +1677,6 @@
             this.radioButton_GrabDisplayOrder0.Name = "radioButton_GrabDisplayOrder0";
             this.radioButton_GrabDisplayOrder0.Size = new System.Drawing.Size(86, 17);
             this.radioButton_GrabDisplayOrder0.TabIndex = 1;
-            this.radioButton_GrabDisplayOrder0.TabStop = true;
             this.radioButton_GrabDisplayOrder0.Text = "Default order";
             this.toolTip_Display.SetToolTip(this.radioButton_GrabDisplayOrder0, resources.GetString("radioButton_GrabDisplayOrder0.ToolTip"));
             this.radioButton_GrabDisplayOrder0.UseVisualStyleBackColor = true;
@@ -2005,7 +2023,6 @@
             this.Naming_e6_0.Name = "Naming_e6_0";
             this.Naming_e6_0.Size = new System.Drawing.Size(48, 17);
             this.Naming_e6_0.TabIndex = 3;
-            this.Naming_e6_0.TabStop = true;
             this.Naming_e6_0.Tag = "0";
             this.Naming_e6_0.Text = "MD5";
             this.toolTip_Display.SetToolTip(this.Naming_e6_0, "All downloaded posts will be named by their MD5 hash.");
@@ -2382,26 +2399,6 @@
             this.bU_KoFi.UseVisualStyleBackColor = true;
             this.bU_KoFi.Click += new System.EventHandler(this.BU_KoFi_Click);
             // 
-            // BQB_Baraag
-            // 
-            this.BQB_Baraag.BackColor = System.Drawing.Color.Transparent;
-            this.BQB_Baraag.BackgroundImage = global::e621_ReBot_v2.Properties.Resources.BrowserIcon_Baraag;
-            this.BQB_Baraag.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.BQB_Baraag.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BQB_Baraag.FlatAppearance.BorderSize = 0;
-            this.BQB_Baraag.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.BQB_Baraag.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.BQB_Baraag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BQB_Baraag.Location = new System.Drawing.Point(30, 76);
-            this.BQB_Baraag.MaximumSize = new System.Drawing.Size(64, 56);
-            this.BQB_Baraag.MinimumSize = new System.Drawing.Size(64, 56);
-            this.BQB_Baraag.Name = "BQB_Baraag";
-            this.BQB_Baraag.Size = new System.Drawing.Size(64, 56);
-            this.BQB_Baraag.TabIndex = 12;
-            this.BQB_Baraag.Tag = "https://baraag.net/";
-            this.toolTip_Display.SetToolTip(this.BQB_Baraag, "Baraag.net");
-            this.BQB_Baraag.UseVisualStyleBackColor = false;
-            // 
             // Version_Label
             // 
             this.Version_Label.AutoSize = true;
@@ -2621,6 +2618,15 @@
             this.QuickButtonPanel.Size = new System.Drawing.Size(320, 320);
             this.QuickButtonPanel.TabIndex = 1;
             this.QuickButtonPanel.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(39, 153);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(47, 13);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Soon™?";
             // 
             // panel_Browser
             // 
@@ -3211,7 +3217,7 @@
             this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_AppName);
             this.tabPage_Settings.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Settings.Name = "tabPage_Settings";
-            this.tabPage_Settings.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Settings.Size = new System.Drawing.Size(1262, 695);
             this.tabPage_Settings.TabIndex = 5;
             this.tabPage_Settings.Text = "tabPage_Settings";
             this.tabPage_Settings.Enter += new System.EventHandler(this.TabPage_Settings_Enter);
@@ -3300,7 +3306,6 @@
             this.radioButton_ProgressBarStyle0.Name = "radioButton_ProgressBarStyle0";
             this.radioButton_ProgressBarStyle0.Size = new System.Drawing.Size(44, 17);
             this.radioButton_ProgressBarStyle0.TabIndex = 1;
-            this.radioButton_ProgressBarStyle0.TabStop = true;
             this.radioButton_ProgressBarStyle0.Text = "Hex";
             this.radioButton_ProgressBarStyle0.UseVisualStyleBackColor = true;
             // 
@@ -3343,7 +3348,6 @@
             this.radioButton_GridItemStyle0.Name = "radioButton_GridItemStyle0";
             this.radioButton_GridItemStyle0.Size = new System.Drawing.Size(59, 17);
             this.radioButton_GridItemStyle0.TabIndex = 1;
-            this.radioButton_GridItemStyle0.TabStop = true;
             this.radioButton_GridItemStyle0.Text = "Default";
             this.radioButton_GridItemStyle0.UseVisualStyleBackColor = true;
             // 
@@ -3583,15 +3587,6 @@
             this.comboBox_PuzzleRows.Size = new System.Drawing.Size(48, 21);
             this.comboBox_PuzzleRows.TabIndex = 9;
             this.comboBox_PuzzleRows.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(39, 153);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 13);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "Soon™?";
             // 
             // Form_Main
             // 

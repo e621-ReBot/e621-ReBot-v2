@@ -99,8 +99,8 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack, Version=1.11.34.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.11.34\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.11.35.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.35\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -123,19 +123,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomControls\AutocompleMenu\ACM_AutocompleteItem.cs" />
-    <Compile Include="CustomControls\AutocompleMenu\ACM_Colors.cs" />
-    <Compile Include="CustomControls\AutocompleMenu\ACM_EventArgs.cs" />
-    <Compile Include="CustomControls\AutocompleMenu\ACM_TextBoxWrapper.cs" />
-    <Compile Include="CustomControls\AutocompleMenu\AutocompleteListView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="CustomControls\AutocompleMenu\AutocompleteMenu.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="CustomControls\AutocompleMenu\AutocompleteMenuHost.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="CustomControls\Button_App_Close.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -157,6 +144,9 @@
     <Compile Include="CustomControls\Button_Unfocusable.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="CustomControls\CustomRadioButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="CustomControls\Custom_CheckBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -176,6 +166,9 @@
       <DependentUpon>Custom_InputBox.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomControls\Custom_LabelWithStroke.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControls\DC_AutocompleteMenu.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CustomControls\PuzzleGamePanel.cs">
@@ -340,9 +333,6 @@
     <Compile Include="Modules\UIDrawController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="CustomControls\AutocompleMenu\AutocompleteListView.resx">
-      <DependentUpon>AutocompleteListView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\Button_App_Close.resx">
       <DependentUpon>Button_App_Close.cs</DependentUpon>
     </EmbeddedResource>

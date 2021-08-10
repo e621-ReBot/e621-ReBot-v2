@@ -34,8 +34,8 @@
             this.toolTip_Display = new System.Windows.Forms.ToolTip(this.components);
             this.textBox_Tags = new System.Windows.Forms.RichTextBox();
             this.cGroupBoxColored_AutocompleteSelector = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
-            this.TB_ACPools = new System.Windows.Forms.RadioButton();
-            this.TB_ACTags = new System.Windows.Forms.RadioButton();
+            this.TB_ACPools = new e621_ReBot_v2.CustomControls.CustomRadioButton();
+            this.TB_ACTags = new e621_ReBot_v2.CustomControls.CustomRadioButton();
             this.TB_CommandLine = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.TB_ParentOffset = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.TB_ArtistAlias = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
