@@ -1,5 +1,5 @@
-﻿using ACM_AutocompleteMenu;
-using CefSharp;
+﻿using CefSharp;
+using DC_AutocompleteMenuNS;
 using e621_ReBot.Modules;
 using e621_ReBot_v2.CustomControls;
 using e621_ReBot_v2.Forms;
@@ -23,7 +23,7 @@ using System.Linq;
 using System.Media;
 using System.Net;
 using System.Runtime;
-using System.Text.RegularExpressions;
+using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
@@ -344,10 +344,6 @@ namespace e621_ReBot_v2
 
             Properties.Settings.Default.LastStats = string.Format("{0},{1},{2}", label_Credit_Upload.Text, label_Credit_Flag.Text, label_Credit_Note.Text);
             RetryQueue_Save();
-            if (AutoTagsListChanged)
-            {
-                File.WriteAllText("tags.txt", string.Join("✄", AutoTagsList_Tags));
-            }
 
             if (Properties.Settings.Default.ClearCache)
             {
@@ -497,7 +493,7 @@ namespace e621_ReBot_v2
                             if (GB_Left.Visible)
                             {
                                 GB_Left_Click(null, null);
-                            } 
+                            }
                             break;
                         }
 
@@ -506,7 +502,7 @@ namespace e621_ReBot_v2
                             if (GB_Right.Visible)
                             {
                                 GB_Right_Click(null, null);
-                            } 
+                            }
                             break;
                         }
                 }
@@ -573,7 +569,7 @@ namespace e621_ReBot_v2
                                     if (Form_Preview._FormReference != null)
                                     {
                                         Form_Preview._FormReference.Close();
-                                    } 
+                                    }
                                 }
                                 break;
                             }
@@ -1027,7 +1023,7 @@ namespace e621_ReBot_v2
             if (Form_Preview._FormReference != null)
             {
                 Form_Preview._FormReference.UpdateNavButtons();
-            } 
+            }
         }
 
         public void Paginator()
@@ -1283,7 +1279,7 @@ namespace e621_ReBot_v2
                             if (Module_TableHolder.Database_Table.Rows[i]["Uploaded_As"] != DBNull.Value)
                             {
                                 Module_TableHolder.Database_Table.Rows.RemoveAt(i);
-                            } 
+                            }
                         }
                     }
 
@@ -1304,7 +1300,7 @@ namespace e621_ReBot_v2
                         if (Form_Menu._FormReference != null)
                         {
                             Form_Menu._FormReference.MB_Grid.Visible = false;
-                        } 
+                        }
                     }
                     else
                     {
@@ -1337,7 +1333,7 @@ namespace e621_ReBot_v2
                     if (Form_Menu._FormReference != null)
                     {
                         Form_Menu._FormReference.MB_Grid.Visible = false;
-                    } 
+                    }
                     GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
                     GC.Collect();
                 }
@@ -1364,7 +1360,7 @@ namespace e621_ReBot_v2
                             if (e6_GridItemTemp._DataRowReference["Grab_ThumbnailURL"] == DBNull.Value)
                             {
                                 e6_GridItemTemp._DataRowReference["Grab_ThumbnailURL"] = "";
-                            } 
+                            }
                             Module_Downloader.AddDownloadQueueItem(
                                 DataRowRef: e6_GridItemTemp._DataRowReference,
                                 URL: (string)e6_GridItemTemp._DataRowReference["Grab_URL"],
@@ -1393,7 +1389,7 @@ namespace e621_ReBot_v2
                             if (DataRowTemp["Grab_ThumbnailURL"] == DBNull.Value)
                             {
                                 DataRowTemp["Grab_ThumbnailURL"] = "";
-                            } 
+                            }
                             Module_Downloader.AddDownloadQueueItem(
                                 DataRowRef: DataRowTemp,
                                 URL: (string)DataRowTemp["Grab_URL"],
@@ -2081,10 +2077,10 @@ namespace e621_ReBot_v2
             bU_AutoTagsRemove.Enabled = false;
         }
 
-        public AutocompleteMenu AutoTags = new AutocompleteMenu();
-        public List<string> AutoTagsList_Tags = new List<string>();
-        public List<MulticolumnAutocompleteItem> AutoTagsList_Pools = new List<MulticolumnAutocompleteItem>();
-        private bool AutoTagsListChanged;
+        public DC_AutocompleteMenu AutoTags = new DC_AutocompleteMenu();
+        public List<DC_AutocompleteItem> AutoTagsList_Tags = new List<DC_AutocompleteItem>();
+        public List<DC_MultiCollumnAutocompleteItem> AutoTagsList_Pools = new List<DC_MultiCollumnAutocompleteItem>();
+
         private void Textbox_AutoTagsEditor_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -2107,11 +2103,17 @@ namespace e621_ReBot_v2
             }
         }
 
+        private List<string> CustomTagsTableHolder = new List<string>();
         private void Textbox_AutoTagsEditor_TextChanged(object sender, EventArgs e)
         {
             if (textBox_AutoTagsEditor.TextLength > 0)
             {
-                if (AutoTagsList_Tags.Contains(textBox_AutoTagsEditor.Text))
+                if (CustomTagsTableHolder == null)
+                {
+                    CustomTagsTableHolder = Module_DB.DB_ReadCTTable();
+                }
+
+                if (CustomTagsTableHolder.Contains(textBox_AutoTagsEditor.Text))
                 {
                     bU_AutoTagsAdd.Enabled = false;
                     bU_AutoTagsRemove.Enabled = true;
@@ -2133,8 +2135,12 @@ namespace e621_ReBot_v2
         {
             textBox_AutoTagsEditor.Text = textBox_AutoTagsEditor.Text.ToLower();
             Module_DB.DB_CreateCTRecord(textBox_AutoTagsEditor.Text);
-            AutoTagsList_Tags.Add(textBox_AutoTagsEditor.Text);
-            AutoTags.SetAutocompleteItems(AutoTagsList_Tags);
+            CustomTagsTableHolder.Add(textBox_AutoTagsEditor.Text);
+            AutoTagsList_Tags.Add(new DC_AutocompleteItem(textBox_AutoTagsEditor.Text));
+            textBox_AutoTagsEditor.AutoCompleteCustomSource.Clear();
+            AutoCompleteStringCollection TempACSC = new AutoCompleteStringCollection();
+            TempACSC.AddRange(CustomTagsTableHolder.ToArray());
+            textBox_AutoTagsEditor.AutoCompleteCustomSource = TempACSC;
             cGroupBoxColored_AutocompleteTagEditor.Focus();
         }
 
@@ -2142,9 +2148,13 @@ namespace e621_ReBot_v2
         {
             textBox_AutoTagsEditor.Text = textBox_AutoTagsEditor.Text.ToLower();
             Module_DB.DB_DeleteCTRecord(textBox_AutoTagsEditor.Text);
-            AutoTagsList_Tags.Remove(textBox_AutoTagsEditor.Text);
-            AutoTags.SetAutocompleteItems(AutoTagsList_Tags);
-            AutoTagsListChanged = true;
+            CustomTagsTableHolder.Remove(textBox_AutoTagsEditor.Text);
+            AutoTagsList_Tags.Clear();
+            AutoTags.Dispose();
+            AutoTags = new DC_AutocompleteMenu();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+            Read_AutoTags();
             cGroupBoxColored_AutocompleteTagEditor.Focus();
         }
 
@@ -2298,6 +2308,50 @@ namespace e621_ReBot_v2
             }
         }
 
+        private MemoryStream DownloadDBExport(string URL, Button_Unfocusable ControlStatusUpdate)
+        {
+            MemoryStream DownloadedBytes = new MemoryStream();
+            DateTime DateTimeTempUTC = DateTime.UtcNow;
+            int RetryCount = 0;
+        RetryDate:
+            HttpWebRequest ExportDataDownloader = (HttpWebRequest)WebRequest.Create(string.Format(URL, DateTimeTempUTC.Year, DateTimeTempUTC.ToString("MM"), DateTimeTempUTC.ToString("dd")));
+            if (RetryCount == 3)
+            {
+                return null;
+            }
+            try
+            {
+                using (HttpWebResponse DownloaderReponse = (HttpWebResponse)ExportDataDownloader.GetResponse())
+                {
+                    using (Stream DownloadStream = DownloaderReponse.GetResponseStream())
+                    {
+                        byte[] DownloadBuffer = new byte[65536]; // 64 kB buffer
+                        while (DownloadedBytes.Length < DownloaderReponse.ContentLength)
+                        {
+                            int DownloadStreamPartLength = DownloadStream.Read(DownloadBuffer, 0, DownloadBuffer.Length);
+                            if (DownloadStreamPartLength > 0)
+                            {
+                                DownloadedBytes.Write(DownloadBuffer, 0, DownloadStreamPartLength);
+                                double ReportPercentage = DownloadedBytes.Length / (double)DownloaderReponse.ContentLength;
+                                bU_DLTags.BeginInvoke(new Action(() => { ControlStatusUpdate.Text = string.Format("Downloading: {0}", ReportPercentage.ToString("P2")); }));
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                RetryCount += 1;
+                DateTimeTempUTC = DateTimeTempUTC.AddDays(-1);
+                goto RetryDate;
+            }
+            return DownloadedBytes;
+        }
+
         private void BU_DLTags_Click(object sender, EventArgs e)
         {
             bU_DLTags.Enabled = false;
@@ -2307,106 +2361,156 @@ namespace e621_ReBot_v2
 
         private void DLWork_Tags()
         {
-            List<string> TagList;
-            using (MemoryStream DownloadedBytes = new MemoryStream())
+            MemoryStream DownloadedStream = DownloadDBExport("https://e621.net/db_export/tags-{0}-{1}-{2}.csv.gz", bU_DLTags);
+            if (DownloadedStream != null)
             {
-                int RetryCount = 0;
-                DateTime DateTimeTempUTC = DateTime.UtcNow;
-                HttpWebRequest UpdateDownloader = (HttpWebRequest)WebRequest.Create(string.Format("https://e621.net/db_export/tags-{0}-{1}-{2}.csv.gz", DateTimeTempUTC.Year, DateTimeTempUTC.ToString("MM"), DateTimeTempUTC.ToString("dd")));
-            RetryDate:
-                if (RetryCount == 3)
-                {
-                    return;
-                } 
-                try
-                {
-                    using (HttpWebResponse UpdateDownloaderReponse = (HttpWebResponse)UpdateDownloader.GetResponse())
-                    {
-                        using (Stream DownloadStream = UpdateDownloaderReponse.GetResponseStream())
-                        {
-                            byte[] DownloadBuffer = new byte[65536]; // 64 kB buffer
-                            while (DownloadedBytes.Length < UpdateDownloaderReponse.ContentLength)
-                            {
-                                int DownloadStreamPartLength = DownloadStream.Read(DownloadBuffer, 0, DownloadBuffer.Length);
-                                if (DownloadStreamPartLength > 0)
-                                {
-                                    DownloadedBytes.Write(DownloadBuffer, 0, DownloadStreamPartLength);
-                                    double ReportPercentage = DownloadedBytes.Length / (double)UpdateDownloaderReponse.ContentLength;
-                                    bU_DLTags.BeginInvoke(new Action(() => { bU_DLTags.Text = string.Format("Downloading: {0}", ReportPercentage.ToString("P2")); }));
-                                }
-                                else
-                                {
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-                catch
-                {
-                    RetryCount += 1;
-                    DateTimeTempUTC = DateTimeTempUTC.AddDays(-1);
-                    goto RetryDate;
-                }
-
+                List<string> TagList = new List<string>();
                 bU_DLTags.BeginInvoke(new Action(() => { bU_DLTags.Text = "Processing..."; }));
-                DownloadedBytes.Position = 0;
-                using (GZipStream TagsZip = new GZipStream(DownloadedBytes, CompressionMode.Decompress))
+                DownloadedStream.Position = 0;
+                using (GZipStream TagsZip = new GZipStream(DownloadedStream, CompressionMode.Decompress))
                 {
                     using (StreamReader StreamReaderTemp = new StreamReader(TagsZip))
                     {
                         StreamReaderTemp.ReadLine();
                         string ReadCSV = StreamReaderTemp.ReadToEnd();
-                        TextFieldParser CSVParser = new TextFieldParser(new StringReader(ReadCSV))
+                        using (TextFieldParser CSVParser = new TextFieldParser(new StringReader(ReadCSV)))
                         {
-                            HasFieldsEnclosedInQuotes = true
-                        };
-                        CSVParser.SetDelimiters(",");
+                            CSVParser.HasFieldsEnclosedInQuotes = true;
+                            CSVParser.SetDelimiters(",");
 
-                        List<Tuple<int, string>> TagListTemp = new List<Tuple<int, string>>();
-
-                        string[] CSVFields;
-                        while (!CSVParser.EndOfData)
-                        {
-                            CSVFields = CSVParser.ReadFields();
-                            if (!CSVFields[3].Equals("0"))
+                            List<Tuple<int, string>> TagListTemp = new List<Tuple<int, string>>();
+                            string[] CSVFields;
+                            while (!CSVParser.EndOfData)
                             {
-                                TagListTemp.Add(new Tuple<int, string>(int.Parse(CSVFields[3]), CSVFields[1]));
+                                CSVFields = CSVParser.ReadFields();
+                                if (!CSVFields[3].Equals("0"))
+                                {
+                                    TagListTemp.Add(new Tuple<int, string>(int.Parse(CSVFields[3]), CSVFields[1]));
+                                }
+                            }
+                            TagListTemp.Sort((x, y) => y.Item1.CompareTo(x.Item1));
+                            TagList = TagListTemp.Select(x => x.Item2).ToList();
+                            TagListTemp.Clear();
+                        }
+                    }
+                    DownloadedStream.Dispose();
+                }
+                TagList = TagList.Distinct().ToList();
+
+                DownloadedStream = DownloadDBExport("https://e621.net/db_export/tag_aliases-{0}-{1}-{2}.csv.gz", bU_DLTags);
+                if (DownloadedStream != null)
+                {
+                    Dictionary<string, List<string>> TagAliases = new Dictionary<string, List<string>>();
+                    bU_DLTags.BeginInvoke(new Action(() => { bU_DLTags.Text = "Processing..."; }));
+                    DownloadedStream.Position = 0;
+                    using (GZipStream TagsZip = new GZipStream(DownloadedStream, CompressionMode.Decompress))
+                    {
+                        using (StreamReader StreamReaderTemp = new StreamReader(TagsZip))
+                        {
+                            StreamReaderTemp.ReadLine();
+                            string ReadCSV = StreamReaderTemp.ReadToEnd();
+                            using (TextFieldParser CSVParser = new TextFieldParser(new StringReader(ReadCSV)))
+                            {
+                                CSVParser.HasFieldsEnclosedInQuotes = true;
+                                CSVParser.SetDelimiters(",");
+
+                                string[] CSVFields;
+                                while (!CSVParser.EndOfData)
+                                {
+                                    CSVFields = CSVParser.ReadFields();
+                                    if (CSVFields[4].Equals("active"))
+                                    {
+                                        if (TagAliases.ContainsKey(CSVFields[2]))
+                                        {
+                                            TagAliases[CSVFields[2]].Add(CSVFields[1]);
+                                        }
+                                        else
+                                        {
+                                            TagAliases.Add(CSVFields[2], new List<string> { CSVFields[1] });
+                                        }
+                                    }
+                                }
                             }
                         }
-                        TagListTemp.Sort((x, y) => y.Item1.CompareTo(x.Item1));
-                        TagList = TagListTemp.Select(x => x.Item2).ToList();
-                        TagListTemp.Clear();
-                        GC.WaitForPendingFinalizers();
-                        GC.Collect();
                     }
-                }
-            }
+                    DownloadedStream.Dispose();
 
-            TagList = TagList.Distinct().ToList();
-            File.WriteAllText("tags.txt", string.Join("✄", TagList));
-            BeginInvoke(new Action(() =>
-            {
-                MessageBox.Show("Downloaded all tags.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                bU_DLTags.Text = "DL Tags";
-                bU_DLTags.Enabled = true;
-                bU_DLPools.Enabled = true;
+                    if (TagAliases != null)
+                    {
+                        StringBuilder StringBuilderTemp = new StringBuilder();
+                        foreach (string StringTemp in TagList)
+                        {
+                            StringBuilderTemp.Append(StringTemp);
+                            if (TagAliases.ContainsKey(StringTemp))
+                            {
+                                StringBuilderTemp.Append("," + string.Join(",", TagAliases[StringTemp]));
+                            }
+                            StringBuilderTemp.Append("✄");
+                        }
+                        File.WriteAllText("tags.txt", StringBuilderTemp.ToString());
+                        StringBuilderTemp = null;
+                    }
+                    else
+                    {
+                        File.WriteAllText("tags.txt", string.Join("✄", TagList));
+                    }
+
+                    BeginInvoke(new Action(() =>
+                    {
+                        MessageBox.Show("Downloaded all tags.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        bU_DLTags.Text = "DL Tags";
+                        bU_DLTags.Enabled = true;
+                        bU_DLPools.Enabled = true;
+                    }));
+                    AutoTagsList_Tags.Clear();
+                    Read_AutoTags();
+                }
+                GC.WaitForPendingFinalizers();
+                GC.Collect();
             }
-            ));
-            AutoTagsList_Tags.Clear();
-            Read_AutoTags();
+            else
+            {
+                BeginInvoke(new Action(() =>
+                {
+                    MessageBox.Show("Downloaded failed.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    bU_DLTags.Text = "DL Tags";
+                    bU_DLTags.Enabled = true;
+                    bU_DLPools.Enabled = true;
+                }));
+            }
         }
 
         private void Read_AutoTags()
         {
-            AutoTagsList_Tags.AddRange(File.ReadAllText("tags.txt").Split(new string[] { "✄" }, StringSplitOptions.RemoveEmptyEntries));
-            AutoTagsList_Tags.AddRange(Module_DB.DB_ReadCTTable());
-            AutoTags.SetAutocompleteItems(AutoTagsList_Tags);
+            List<string> TempStringList = new List<string>();
+            foreach (string StringTemp in File.ReadAllText("tags.txt").Split(new string[] { "✄" }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                DC_AutocompleteItem DC_AutocompleteItemTemp;
+                if (StringTemp.Contains(","))
+                {
+                    TempStringList = StringTemp.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                    string TitleHolder = TempStringList[0];
+                    TempStringList.RemoveAt(0);
+                    DC_AutocompleteItemTemp = new DC_AutocompleteItem(TitleHolder, TempStringList.ToArray());
+                    TempStringList.Clear();
+                }
+                else
+                {
+                    DC_AutocompleteItemTemp = new DC_AutocompleteItem(StringTemp);
+                }
+                AutoTagsList_Tags.Add(DC_AutocompleteItemTemp);
+            }
 
-            List<string> CloneTags = new List<string>(AutoTagsList_Tags);
-            CloneTags.Sort();
+            CustomTagsTableHolder.Clear();
+            foreach (string StringTemp in Module_DB.DB_ReadCTTable())
+            {
+                AutoTagsList_Tags.Add(new DC_AutocompleteItem(StringTemp));
+                CustomTagsTableHolder.Add(StringTemp);
+            }
+            AutoTags.SetAutocompleteItems(AutoTagsList_Tags);
+            CustomTagsTableHolder.Sort();
             AutoCompleteStringCollection TempACSC = new AutoCompleteStringCollection();
-            TempACSC.AddRange(CloneTags.ToArray());
+            TempACSC.AddRange(CustomTagsTableHolder.ToArray());
             BeginInvoke(new Action(() =>
             {
                 textBox_AutoTagsEditor.AutoCompleteCustomSource = TempACSC;
@@ -2423,94 +2527,66 @@ namespace e621_ReBot_v2
 
         private void DLWork_Pools()
         {
-            List<string> PoolList = new List<string>();
-            using (MemoryStream DownloadedBytes = new MemoryStream())
+            MemoryStream DownloadedStream = DownloadDBExport("https://e621.net/db_export/pools-{0}-{1}-{2}.csv.gz", bU_DLPools);
+            if (DownloadedStream != null)
             {
-                int RetryCount = 0;
-                DateTime DateTimeTempUTC = DateTime.UtcNow;
-                HttpWebRequest UpdateDownloader = (HttpWebRequest)WebRequest.Create(string.Format("https://e621.net/db_export/pools-{0}-{1}-{2}.csv.gz", DateTimeTempUTC.Year, DateTimeTempUTC.ToString("MM"), DateTimeTempUTC.ToString("dd")));
-            RetryDate:
-                if (RetryCount == 3)
-                {
-                    return;
-                }
-                try
-                {
-                    using (HttpWebResponse UpdateDownloaderReponse = (HttpWebResponse)UpdateDownloader.GetResponse())
-                    {
-                        using (Stream DownloadStream = UpdateDownloaderReponse.GetResponseStream())
-                        {
-                            byte[] DownloadBuffer = new byte[65536]; // 64 kB buffer
-                            while (DownloadedBytes.Length < UpdateDownloaderReponse.ContentLength)
-                            {
-                                int DownloadStreamPartLength = DownloadStream.Read(DownloadBuffer, 0, DownloadBuffer.Length);
-                                if (DownloadStreamPartLength > 0)
-                                {
-                                    DownloadedBytes.Write(DownloadBuffer, 0, DownloadStreamPartLength);
-                                    double ReportPercentage = DownloadedBytes.Length / (double)UpdateDownloaderReponse.ContentLength;
-                                    bU_DLPools.BeginInvoke(new Action(() => { bU_DLPools.Text = string.Format("Downloading: {0}", ReportPercentage.ToString("P2")); }));
-                                }
-                                else
-                                {
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-                catch
-                {
-                    RetryCount += 1;
-                    DateTimeTempUTC = DateTimeTempUTC.AddDays(-1);
-                    goto RetryDate;
-                }
-
+                List<string> PoolList = new List<string>();
                 bU_DLPools.BeginInvoke(new Action(() => { bU_DLPools.Text = "Processing..."; }));
-                DownloadedBytes.Position = 0;
-                using (GZipStream TagsZip = new GZipStream(DownloadedBytes, CompressionMode.Decompress))
+                DownloadedStream.Position = 0;
+                using (GZipStream TagsZip = new GZipStream(DownloadedStream, CompressionMode.Decompress))
                 {
                     using (StreamReader StreamReaderTemp = new StreamReader(TagsZip))
                     {
                         StreamReaderTemp.ReadLine();
                         string ReadCSV = StreamReaderTemp.ReadToEnd();
-                        TextFieldParser CSVParser = new TextFieldParser(new StringReader(ReadCSV))
+                        using (TextFieldParser CSVParser = new TextFieldParser(new StringReader(ReadCSV)))
                         {
-                            HasFieldsEnclosedInQuotes = true
-                        };
-                        CSVParser.SetDelimiters(",");
+                            CSVParser.HasFieldsEnclosedInQuotes = true;
+                            CSVParser.SetDelimiters(",");
 
-                        string[] CSVFields;
-                        while (!CSVParser.EndOfData)
-                        {
-                            CSVFields = CSVParser.ReadFields();
-                            PoolList.Add(string.Format("{0},{1}", CSVFields[0], CSVFields[1]));
+                            string[] CSVFields;
+                            while (!CSVParser.EndOfData)
+                            {
+                                CSVFields = CSVParser.ReadFields();
+                                PoolList.Add(string.Format("{0},{1}", CSVFields[0], CSVFields[1]));
+                            }
                         }
                     }
                 }
-            }
+                DownloadedStream.Dispose();
 
-            PoolList = PoolList.Distinct().ToList();
-            File.WriteAllText("pools.txt", string.Join("✄", PoolList));
-            BeginInvoke(new Action(() =>
+                PoolList = PoolList.Distinct().ToList();
+                File.WriteAllText("pools.txt", string.Join("✄", PoolList));
+                BeginInvoke(new Action(() =>
+                {
+                    MessageBox.Show("Downloaded all pools.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    bU_DLPools.Text = "DL Pools";
+                    bU_DLPools.Enabled = true;
+                    bU_DLTags.Enabled = true;
+                }));
+                AutoTagsList_Pools.Clear();
+                Read_AutoPools();
+            }
+            else
             {
-                MessageBox.Show("Downloaded all pools.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                bU_DLPools.Text = "DL Pools";
-                bU_DLPools.Enabled = true;
-                bU_DLTags.Enabled = true;
-            }));
-            AutoTagsList_Pools.Clear();
-            Read_AutoPools();
+                BeginInvoke(new Action(() =>
+                {
+                    MessageBox.Show("Download failed.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    bU_DLPools.Text = "DL Pools";
+                    bU_DLPools.Enabled = true;
+                    bU_DLTags.Enabled = true;
+                }));
+            }
         }
 
         private void Read_AutoPools()
         {
             string[] DataSplitter;
-            int[] columnWidth = new int[] { 48, 272 };
             List<string> TempList = new List<string>(File.ReadAllText("pools.txt").Split(new string[] { "✄" }, StringSplitOptions.RemoveEmptyEntries));
             foreach (string PoolData in TempList)
             {
                 DataSplitter = PoolData.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-                AutoTagsList_Pools.Add(new MulticolumnAutocompleteItem(new[] { "#" + DataSplitter[0], DataSplitter[1].Replace("_", " ") }, "pool:" + DataSplitter[0], DataSplitter[1]) { ColumnWidth = columnWidth });
+                AutoTagsList_Pools.Add(new DC_MultiCollumnAutocompleteItem(new string[] { "#" + DataSplitter[0], DataSplitter[1].Replace("_", " ") }, "pool:" + DataSplitter[0], new string[] { DataSplitter[1].ToLower() }) { CollumnWidth = new int[] { 48, 272 } });
             }
         }
 
@@ -2576,7 +2652,7 @@ namespace e621_ReBot_v2
             if (TBValue < 250)
             {
                 TBValue = 250;
-            } 
+            }
             textBox_DelayGrabber.Text = TBValue.ToString();
             Properties.Settings.Default.DelayGrabber = TBValue;
             Properties.Settings.Default.Save();
@@ -2587,7 +2663,7 @@ namespace e621_ReBot_v2
             if (RestartTimeCheck)
             {
                 Module_Grabber.timer_Grab.Start();
-            } 
+            }
         }
 
         private void TextBox_DelayUploader_Leave(object sender, EventArgs e)
@@ -2611,7 +2687,7 @@ namespace e621_ReBot_v2
             if (RestartTimeCheck)
             {
                 Module_Uploader.timer_Upload.Start();
-            } 
+            }
         }
 
         private void TextBox_DelayDownload_Leave(object sender, EventArgs e)
@@ -2624,7 +2700,7 @@ namespace e621_ReBot_v2
             if (TBValue < 250)
             {
                 TBValue = 250;
-            } 
+            }
             textBox_DelayDownload.Text = TBValue.ToString();
             Properties.Settings.Default.DelayDownload = TBValue;
             Properties.Settings.Default.Save();
@@ -2686,86 +2762,84 @@ namespace e621_ReBot_v2
 
         private void BU_GetGenders_Click(object sender, EventArgs e)
         {
-            List<string> GenderStringList = new List<string>();
-
-            foreach (string GenderTag in new string[] { "ambiguous_gender", "male", "female", "intersex" })
+            MemoryStream DownloadedStream = DownloadDBExport("https://e621.net/db_export/tag_aliases-{0}-{1}-{2}.csv.gz", bU_GetGenders);
+            if (DownloadedStream != null)
             {
-                GenderStringList.Add(GenderTag);
+                List<string> GendersList = new List<string>() { "ambiguous_gender", "male", "female", "intersex" };
+                string ReadCSVAliases = null;
+                string ReadCSVImplications = null;
 
-                //add all tags that are aliased to this tag
-                JArray GenderJArray = JArray.Parse(Module_e621Info.e621InfoDownload("https://e621.net/tag_aliases.json?limit=1000&search[name_matches]=" + GenderTag)); //name_matches~=consequent_name
-                Thread.Sleep(500);
-                foreach (JToken GenderAlias in GenderJArray)
+                bU_GetGenders.BeginInvoke(new Action(() => { bU_GetGenders.Text = "Processing..."; }));
+                DownloadedStream.Position = 0;
+                using (GZipStream TagsZip = new GZipStream(DownloadedStream, CompressionMode.Decompress))
                 {
-                    if (GenderAlias["status"].Value<string>().Equals("active"))
+                    using (StreamReader StreamReaderTemp = new StreamReader(TagsZip))
                     {
-                        GenderStringList.Add(GenderAlias["antecedent_name"].Value<string>());
-                    } 
-                }
-
-                //add all tags that implicate this tag
-                GenderJArray = JArray.Parse(Module_e621Info.e621InfoDownload("https://e621.net/tag_implications.json?limit=1000&search[name_matches]=" + GenderTag)); //name_matches~=consequent_name
-                Thread.Sleep(500);
-                foreach (JToken GenderImplications in GenderJArray)
-                {
-                    if (GenderImplications["status"].Value<string>().Equals("active"))
-                    {
-                        string SubGenderTag = GenderImplications["antecedent_name"].Value<string>();
-
-                        GenderStringList.Add(SubGenderTag);
-
-                        //add all tags that are aliased to this tag
-                        string GenderSubAliasString = Module_e621Info.e621InfoDownload("https://e621.net/tag_aliases.json?limit=1000&search[name_matches]=" + SubGenderTag);
-                        Thread.Sleep(500);
-                        if (GenderSubAliasString.StartsWith("[", StringComparison.OrdinalIgnoreCase))
-                        {
-                            JArray SubGenderJArray = JArray.Parse(GenderSubAliasString);
-                            foreach (JToken SubGenderAlias in SubGenderJArray)
-                            {
-                                if (SubGenderAlias["status"].Value<string>().Equals("active"))
-                                {
-                                    GenderStringList.Add(SubGenderAlias["antecedent_name"].Value<string>());
-                                }
-                            }
-
-                            //add all tags that implicate this tag
-                            string GenderSubImplicationsString = Module_e621Info.e621InfoDownload("https://e621.net/tag_implications.json?limit=1000&search[name_matches]=" + SubGenderTag);
-                            Thread.Sleep(500);
-                            if (GenderSubImplicationsString.StartsWith("[", StringComparison.OrdinalIgnoreCase))
-                            {
-                                SubGenderJArray = JArray.Parse(GenderSubImplicationsString);
-                                foreach (JToken SubGenderImplications in SubGenderJArray)
-                                {
-                                    if (SubGenderImplications["status"].Value<string>().Equals("active"))
-                                    {
-                                        GenderStringList.Add(SubGenderImplications["antecedent_name"].Value<string>());
-
-                                        //add all tags that are aliased to this tag
-                                        string GenderSub2AliasString = Module_e621Info.e621InfoDownload("https://e621.net/tag_aliases.json?limit=1000&search[name_matches]=" + GenderStringList.Last());
-                                        Thread.Sleep(1000);
-                                        if (GenderSub2AliasString.StartsWith("[", StringComparison.OrdinalIgnoreCase))
-                                        {
-                                            JArray Sub2GenderJArray = JArray.Parse(GenderSub2AliasString);
-                                            foreach (JToken Sub2GenderAlias in Sub2GenderJArray)
-                                            {
-                                                if (Sub2GenderAlias["status"].Value<string>().Equals("active"))
-                                                {
-                                                    GenderStringList.Add(Sub2GenderAlias["antecedent_name"].Value<string>());
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                        }
+                        StreamReaderTemp.ReadLine();
+                        ReadCSVAliases = StreamReaderTemp.ReadToEnd();
                     }
                 }
+                DownloadedStream.Dispose();
+
+                DownloadedStream = DownloadDBExport("https://e621.net/db_export/tag_implications-{0}-{1}-{2}.csv.gz", bU_GetGenders);
+                if (DownloadedStream != null)
+                {
+                    bU_GetGenders.BeginInvoke(new Action(() => { bU_GetGenders.Text = "Processing..."; }));
+                    DownloadedStream.Position = 0;
+                    using (GZipStream TagsZip = new GZipStream(DownloadedStream, CompressionMode.Decompress))
+                    {
+                        using (StreamReader StreamReaderTemp = new StreamReader(TagsZip))
+                        {
+                            StreamReaderTemp.ReadLine();
+                            ReadCSVImplications = StreamReaderTemp.ReadToEnd();
+                        }
+                    }
+                    DownloadedStream.Dispose();
+                }
+
+                // = = = = =
+
+                for (int repeat = 0; repeat < 4; repeat++)
+                {
+                    string[] CSVFields;
+                    TextFieldParser CSVParser = new TextFieldParser(new StringReader(ReadCSVAliases))
+                    {
+                        HasFieldsEnclosedInQuotes = true
+                    };
+                    CSVParser.SetDelimiters(",");
+                    while (!CSVParser.EndOfData)
+                    {
+                        CSVFields = CSVParser.ReadFields();
+                        if (GendersList.Contains(CSVFields[2]) && CSVFields[4].Equals("active"))
+                        {
+                            GendersList.Add(CSVFields[1]);
+                        }
+                    }
+                    CSVParser.Dispose();
+                    CSVParser = new TextFieldParser(new StringReader(ReadCSVImplications))
+                    {
+                        HasFieldsEnclosedInQuotes = true
+                    };
+                    CSVParser.SetDelimiters(",");
+                    while (!CSVParser.EndOfData)
+                    {
+                        CSVFields = CSVParser.ReadFields();
+                        if (GendersList.Contains(CSVFields[2]) && CSVFields[4].Equals("active"))
+                        {
+                            GendersList.Add(CSVFields[1]);
+                        }
+                    }
+                    CSVParser.Dispose();
+                    GendersList = GendersList.Distinct().ToList();
+                }
+                GendersList.Sort();
+                File.WriteAllText("DNPs.txt", string.Join("✄", GendersList));
+                MessageBox.Show("Downloaded all Genders.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            GenderStringList = GenderStringList.Distinct().ToList();
-            GenderStringList.Sort();
-            File.WriteAllText("genders.txt", string.Join("✄", GenderStringList));
-            MessageBox.Show("Downloaded all genders.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+            {
+                MessageBox.Show("Download failed.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         public List<string> Gender_Tags = new List<string>();
@@ -2776,52 +2850,78 @@ namespace e621_ReBot_v2
 
         private void BU_GetDNPs_Click(object sender, EventArgs e)
         {
-            List<string> DNPStringList = new List<string>();
-
-            foreach (string DNPTag in new string[] { "avoid_posting", "conditional_dnp" })
+            MemoryStream DownloadedStream = DownloadDBExport("https://e621.net/db_export/tag_implications-{0}-{1}-{2}.csv.gz", bU_GetDNPs);
+            if (DownloadedStream != null)
             {
-                for (int p = 1; p <= 999; p++)
+                List<string> DNPList = new List<string>();
+                bU_GetDNPs.BeginInvoke(new Action(() => { bU_GetDNPs.Text = "Processing..."; }));
+                DownloadedStream.Position = 0;
+                string[] DNPStrings = new string[] { "avoid_posting", "conditional_dnp" };
+                using (GZipStream TagsZip = new GZipStream(DownloadedStream, CompressionMode.Decompress))
                 {
-                    string e6DNPs_Response = Module_e621Info.e621InfoDownload(string.Format("https://e621.net/tag_implications.json?limit=320&search[name_matches]={0}&page={1}", DNPTag, p)); //name_matches~=consequent_name
-                    Thread.Sleep(500);
-                    if (e6DNPs_Response.StartsWith("{", StringComparison.OrdinalIgnoreCase))
+                    using (StreamReader StreamReaderTemp = new StreamReader(TagsZip))
                     {
-                        break;
-                    }
-                    else
-                    {
-                        //add all tags that implicate this tag
-                        JArray DNPJArray = JArray.Parse(e6DNPs_Response);
-                        foreach (JToken DNPImplications in DNPJArray)
+                        StreamReaderTemp.ReadLine();
+                        string ReadCSV = StreamReaderTemp.ReadToEnd();
+                        using (TextFieldParser CSVParser = new TextFieldParser(new StringReader(ReadCSV)))
                         {
-                            if (DNPImplications["status"].Value<string>().Equals("active"))
-                            {
-                                string SubDNPTag = DNPImplications["antecedent_name"].Value<string>();
-                                DNPStringList.Add(SubDNPTag);
+                            CSVParser.HasFieldsEnclosedInQuotes = true;
+                            CSVParser.SetDelimiters(",");
 
-                                //add all tags that are alliased to this tag
-                                string DNPSubAliasString = Module_e621Info.e621InfoDownload("https://e621.net/tag_aliases.json?limit=320&search[name_matches]=" + SubDNPTag);
-                                Thread.Sleep(500);
-                                if (DNPSubAliasString.StartsWith("[", StringComparison.OrdinalIgnoreCase))
+                            string[] CSVFields;
+                            while (!CSVParser.EndOfData)
+                            {
+                                CSVFields = CSVParser.ReadFields();
+                                if (DNPStrings.Any(str => CSVFields[2].Equals(str)) && CSVFields[4].Equals("active"))
                                 {
-                                    JArray SubDNPJArray = JArray.Parse(DNPSubAliasString);
-                                    foreach (JToken SubDNPAlias in SubDNPJArray)
-                                    {
-                                        if (SubDNPAlias["status"].Value<string>().Equals("active"))
-                                        {
-                                            DNPStringList.Add(SubDNPAlias["antecedent_name"].Value<string>());
-                                        } 
-                                    }
+                                    DNPList.Add(CSVFields[1]);
                                 }
                             }
                         }
                     }
                 }
+                DownloadedStream.Dispose();
+
+                DownloadedStream = DownloadDBExport("https://e621.net/db_export/tag_aliases-{0}-{1}-{2}.csv.gz", bU_GetDNPs);
+                if (DownloadedStream != null)
+                {
+                    bU_GetDNPs.BeginInvoke(new Action(() => { bU_GetDNPs.Text = "Processing..."; }));
+                    DownloadedStream.Position = 0;
+                    using (GZipStream TagsZip = new GZipStream(DownloadedStream, CompressionMode.Decompress))
+                    {
+                        using (StreamReader StreamReaderTemp = new StreamReader(TagsZip))
+                        {
+                            StreamReaderTemp.ReadLine();
+                            string ReadCSV = StreamReaderTemp.ReadToEnd();
+                            using (TextFieldParser CSVParser = new TextFieldParser(new StringReader(ReadCSV)))
+                            {
+                                CSVParser.HasFieldsEnclosedInQuotes = true;
+                                CSVParser.SetDelimiters(",");
+
+                                string[] CSVFields;
+                                while (!CSVParser.EndOfData)
+                                {
+                                    CSVFields = CSVParser.ReadFields();
+                                    if (DNPList.Contains(CSVFields[2]) && CSVFields[4].Equals("active"))
+                                    {
+                                        DNPList.Add(CSVFields[1]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    DownloadedStream.Dispose();
+                }
+
+                DNPList = DNPList.Distinct().ToList();
+                DNPList.Sort();
+                File.WriteAllText("DNPs.txt", string.Join("✄", DNPList));
+                MessageBox.Show("Downloaded all DNPs.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            DNPStringList = DNPStringList.Distinct().ToList();
-            DNPStringList.Sort();
-            File.WriteAllText("DNPs.txt", string.Join("✄", DNPStringList));
-            MessageBox.Show("Downloaded all DNPs.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+            {
+                MessageBox.Show("Download failed.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         public List<string> DNP_Tags = new List<string>();
