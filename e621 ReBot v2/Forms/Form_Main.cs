@@ -2833,19 +2833,20 @@ namespace e621_ReBot_v2
                     GendersList = GendersList.Distinct().ToList();
                 }
                 GendersList.Sort();
-                File.WriteAllText("DNPs.txt", string.Join("✄", GendersList));
+                File.WriteAllText("Genders.txt", string.Join("✄", GendersList));
                 MessageBox.Show("Downloaded all Genders.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
                 MessageBox.Show("Download failed.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            bU_GetGenders.Text = "Get Genders";
         }
 
         public List<string> Gender_Tags = new List<string>();
         private void Read_Genders()
         {
-            Gender_Tags.AddRange(Properties.Resources.genders.Split(new string[] { "✄" }, StringSplitOptions.RemoveEmptyEntries));
+            Gender_Tags.AddRange(Properties.Resources.Genders.Split(new string[] { "✄" }, StringSplitOptions.RemoveEmptyEntries));
         }
 
         private void BU_GetDNPs_Click(object sender, EventArgs e)
@@ -2922,6 +2923,7 @@ namespace e621_ReBot_v2
             {
                 MessageBox.Show("Download failed.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            bU_GetDNPs.Text = "Get DNPs";
         }
 
         public List<string> DNP_Tags = new List<string>();

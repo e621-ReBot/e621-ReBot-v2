@@ -144,7 +144,7 @@
     <Compile Include="CustomControls\Button_Unfocusable.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="CustomControls\CustomRadioButton.cs">
+    <Compile Include="CustomControls\Custom_RadioButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CustomControls\Custom_CheckBox.cs">
@@ -485,8 +485,8 @@
     <Content Include="Resources\Browser\ComboBox_Disabled.png" />
     <EmbeddedResource Include="Resources\Files\Newtonsoft.Json.dll" />
     <EmbeddedResource Include="Resources\Files\System.Data.SQLite.dll" />
-    <EmbeddedResource Include="Resources\Files\genders.txt" />
     <EmbeddedResource Include="Resources\Files\DNPs.txt" />
+    <None Include="Resources\Files\Genders.txt" />
     <Content Include="Resources\Form\CheckMark_Icon.png" />
     <Content Include="Resources\Form\CloseBtn_Active.png" />
     <Content Include="Resources\Form\Cursor_e6.png" />

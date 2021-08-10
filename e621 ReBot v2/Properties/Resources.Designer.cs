@@ -460,11 +460,11 @@ namespace e621_ReBot_v2.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ?/?✄?/am✄?/c✄?/cuntboy✄?/d✄?/dickgirl✄?/f✄?/female✄?/gm✄?/h✄?/herm✄?/i✄?/intersex✄?/m✄?/male✄?/p/f✄?/p/m✄♀_penetrating_♀✄♀_penetrating_♂✄♂_penetrating_♀✄♂_penetrating_♂✄1_boy✄1_girl✄1_guys✄1boy✄1girl✄1guy✄1male✄2_boys✄2_girl✄2_girls✄2_guys✄2boys✄2girl✄2girls✄2guys✄3_boys✄3_girl✄3_girls✄3_guys✄3boys✄3girl✄3girls✄3guys✄4_boys✄4_girl✄4_girls✄4_guys✄4boys✄4girl✄4girls✄4guys✄5guys✄a/a✄a/d✄a/f✄a/h✄a/i✄a/m✄ag/am✄ag/gm✄ag/p/ag✄ag/p/f✄ag/p/fm✄ag/p/i✄ag/p/m✄all_female✄am/?✄am/ag✄am/am✄am/f✄am/fm✄am/gm✄am/h✄am/m✄am/mh [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to ?/?✄?/am✄?/c✄?/cuntboy✄?/d✄?/dickgirl✄?/f✄?/female✄?/gm✄?/h✄?/herm✄?/i✄?/intersex✄?/m✄?/male✄?/p/f✄?/p/m✄♀_penetrating_♀✄♀_penetrating_♂✄♂_penetrating_♀✄♂_penetrating_♂✄1_boy✄1_girl✄1_guys✄1boy✄1girl✄1guy✄1male✄2_boys✄2_girl✄2_girls✄2_guys✄2boys✄2girl✄2girls✄2guys✄3_boys✄3_girl✄3_girls✄3_guys✄3boys✄3girl✄3girls✄3guys✄4_boys✄4_girl✄4_girls✄4_guys✄4boys✄4girl✄4girls✄4guys✄5guys✄a/a✄a/d✄a/f✄a/h✄a/i✄a/m✄ag/am✄ag/gm✄ag/p/ag✄ag/p/am✄ag/p/c✄ag/p/d✄ag/p/f✄ag/p/fm✄ag/p/gm✄ag/p/h✄ag/p/i✄ag/p/m✄ag/p/mh✄all_female✄am/? [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string genders {
+        internal static string Genders {
             get {
-                return ResourceManager.GetString("genders", resourceCulture);
+                return ResourceManager.GetString("Genders", resourceCulture);
             }
         }
         
