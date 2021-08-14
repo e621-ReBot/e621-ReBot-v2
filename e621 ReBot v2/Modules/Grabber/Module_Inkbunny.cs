@@ -69,12 +69,7 @@ namespace e621_ReBot_v2.Modules.Grabber
 
         private static void Queue_Multi(string WebAdress, string HTMLSource)
         {
-            string InkbunnyLinkFix = WebAdress;
-            if (!InkbunnyLinkFix.Contains("/submissionsviewall.php?"))
-            {
-                InkbunnyLinkFix = InkbunnyLinkFix.Substring(0, InkbunnyLinkFix.LastIndexOf("/"));
-            }
-            TreeNode TreeViewParentNode = Module_Grabber.CreateOrFindParentTreeNode(InkbunnyLinkFix, InkbunnyLinkFix);
+            TreeNode TreeViewParentNode = Module_Grabber.CreateOrFindParentTreeNode(WebAdress, WebAdress);
 
             HtmlDocument WebDoc = new HtmlDocument();
             WebDoc.LoadHtml(HTMLSource);

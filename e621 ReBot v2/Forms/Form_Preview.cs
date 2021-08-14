@@ -198,6 +198,10 @@ namespace e621_ReBot_v2.Forms
             {
                 Pic_WebBrowser.Stop();
                 e.Cancel = true;
+                Pic_WebBrowser.Document.Write("WebP is not supported.");
+                Pic_WebBrowser.Zoom(100);
+                UpdateButtons();
+                UpdateNavButtons();
                 return;
             }
 
@@ -298,72 +302,91 @@ namespace e621_ReBot_v2.Forms
                 FitImageHeight2Browser();
             }
 
-            if (((string)Preview_RowHolder["Grab_MediaURL"]).ToLower().EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) || ((string)Preview_RowHolder["Grab_MediaURL"]).ToLower().EndsWith(".swf", StringComparison.OrdinalIgnoreCase))
+            string MediaURL = (string)Preview_RowHolder["Grab_MediaURL"];
+            switch (MediaURL)
             {
-                Text = string.Format("Preview ({0}) - {1:N0} kB   .{2}", Preview_RowIndex + 1, (int)((int)Preview_RowHolder["Info_MediaByteLength"] / 1024d), (string)Preview_RowHolder["Info_MediaFormat"]);
-                AutoTags();
-            }
-            else
-            {
-                if (((string)Preview_RowHolder["Grab_MediaURL"]).Contains("ugoira"))
-                {
-                    Text = string.Format("Preview ({0}) - {1:N0} kB   Ugoira", Preview_RowIndex + 1, (int)((int)Preview_RowHolder["Info_MediaByteLength"] / 1024d));
-                    AutoTags();
-                }
-                else
-                {
-                    if (Preview_RowHolder["Info_MediaMD5"] == DBNull.Value)
+                case string VideoFormat1 when VideoFormat1.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase):
+                case string VideoFormat2 when VideoFormat2.EndsWith(".swf", StringComparison.OrdinalIgnoreCase):
                     {
-                        GetCachedImage();
-                        CheckMD5();
+                        Text = string.Format("Preview ({0}) - {1:N0} kB   .{2}", Preview_RowIndex + 1, (int)((int)Preview_RowHolder["Info_MediaByteLength"] / 1024d), (string)Preview_RowHolder["Info_MediaFormat"]);
                         AutoTags();
-                        Preview_RowHolder["Info_TooBig"] = Module_Uploader.Media2BigCheck(ref Preview_RowHolder);
+                        break;
+                    }
+                case string UgoiraFormat when UgoiraFormat.Contains("ugoira"):
+                    {
+                        Text = string.Format("Preview ({0}) - Ugoira", Preview_RowIndex + 1);
+                        AutoTags();
+                        break;
                     }
 
-                    if (Preview_RowHolder["Thumbnail_FullInfo"] == DBNull.Value)
+                default:
                     {
-                        Preview_RowHolder["Info_MediaWidth"] = Pic_WebBrowser.Document.Images[0].ClientRectangle.Size.Width;
-                        Preview_RowHolder["Info_MediaHeight"] = Pic_WebBrowser.Document.Images[0].ClientRectangle.Size.Height;
-                        Preview_RowHolder["Thumbnail_FullInfo"] = true;
-
                         e6_GridItem GridItemTemp = Form_Loader._FormReference.IsE6PicVisibleInGrid(ref Preview_RowHolder);
-
-                        //Weasyl special
-                        if (Preview_RowHolder["Grab_ThumbnailURL"] == DBNull.Value)
+                        string CachedImagePath = null;
+                        if (Preview_RowHolder["Info_MediaMD5"] == DBNull.Value)
                         {
-                            if (!((string)Preview_RowHolder["Grab_ThumbnailURL"]).EndsWith(".webp", StringComparison.OrdinalIgnoreCase)) //more custom handling for webp
-                            {
-                                ((Image)Preview_RowHolder["Thumbnail_Image"]).Dispose();
-                                Preview_RowHolder["Grab_ThumbnailURL"] = "";
-                                string CachedImagePath = Module_Downloader.IEDownload_Cache[Module_Downloader.GetMediasFileNameOnly((string)Preview_RowHolder["Grab_MediaURL"])];
+                            GetCachedImage();
+                            CheckMD5();
+                            AutoTags();
+                            Preview_RowHolder["Info_TooBig"] = Module_Uploader.Media2BigCheck(ref Preview_RowHolder);
 
+                            if (((string)Preview_RowHolder["Grab_ThumbnailURL"]).EndsWith(".webp", StringComparison.OrdinalIgnoreCase)) //more custom handling for webp
+                            {
+                                CachedImagePath = Module_Downloader.IEDownload_Cache[Module_Downloader.GetMediasFileNameOnly((string)Preview_RowHolder["Grab_MediaURL"])];
                                 Preview_RowHolder["Thumbnail_Image"] = Module_Grabber.MakeImageThumb(Image.FromFile(CachedImagePath));
-                                if (GridItemTemp == null)
+                                if (GridItemTemp != null)
                                 {
-                                    Module_Grabber.WriteImageInfo(Preview_RowHolder);
+                                    GridItemTemp.LoadImage();
                                 }
                             }
                         }
 
-                        if (GridItemTemp == null)
+                        if (Preview_RowHolder["Thumbnail_FullInfo"] == DBNull.Value)
                         {
-                            if (Preview_RowHolder["Thumbnail_Image"] == DBNull.Value && Preview_RowHolder["Thumbnail_DLStart"] == DBNull.Value)
+                            Preview_RowHolder["Info_MediaWidth"] = Pic_WebBrowser.Document.Images[0].ClientRectangle.Size.Width;
+                            Preview_RowHolder["Info_MediaHeight"] = Pic_WebBrowser.Document.Images[0].ClientRectangle.Size.Height;
+                            Preview_RowHolder["Thumbnail_FullInfo"] = true;
+
+                            //Weasyl special
+                            if (Preview_RowHolder["Grab_ThumbnailURL"] == DBNull.Value)
                             {
-                                string CachedImagePath = Module_Downloader.IEDownload_Cache[Module_Downloader.GetMediasFileNameOnly((string)Preview_RowHolder["Grab_MediaURL"])];
+                                if (!((string)Preview_RowHolder["Grab_ThumbnailURL"]).EndsWith(".webp", StringComparison.OrdinalIgnoreCase)) //more custom handling for webp
+                                {
+                                    ((Image)Preview_RowHolder["Thumbnail_Image"]).Dispose();
+                                    Preview_RowHolder["Grab_ThumbnailURL"] = "";
+
+                                    if (CachedImagePath == null)
+                                    {
+                                        CachedImagePath = Module_Downloader.IEDownload_Cache[Module_Downloader.GetMediasFileNameOnly(MediaURL)];
+                                    }
+
+                                    Preview_RowHolder["Thumbnail_Image"] = Module_Grabber.MakeImageThumb(Image.FromFile(CachedImagePath));
+                                    if (GridItemTemp == null)
+                                    {
+                                        Module_Grabber.WriteImageInfo(Preview_RowHolder);
+                                    }
+                                }
+                            }
+
+                            if (GridItemTemp == null && Preview_RowHolder["Thumbnail_Image"] == DBNull.Value && Preview_RowHolder["Thumbnail_DLStart"] == DBNull.Value)
+                            {
+                                if (CachedImagePath == null)
+                                {
+                                    CachedImagePath = Module_Downloader.IEDownload_Cache[Module_Downloader.GetMediasFileNameOnly(MediaURL)];
+                                }
                                 Preview_RowHolder["Thumbnail_Image"] = Module_Grabber.MakeImageThumb(Image.FromFile(CachedImagePath));
                                 Module_Grabber.WriteImageInfo(Preview_RowHolder);
                             }
+                            else
+                            {
+                                GridItemTemp.LoadImage();
+                            }
                         }
-                        else
-                        {
-                            GridItemTemp.LoadImage();
-                        }
+
+                        Text = string.Format("Preview ({0}) - {1} x {2}, {3:N0} kB   .{4}     [MD5: {5}]", Preview_RowIndex + 1, Pic_WebBrowser.Document.Images[0].ClientRectangle.Size.Width, Pic_WebBrowser.Document.Images[0].ClientRectangle.Size.Height, (int)Preview_RowHolder["Info_MediaByteLength"] / 1024, (string)Preview_RowHolder["Info_MediaFormat"], (string)Preview_RowHolder["Info_MediaMD5"]);
+                        break;
                     }
-
-                    Text = string.Format("Preview ({0}) - {1} x {2}, {3:N0} kB   .{4}     [MD5: {5}]", Preview_RowIndex + 1, Pic_WebBrowser.Document.Images[0].ClientRectangle.Size.Width, Pic_WebBrowser.Document.Images[0].ClientRectangle.Size.Height, (int)Preview_RowHolder["Info_MediaByteLength"] / 1024, (string)Preview_RowHolder["Info_MediaFormat"], (string)Preview_RowHolder["Info_MediaMD5"]);
-                }
             }
-
             PB_Upload.Enabled = true;
             PB_Download.Enabled = true;
             panel_Search.Enabled = Preview_RowHolder["Uploaded_As"] == DBNull.Value;
@@ -536,7 +559,7 @@ namespace e621_ReBot_v2.Forms
 
             }
 
-            // /// = = = = = Add tags regarding image size
+            // = = = = = Add tags regarding image size
             string ratio_tag = "";
             string resolution_tag = "";
             HtmlDocument WebBrowserDocument = null;
@@ -845,8 +868,8 @@ namespace e621_ReBot_v2.Forms
             flowLayoutPanel_DL.Focus();
             PB_Download.Enabled = false;
             PB_Download.Visible = false;
-            string URL = (string)Preview_RowHolder["Grab_MediaURL"];
-            string ImageName = URL.Substring(URL.LastIndexOf("/") + 1);
+            string MediaURL = (string)Preview_RowHolder["Grab_MediaURL"];
+            string ImageName = MediaURL.Substring(MediaURL.LastIndexOf("/") + 1).ToLower();
             if (ImageName.Contains("ugoira"))
             {
                 Label_DownloadWarning.Visible = false;
@@ -854,7 +877,7 @@ namespace e621_ReBot_v2.Forms
             }
             else
             {
-                if (ImageName.ToLower().EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) || ImageName.ToLower().EndsWith(".swf", StringComparison.OrdinalIgnoreCase))
+                if (ImageName.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) || ImageName.EndsWith(".swf", StringComparison.OrdinalIgnoreCase))
                 {
                     Label_DownloadWarning.Visible = false;
                     Add2ConversionQueue(ref Preview_RowHolder);
