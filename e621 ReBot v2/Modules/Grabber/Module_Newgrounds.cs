@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Data;
+using System.Drawing;
 using System.Net;
 using System.Threading;
 using System.Windows.Forms;
@@ -120,17 +121,21 @@ namespace e621_ReBot_v2.Modules.Grabber
                 {
                     Custom_ProgressBar TempcPB = new Custom_ProgressBar(Post_URL, PictureNodes.Count);
                     Form_Loader._FormReference.Invoke(new Action(() => { Form_Loader._FormReference.cFlowLayoutPanel_ProgressBarHolder.Controls.Add(TempcPB); }));
+
+                    string ThumbnailURLTemp = null;
                     foreach (HtmlNode ImageNode in PictureNodes)
                     {
                         TempcPB.Value += 1;
 
-                        string ThumbnailURLTemp;
                         if (PictureNodes.Count == 1 || TempcPB.Value == 1)
                         {
                             Post_MediaURL = ImageNode.Attributes["src"].Value;
                             Post_MediaURL = Post_MediaURL.Substring(0, Post_MediaURL.IndexOf("?"));
-                            ThumbnailURLTemp = PostNode.SelectSingleNode(".//meta[@property='og:image']").Attributes["content"].Value;
-                            ThumbnailURLTemp = ThumbnailURLTemp.Substring(0, ThumbnailURLTemp.IndexOf("?"));
+                            if (ThumbnailURLTemp == null)
+                            {
+                                ThumbnailURLTemp = PostNode.SelectSingleNode(".//meta[@property='og:image']").Attributes["content"].Value;
+                                ThumbnailURLTemp = ThumbnailURLTemp.Substring(0, ThumbnailURLTemp.IndexOf("?"));
+                            }
                         }
                         else
                         {
@@ -141,7 +146,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                             else
                             {
                                 Post_MediaURL = ImageNode.Attributes["data-smartload-src"].Value;
-                                ThumbnailURLTemp = Post_MediaURL;
+                                //ThumbnailURLTemp = Post_MediaURL;
                             }
 
                         }
@@ -172,6 +177,10 @@ namespace e621_ReBot_v2.Modules.Grabber
                                 TempDataRow["Info_MediaWidth"] = ResolutionHolder[0];
                                 TempDataRow["Info_MediaHeight"] = ResolutionHolder[1];
                                 TempDataRow["Thumbnail_FullInfo"] = true;
+                                if (ThumbnailURLTemp.EndsWith(".webp", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    Module_Grabber.WriteImageInfo(TempDataRow); //do it here so data shown on image properly due to custom handling of webp
+                                }
                             }
                         }
                         TempDataTable.Rows.Add(TempDataRow);
@@ -182,7 +191,6 @@ namespace e621_ReBot_v2.Modules.Grabber
                 }
                 else
                 {
-
                     string VideoURL = Post_URL.Replace("/view/", "/video/");
                     JObject VideoJSON = JObject.Parse(Module_Grabber.GrabPageSource(VideoURL, ref Module_CookieJar.Cookies_Newgrounds, true));
 
@@ -243,6 +251,11 @@ namespace e621_ReBot_v2.Modules.Grabber
             if (TextBody != null) TempDataRow["Grab_TextBody"] = TextBody;
             TempDataRow["Grab_MediaURL"] = MediaURL;
             TempDataRow["Grab_ThumbnailURL"] = ThumbURL;
+            if (ThumbURL.EndsWith(".webp", StringComparison.OrdinalIgnoreCase))
+            {
+                TempDataRow["Thumbnail_Image"] = new Bitmap(Properties.Resources.BrowserIcon_Newgrounds);
+                Module_Grabber.WriteImageInfo(TempDataRow); //do it here so data shown on grid properly due to custom handling of webp
+            }
             string FormatTemp = MediaURL.Substring(MediaURL.LastIndexOf(".") + 1);
             if (FormatTemp.Contains("?"))
             {
