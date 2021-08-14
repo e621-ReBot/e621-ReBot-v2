@@ -989,7 +989,6 @@ namespace e621_ReBot_v2
             {
                 _DataRowReference = RowReff,
                 _Rating = (string)RowReff["Upload_Rating"]
-
             };
             NewGridItem.cCheckBox_UPDL.Checked = (bool)RowReff["UPDL_Queued"];
             if (RowReff["Thumbnail_Image"] == DBNull.Value)
