@@ -41,7 +41,7 @@ namespace e621_ReBot_v2.Modules
             _GrabEnabler.Add(new Regex(@".+(furaffinity.net)/((view|full)/\d+/|(gallery|scraps|favorites)/\w+/)"));
             _GrabEnabler.Add(new Regex(@".+(furaffinity.net/search/)"));
             _GrabEnabler.Add(new Regex(@".+(twitter.com)/(\w+/(media|status/\d+)|\w+)"));
-            _GrabEnabler.Add(new Regex(@".+(newgrounds.com)/(art/view.+|art/page/\d+|portal/view/\d+)"));
+            _GrabEnabler.Add(new Regex(@".+(newgrounds.com)/(movies/|portal/view/\d+|art.+)"));
             _GrabEnabler.Add(new Regex(@".+(hiccears.com)/(picture|gallery|artist-profile).+"));
             _GrabEnabler.Add(new Regex(@".+(sofurry.com)/(view/\d+|browse/\w+/art.+)"));
             _GrabEnabler.Add(new Regex(@".+(mastodon.social)/@(\w+)?(/\d+|/media)"));
@@ -90,7 +90,7 @@ namespace e621_ReBot_v2.Modules
                         Module_Twitter.QueuePrep(WebAdress);
                         break;
                     }
-                case "www.newgrounds.com":
+                case string TempHost when TempHost.Contains("newgrounds.com"):
                     {
                         Module_Newgrounds.QueuePrep(WebAdress);
                         break;
@@ -279,7 +279,7 @@ namespace e621_ReBot_v2.Modules
                         BGWTemp.RunWorkerAsync(NeededData);
                         return;
                     }
-                case "www.newgrounds.com":
+                case string TempHost when TempHost.Contains(".newgrounds.com"):
                     {
                         BGWTemp.DoWork += Module_Newgrounds.RunGrabber;
                         break;

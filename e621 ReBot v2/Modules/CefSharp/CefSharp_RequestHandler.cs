@@ -36,6 +36,9 @@ namespace CefSharp
 
             //Plurk
             AdBlock.Add("ads.yap.yahoo.com");
+
+            //Newgrounds
+            AdBlock.Add("a.adtng.com");
         }
 
         protected override bool OnBeforeBrowse(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool userGesture, bool isRedirect)

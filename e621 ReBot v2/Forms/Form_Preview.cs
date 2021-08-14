@@ -193,6 +193,14 @@ namespace e621_ReBot_v2.Forms
             Label_Tags.Text = null;
 
             string ImageURL = (string)Preview_RowHolder["Grab_MediaURL"];
+            //custom handling for webp
+            if (ImageURL.EndsWith(".webp", StringComparison.OrdinalIgnoreCase))
+            {
+                Pic_WebBrowser.Stop();
+                e.Cancel = true;
+                return;
+            }
+
             string ImageName = Module_Downloader.GetMediasFileNameOnly(ImageURL);
             if (Module_Downloader.Download_AlreadyDownloaded.Contains(ImageName))
             {
@@ -323,14 +331,18 @@ namespace e621_ReBot_v2.Forms
                         //Weasyl special
                         if (Preview_RowHolder["Grab_ThumbnailURL"] == DBNull.Value)
                         {
-                            ((Image)Preview_RowHolder["Thumbnail_Image"]).Dispose();
-                            Preview_RowHolder["Grab_ThumbnailURL"] = "";
-                            string CachedImagePath = Module_Downloader.IEDownload_Cache[Module_Downloader.GetMediasFileNameOnly((string)Preview_RowHolder["Grab_MediaURL"])];
-                            Preview_RowHolder["Thumbnail_Image"] = Module_Grabber.MakeImageThumb(Image.FromFile(CachedImagePath));
-                            if (GridItemTemp == null)
+                            if (!((string)Preview_RowHolder["Grab_ThumbnailURL"]).EndsWith(".webp", StringComparison.OrdinalIgnoreCase)) //more custom handling for webp
                             {
-                                Module_Grabber.WriteImageInfo(Preview_RowHolder);
-                            } 
+                                ((Image)Preview_RowHolder["Thumbnail_Image"]).Dispose();
+                                Preview_RowHolder["Grab_ThumbnailURL"] = "";
+                                string CachedImagePath = Module_Downloader.IEDownload_Cache[Module_Downloader.GetMediasFileNameOnly((string)Preview_RowHolder["Grab_MediaURL"])];
+
+                                Preview_RowHolder["Thumbnail_Image"] = Module_Grabber.MakeImageThumb(Image.FromFile(CachedImagePath));
+                                if (GridItemTemp == null)
+                                {
+                                    Module_Grabber.WriteImageInfo(Preview_RowHolder);
+                                }
+                            }
                         }
 
                         if (GridItemTemp == null)

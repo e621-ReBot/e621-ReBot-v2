@@ -486,7 +486,7 @@
     <EmbeddedResource Include="Resources\Files\Newtonsoft.Json.dll" />
     <EmbeddedResource Include="Resources\Files\System.Data.SQLite.dll" />
     <EmbeddedResource Include="Resources\Files\DNPs.txt" />
-    <None Include="Resources\Files\Genders.txt" />
+    <EmbeddedResource Include="Resources\Files\Genders.txt" />
     <Content Include="Resources\Form\CheckMark_Icon.png" />
     <Content Include="Resources\Form\CloseBtn_Active.png" />
     <Content Include="Resources\Form\Cursor_e6.png" />
