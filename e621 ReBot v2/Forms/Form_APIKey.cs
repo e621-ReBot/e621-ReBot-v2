@@ -121,8 +121,7 @@ namespace e621_ReBot_v2.Forms
                 }
                 if (!Properties.Settings.Default.API_Key.Equals(""))
                 {
-                    Thread ThreadTemp = new Thread(Module_Credits.Check_Credit_All);
-                    ThreadTemp.Start();
+                    new Thread(Module_Credits.Check_Credit_All).Start();
                 }
             }));
             _FormReference = null;

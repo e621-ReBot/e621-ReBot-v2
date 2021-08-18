@@ -50,7 +50,7 @@ namespace e621_ReBot_v2.Modules.Grabber
             HtmlDocument WebDoc = new HtmlDocument();
             WebDoc.LoadHtml(HTMLSource);
 
-            foreach (HtmlNode ChildNode in WebDoc.DocumentNode.SelectNodes(".//div[@class='col-md-2 imagelist-item  '] | .//div[@class='col-md-2 imagelist-item item-subscription']"))
+            foreach (HtmlNode ChildNode in WebDoc.DocumentNode.SelectNodes(".//div[@class='col-md-2 imagelist-item  ' or 'col-md-2 imagelist-item item-subscription']"))
             {
                 string DirectLink2Post = "https://www.hiccears.com" + ChildNode.SelectSingleNode(".//a").Attributes["href"].Value.Remove(0, 1);
                 if (Module_Grabber._GrabQueue_URLs.Contains(DirectLink2Post))

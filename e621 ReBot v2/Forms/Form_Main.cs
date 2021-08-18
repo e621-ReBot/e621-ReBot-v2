@@ -157,8 +157,7 @@ namespace e621_ReBot_v2
 
             if (!Properties.Settings.Default.UserID.Equals(""))
             {
-                Thread ThreadTemp = new Thread(Module_Credits.Check_Credit_All);
-                ThreadTemp.Start();
+                new Thread(Module_Credits.Check_Credit_All).Start();
             }
 
             if (Properties.Settings.Default.API_Key.Equals(""))
@@ -173,8 +172,7 @@ namespace e621_ReBot_v2
                 bU_RefreshCredit.Enabled = true;
                 if (!Properties.Settings.Default.PoolWatcher.Equals(""))
                 {
-                    Thread ThreadTemp = new Thread(Form_PoolWatcher.PoolWatcher_Check4New);
-                    ThreadTemp.Start();
+                    new Thread(Form_PoolWatcher.PoolWatcher_Check4New).Start();
                 }
             }
 
@@ -277,8 +275,7 @@ namespace e621_ReBot_v2
 
             if (!Properties.Settings.Default.API_Key.Equals("") && !Properties.Settings.Default.PoolWatcher.Equals(""))
             {
-                Thread ThreadTemp = new Thread(Form_PoolWatcher.PoolWatcher_Check4New);
-                ThreadTemp.Start();
+                new Thread(Form_PoolWatcher.PoolWatcher_Check4New).Start();
             }
 
             RetryQueue_Load();
@@ -561,8 +558,8 @@ namespace e621_ReBot_v2
                                 {
                                     flowLayoutPanel_Grid.SuspendLayout();
                                     Module_Grabber._Grabbed_MediaURLs.Remove((string)_Selected_e6GridItem._DataRowReference["Grab_MediaURL"]);
-                                    _Selected_e6GridItem._DataRowReference.Delete();
-                                    _Selected_e6GridItem.Dispose();
+                                    //_Selected_e6GridItem.Dispose();
+                                    _Selected_e6GridItem.StartAnimation_Remove();
                                     _Selected_e6GridItem = null;
                                     flowLayoutPanel_Grid.ResumeLayout();
                                     Paginator();
@@ -2173,8 +2170,7 @@ namespace e621_ReBot_v2
         private void BU_RefreshCredit_Click(object sender, EventArgs e)
         {
             bU_RefreshCredit.Enabled = false;
-            Thread ThreadTemp = new Thread(Module_Credits.Check_Credit_All);
-            ThreadTemp.Start();
+            new Thread(Module_Credits.Check_Credit_All).Start();
         }
 
         private void UpdateDays_CheckedChanged(object sender, EventArgs e)
@@ -2555,6 +2551,7 @@ namespace e621_ReBot_v2
                 DownloadedStream.Dispose();
 
                 PoolList = PoolList.Distinct().ToList();
+                PoolList.Reverse();
                 File.WriteAllText("pools.txt", string.Join("✄", PoolList));
                 BeginInvoke(new Action(() =>
                 {
@@ -2960,8 +2957,8 @@ namespace e621_ReBot_v2
 
         private void GB_StartGame_Click(object sender, EventArgs e)
         {
+            GB_StartGame.Enabled = false;
             gamePanel_Main.Focus();
-            gamePanel_Main.Enabled = true;
             gamePanel_Main.LoadPuzzle();
         }
 

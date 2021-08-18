@@ -5,7 +5,10 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Threading;
 using System.Windows.Forms;
+using Timer = System.Windows.Forms.Timer;
 
 namespace e621_ReBot_v2.CustomControls
 {
@@ -136,13 +139,16 @@ namespace e621_ReBot_v2.CustomControls
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            if (_IsSelectedCheck)
+            if (ControlSnapshot == null)
             {
-                ControlPaint.DrawBorder(e.Graphics, ClientRectangle, Color.DarkOrange, 2, ButtonBorderStyle.Solid, Color.DarkOrange, 2, ButtonBorderStyle.Solid, Color.DarkOrange, 2, ButtonBorderStyle.Solid, Color.DarkOrange, 2, ButtonBorderStyle.Solid);
-            }
-            else
-            {
-                ControlPaint.DrawBorder(e.Graphics, ClientRectangle, Color.SteelBlue, ButtonBorderStyle.Solid);
+                if (_IsSelectedCheck)
+                {
+                    ControlPaint.DrawBorder(e.Graphics, ClientRectangle, Color.DarkOrange, 2, ButtonBorderStyle.Solid, Color.DarkOrange, 2, ButtonBorderStyle.Solid, Color.DarkOrange, 2, ButtonBorderStyle.Solid, Color.DarkOrange, 2, ButtonBorderStyle.Solid);
+                }
+                else
+                {
+                    ControlPaint.DrawBorder(e.Graphics, ClientRectangle, Color.SteelBlue, ButtonBorderStyle.Solid);
+                }
             }
         }
 
@@ -352,6 +358,68 @@ namespace e621_ReBot_v2.CustomControls
             //}
             pictureBox_ImageHolder.Image = Module_Grabber.WriteImageInfo(_DataRowReference);
         }
+
+
+
+        private Bitmap ControlSnapshot;
+        private Bitmap BackgroundRemovalImage;
+        private void Animation_Remove()
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                using (Graphics TempGraphics = Graphics.FromImage(BackgroundRemovalImage))
+                {
+                    TempGraphics.SmoothingMode = SmoothingMode.AntiAlias;
+                    TempGraphics.InterpolationMode = InterpolationMode.High;
+                    TempGraphics.CompositingQuality = CompositingQuality.HighQuality;
+                    TempGraphics.Clear(Color.Transparent);
+                    TempGraphics.DrawImage(ControlSnapshot, new Rectangle(new Point(8 * i, 8 * i), new Size(Width - 17 * i, Height - 17 * i)));
+                }
+                BackgroundImage = BackgroundRemovalImage;
+                Invoke(new Action(() => { Refresh(); })); 
+                Thread.Sleep(1);
+            }
+            Invoke(new Action(() => 
+            {
+                ControlSnapshot.Dispose();
+                BackgroundRemovalImage.Dispose();
+                lock (Module_TableHolder.Database_Table)
+                {
+                    _DataRowReference.Delete();
+                }
+                Dispose();
+            }));
+        }
+
+        public void StartAnimation_Remove()
+        {
+            ControlSnapshot = new Bitmap(Width, Height);
+            BackgroundRemovalImage = new Bitmap(Width, Height);
+            DrawToBitmap(ControlSnapshot, ClientRectangle);
+            RemoveControls();
+            new Thread(Animation_Remove).Start();
+        }
+
+        private void RemoveControls()
+        {
+            cPanel_Rating.Dispose();
+            cLabel_isSuperior.Dispose();
+            cLabel_TagWarning.Dispose();
+            cLabel_isUploaded.Dispose();
+            cCheckBox_UPDL.Dispose();
+            cLabel_Rating.Dispose();
+            if (pictureBox_ImageHolder.BackgroundImage != null)
+            {
+                pictureBox_ImageHolder.BackgroundImage.Dispose();
+            }
+            if (pictureBox_ImageHolder.Image != null)
+            {
+                pictureBox_ImageHolder.Image.Dispose();
+            }
+            pictureBox_ImageHolder.Dispose();
+        }
+
+
 
         /// <summary> 
         /// Clean up any resources being used.
