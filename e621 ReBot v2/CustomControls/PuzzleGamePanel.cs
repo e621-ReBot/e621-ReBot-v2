@@ -41,7 +41,6 @@ namespace e621_ReBot_v2.CustomControls
             Font = new Font("Arial", 10, FontStyle.Bold, GraphicsUnit.Pixel);
             MouseClick += GamePanel_MouseClick;
             ResumeLayout(false);
-
         }
 
         private void Custom_Panel_Paint(object sender, PaintEventArgs e)
@@ -49,11 +48,18 @@ namespace e621_ReBot_v2.CustomControls
             ControlPaint.DrawBorder(e.Graphics, ClientRectangle, Color.Black, ButtonBorderStyle.Solid);
         }
 
+        private bool PaintActivation = true;
         public void LoadPuzzle()
         {
+            Enabled = false;
+            if (PaintActivation)
+            {
+                Paint += Custom_Panel_Paint;
+                PaintActivation = false;
+            }
+
             if (PreloadImage == null)
             {
-                Paint -= Custom_Panel_Paint;
                 ImageLoader();
             }
             else
@@ -91,7 +97,7 @@ namespace e621_ReBot_v2.CustomControls
                     TempGraphics.SmoothingMode = SmoothingMode.AntiAlias;
                     TempGraphics.DrawImage(TempBitmap, 0, 0, scaledWidth, scaledHeight);
                 }
-                Size = CompleteImage.Size;
+                Size = new Size(CompleteImage.Width - _CollumnCount + 1, CompleteImage.Height - _RowCount + 1);
 
                 Form_Loader._FormReference.pB_GameThumb.BackgroundImage = CompleteImage;
                 CreatePuzzlePieces();
@@ -100,6 +106,10 @@ namespace e621_ReBot_v2.CustomControls
                 LastHintState = Form_Loader._FormReference.CC_GameIndexHints.Checked;
 
                 Location = new Point(20 + (MaximumSize.Width - Width) / 2, 8 + (MaximumSize.Height - Height) / 2);
+                
+
+                Enabled = true;
+                Form_Loader._FormReference.GB_StartGame.Enabled = true;
                 Form_Loader._FormReference.GB_RestartGame.Enabled = true;
             }
         }
@@ -244,7 +254,7 @@ namespace e621_ReBot_v2.CustomControls
                 TempGraphics.DrawImage(CompleteImage, new Rectangle(new Point(0, 0), new Size(_PieceWidth, _PieceHeight)), new Rectangle(new Point(xPoint, yPoint), new Size(_PieceWidth, _PieceHeight)), GraphicsUnit.Pixel);
                 using (Pen TempPen = new Pen(Color.Black, 1))
                 {
-                    TempGraphics.DrawRectangle(TempPen, 0, 0, _PieceWidth + 1, _PieceHeight + 1);
+                    TempGraphics.DrawRectangle(TempPen, 0, 0, _PieceWidth, _PieceHeight);
                 }
 
                 TempGraphics.TextRenderingHint = TextRenderingHint.AntiAlias;
@@ -315,7 +325,7 @@ namespace e621_ReBot_v2.CustomControls
                 if (BlankPieceCollumn < (_CollumnCount - 1))
                 {
                     MovablePieces.Add(new int[] { BlankPieceRow, BlankPieceCollumn + 1 });
-                } 
+                }
 
                 int RndSelected = RandomGenerator.Next(0, MovablePieces.Count); //max is actually max-1
 
@@ -355,7 +365,7 @@ namespace e621_ReBot_v2.CustomControls
             if (BackgroundImage != null)
             {
                 BackgroundImage.Dispose();
-            } 
+            }
 
             Bitmap TempBitmap = new Bitmap(CompleteImage);
 
@@ -418,7 +428,7 @@ namespace e621_ReBot_v2.CustomControls
             if (ClickIndex == _BlankPiece)
             {
                 return;
-            } 
+            }
 
             int BlankPieceRow = _BlankPiece / _CollumnCount;
             int BlankPieceCollumn = _BlankPiece - (BlankPieceRow * _CollumnCount);
@@ -473,7 +483,7 @@ namespace e621_ReBot_v2.CustomControls
                 if (Form_Loader._FormReference.CC_GameAnimations.Checked == false)
                 {
                     TempGraphics.DrawImage(PuzzlePieces[PieceIndex].PieceImage, new Point(BlankPieceCollumn * _PieceWidth, BlankPieceRow * _PieceHeight));
-                } 
+                }
                 using (Brush TempBrush = new SolidBrush(Color.FromArgb(0, 45, 90)))
                 {
                     TempGraphics.FillRectangle(TempBrush, new Rectangle(new Point(ClickCollumn * _PieceWidth, ClickRow * _PieceHeight), new Size(_PieceWidth, _PieceHeight)));
@@ -486,17 +496,16 @@ namespace e621_ReBot_v2.CustomControls
                 if (CleanBackground != null)
                 {
                     CleanBackground.Dispose();
-                } 
+                }
                 CleanBackground = TempBitmap;
                 PizzleImage = PuzzlePieces[PieceIndex].PieceImage;
-                StartPoint = new Point(ClickCollumn * _PieceWidth , ClickRow * _PieceHeight);
-                DestinationPoint = new Point(BlankPieceCollumn * _PieceWidth , BlankPieceRow * _PieceHeight);
-                CurrentPoint = new Point(ClickCollumn * _PieceWidth, ClickRow * _PieceHeight );
+                StartPoint = new Point(ClickCollumn * _PieceWidth, ClickRow * _PieceHeight);
+                DestinationPoint = new Point(BlankPieceCollumn * _PieceWidth, BlankPieceRow * _PieceHeight);
+                CurrentPoint = new Point(ClickCollumn * _PieceWidth, ClickRow * _PieceHeight);
                 AnimationStep = new Point((DestinationPoint.X - StartPoint.X) / AnimationSteps, (DestinationPoint.Y - StartPoint.Y) / AnimationSteps);
                 AnimationTickCounter = 0;
                 MouseClick -= GamePanel_MouseClick;
-                Thread TrheadTemp = new Thread(AniMove);
-                TrheadTemp.Start();             
+                new Thread(Animation_Move).Start();
             }
             else
             {
@@ -513,7 +522,7 @@ namespace e621_ReBot_v2.CustomControls
         private Bitmap PizzleImage;
         private int AnimationTickCounter;
         private readonly int AnimationSteps = 8;
-        private void AniMove()
+        private void Animation_Move()
         {
             for (int i = 0; i <= AnimationSteps; i++)
             {
@@ -550,7 +559,7 @@ namespace e621_ReBot_v2.CustomControls
                 if (PuzzlePieces[PieceIndex].PieceIndex != PuzzlePieces[PieceIndex].BoardIndex)
                 {
                     return;
-                } 
+                }
             }
 
             Form_Loader._FormReference.GB_RestartGame.Enabled = false;
@@ -561,7 +570,6 @@ namespace e621_ReBot_v2.CustomControls
                 PuzzlePieces[PieceIndex].PieceImage.Dispose();
             }
             PuzzlePieces.Clear();
-            Paint += Custom_Panel_Paint;
         }
     }
 

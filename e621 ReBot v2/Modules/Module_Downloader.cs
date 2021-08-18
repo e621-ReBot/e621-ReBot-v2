@@ -86,8 +86,7 @@ namespace e621_ReBot_v2.Modules
         public static void Load_IECache()
         {
             //IEDownload_Cache.Clear();
-            Thread ThreadTemp = new Thread(Load_IECache_BGW);
-            ThreadTemp.Start();
+            new Thread(Load_IECache_BGW).Start();
         }
 
         private static void Load_IECache_BGW()

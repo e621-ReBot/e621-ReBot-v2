@@ -145,6 +145,7 @@
             // 
             this.cPanel_Rating.BackColor = System.Drawing.Color.Red;
             this.cPanel_Rating.Corner = 3;
+            this.cPanel_Rating.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cPanel_Rating.Location = new System.Drawing.Point(1, 179);
             this.cPanel_Rating.Name = "cPanel_Rating";
             this.cPanel_Rating.Size = new System.Drawing.Size(24, 24);

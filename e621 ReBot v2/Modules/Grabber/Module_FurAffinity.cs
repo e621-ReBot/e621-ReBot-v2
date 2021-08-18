@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Web.UI;
 using System.Windows.Forms;
 using HtmlAgilityPack;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
@@ -117,27 +119,29 @@ namespace e621_ReBot_v2.Modules.Grabber
                 }
                 DateTime Post_Time = DateTime.Parse(Post_TimeTemp);
 
-                string Post_Title = PostNode.SelectSingleNode(".//div[@class='submission-title']").InnerText.Trim();
+                string Post_Title = PostNode.SelectSingleNode(".//div[@class='submission-title' or @class='classic-submission-title information']/h2").InnerText.Trim();
                 Post_Title = Post_Title.Replace("[", "⟦").Replace("]", "⟧");
 
-                string ArtistName = PostNode.SelectSingleNode(".//div[@class='submission-id-sub-container']/a").InnerText.Trim();
+                string ArtistName = PostNode.SelectSingleNode(".//div[@class='submission-id-sub-container' or @class='classic-submission-title information']/a").InnerText.Trim();
 
-                HtmlNode Post_TextNode = PostNode.SelectSingleNode(".//div[@class='submission-description'] | .//div[@class='submission-description user-submitted-links']");
+                HtmlNode Post_TextNode = PostNode.SelectSingleNode(".//div[@class='submission-description' or @class='submission-description user-submitted-links']");
+                if (Post_TextNode == null) //classic theme selected
+                {
+                    Post_TextNode = PostNode.SelectSingleNode(".//div[@id='page-submission']//table[@class='maintable']//table[@class='maintable']/tr[2]/td"); ;
+                }
                 string Post_Text = Module_Html2Text.Html2Text_FurAffinity(Post_TextNode);
 
-                string Post_MediaURL = "https:";
-                if (PostNode.SelectSingleNode(".//div[@class='download']/a") == null)
+                string Post_MediaURL = null;
+                HtmlNode DownloadNode = PostNode.SelectSingleNode(".//div[@class='download' or @class='download fullsize']/a");
+                if (DownloadNode == null) //classic theme selected
                 {
-                    Post_MediaURL += PostNode.SelectSingleNode(".//div[@class='download fullsize']/a").Attributes["href"].Value;
+                    DownloadNode = PostNode.SelectSingleNode(".//div[@id='page-submission']//div[@class='alt1 actions aligncenter']//a[text()='Download']");
                 }
-                else
-                {
-                    Post_MediaURL += PostNode.SelectSingleNode(".//div[@class='download']/a").Attributes["href"].Value;
-                }
-
+                Post_MediaURL = "https:" + DownloadNode.Attributes["href"].Value;
                 // View: https://d.facdn.net/art/artist/id/1578103468.alphathewerewolf_1a4f642b-5935-429f-a048-90ec115235e3_jpeg.jpg
                 // Download: https://d.facdn.net/download/art/artist/id/1578103468.alphathewerewolf_1a4f642b-5935-429f-a048-90ec115235e3_jpeg.jpg
                 Post_MediaURL = Post_MediaURL.Replace("/download/", "/");
+
                 if (Module_Grabber._Grabbed_MediaURLs.Contains(Post_MediaURL))
                 {
                     goto Skip2Exit;
@@ -150,7 +154,8 @@ namespace e621_ReBot_v2.Modules.Grabber
                     }
                 }
 
-                string[] PicSizes = PostNode.SelectSingleNode(".//section[@class='info text']/div[4]/span").InnerText.Trim().Split(new[] { " x " }, StringSplitOptions.RemoveEmptyEntries);
+                HtmlNode PicSizeNode = PostNode.SelectSingleNode(".//section[@class='info text']/div[4]/span | .//td[@class='alt1 stats-container']//b[text()='Resolution:']/following-sibling::text()");
+                string[] PicSizes = PicSizeNode.InnerText.Trim().Replace(" x ","x").Split(new[] { "x" }, StringSplitOptions.RemoveEmptyEntries);
 
                 DataRow TempDataRow = TempDataTable.NewRow();
                 FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Title, Post_Text, Post_MediaURL, PicSizes[0], PicSizes[1], ArtistName);

@@ -198,6 +198,7 @@ namespace e621_ReBot_v2.Forms
             {
                 Pic_WebBrowser.Stop();
                 e.Cancel = true;
+                Pic_WebBrowser.Document.OpenNew(true);
                 Pic_WebBrowser.Document.Write("WebP is not supported.");
                 Pic_WebBrowser.Zoom(100);
                 UpdateButtons();

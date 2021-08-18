@@ -177,7 +177,7 @@ namespace e621_ReBot_v2.Properties {
                 this["RemoveBVAS"] = value;
             }
         }
-                
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -189,7 +189,7 @@ namespace e621_ReBot_v2.Properties {
                 this["ClearCache"] = value;
             }
         }
-		
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]

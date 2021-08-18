@@ -17,12 +17,12 @@ namespace e621_ReBot_v2.CustomControls
 
         private void InitializeComponent()
         {
-            this.SuspendLayout();
+            SuspendLayout();
             // 
             // Custom_GroupBoxColored
             // 
-            this.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Pixel, ((byte)(0)));
-            this.ResumeLayout(false);
+            Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Pixel, ((byte)(0)));
+            ResumeLayout(false);
         }
 
         private Color _borderColor = Color.Black;

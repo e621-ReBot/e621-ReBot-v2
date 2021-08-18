@@ -19,7 +19,7 @@ namespace e621_ReBot_v2.Modules
         private void TimeoutTick(object sender, EventArgs e)
         {
             DLAsyncTimeoutTimer.Stop();
-            this.CancelAsync();
+            CancelAsync();
         }
 
         protected override void OnDownloadProgressChanged(DownloadProgressChangedEventArgs e)

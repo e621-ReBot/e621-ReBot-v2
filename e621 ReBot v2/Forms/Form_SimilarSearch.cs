@@ -50,8 +50,7 @@ namespace e621_ReBot_v2.Forms
 
         private void Form_Similar_Shown(object sender, EventArgs e)
         {
-            Thread ThreadTemp = new Thread(CheckSiteStatus);
-            ThreadTemp.Start();
+            new Thread(CheckSiteStatus).Start();
         }
 
         private void CheckSiteStatus()

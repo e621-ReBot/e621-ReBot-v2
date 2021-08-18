@@ -41,8 +41,8 @@ namespace e621_ReBot_v2.Modules
             _GrabEnabler.Add(new Regex(@".+(furaffinity.net)/((view|full)/\d+/|(gallery|scraps|favorites)/\w+/)"));
             _GrabEnabler.Add(new Regex(@".+(furaffinity.net/search/)"));
             _GrabEnabler.Add(new Regex(@".+(twitter.com)/(\w+/(media|status/\d+)|\w+)"));
-            _GrabEnabler.Add(new Regex(@".+(newgrounds.com)/(movies/|portal/view/\d+|art.+)"));
-            _GrabEnabler.Add(new Regex(@".+(hiccears.com)/(picture|gallery|artist-profile).+"));
+            _GrabEnabler.Add(new Regex(@".+(newgrounds.com)/(movies/|portal/view/\d+|art?.+)"));
+            _GrabEnabler.Add(new Regex(@".+(hiccears.com)/(picture|gallery|artist-content).+"));
             _GrabEnabler.Add(new Regex(@".+(sofurry.com)/(view/\d+|browse/\w+/art.+)"));
             _GrabEnabler.Add(new Regex(@".+(mastodon.social)/@(\w+)?(/\d+|/media)"));
             _GrabEnabler.Add(new Regex(@".+(plurk.com)/(p/\w+|\w+(?!.))"));
@@ -376,7 +376,10 @@ namespace e621_ReBot_v2.Modules
             {
 
                 int StartRowIndex = Module_TableHolder.Database_Table.Rows.Count;
-                Module_TableHolder.Database_Table.Merge(TempDataTable);
+                lock (Module_TableHolder.Database_Table)
+                {
+                    Module_TableHolder.Database_Table.Merge(TempDataTable);
+                }
                 for (int rowindex = StartRowIndex; rowindex < Module_TableHolder.Database_Table.Rows.Count; rowindex++)
                 {
                     DataRow TempDataRow = Module_TableHolder.Database_Table.Rows[rowindex];
@@ -409,7 +412,7 @@ namespace e621_ReBot_v2.Modules
             if (NewgroundsSpecialRequest)
             {
                 HTMLRequest.Headers.Add("X-Requested-With", "XMLHttpRequest");
-            } 
+            }
             HTMLRequest.Timeout = 5000;
             HTMLRequest.UserAgent = Form_Loader.GlobalUserAgent;
             try
@@ -507,6 +510,10 @@ namespace e621_ReBot_v2.Modules
         public static void GrabDownloadThumbFinished(object sender, DownloadDataCompletedEventArgs e)
         {
             DataRow RowReference = (DataRow)e.UserState;
+            if (RowReference.RowState == DataRowState.Detached)
+            {
+                return;
+            }
 
             Image DownloadedImage;
             using (MemoryStream MemoryStreamTemp = new MemoryStream(e.Result))
@@ -584,84 +591,91 @@ namespace e621_ReBot_v2.Modules
 
         public static Image WriteImageInfo(DataRow DataRowRef)
         {
-            Image TempImage = new Bitmap(200, 200);
-            using (Graphics gTemp = Graphics.FromImage(TempImage))
+            try
             {
-                gTemp.SmoothingMode = SmoothingMode.HighQuality;
-                gTemp.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
-
-                Image HoldTempImage = (Image)DataRowRef["Thumbnail_Image"];
-                Point CenterPoint = new Point(100 - (HoldTempImage.Width / 2), 100 - (HoldTempImage.Height / 2));
-                gTemp.DrawImage(HoldTempImage, CenterPoint);
-
-                if (DataRowRef["Info_MediaByteLength"] != DBNull.Value)
+                Image TempImage = new Bitmap(200, 200);
+                using (Graphics gTemp = Graphics.FromImage(TempImage))
                 {
-                    using (Font fontTemp = new Font("Arial Black", 14, FontStyle.Bold, GraphicsUnit.Pixel))
+                    gTemp.SmoothingMode = SmoothingMode.HighQuality;
+                    gTemp.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+
+                    Image HoldTempImage = (Image)DataRowRef["Thumbnail_Image"];
+                    Point CenterPoint = new Point(100 - (HoldTempImage.Width / 2), 100 - (HoldTempImage.Height / 2));
+                    gTemp.DrawImage(HoldTempImage, CenterPoint);
+
+                    if (DataRowRef["Info_MediaByteLength"] != DBNull.Value)
                     {
-                        using (GraphicsPath gpTemp = new GraphicsPath())
+                        using (Font fontTemp = new Font("Arial Black", 14, FontStyle.Bold, GraphicsUnit.Pixel))
                         {
-                            using (StringFormat sfTemp = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
+                            using (GraphicsPath gpTemp = new GraphicsPath())
                             {
-                                int bytestokB = (int)DataRowRef["Info_MediaByteLength"] / 1024;
-                                gpTemp.AddString(string.Format("{0:N0} kB", bytestokB), fontTemp.FontFamily, (int)fontTemp.Style, fontTemp.Size, new Rectangle(new Point(0, 178), new Size(200, 20)), sfTemp);
-                            }
-                            using (Pen penTemp = new Pen(Color.Black, 3))
-                            {
-                                gTemp.DrawPath(penTemp, gpTemp);
-                            }
-                            using (SolidBrush brushTemp = new SolidBrush(Color.LightSteelBlue))
-                            {
-                                gTemp.FillPath(brushTemp, gpTemp);
+                                using (StringFormat sfTemp = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
+                                {
+                                    int bytestokB = (int)DataRowRef["Info_MediaByteLength"] / 1024;
+                                    gpTemp.AddString(string.Format("{0:N0} kB", bytestokB), fontTemp.FontFamily, (int)fontTemp.Style, fontTemp.Size, new Rectangle(new Point(0, 178), new Size(200, 20)), sfTemp);
+                                }
+                                using (Pen penTemp = new Pen(Color.Black, 3))
+                                {
+                                    gTemp.DrawPath(penTemp, gpTemp);
+                                }
+                                using (SolidBrush brushTemp = new SolidBrush(Color.LightSteelBlue))
+                                {
+                                    gTemp.FillPath(brushTemp, gpTemp);
+                                }
                             }
                         }
                     }
-                }
 
-                if (DataRowRef["Thumbnail_FullInfo"] != DBNull.Value)
-                {
-                    using (Font fontTemp = new Font("Arial Black", 14, FontStyle.Bold, GraphicsUnit.Pixel))
+                    if (DataRowRef["Thumbnail_FullInfo"] != DBNull.Value)
                     {
-                        using (GraphicsPath gpTemp = new GraphicsPath())
+                        using (Font fontTemp = new Font("Arial Black", 14, FontStyle.Bold, GraphicsUnit.Pixel))
                         {
-                            using (StringFormat sfTemp = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
+                            using (GraphicsPath gpTemp = new GraphicsPath())
                             {
-                                gpTemp.AddString(string.Format("{0} x {1} - {2}", DataRowRef["Info_MediaWidth"].ToString(), DataRowRef["Info_MediaHeight"].ToString(), DataRowRef["Info_MediaFormat"].ToString()), fontTemp.FontFamily, (int)fontTemp.Style, fontTemp.Size, new Rectangle(new Point(0, 0), new Size(200, 20)), sfTemp);
+                                using (StringFormat sfTemp = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
+                                {
+                                    gpTemp.AddString(string.Format("{0} x {1} - {2}", DataRowRef["Info_MediaWidth"].ToString(), DataRowRef["Info_MediaHeight"].ToString(), DataRowRef["Info_MediaFormat"].ToString()), fontTemp.FontFamily, (int)fontTemp.Style, fontTemp.Size, new Rectangle(new Point(0, 0), new Size(200, 20)), sfTemp);
+                                }
+                                using (Pen penTemp = new Pen(Color.Black, 3))
+                                {
+                                    gTemp.DrawPath(penTemp, gpTemp);
+                                }
+                                using (SolidBrush brushTemp = new SolidBrush(Color.LightSteelBlue))
+                                {
+                                    gTemp.FillPath(brushTemp, gpTemp);
+                                }
                             }
-                            using (Pen penTemp = new Pen(Color.Black, 3))
+                        }
+                        HoldTempImage.Dispose();
+                        DataRowRef["Thumbnail_Image"] = TempImage;
+                    }
+                    else
+                    {
+                        using (Font fontTemp = new Font("Arial Black", 14, FontStyle.Bold, GraphicsUnit.Pixel))
+                        {
+                            using (GraphicsPath gpTemp = new GraphicsPath())
                             {
-                                gTemp.DrawPath(penTemp, gpTemp);
-                            }
-                            using (SolidBrush brushTemp = new SolidBrush(Color.LightSteelBlue))
-                            {
-                                gTemp.FillPath(brushTemp, gpTemp);
+                                using (StringFormat sfTemp = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
+                                {
+                                    gpTemp.AddString(DataRowRef["Info_MediaFormat"].ToString(), fontTemp.FontFamily, (int)fontTemp.Style, fontTemp.Size, new Rectangle(new Point(0, 0), new Size(200, 20)), sfTemp);
+                                }
+                                using (Pen penTemp = new Pen(Color.Black, 3))
+                                {
+                                    gTemp.DrawPath(penTemp, gpTemp);
+                                }
+                                using (SolidBrush brushTemp = new SolidBrush(Color.LightSteelBlue))
+                                {
+                                    gTemp.FillPath(brushTemp, gpTemp);
+                                }
                             }
                         }
                     }
-                    HoldTempImage.Dispose();
-                    DataRowRef["Thumbnail_Image"] = TempImage;
+                    return TempImage;
                 }
-                else
-                {
-                    using (Font fontTemp = new Font("Arial Black", 14, FontStyle.Bold, GraphicsUnit.Pixel))
-                    {
-                        using (GraphicsPath gpTemp = new GraphicsPath())
-                        {
-                            using (StringFormat sfTemp = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
-                            {
-                                gpTemp.AddString(DataRowRef["Info_MediaFormat"].ToString(), fontTemp.FontFamily, (int)fontTemp.Style, fontTemp.Size, new Rectangle(new Point(0, 0), new Size(200, 20)), sfTemp);
-                            }
-                            using (Pen penTemp = new Pen(Color.Black, 3))
-                            {
-                                gTemp.DrawPath(penTemp, gpTemp);
-                            }
-                            using (SolidBrush brushTemp = new SolidBrush(Color.LightSteelBlue))
-                            {
-                                gTemp.FillPath(brushTemp, gpTemp);
-                            }
-                        }
-                    }
-                }
-                return TempImage;
+            }
+            catch
+            {
+                return null;
             }
         }
     }
