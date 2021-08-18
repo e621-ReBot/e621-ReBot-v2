@@ -113,7 +113,8 @@ namespace e621_ReBot_Updater
             // label_Title
             // 
             this.label_Title.BackColor = System.Drawing.Color.Transparent;
-            this.label_Title.Font = new System.Drawing.Font("Arial", 9.75F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_Title.Font = new System.Drawing.Font("Arial", 9.75F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
+                | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_Title.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.label_Title.Location = new System.Drawing.Point(12, 17);
             this.label_Title.Margin = new System.Windows.Forms.Padding(8);

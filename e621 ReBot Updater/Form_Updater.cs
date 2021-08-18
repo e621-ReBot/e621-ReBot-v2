@@ -16,7 +16,16 @@ namespace e621_ReBot_Updater
 
         private void Form_Updater_Load(object sender, EventArgs e)
         {
-            Label_Current.Text = string.Format("Current Version: {0}", FileVersionInfo.GetVersionInfo("e621 ReBot v2.exe").FileVersion);
+            if (File.Exists("e621 ReBot v2.exe"))
+            {
+                Label_Current.Text = string.Format("Current Version: {0}", FileVersionInfo.GetVersionInfo("e621 ReBot v2.exe").FileVersion);
+            }
+            else 
+            {
+                MessageBox.Show("e621 ReBot v2.exe not found.", "e621 ReBot Updater");
+                ClosePrematurely = true;
+                Close();
+            }
         }
 
         private void Form_Updater_Shown(object sender, EventArgs e)
@@ -115,17 +124,17 @@ namespace e621_ReBot_Updater
                     int ExtractCounter = 0;
                     using (ZipArchive UpdateZip = new ZipArchive(DownloadedBytes))
                     {
-                        foreach (ZipArchiveEntry entry in UpdateZip.Entries)
+                        foreach (ZipArchiveEntry ZipEntry in UpdateZip.Entries)
                         {
                             ExtractCounter += 1;
                             Label_Download.BeginInvoke(new Action(() => Label_Download.Text = string.Format("Extracting: {0} of {1}", ExtractCounter, UpdateZip.Entries.Count)));
-                            if (entry.FullName.EndsWith("/"))
+                            if (ZipEntry.FullName.EndsWith("/"))
                             {
-                                Directory.CreateDirectory(entry.FullName);
+                                Directory.CreateDirectory(ZipEntry.FullName);
                             }
                             else
                             {
-                                entry.ExtractToFile(Path.Combine("./", entry.FullName), true);
+                                ZipEntry.ExtractToFile(Path.Combine("./", ZipEntry.FullName), true);
                             }
                         }
                     }
@@ -143,10 +152,14 @@ namespace e621_ReBot_Updater
             Close();
         }
 
+        private bool ClosePrematurely = false;
         private void Form_Updater_FormClosing(object sender, FormClosingEventArgs e)
         {
-            File.WriteAllText("update.check", DateTime.UtcNow.ToString());
-            Process.Start("e621 ReBot v2.exe");
+            if (!ClosePrematurely)
+            {
+                File.WriteAllText("update.check", DateTime.UtcNow.ToString());
+                Process.Start("e621 ReBot v2.exe");
+            }
         }
     }
 }

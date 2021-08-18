@@ -73,6 +73,16 @@ namespace e621_ReBot_Updater.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap e6_Logo1 {
+            get {
+                object obj = ResourceManager.GetObject("e6_Logo1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap E621ReBotUpdaterBG {
             get {
                 object obj = ResourceManager.GetObject("E621ReBotUpdaterBG", resourceCulture);
