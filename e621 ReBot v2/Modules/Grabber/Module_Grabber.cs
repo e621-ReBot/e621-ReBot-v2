@@ -38,7 +38,7 @@ namespace e621_ReBot_v2.Modules
             _GrabEnabler.Add(new Regex(@".+(inkbunny.net)/(s|gallery|scraps)/\w+"));
             _GrabEnabler.Add(new Regex(@".+(inkbunny.net/submissionsviewall.php)"));
             _GrabEnabler.Add(new Regex(@".+(pixiv.net)/\w+/(artworks|users)/\d+"));
-            _GrabEnabler.Add(new Regex(@".+(furaffinity.net)/((view|full)/\d+/|(gallery|scraps|favorites)/\w+/)"));
+            _GrabEnabler.Add(new Regex(@".+(furaffinity.net)/((view|full)/\d+/|(gallery|scraps|favorites)/.+/)"));
             _GrabEnabler.Add(new Regex(@".+(furaffinity.net/search/)"));
             _GrabEnabler.Add(new Regex(@".+(twitter.com)/(\w+/(media|status/\d+)|\w+)"));
             _GrabEnabler.Add(new Regex(@".+(newgrounds.com)/(movies/|portal/view/\d+|art?.+)"));
