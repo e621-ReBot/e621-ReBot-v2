@@ -12,18 +12,17 @@ namespace e621_ReBot_v2.Modules
         public static void CreateDBs()
         {
             SQL_Connection.Open();
-            SQLiteCommand SQL_Command = SQL_Connection.CreateCommand();
-            SQL_Command.CommandText = "CREATE TABLE IF NOT EXISTS [Database] ([Url] TEXT UNIQUE, [Rating] TEXT, [PostID] MEDIUMINT UNSIGNED)";
-            SQL_Command.ExecuteNonQuery();
+            using (SQLiteCommand SQL_Command = SQL_Connection.CreateCommand())
+            {
+                SQL_Command.CommandText = "CREATE TABLE IF NOT EXISTS [Database] ([Url] TEXT UNIQUE, [Rating] TEXT, [PostID] MEDIUMINT UNSIGNED)";
+                SQL_Command.ExecuteNonQuery();
 
-            SQL_Command = SQL_Connection.CreateCommand();
-            SQL_Command.CommandText = "CREATE TABLE IF NOT EXISTS [ArtistAlias] ([Name] TEXT , [Website] TEXT, [Alias] TEXT)";
-            SQL_Command.ExecuteNonQuery();
+                SQL_Command.CommandText = "CREATE TABLE IF NOT EXISTS [ArtistAlias] ([Name] TEXT , [Website] TEXT, [Alias] TEXT)";
+                SQL_Command.ExecuteNonQuery();
 
-            SQL_Command = SQL_Connection.CreateCommand();
-            SQL_Command.CommandText = "CREATE TABLE IF NOT EXISTS [CustomTags] ([CustomTag] TEXT)";
-            SQL_Command.ExecuteNonQuery();
-            SQL_Command.Dispose();
+                SQL_Command.CommandText = "CREATE TABLE IF NOT EXISTS [CustomTags] ([CustomTag] TEXT)";
+                SQL_Command.ExecuteNonQuery();
+            }
         }
 
         public static void DB_CreateMediaRecord(ref DataRow DataRowRef)

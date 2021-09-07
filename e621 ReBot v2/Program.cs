@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -45,6 +47,25 @@ namespace e621_ReBot_v2
         [STAThread]
         static void Main()
         {
+            //Check updates
+            if (File.Exists("update.check"))
+            {
+                DateTime DateTimeUpdate = DateTime.Parse(File.ReadAllText("update.check")).AddDays(Properties.Settings.Default.UpdateDays);
+                if (DateTimeUpdate < DateTime.UtcNow && File.Exists("e621 ReBot Updater.exe"))
+                {
+                    Process.Start("e621 ReBot Updater.exe");
+                    Application.Exit();
+                }
+            }
+            else
+            {
+                if (File.Exists("e621 ReBot Updater.exe"))
+                {
+                    Process.Start("e621 ReBot Updater.exe");
+                    Application.Exit();
+                }
+            }
+
             if (AppMutex.WaitOne(TimeSpan.Zero, true))
             {
                 Application.EnableVisualStyles();

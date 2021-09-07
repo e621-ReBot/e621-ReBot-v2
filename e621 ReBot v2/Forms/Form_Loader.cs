@@ -54,25 +54,6 @@ namespace e621_ReBot_v2
 
         private void Form_Loader_Load(object sender, EventArgs e)
         {
-            //Check updates
-            if (File.Exists("update.check"))
-            {
-                DateTime DateTimeUpdate = DateTime.Parse(File.ReadAllText("update.check")).AddDays(Properties.Settings.Default.UpdateDays);
-                if (DateTimeUpdate < DateTime.UtcNow && File.Exists("e621 ReBot Updater.exe"))
-                {
-                    Process.Start("e621 ReBot Updater.exe");
-                    Close();
-                }
-            }
-            else
-            {
-                if (File.Exists("e621 ReBot Updater.exe"))
-                {
-                    Process.Start("e621 ReBot Updater.exe");
-                    Close();
-                }
-            }
-
             if (Properties.Settings.Default.LoadBigForm)
             {
                 _FormReference = new Form_MainBig();
