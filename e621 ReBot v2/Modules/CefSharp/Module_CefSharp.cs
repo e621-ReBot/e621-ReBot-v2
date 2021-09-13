@@ -56,16 +56,22 @@ namespace e621_ReBot_v2.Modules
                 Dock = DockStyle.Fill,
                 RequestHandler = new CefSharp_RequestHandler(),
                 LifeSpanHandler = new CefSharp_LifeSpanHandler(),
-                UseParentFormMessageInterceptor = false
+                UseParentFormMessageInterceptor = false,
             };
             CefSharpBrowser.AddressChanged += CefSharp_AddressChanged;
             CefSharpBrowser.LoadingStateChanged += CefSharp_LoadingStateChanged;
-            CefSharpBrowser.FrameLoadEnd += ChromeBrowser_FrameLoadEnd;
+            CefSharpBrowser.FrameLoadEnd += CefSharpBrowser_FrameLoadEnd;
+            CefSharpBrowser.TitleChanged += CefSharpBrowser_TitleChanged;
 
             Form_Loader._FormReference.panel_BrowserDisplay.Controls.Add(CefSharpBrowser);
 
             //Fix Browser not being able to load page on first click, before visible, on tutorial.
             string FixBrowser = CefSharpBrowser.Handle.ToString();
+        }
+
+        private static void CefSharpBrowser_TitleChanged(object sender, TitleChangedEventArgs e)
+        {
+            Form_Loader._FormReference.Invoke(new Action(() => { CefSharpBrowser.Text = e.Title; }));
         }
 
         private static void CefSharp_AddressChanged(object sender, AddressChangedEventArgs e)
@@ -178,7 +184,7 @@ namespace e621_ReBot_v2.Modules
         }
 
         private static Dictionary<string, int> FrameLoad = new Dictionary<string, int>();
-        private static void ChromeBrowser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
+        private static void CefSharpBrowser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
             if (CefSharpBrowser.Address.Contains("https://www.pixiv.net"))
             {
@@ -194,11 +200,6 @@ namespace e621_ReBot_v2.Modules
                     }
                 }
             }
-
-            //if (CefSharpBrowser.Address.Contains("https://twitter.com/") && e.Url.Contains("https://twitter.com/"))
-            //{
-            //    TwitterLoaded = true;
-            //}
         }
 
         // = = = = = 
@@ -241,6 +242,10 @@ namespace e621_ReBot_v2.Modules
                     // Twitter is special
                     if (WebAdress.Contains("https://twitter.com/"))
                     {
+                        if (!WebAdress.Contains("/status/") && !Regex.Match(CefSharpBrowser.Text, @"\w+\s\(@\w+\)\s/\sTwitter").Success)
+                        {
+                                return;
+                        }
                         timer_Twitter.Start();
                         Form_Loader._FormReference.BB_Grab_All.Text = "Grab All";
                         Form_Loader._FormReference.LastBrowserPosition = 0;
@@ -301,12 +306,14 @@ namespace e621_ReBot_v2.Modules
                     }
                     else if (!CefSharpBrowser.Address.Contains("/search?"))
                     {
-                        HtmlNode TweetNodeFinder = WebDoc.DocumentNode.SelectSingleNode(".//h1[@id='accessible-list-2']").NextSibling; //SelectSingleNode(".//div[@data-testid='primaryColumn']//section[@aria-labelledby='accessible-list-2']/div");
+                        HtmlNode TweetNodeFinder = WebDoc.DocumentNode.SelectSingleNode(".//h1[@id='accessible-list-2']");
+                            
                         if (TweetNodeFinder == null)
                         {
                             timer_Twitter.Start();
                             return;
                         }
+                        TweetNodeFinder = TweetNodeFinder.NextSibling; //SelectSingleNode(".//div[@data-testid='primaryColumn']//section[@aria-labelledby='accessible-list-2']/div");
 
                         if (TweetNodeFinder.SelectNodes(".//article[@data-testid='tweet']") == null)
                         {
