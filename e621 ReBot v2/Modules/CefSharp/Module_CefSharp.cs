@@ -242,7 +242,7 @@ namespace e621_ReBot_v2.Modules
                     // Twitter is special
                     if (WebAdress.Contains("https://twitter.com/"))
                     {
-                        if (!WebAdress.Contains("/status/") && !Regex.Match(CefSharpBrowser.Text, @"\w+\s\(@\w+\)\s/\sTwitter").Success)
+                        if (!WebAdress.Contains("/status/") && !Regex.Match(CefSharpBrowser.Text, @".+\s\(@\w+\)\s/\sTwitter").Success)
                         {
                                 return;
                         }
