@@ -72,6 +72,7 @@ namespace e621_ReBot_v2.Modules
         private static void CefSharpBrowser_TitleChanged(object sender, TitleChangedEventArgs e)
         {
             Form_Loader._FormReference.Invoke(new Action(() => { CefSharpBrowser.Text = e.Title; }));
+            Console.WriteLine(e.Title);
         }
 
         private static void CefSharp_AddressChanged(object sender, AddressChangedEventArgs e)
@@ -242,10 +243,6 @@ namespace e621_ReBot_v2.Modules
                     // Twitter is special
                     if (WebAdress.Contains("https://twitter.com/"))
                     {
-                        if (!WebAdress.Contains("/status/") && !Regex.Match(CefSharpBrowser.Text, @".+\s\(@\w+\)\s/\sTwitter").Success)
-                        {
-                                return;
-                        }
                         timer_Twitter.Start();
                         Form_Loader._FormReference.BB_Grab_All.Text = "Grab All";
                         Form_Loader._FormReference.LastBrowserPosition = 0;
@@ -282,7 +279,7 @@ namespace e621_ReBot_v2.Modules
             HtmlDocument WebDoc = new HtmlDocument();
             WebDoc.LoadHtml(GetHTMLSource());
 
-            HtmlNode AccountNode = WebDoc.DocumentNode.SelectSingleNode(".//header[@role='banner']//div[@class='SideNav_AccountSwitcher_Button']");
+            HtmlNode AccountNode = WebDoc.DocumentNode.SelectSingleNode(".//header[@role='banner']//div[@data-testid='SideNav_AccountSwitcher_Button']");
 
             if (AccountNode == null)
             {
@@ -307,14 +304,17 @@ namespace e621_ReBot_v2.Modules
                     else if (!CefSharpBrowser.Address.Contains("/search?"))
                     {
                         HtmlNode TweetNodeFinder = WebDoc.DocumentNode.SelectSingleNode(".//h1[@id='accessible-list-2']");
-                            
+                        if (TweetNodeFinder != null)
+                        {
+                            TweetNodeFinder = TweetNodeFinder.NextSibling; //SelectSingleNode(".//div[@data-testid='primaryColumn']//section[@aria-labelledby='accessible-list-2']/div");
+                        }
+
                         if (TweetNodeFinder == null)
                         {
                             timer_Twitter.Start();
                             return;
                         }
-                        TweetNodeFinder = TweetNodeFinder.NextSibling; //SelectSingleNode(".//div[@data-testid='primaryColumn']//section[@aria-labelledby='accessible-list-2']/div");
-
+                        
                         if (TweetNodeFinder.SelectNodes(".//article[@data-testid='tweet']") == null)
                         {
                             timer_Twitter.Start();
@@ -332,6 +332,11 @@ namespace e621_ReBot_v2.Modules
                 {
                     CefSharpBrowser.ExecuteScriptAsync("document.querySelector(\"main[role='main'] div[data-testid='emptyState'] div[role='button']\").click()");
                 }
+            }
+            else
+            {
+                Form_Loader._FormReference.BB_Grab.Visible = true;
+                Form_Loader._FormReference.BB_Grab_All.Visible = true;
             }
         }
 
