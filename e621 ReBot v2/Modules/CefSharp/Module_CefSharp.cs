@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 using Timer = System.Windows.Forms.Timer;
@@ -193,6 +194,11 @@ namespace e621_ReBot_v2.Modules
                     }
                 }
             }
+
+            //if (CefSharpBrowser.Address.Contains("https://twitter.com/") && e.Url.Contains("https://twitter.com/"))
+            //{
+            //    TwitterLoaded = true;
+            //}
         }
 
         // = = = = = 
@@ -231,20 +237,19 @@ namespace e621_ReBot_v2.Modules
                 if (MatchTemp.Success)
                 {
                     Form_Loader._FormReference.BB_Grab.Tag = MatchTemp.Value;
-                    Form_Loader._FormReference.BB_Grab.Visible = true;
-                    Form_Loader._FormReference.BB_Grab_All.Visible = false;
 
                     // Twitter is special
                     if (WebAdress.Contains("https://twitter.com/"))
                     {
+                        timer_Twitter.Start();
                         Form_Loader._FormReference.BB_Grab_All.Text = "Grab All";
                         Form_Loader._FormReference.LastBrowserPosition = 0;
                         Form_Loader._FormReference.LastBrowserPositionCounter = 0;
-                        if (WebAdress.Contains("/status/") || !WebAdress.Contains("/search?"))
-                        {
-                            timer_Twitter.Start();
-                        }
+                        return;
                     }
+
+                    Form_Loader._FormReference.BB_Grab.Visible = true;
+                    Form_Loader._FormReference.BB_Grab_All.Visible = false;
                     return;
                 }
             }
@@ -265,59 +270,60 @@ namespace e621_ReBot_v2.Modules
         }
 
         public static Timer timer_Twitter;
-        private static void Twitter_Timer_Tick(object sender, EventArgs e)
+        public static void Twitter_Timer_Tick(object sender, EventArgs e)
         {
             timer_Twitter.Stop();
-            string HTMLSource = CefSharpBrowser.GetSourceAsync().Result;
+
             HtmlDocument WebDoc = new HtmlDocument();
-            WebDoc.LoadHtml(HTMLSource);
+            WebDoc.LoadHtml(GetHTMLSource());
 
-            if (CefSharpBrowser.Address.Contains("/status/") && !CefSharpBrowser.Address.Contains("/photo/"))
+            HtmlNode AccountNode = WebDoc.DocumentNode.SelectSingleNode(".//header[@role='banner']//div[@class='SideNav_AccountSwitcher_Button']");
+
+            if (AccountNode == null)
             {
-                HtmlNode TweetNodeFinder = WebDoc.DocumentNode.SelectSingleNode(".//div[@aria-label='Timeline: Conversation']//article");
-
-                if (TweetNodeFinder == null)
+                if (WebDoc.DocumentNode.SelectSingleNode(".//main[@role='main']//div[@data-testid='emptyState']") == null)
                 {
-                    timer_Twitter.Start();
-                    return;
-                }
+                    if (CefSharpBrowser.Address.Contains("/status/") && !CefSharpBrowser.Address.Contains("/photo/"))
+                    {
+                        HtmlNode TweetNodeFinder = WebDoc.DocumentNode.SelectSingleNode(".//article[@data-testid='tweet']");
+                        if (TweetNodeFinder == null)
+                        {
+                            timer_Twitter.Start();
+                            return;
+                        }
 
-                if (TweetNodeFinder.InnerHtml.Contains("The following media includes potentially sensitive content."))
-                {
-                    CefSharpBrowser.ExecuteScriptAsync("document.querySelectorAll(\"article div[data-testid='tweet'] div[role='button']:not([aria-label])\").forEach(button=>button.click())");
-                }
-                Form_Loader._FormReference.BB_Grab.Visible = true;
-                Form_Loader._FormReference.BB_Grab_All.Visible = false;
-            }
-            else if (!CefSharpBrowser.Address.Contains("/search?"))
-            {
-                HtmlNode TweetNodeFinder = WebDoc.DocumentNode.SelectSingleNode(".//div[@data-testid='primaryColumn']/div/div/div/div/div[2]");
+                        if (TweetNodeFinder.InnerHtml.Contains("The following media includes potentially sensitive content."))
+                        {
+                            CefSharpBrowser.ExecuteScriptAsync("document.querySelector(\"article[data-testid='tweet'] article[role='article'] div[role='button']:not([aria-label])\").click()");
+                        }
+                        Form_Loader._FormReference.BB_Grab.Visible = true;
+                        Form_Loader._FormReference.BB_Grab_All.Visible = false;
+                    }
+                    else if (!CefSharpBrowser.Address.Contains("/search?"))
+                    {
+                        HtmlNode TweetNodeFinder = WebDoc.DocumentNode.SelectSingleNode(".//h1[@id='accessible-list-2']").NextSibling; //SelectSingleNode(".//div[@data-testid='primaryColumn']//section[@aria-labelledby='accessible-list-2']/div");
+                        if (TweetNodeFinder == null)
+                        {
+                            timer_Twitter.Start();
+                            return;
+                        }
 
-                if (TweetNodeFinder == null)
-                {
-                    timer_Twitter.Start();
-                    return;
-                }
-
-                if (TweetNodeFinder.InnerText.Contains("This profile may include potentially sensitive content"))
-                {
-                    Form_Loader._FormReference.BB_Grab.Visible = false;
-                    Form_Loader._FormReference.BB_Grab_All.Visible = false;
-                    timer_Twitter.Start();
+                        if (TweetNodeFinder.SelectNodes(".//article[@data-testid='tweet']") == null)
+                        {
+                            timer_Twitter.Start();
+                        }
+                        else
+                        {
+                            CefSharpBrowser.ExecuteScriptAsync("document.querySelectorAll(\"article[data-testid='tweet'] article[role='article'] div[role='button']:not([aria-label])\").forEach(button=>button.click());");
+                            CefSharpBrowser.ExecuteScriptAsync("document.onwheel = function(){document.querySelectorAll(\"article[data-testid='tweet'] article[role='article'] div[role='button']:not([aria-label])\").forEach(button=>button.click());};");
+                            Form_Loader._FormReference.BB_Grab.Visible = true;
+                            Form_Loader._FormReference.BB_Grab_All.Visible = true;
+                        }
+                    }
                 }
                 else
                 {
-                    if (WebDoc.DocumentNode.SelectNodes(".//div[@data-testid='tweet']") == null)
-                    {
-                        timer_Twitter.Start();
-                    }
-                    else
-                    {
-                        CefSharpBrowser.ExecuteScriptAsync("document.querySelectorAll(\"article div[data-testid='tweet'] div[role='button']:not([aria-label])\").forEach(button=>button.click());");
-                        CefSharpBrowser.ExecuteScriptAsync("document.onwheel = function(){document.querySelectorAll(\"article div[data-testid='tweet'] div[role='button']:not([aria-label])\").forEach(button=>button.click());};");
-                        Form_Loader._FormReference.BB_Grab.Visible = true;
-                        Form_Loader._FormReference.BB_Grab_All.Visible = true;
-                    }
+                    CefSharpBrowser.ExecuteScriptAsync("document.querySelector(\"main[role='main'] div[data-testid='emptyState'] div[role='button']\").click()");
                 }
             }
         }
@@ -334,8 +340,7 @@ namespace e621_ReBot_v2.Modules
 
         public static string GetHTMLSource()
         {
-            return CefSharpBrowser.GetSourceAsync().Result;
+            return Task.Run(async () => await CefSharpBrowser.GetMainFrame().GetSourceAsync()).Result;
         }
-
     }
 }

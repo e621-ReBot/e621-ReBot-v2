@@ -94,13 +94,14 @@ namespace e621_ReBot_v2.Modules.Grabber
                 AddNodeCheck = false;
             }
 
-            foreach (HtmlNode ChildNode in WebDoc.DocumentNode.SelectNodes(".//section[@role='region']//article//time[@datetime]//ancestor::div[@data-testid='tweet']"))
+            foreach (HtmlNode ChildNode in WebDoc.DocumentNode.SelectSingleNode(".//h1[@id='accessible-list-2']").NextSibling.SelectNodes(".//article[@data-testid='tweet']"))
             {
-                if (ChildNode.ParentNode.FirstChild.InnerText.Trim().Length > 0)
+                HtmlNode IsTweetRelevantTest = ChildNode.SelectSingleNode("./div/div/div");
+                if (IsTweetRelevantTest.FirstChild.InnerText.Length > 0)
                 {
                     continue; //It's not a tweet, it's a retweet or pin
                 }
-                string DirectLink2Post = "https://twitter.com" + ChildNode.SelectSingleNode(".//time[@datetime]").ParentNode.Attributes["href"].Value;
+                string DirectLink2Post = "https://twitter.com" + IsTweetRelevantTest.LastChild.SelectSingleNode(".//time[@datetime]").ParentNode.Attributes["href"].Value;
                 if (Module_Grabber._GrabQueue_URLs.Contains(DirectLink2Post))
                 {
                     Module_Grabber.Report_Info(string.Format("Skipped grabbing - Already in queue [@{0}]", DirectLink2Post));
@@ -114,7 +115,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                     }
                 }
 
-                if (!Module_Grabber.CreateChildTreeNode(ref TreeViewParentNode, DirectLink2Post, DirectLink2Post, new string[] { WebAdress, ChildNode.SelectSingleNode("./div[2]").OuterHtml }))
+                if (!Module_Grabber.CreateChildTreeNode(ref TreeViewParentNode, DirectLink2Post, DirectLink2Post, new string[] { WebAdress, IsTweetRelevantTest.LastChild.SelectSingleNode("./div[2]").OuterHtml }))
                 {
                     Module_Grabber.Report_Info(string.Format("Skipped grabbing - Already in queue [@{0}]", DirectLink2Post));
                 }
@@ -162,7 +163,7 @@ namespace e621_ReBot_v2.Modules.Grabber
 
             HtmlNode PostNode = WebDoc.DocumentNode;
 
-            string Post_TimeTemp = PostNode.SelectSingleNode(".//div[@data-testid='tweet']").NextSibling.SelectSingleNode(".//span[text()[contains(.,'M · ')]]").InnerText.Trim();
+            string Post_TimeTemp = PostNode.SelectSingleNode(".//span[text()[contains(.,'M · ')]]").InnerText.Trim();
             DateTime Post_Time = DateTime.ParseExact(Post_TimeTemp, "h:mm tt · MMM d, yyyy", CultureInfo.InvariantCulture);
 
             //string ArtistName = WebAdress.Replace("https://twitter.com/", "");
@@ -176,7 +177,6 @@ namespace e621_ReBot_v2.Modules.Grabber
             {
                 TestTextNode = TestTextNodes[2];
             }
-
             string Post_Text = TestTextNode.InnerText;
             if (Post_Text != null)
             {
@@ -305,10 +305,10 @@ namespace e621_ReBot_v2.Modules.Grabber
 
             //string ArtistName = WebAdress.Replace("https://twitter.com/", "");
             //ArtistName = ArtistName.Substring(0, ArtistName.IndexOf("/"));
-            string ArtistName = PostNode.SelectNodes(".//a[@role='link']")[0].InnerText;
+            string ArtistName = PostNode.SelectSingleNode(".//a[@role='link']").InnerText;
             ArtistName = ArtistName.Replace("@", " (@") + ")";
 
-            string Post_Text = PostNode.SelectSingleNode(".//div[@role='group' and @aria-label]").ParentNode.FirstChild.InnerText;
+            string Post_Text = PostNode.SelectSingleNode(".//div[@id and @dir='auto']").ParentNode.FirstChild.InnerText;
             if (Post_Text != null)
             {
                 Post_Text = WebUtility.HtmlDecode(Post_Text).Trim();

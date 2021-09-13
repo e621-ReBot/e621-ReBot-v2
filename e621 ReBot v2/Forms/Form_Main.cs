@@ -140,6 +140,10 @@ namespace e621_ReBot_v2
         {
             if (DesignMode) return;
 
+#if DEBUG
+            DevTools_Button.Visible = true;
+#endif
+
             //heavy shit
             Module_CefSharp.InitializeBrowser("about:blank");
             SetQuickButtonPanelRegion();
@@ -919,6 +923,7 @@ namespace e621_ReBot_v2
             }
             cTreeView_GrabQueue.EndUpdate();
             cTreeView_GrabQueue.ResumeLayout();
+            Module_CefSharp.CefSharpBrowser.ExecuteScriptAsync("document.querySelectorAll(\"article[data-testid='tweet'] article[role='article'] div[role='button']:not([aria-label])\").forEach(button=>button.click());");
             //Module_CefSharp.CefSharpBrowser.ExecuteScriptAsync("document.querySelectorAll(\"article div[data-testid='tweet'] div[role='button']:not([aria-label])\").forEach(button=>button.click());");
         }
 
@@ -926,7 +931,7 @@ namespace e621_ReBot_v2
         {
             if (Module_CefSharp.CefSharpBrowser.Address.Contains("twitter.com"))
             {
-                Module_CefSharp.CefSharpBrowser.ExecuteScriptAsync("document.querySelectorAll(\"article div[data-testid='tweet'] div[role='button']:not([aria-label])\").forEach(button=>button.click())");
+                Module_CefSharp.CefSharpBrowser.ExecuteScriptAsync("document.querySelectorAll(\"article[data-testid='tweet'] article[role='article'] div[role='button']:not([aria-label])\").forEach(button=>button.click())");
             }
             cTreeView_GrabQueue.SuspendLayout();
             cTreeView_GrabQueue.BeginUpdate();
