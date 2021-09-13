@@ -308,7 +308,13 @@ namespace e621_ReBot_v2.Modules.Grabber
             string ArtistName = PostNode.SelectSingleNode(".//a[@role='link']").InnerText;
             ArtistName = ArtistName.Replace("@", " (@") + ")";
 
-            string Post_Text = PostNode.SelectSingleNode(".//div[@id and @dir='auto']").ParentNode.FirstChild.InnerText;
+            string Post_Text = null;
+            HtmlNode PostNodeTest = PostNode.SelectSingleNode(".//div[@id and @dir='auto']");
+            if (PostNodeTest != null)
+            {
+                PostNodeTest = PostNodeTest.ParentNode.FirstChild;
+                Post_Text = PostNodeTest.InnerText;
+            }
             if (Post_Text != null)
             {
                 Post_Text = WebUtility.HtmlDecode(Post_Text).Trim();
@@ -316,7 +322,15 @@ namespace e621_ReBot_v2.Modules.Grabber
 
             string Post_MediaURL;
             int SkipCounter = 0;
-            JToken TweetHolder = TwitterJSONHolder.Children().Where(JT => (string)JT["rest_id"] == TweetID).FirstOrDefault();
+            JToken TweetHolder = null;
+            if (TwitterJSONHolder != null)
+            {
+                lock (TwitterJSONHolder)
+                {
+                    TweetHolder = TwitterJSONHolder.Children().Where(JT => (string)JT["rest_id"] == TweetID).FirstOrDefault();
+                }
+            }
+            
             if (TwitterJSONHolder != null && TweetHolder != null)
             {
                 TweetHolder = TweetHolder["legacy"];
