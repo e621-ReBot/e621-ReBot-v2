@@ -94,7 +94,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                 AddNodeCheck = false;
             }
 
-            foreach (HtmlNode ChildNode in WebDoc.DocumentNode.SelectSingleNode(".//h1[@id='accessible-list-2']").NextSibling.SelectNodes(".//article[@data-testid='tweet']"))
+            foreach (HtmlNode ChildNode in WebDoc.DocumentNode.SelectSingleNode(".//h1[@id and @role='heading' and @dir]").NextSibling.SelectNodes(".//article[@data-testid='tweet']"))
             {
                 HtmlNode IsTweetRelevantTest = ChildNode.SelectSingleNode("./div/div/div");
                 if (IsTweetRelevantTest.FirstChild.InnerText.Length > 0)
