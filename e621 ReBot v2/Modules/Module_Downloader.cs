@@ -1119,7 +1119,7 @@ namespace e621_ReBot_v2.Modules
 
         public static BackgroundWorker e6APIDL_BGW;
         private static bool NotifyWhenDone = false;
-        private static void E6APIDL_BGW_Done(object sender, RunWorkerCompletedEventArgs e)
+        public static void E6APIDL_BGW_Done(object sender, RunWorkerCompletedEventArgs e)
         {
             e6APIDL_BGW.DoWork -= GraBPoolInBG;
             e6APIDL_BGW.DoWork -= GrabAllImagesWithGivenTags;
@@ -1267,7 +1267,7 @@ namespace e621_ReBot_v2.Modules
             int SkippedPagesCounter = 0;
             for (int p = 1; p <= PageCount; p++)
             {
-                Report_Status(string.Format("Working on Pool page {0}.", p), true);
+                Report_Status($"Working on Pool page {p}.", true);
                 string TempRequestStringHolder = PoolRequestString + (p > 1 ? "&page=" + p : null);
                 e6JSONResult = Module_e621Info.e621InfoDownload(TempRequestStringHolder, true);
 
@@ -1312,7 +1312,7 @@ namespace e621_ReBot_v2.Modules
             {
                 if (SkippedPagesCounter > 0)
                 {
-                    Form_Loader._FormReference.textBox_Info.Text = string.Format("{0} Downloader >>> {1}: {2} page{3} skipped as they already exist\n{4}", DateTime.Now.ToLongTimeString(), PoolName, SkippedPagesCounter, SkippedPagesCounter > 1 ? "s" : null, Form_Loader._FormReference.textBox_Info.Text);
+                    Form_Loader._FormReference.textBox_Info.Text = $"{DateTime.Now.ToLongTimeString()} Downloader >>> {PoolName}: {SkippedPagesCounter} page{(SkippedPagesCounter > 1 ? "s" : null)} skipped as they already exist\n{Form_Loader._FormReference.textBox_Info.Text}";
                 }
             }));
         }

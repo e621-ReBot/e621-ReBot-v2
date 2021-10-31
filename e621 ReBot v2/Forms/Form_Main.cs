@@ -174,10 +174,6 @@ namespace e621_ReBot_v2
                 bU_PoolWatcher.Enabled = true;
                 bU_Blacklist.Enabled = true;
                 bU_RefreshCredit.Enabled = true;
-                if (!Properties.Settings.Default.PoolWatcher.Equals(""))
-                {
-                    new Thread(Form_PoolWatcher.PoolWatcher_Check4New).Start();
-                }
             }
 
 
@@ -2161,7 +2157,10 @@ namespace e621_ReBot_v2
 
         private void BU_PoolWatcher_Click(object sender, EventArgs e)
         {
-            new Form_PoolWatcher(bU_PoolWatcher.PointToScreen(Point.Empty), this);
+            if (Form_PoolWatcher._FormReference == null)
+            {
+                new Form_PoolWatcher(bU_PoolWatcher.PointToScreen(Point.Empty), this);
+            }
             Form_PoolWatcher._FormReference.ShowDialog();
         }
 

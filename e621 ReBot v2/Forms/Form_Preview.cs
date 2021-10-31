@@ -369,13 +369,19 @@ namespace e621_ReBot_v2.Forms
                                 }
                             }
 
-                            if (GridItemTemp == null && Preview_RowHolder["Thumbnail_Image"] == DBNull.Value && Preview_RowHolder["Thumbnail_DLStart"] == DBNull.Value)
+                            if (GridItemTemp == null)
                             {
-                                if (CachedImagePath == null)
+                                if (Preview_RowHolder["Thumbnail_Image"] == DBNull.Value)
                                 {
-                                    CachedImagePath = Module_Downloader.IEDownload_Cache[Module_Downloader.GetMediasFileNameOnly(MediaURL)];
+                                    if (Preview_RowHolder["Thumbnail_DLStart"] == DBNull.Value)
+                                    {
+                                        if (CachedImagePath == null)
+                                        {
+                                            CachedImagePath = Module_Downloader.IEDownload_Cache[Module_Downloader.GetMediasFileNameOnly(MediaURL)];
+                                        }
+                                        Preview_RowHolder["Thumbnail_Image"] = Module_Grabber.MakeImageThumb(Image.FromFile(CachedImagePath));
+                                    }
                                 }
-                                Preview_RowHolder["Thumbnail_Image"] = Module_Grabber.MakeImageThumb(Image.FromFile(CachedImagePath));
                                 Module_Grabber.WriteImageInfo(Preview_RowHolder);
                             }
                             else

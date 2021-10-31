@@ -2727,6 +2727,7 @@
             // DevTools_Button
             // 
             this.DevTools_Button.BackColor = System.Drawing.Color.DarkOrange;
+            this.DevTools_Button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.DevTools_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DevTools_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.DevTools_Button.Location = new System.Drawing.Point(3, 0);

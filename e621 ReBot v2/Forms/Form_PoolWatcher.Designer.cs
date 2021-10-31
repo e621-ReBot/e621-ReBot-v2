@@ -79,7 +79,7 @@
             this.TreeView_PoolWatcher.Location = new System.Drawing.Point(1, 1);
             this.TreeView_PoolWatcher.Name = "TreeView_PoolWatcher";
             this.TreeView_PoolWatcher.ShowLines = false;
-            this.TreeView_PoolWatcher.Size = new System.Drawing.Size(302, 279);
+            this.TreeView_PoolWatcher.Size = new System.Drawing.Size(462, 279);
             this.TreeView_PoolWatcher.TabIndex = 0;
             this.TreeView_PoolWatcher.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.TreeView_PoolWatcher_BeforeSelect);
             this.TreeView_PoolWatcher.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.TreeView_PoolWatcher_NodeMouseClick);
@@ -89,7 +89,7 @@
             // Form_PoolWatcher
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(304, 281);
+            this.ClientSize = new System.Drawing.Size(464, 281);
             this.Controls.Add(this.TreeView_PoolWatcher);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;

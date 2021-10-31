@@ -94,36 +94,36 @@ namespace e621_ReBot_v2.Forms
                 return;
             }
 
-            try
+            string e6JSONResult = Module_e621Info.e621InfoDownload("https://e621.net/pools/" + PoolID + ".json");
+            if (e6JSONResult == null)
             {
-                string e6JSONResult = Module_e621Info.e621InfoDownload("https://e621.net/pools/" + PoolID + ".json");
-                JObject PoolJSON = JObject.Parse(e6JSONResult);
-                string PoolName = PoolJSON["name"].Value<string>().Replace("_", " ");
+                MessageBox.Show($"Pool with ID#{PoolID} does not exist.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-                JObject JObjectTemp = new JObject
+            JObject PoolJSON = JObject.Parse(e6JSONResult);
+            string PoolName = PoolJSON["name"].Value<string>().Replace("_", " ");
+
+            JObject JObjectTemp = new JObject
                 {
                     { "id", PoolJSON["id"].Value<int>() },
                     { "name", PoolJSON["name"].Value<string>() },
                     { "post_ids", PoolJSON["post_ids"].Value<JToken>() },
                     { "post_count",  PoolJSON["post_count"].Value<int>() }
                 };
-                TreeNode PoolNode = new TreeNode()
-                {
-                    Text = string.Format("{0} | Posts: {1}", PoolName, PoolJSON["post_count"]),
-                    Name = PoolID,
-                    ToolTipText = "Pool ID#" + PoolID,
-                    Tag = JObjectTemp
-                };
-                Form_PoolWatcher._FormReference.TreeView_PoolWatcher.Nodes.Add(PoolNode);
-                BackgroundWorker BGW = new BackgroundWorker();
-                BGW.DoWork += Module_Downloader.GraBPoolInBG;
-                BGW.RunWorkerAsync(PoolID);
-                Close();
-            }
-            catch
+            TreeNode PoolNode = new TreeNode()
             {
-                MessageBox.Show(string.Format("Pool with ID#{0} does not exist.", PoolID), "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+                Text = string.Format("{0} | Posts: {1}", PoolName, PoolJSON["post_count"]),
+                Name = PoolID,
+                ToolTipText = "Pool ID#" + PoolID,
+                Tag = JObjectTemp
+            };
+            Form_PoolWatcher._FormReference.TreeView_PoolWatcher.Nodes.Add(PoolNode);
+            BackgroundWorker BGW = new BackgroundWorker();
+            BGW.DoWork += Module_Downloader.GraBPoolInBG;
+            BGW.RunWorkerCompleted += Module_Downloader.E6APIDL_BGW_Done;
+            BGW.RunWorkerAsync(PoolID);
+            Close();
         }
 
         private void Form_e6Pool_FormClosed(object sender, FormClosedEventArgs e)

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e621 ReBot v2", "e621 ReBot
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e621 ReBot Updater", "e621 ReBot Updater\e621 ReBot Updater.csproj", "{82267F10-0BBB-4F77-B87B-1E6F3A9DE866}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e621 ReBot Tests", "e621 ReBot Tests\e621 ReBot Tests.csproj", "{D9C6D009-BE06-4E77-A9DB-9905194AE3BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,18 @@ Global
 		{82267F10-0BBB-4F77-B87B-1E6F3A9DE866}.Release|x64.Build.0 = Release|Any CPU
 		{82267F10-0BBB-4F77-B87B-1E6F3A9DE866}.Release|x86.ActiveCfg = Release|Any CPU
 		{82267F10-0BBB-4F77-B87B-1E6F3A9DE866}.Release|x86.Build.0 = Release|Any CPU
+		{D9C6D009-BE06-4E77-A9DB-9905194AE3BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9C6D009-BE06-4E77-A9DB-9905194AE3BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9C6D009-BE06-4E77-A9DB-9905194AE3BC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D9C6D009-BE06-4E77-A9DB-9905194AE3BC}.Debug|x64.Build.0 = Debug|Any CPU
+		{D9C6D009-BE06-4E77-A9DB-9905194AE3BC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D9C6D009-BE06-4E77-A9DB-9905194AE3BC}.Debug|x86.Build.0 = Debug|Any CPU
+		{D9C6D009-BE06-4E77-A9DB-9905194AE3BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9C6D009-BE06-4E77-A9DB-9905194AE3BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9C6D009-BE06-4E77-A9DB-9905194AE3BC}.Release|x64.ActiveCfg = Release|Any CPU
+		{D9C6D009-BE06-4E77-A9DB-9905194AE3BC}.Release|x64.Build.0 = Release|Any CPU
+		{D9C6D009-BE06-4E77-A9DB-9905194AE3BC}.Release|x86.ActiveCfg = Release|Any CPU
+		{D9C6D009-BE06-4E77-A9DB-9905194AE3BC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

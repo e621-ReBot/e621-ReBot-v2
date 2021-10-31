@@ -14,6 +14,7 @@ namespace e621_ReBot_v2.Forms
     public partial class Form_PoolWatcher : Form
     {
         public static Form_PoolWatcher _FormReference;
+
         public Form_PoolWatcher(Point LocationPass, Form OwnerPass)
         {
             InitializeComponent();
@@ -42,6 +43,7 @@ namespace e621_ReBot_v2.Forms
                 }
                 TreeView_PoolWatcher.EndUpdate();
             }
+            this.Text = $"Pool Watcher - Watching {TreeView_PoolWatcher.Nodes.Count} pool{(TreeView_PoolWatcher.Nodes.Count <2 ? null : "s")}";
         }
 
         private void TreeView_PoolWatcher_BeforeSelect(object sender, TreeViewCancelEventArgs e)
@@ -64,11 +66,13 @@ namespace e621_ReBot_v2.Forms
             }
             Form_e6Pool._FormReference.BringToFront();
             Form_e6Pool._FormReference.ShowDialog();
+            this.Text = $"Pool Watcher - Watching {TreeView_PoolWatcher.Nodes.Count} pool{(TreeView_PoolWatcher.Nodes.Count < 2 ? null : "s")}";
         }
 
         private void ToolStripMenuItem_RemoveNode_Click(object sender, EventArgs e)
         {
             TreeView_PoolWatcher.Nodes.Remove(WhichNodeIsIt);
+            this.Text = $"Pool Watcher - Watching {TreeView_PoolWatcher.Nodes.Count} pool{(TreeView_PoolWatcher.Nodes.Count < 2 ? null : "s")}";
         }
 
         private void TreeView_PoolWatcher_MouseDown(object sender, MouseEventArgs e)
@@ -76,17 +80,17 @@ namespace e621_ReBot_v2.Forms
             TreeViewHitTestInfo NodeHitTest = TreeView_PoolWatcher.HitTest(e.Location);
             if (NodeHitTest.Node != null)
             {
+                TreeView_PoolWatcher.SelectedNode = null;
+                NodeHitTest.Node.ForeColor = TreeView_PoolWatcher.ForeColor;
+                NodeHitTest.Node.BackColor = TreeView_PoolWatcher.BackColor;
                 if (NodeHitTest.Location == TreeViewHitTestLocations.Label)
                 {
-                    NodeHitTest.Node.ForeColor = TreeView_PoolWatcher.ForeColor;
-                    NodeHitTest.Node.BackColor = TreeView_PoolWatcher.BackColor;
                     NodeHitTest.Node.ContextMenuStrip = contextMenuStrip_Remove;
                 }
                 else
                 {
                     NodeHitTest.Node.ContextMenuStrip = contextMenuStrip_Add;
                 }
-                TreeView_PoolWatcher.SelectedNode = null;
             }
         }
 
@@ -97,6 +101,7 @@ namespace e621_ReBot_v2.Forms
                 Close();
             }
         }
+
 
         public static void PoolWatcher_Check4New()
         {
@@ -193,20 +198,23 @@ namespace e621_ReBot_v2.Forms
 
         private void SavePoolWatcherSettings()
         {
-            if (TreeView_PoolWatcher.Nodes.Count > 0)
+            if (Owner != null)
             {
-                JArray JArrayTemp = new JArray();
-                foreach (TreeNode PoolWatchedPool in TreeView_PoolWatcher.Nodes)
+                if (TreeView_PoolWatcher.Nodes.Count > 0)
                 {
-                    JArrayTemp.Add((JToken)PoolWatchedPool.Tag);
+                    JArray JArrayTemp = new JArray();
+                    foreach (TreeNode PoolWatchedPool in TreeView_PoolWatcher.Nodes)
+                    {
+                        JArrayTemp.Add((JToken)PoolWatchedPool.Tag);
+                    }
+                    Properties.Settings.Default.PoolWatcher = JsonConvert.SerializeObject(JArrayTemp);
                 }
-                Properties.Settings.Default.PoolWatcher = JsonConvert.SerializeObject(JArrayTemp);
+                else
+                {
+                    Properties.Settings.Default.PoolWatcher = "";
+                }
+                Properties.Settings.Default.Save();
             }
-            else
-            {
-                Properties.Settings.Default.PoolWatcher = "";
-            }
-            Properties.Settings.Default.Save();
         }
 
         private void Form_PoolWatcher_FormClosing(object sender, FormClosingEventArgs e)
@@ -221,6 +229,5 @@ namespace e621_ReBot_v2.Forms
             _FormReference = null;
             Dispose();
         }
-
     }
 }
