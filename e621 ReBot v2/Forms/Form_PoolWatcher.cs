@@ -43,7 +43,7 @@ namespace e621_ReBot_v2.Forms
                 }
                 TreeView_PoolWatcher.EndUpdate();
             }
-            this.Text = $"Pool Watcher - Watching {TreeView_PoolWatcher.Nodes.Count} pool{(TreeView_PoolWatcher.Nodes.Count <2 ? null : "s")}";
+            this.Text = $"Pool Watcher - Watching {TreeView_PoolWatcher.Nodes.Count} pool{((TreeView_PoolWatcher.Nodes.Count > 0 && TreeView_PoolWatcher.Nodes.Count < 2) ? null : "s")}";
         }
 
         private void TreeView_PoolWatcher_BeforeSelect(object sender, TreeViewCancelEventArgs e)
@@ -66,13 +66,13 @@ namespace e621_ReBot_v2.Forms
             }
             Form_e6Pool._FormReference.BringToFront();
             Form_e6Pool._FormReference.ShowDialog();
-            this.Text = $"Pool Watcher - Watching {TreeView_PoolWatcher.Nodes.Count} pool{(TreeView_PoolWatcher.Nodes.Count < 2 ? null : "s")}";
+            this.Text = $"Pool Watcher - Watching {TreeView_PoolWatcher.Nodes.Count} pool{((TreeView_PoolWatcher.Nodes.Count > 0 && TreeView_PoolWatcher.Nodes.Count < 2) ? null : "s")}";
         }
 
         private void ToolStripMenuItem_RemoveNode_Click(object sender, EventArgs e)
         {
             TreeView_PoolWatcher.Nodes.Remove(WhichNodeIsIt);
-            this.Text = $"Pool Watcher - Watching {TreeView_PoolWatcher.Nodes.Count} pool{(TreeView_PoolWatcher.Nodes.Count < 2 ? null : "s")}";
+            this.Text = $"Pool Watcher - Watching {TreeView_PoolWatcher.Nodes.Count} pool{((TreeView_PoolWatcher.Nodes.Count > 0 && TreeView_PoolWatcher.Nodes.Count < 2) ? null : "s")}";
         }
 
         private void TreeView_PoolWatcher_MouseDown(object sender, MouseEventArgs e)
