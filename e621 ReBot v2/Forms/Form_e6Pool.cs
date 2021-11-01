@@ -9,6 +9,9 @@ namespace e621_ReBot_v2.Forms
 {
     public partial class Form_e6Pool : Form
     {
+
+        public static Form_e6Pool _FormReference;
+
         public Form_e6Pool(Point PointPass, Form OwnerForm)
         {
             InitializeComponent();
@@ -16,8 +19,6 @@ namespace e621_ReBot_v2.Forms
             Location = new Point(PointPass.X - 7, PointPass.Y - 2);
             Owner = OwnerForm;
         }
-
-        public static Form_e6Pool _FormReference;
 
         private void ID_TextBox_Enter(object sender, EventArgs e)
         {

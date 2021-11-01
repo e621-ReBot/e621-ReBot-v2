@@ -108,40 +108,50 @@ namespace e621_ReBot_v2.Forms
             if (!Properties.Settings.Default.PoolWatcher.Equals(""))
             {
                 Dictionary<string, List<string>> PoolWatherDictionary = new Dictionary<string, List<string>>();
+
                 foreach (JToken PoolToken in JArray.Parse(Properties.Settings.Default.PoolWatcher))
                 {
                     PoolWatherDictionary.Add(PoolToken["id"].Value<string>(), PoolToken["post_ids"].Values<string>().ToList());
                 }
 
-                string e6JSONResult = Module_e621Info.e621InfoDownload("https://e621.net/pools.json?search[id]=" + string.Join(",", PoolWatherDictionary.Keys.ToArray()), true);
-                if (e6JSONResult != null && e6JSONResult.Length > 24)
+                JArray PoolWatcherSave = new JArray();
+                Dictionary<JObject, List<string>> PoolPosts2Get = new Dictionary<JObject, List<string>>();
+                int PageSize = 75; //new API limit
+                for (int i = 0; i < Math.Ceiling(PoolWatherDictionary.Keys.Count / (double)PageSize); i++)
                 {
-                    JArray PoolWatcherSave = new JArray();
-                    Dictionary<JObject, List<string>> PoolPosts2Get = new Dictionary<JObject, List<string>>();
-                    foreach (JObject CurrentPoolData in JArray.Parse(e6JSONResult))
+                    string ListSlice = string.Join(",", PoolWatherDictionary.Keys.ToList().Skip(i * PageSize).Take(PageSize));
+                    string e6JSONResult = Module_e621Info.e621InfoDownload($"https://e621.net/pools.json?search[id]={ListSlice}", true);
+                    if (e6JSONResult != null && e6JSONResult.Length > 24)
                     {
-                        JObject JObjectTemp = new JObject
+                        foreach (JObject CurrentPoolData in JArray.Parse(e6JSONResult))
+                        {
+                            JObject JObjectTemp = new JObject
                         {
                             { "id", CurrentPoolData["id"].Value<int>() },
                             { "name", CurrentPoolData["name"].Value<string>() },
                             { "post_ids", CurrentPoolData["post_ids"].Value<JToken>() },
                             { "post_count",  CurrentPoolData["post_count"].Value<int>() }
                         };
-                        PoolWatcherSave.Add(JObjectTemp);
+                            PoolWatcherSave.Add(JObjectTemp);
 
-                        string PoolID = CurrentPoolData["id"].Value<string>();
-                        List<string> NewPostsIfAny = CurrentPoolData["post_ids"].Values<string>().ToList().Except(PoolWatherDictionary[PoolID]).ToList();
-                        if (NewPostsIfAny.Count > 0)
-                        {
-                            PoolPosts2Get.Add(CurrentPoolData, NewPostsIfAny);
+                            string PoolID = CurrentPoolData["id"].Value<string>();
+                            List<string> NewPostsIfAny = CurrentPoolData["post_ids"].Values<string>().ToList().Except(PoolWatherDictionary[PoolID]).ToList();
+                            if (NewPostsIfAny.Count > 0)
+                            {
+                                PoolPosts2Get.Add(CurrentPoolData, NewPostsIfAny);
+                            }
                         }
                     }
-                    Properties.Settings.Default.PoolWatcher = JsonConvert.SerializeObject(PoolWatcherSave);
-                    Properties.Settings.Default.Save();
-                    if (PoolPosts2Get.Keys.Count > 0)
+                    else
                     {
-                        GetNewImages(PoolPosts2Get);
+                        return;
                     }
+                }
+                Properties.Settings.Default.PoolWatcher = JsonConvert.SerializeObject(PoolWatcherSave);
+                Properties.Settings.Default.Save();
+                if (PoolPosts2Get.Keys.Count > 0)
+                {
+                    GetNewImages(PoolPosts2Get);
                 }
             }
         }
@@ -198,7 +208,7 @@ namespace e621_ReBot_v2.Forms
 
         private void SavePoolWatcherSettings()
         {
-            if (Owner != null)
+            if (_FormReference != null)
             {
                 if (TreeView_PoolWatcher.Nodes.Count > 0)
                 {
