@@ -103,6 +103,8 @@ namespace e621_ReBot_v2.Forms
         }
 
 
+
+
         public static void PoolWatcher_Check4New()
         {
             if (!Properties.Settings.Default.PoolWatcher.Equals(""))
@@ -141,6 +143,7 @@ namespace e621_ReBot_v2.Forms
                                 PoolPosts2Get.Add(CurrentPoolData, NewPostsIfAny);
                             }
                         }
+                        Thread.Sleep(1000);
                     }
                     else
                     {

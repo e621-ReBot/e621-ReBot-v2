@@ -82,11 +82,11 @@ namespace e621_ReBot_v2.Modules.Grabber
 
         public static void RunGrabber(object sender, DoWorkEventArgs e)
         {
-            Grab(e.Argument.ToString());
+            Module_Grabber.Report_Info(Grab(e.Argument.ToString()));
             ((BackgroundWorker)sender).Dispose();
         }
 
-        private static void Grab(string WebAdress)
+        public static string Grab(string WebAdress)
         {
             string HTMLSource = Module_Grabber.GrabPageSource(WebAdress, ref Module_CookieJar.Cookies_HicceArs);
             if (HTMLSource != null)
@@ -182,29 +182,32 @@ namespace e621_ReBot_v2.Modules.Grabber
                 }
 
             Skip2Exit:
+                string PrintText;
                 if (TempDataTable.Rows.Count == 0)
                 {
-                    lock (Module_Grabber._GrabQueue_URLs)
+                    lock (Module_Grabber._GrabQueue_WorkingOn)
                     {
                         Module_Grabber._GrabQueue_WorkingOn.Remove(Post_URL);
                     }
-                    Module_Grabber.Report_Info(string.Format("Grabbing skipped - All media already grabbed [@{0}]", Post_URL));
+                    PrintText = $"Grabbing skipped - All media already grabbed [@{Post_URL}]";
                 }
                 else
                 {
                     Module_Grabber._GrabQueue_WorkingOn[Post_URL] = TempDataTable;
-                    string PrintText = string.Format("Finished grabbing: {0}", Post_URL);
+                    PrintText = $"Finished grabbing: {Post_URL}";
                     if (SkipCounter > 0)
                     {
-                        PrintText += SkipCounter == 1 ? string.Format(", {0} media container has been skipped", SkipCounter) : string.Format(", {0} media containers have been skipped", SkipCounter);
+                        PrintText += $", {SkipCounter} media container{(SkipCounter > 1 ? "s have" : " has")} been skipped";
                     }
-                    Module_Grabber.Report_Info(PrintText);
                 }
                 lock (Module_Grabber._GrabQueue_URLs)
                 {
                     Module_Grabber._GrabQueue_URLs.Remove(Post_URL);
                 }
+                //Module_Grabber.Report_Info(PrintText);
+                return PrintText;
             }
+            return "Error encountered during HicceArs grab";
         }
 
         private static void FillDataRow(ref DataRow TempDataRow, string URL, DateTime DateTime, string Title, string TextBody, string MediaURL, string Artist)

@@ -11,7 +11,6 @@ namespace e621_ReBot_v2.Modules.Grabber
 {
     public static class Module_SoFurry
     {
-
         public static void QueuePrep(string WebAdress)
         {
             Module_CookieJar.GetCookies(WebAdress, ref Module_CookieJar.Cookies_SoFurry);
@@ -81,11 +80,11 @@ namespace e621_ReBot_v2.Modules.Grabber
 
         public static void RunGrabber(object sender, DoWorkEventArgs e)
         {
-            Grab(e.Argument.ToString());
+            Module_Grabber.Report_Info(Grab(e.Argument.ToString()));
             ((BackgroundWorker)sender).Dispose();
         }
 
-        private static void Grab(string WebAdress)
+        public static string Grab(string WebAdress)
         {
             string Post_URL = WebAdress;
             string Post_ID = WebAdress.Substring(WebAdress.LastIndexOf("/") + 1);
@@ -141,45 +140,42 @@ namespace e621_ReBot_v2.Modules.Grabber
                 TempDataTable.Rows.Add(TempDataRow);
 
             Skip2Exit:
+                string PrintText;
                 if (TempDataTable.Rows.Count == 0)
                 {
-                    lock (Module_Grabber._GrabQueue_URLs)
+                    lock (Module_Grabber._GrabQueue_WorkingOn)
                     {
                         Module_Grabber._GrabQueue_WorkingOn.Remove(Post_URL);
                     }
-                    if (UnsupportedType)
-                    {
-                        Module_Grabber.Report_Info(string.Format("Grabbing skipped - Unsupported submission type [@{0}]", Post_URL));
-                    }
-                    else
-                    {
-                        Module_Grabber.Report_Info(string.Format("Grabbing skipped - Media already grabbed [@{0}]", Post_URL));
-                    }
-
+                    PrintText = $"Grabbing skipped - {(UnsupportedType ? "Unsupported submission type" : "All media already grabbed")} [@{Post_URL}]";
                 }
                 else
                 {
                     Module_Grabber._GrabQueue_WorkingOn[Post_URL] = TempDataTable;
-                    Module_Grabber.Report_Info(string.Format("Finished grabbing: {0}", Post_URL));
+                    PrintText = $"Finished grabbing: {Post_URL}";
                 }
                 lock (Module_Grabber._GrabQueue_URLs)
                 {
                     Module_Grabber._GrabQueue_URLs.Remove(Post_URL);
                 }
+                //Module_Grabber.Report_Info(PrintText);
+                return PrintText;
             }
+            return "Error encountered during SoFurry grab";
         }
 
         private static void FillDataRow(ref DataRow TempDataRow, string URL, DateTime DateTime, string Title, string TextBody, string MediaURL, string ThumbnailURL, string Artist)
         {
             TempDataRow["Grab_URL"] = URL;
-            TempDataRow["Grab_DateTime"] = DateTime;
+            //TempDataRow["Grab_DateTime"] = DateTime;
             TempDataRow["Grab_Title"] = WebUtility.HtmlDecode(string.Format("\"{0}\" by {1} on SoFurry", Title, Artist)); ;
             if (TextBody != null) TempDataRow["Grab_TextBody"] = TextBody;
             TempDataRow["Grab_MediaURL"] = MediaURL;
             TempDataRow["Grab_ThumbnailURL"] = ThumbnailURL;
             TempDataRow["Info_MediaFormat"] = MediaURL.Substring(MediaURL.LastIndexOf(".") + 1);
             //TempDataRow["Info_MediaByteLength"] = Module_Grabber.GetMediaSize(MediaURL);
-            TempDataRow["Upload_Tags"] = DateTime.Year;
+            //TempDataRow["Upload_Tags"] = DateTime.Year
+            TempDataRow["Upload_Tags"] = "";
             TempDataRow["Artist"] = Artist;
         }
     }

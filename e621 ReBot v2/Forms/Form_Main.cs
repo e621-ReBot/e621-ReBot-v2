@@ -33,6 +33,15 @@ namespace e621_ReBot_v2
     //Comment Searching RegEx ^((\s*/+)).
     public partial class Form_Main : Form
     {
+        protected override void WndProc(ref Message message)
+        {
+            if (message.Msg == Program.WM_SHOWFIRSTINSTANCE)
+            {
+                WinApi.ShowToFront(Handle);
+            }
+            base.WndProc(ref message);
+        }
+
         public Form_Main()
         {
             SetStyle(ControlStyles.UserPaint | ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
@@ -142,6 +151,8 @@ namespace e621_ReBot_v2
 
 #if DEBUG
             DevTools_Button.Visible = true;
+            bU_GetGenders.Visible = true;
+            bU_GetDNPs.Visible = true;
 #endif
 
             //heavy shit

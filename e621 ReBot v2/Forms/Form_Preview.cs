@@ -762,10 +762,13 @@ namespace e621_ReBot_v2.Forms
                 }
             }
 
-            string YearTag = ((DateTime)Preview_RowHolder["Grab_DateTime"]).Year.ToString();
-            if (!CurrentTags.Contains(YearTag))
+            if (Preview_RowHolder["Grab_DateTime"] != DBNull.Value)
             {
-                Preview_RowHolder["Upload_Tags"] = YearTag + " " + (string)Preview_RowHolder["Upload_Tags"];
+                string YearTag = ((DateTime)Preview_RowHolder["Grab_DateTime"]).Year.ToString();
+                if (!CurrentTags.Contains(YearTag))
+                {
+                    Preview_RowHolder["Upload_Tags"] = YearTag + " " + (string)Preview_RowHolder["Upload_Tags"];
+                }
             }
 
             if (Form_Tagger._FormReference != null)

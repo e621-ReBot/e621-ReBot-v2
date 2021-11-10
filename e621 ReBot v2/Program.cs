@@ -42,8 +42,9 @@ namespace e621_ReBot_v2
             }
         }
 
-
-        static readonly Mutex AppMutex = new Mutex(true, "e621 ReBot v2");
+        //https://www.codeproject.com/Articles/32908/C-Single-Instance-App-With-the-Ability-To-Restore
+        public static readonly int WM_SHOWFIRSTINSTANCE = WinApi.RegisterWindowMessage("WM_SHOWFIRSTINSTANCE|{0}", ProgramInfo.AssemblyGuid);
+        static Mutex AppMutex;
         [STAThread]
         static void Main()
         {
@@ -66,29 +67,73 @@ namespace e621_ReBot_v2
                 }
             }
 
-            if (AppMutex.WaitOne(TimeSpan.Zero, true))
+            bool onlyInstance;
+            AppMutex = new Mutex(true, $"Local\\e621 ReBot v2 - {ProgramInfo.AssemblyGuid}", out onlyInstance);
+
+            if (!onlyInstance)
+            {
+                //Show first instance
+                WinApi.PostMessage((IntPtr)WinApi.HWND_BROADCAST, WM_SHOWFIRSTINSTANCE, IntPtr.Zero, IntPtr.Zero);
+                return;
+            }
+
+            try
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new Form_Loader());
-                AppMutex.ReleaseMutex();
             }
-            else
+            catch (Exception e)
             {
-                // send our Win32 message to make the currently running instance
-                // jump on top of all the other windows
-                NativeMethods.PostMessage((IntPtr)NativeMethods.HWND_BROADCAST, NativeMethods.WM_SHOWME, IntPtr.Zero, IntPtr.Zero);
+                MessageBox.Show(e.Message);
             }
+            AppMutex.ReleaseMutex();
         }
 
     }
-    internal class NativeMethods
+    static internal class WinApi
     {
-        public const int HWND_BROADCAST = 0xffff;
-        public static readonly int WM_SHOWME = RegisterWindowMessage("WM_SHOWME");
-        [DllImport("user32")]
-        public static extern bool PostMessage(IntPtr hwnd, int msg, IntPtr wparam, IntPtr lparam);
         [DllImport("user32")]
         public static extern int RegisterWindowMessage(string message);
+
+        public static int RegisterWindowMessage(string format, params object[] args)
+        {
+            string message = string.Format(format, args);
+            return RegisterWindowMessage(message);
+        }
+
+        public const int HWND_BROADCAST = 0xffff;
+        public const int SW_SHOWNORMAL = 1;
+
+        [DllImport("user32")]
+        public static extern bool PostMessage(IntPtr hwnd, int msg, IntPtr wparam, IntPtr lparam);
+
+        [DllImport("user32.dll")]
+        public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        [DllImport("user32.dll")]
+        public static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        public static void ShowToFront(IntPtr window)
+        {
+            ShowWindow(window, SW_SHOWNORMAL);
+            SetForegroundWindow(window);
+        }
+    }
+
+    static public class ProgramInfo
+    {
+        static public string AssemblyGuid
+        {
+            get
+            {
+                object[] attributes = Assembly.GetEntryAssembly().GetCustomAttributes(typeof(GuidAttribute), false);
+                if (attributes.Length == 0)
+                {
+                    return string.Empty;
+                }
+                return ((GuidAttribute)attributes[0]).Value;
+            }
+        }
     }
 }

@@ -11,8 +11,12 @@ namespace e621_ReBot_v2.Modules.Grabber
             string OutputString = null;
             if (InputString != null)
             {
-                OutputString = WebUtility.HtmlDecode(InputString).Trim() + " ";
+                OutputString = WebUtility.HtmlDecode(InputString).Trim();
                 OutputString = OutputString.Replace("http://", "https://");
+            }
+            if (OutputString != null)
+            {
+                OutputString = OutputString.Equals("") ? null : OutputString + " ";
             }
 
             return OutputString;

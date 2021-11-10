@@ -276,7 +276,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                     {
                         Module_Grabber._GrabQueue_WorkingOn.Remove(Post_URL);
                     }
-                    PrintText = $"Grabbing skipped - All media already grabbed[@{Post_URL}]";
+                    PrintText = $"Grabbing skipped - All media already grabbed [@{Post_URL}]";
                 }
                 else
                 {
@@ -284,7 +284,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                     PrintText = $"Finished grabbing: {Post_URL}";
                     if (SkipCounter > 0)
                     {
-                        PrintText += $", {SkipCounter} media container{(SkipCounter > 1 ? "s" : null)} has been skipped";
+                        PrintText += $", {SkipCounter} media container{(SkipCounter > 1 ? "s have" : " has")} been skipped";
                     }
                 }
                 lock (Module_Grabber._GrabQueue_URLs)

@@ -18,7 +18,7 @@ namespace e621_ReBot_v2
         public static FlowLayoutPanel _GridFLPHolder;
         public static int _GridMaxControls;
         public static int _DLHistoryMaxControls;
-        public static readonly string GlobalUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:87.0) Gecko/20100101 Firefox/87.0";
+        public static readonly string GlobalUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:94.0) Gecko/20100101 Firefox/94.0";
 
         public Form_Loader()
         {
@@ -28,28 +28,6 @@ namespace e621_ReBot_v2
             Cursor_Default = Module_Cursor.CreateCursorNoResize(Properties.Resources.e621ReBot_CursorDefault, 0, 0);
             Cursor_ReBotNav = Module_Cursor.CreateCursorNoResize(Properties.Resources.e621ReBot_CursorE6, 0, 0);
             Cursor_BrowserNav = Module_Cursor.CreateCursorNoResize(Properties.Resources.e621ReBot_CursorBrowser, 0, 0);
-        }
-
-        protected override void WndProc(ref Message m)
-        {
-            if (m.Msg == NativeMethods.WM_SHOWME)
-            {
-                ShowMe();
-            } 
-            base.WndProc(ref m);
-        }
-        private void ShowMe()
-        {
-            if (_FormReference.WindowState == FormWindowState.Minimized)
-            {
-                _FormReference.WindowState = FormWindowState.Normal;
-            }
-            // get our current "TopMost" value (ours will always be false though)
-            bool top = _FormReference.TopMost;
-            // make our form jump to the top of everything
-            _FormReference.TopMost = true;
-            // set it back to whatever it was
-            _FormReference.TopMost = top;
         }
 
         private void Form_Loader_Load(object sender, EventArgs e)

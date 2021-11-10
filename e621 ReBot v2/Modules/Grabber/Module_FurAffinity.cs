@@ -174,7 +174,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                 else
                 {
                     Module_Grabber._GrabQueue_WorkingOn[Post_URL] = TempDataTable;
-                    PrintText = "Finished grabbing: {Post_URL}";
+                    PrintText = $"Finished grabbing: {Post_URL}";
                 }
                 lock (Module_Grabber._GrabQueue_URLs)
                 {

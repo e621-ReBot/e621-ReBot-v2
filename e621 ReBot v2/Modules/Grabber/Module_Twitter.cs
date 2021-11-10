@@ -263,7 +263,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                 {
                     Module_Grabber._GrabQueue_WorkingOn.Remove(Post_URL);
                 }
-                PrintText = SkipCounter > 0 ? $"Grabbing skipped - All media already grabbed [@{Post_URL}]" : $"Grabbing skipped - No media found [@{Post_URL}]";
+                PrintText = $"Grabbing skipped - {(SkipCounter > 0 ? "All media already grabbed" : "No media found")} [@{Post_URL}]";
             }
             else
             {
@@ -271,7 +271,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                 PrintText = $"Finished grabbing: {Post_URL}";
                 if (SkipCounter > 0)
                 {
-                    PrintText += $", {SkipCounter} media container{(SkipCounter > 1 ? "s" : null)} has been skipped";
+                    PrintText += $", {SkipCounter} media container{(SkipCounter > 1 ? "s have" : " has")} been skipped";
                 }
             }
             lock (Module_Grabber._GrabQueue_URLs)
@@ -463,35 +463,29 @@ namespace e621_ReBot_v2.Modules.Grabber
             }
 
         Skip2Exit:
+            string PrintText;
             if (TempDataTable.Rows.Count == 0)
             {
                 lock (Module_Grabber._GrabQueue_WorkingOn)
                 {
                     Module_Grabber._GrabQueue_WorkingOn.Remove(Post_URL);
                 }
-                if (SkipCounter > 0)
-                {
-                    Module_Grabber.Report_Info(string.Format("Grabbing skipped - All media already grabbed [@{0}]", Post_URL));
-                }
-                else
-                {
-                    Module_Grabber.Report_Info(string.Format("Grabbing skipped - No media found [@{0}]", Post_URL));
-                }
+                PrintText = $"Grabbing skipped - {(SkipCounter > 0 ? "All media already grabbed" : "No media found")} [@{Post_URL}]";
             }
             else
             {
                 Module_Grabber._GrabQueue_WorkingOn[Post_URL] = TempDataTable;
-                string PrintText = string.Format("Finished grabbing: {0}", Post_URL);
+                PrintText = $"Finished grabbing: {Post_URL}";
                 if (SkipCounter > 0)
                 {
-                    PrintText += SkipCounter == 1 ? string.Format(", {0} media container has been skipped", SkipCounter) : string.Format(", {0} media containers have been skipped", SkipCounter);
+                    PrintText += $", {SkipCounter} media container{(SkipCounter > 1 ? "s have" : " has")} been skipped";
                 }
-                Module_Grabber.Report_Info(PrintText);
             }
             lock (Module_Grabber._GrabQueue_URLs)
             {
                 Module_Grabber._GrabQueue_URLs.Remove(Post_URL);
             }
+            Module_Grabber.Report_Info(PrintText);
         }
 
         private static void FillDataRow(ref DataRow TempDataRow, string URL, DateTime DateTime, string TextBody, string MediaURL, string ThumbURL, string Artist)

@@ -72,7 +72,6 @@ namespace e621_ReBot_v2.Modules
         private static void CefSharpBrowser_TitleChanged(object sender, TitleChangedEventArgs e)
         {
             Form_Loader._FormReference.Invoke(new Action(() => { CefSharpBrowser.Text = e.Title; }));
-            Console.WriteLine(e.Title);
         }
 
         private static void CefSharp_AddressChanged(object sender, AddressChangedEventArgs e)

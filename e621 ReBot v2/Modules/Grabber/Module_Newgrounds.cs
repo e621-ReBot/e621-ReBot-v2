@@ -14,7 +14,6 @@ namespace e621_ReBot_v2.Modules.Grabber
 {
     public static class Module_Newgrounds
     {
-
         public static void QueuePrep(string WebAdress)
         {
             Module_CookieJar.GetCookies(WebAdress, ref Module_CookieJar.Cookies_Newgrounds);
@@ -81,12 +80,12 @@ namespace e621_ReBot_v2.Modules.Grabber
 
         public static void RunGrabber(object sender, DoWorkEventArgs e)
         {
-            Grab(e.Argument.ToString());
+            Module_Grabber.Report_Info(Grab(e.Argument.ToString()));
             ((BackgroundWorker)sender).Dispose();
             Thread.Sleep(5000); //Slow it down so that it does not get Error 429, 50 requests per minute seems to be the rate limit.
         }
 
-        private static void Grab(string WebAdress)
+        public static string Grab(string WebAdress, bool UnitTestRun = false)
         {
             string HTMLSource = Module_Grabber.GrabPageSource(WebAdress, ref Module_CookieJar.Cookies_Newgrounds);
             if (HTMLSource != null)
@@ -120,7 +119,10 @@ namespace e621_ReBot_v2.Modules.Grabber
                 if (PictureNodes != null)
                 {
                     Custom_ProgressBar TempcPB = new Custom_ProgressBar(Post_URL, PictureNodes.Count);
-                    Form_Loader._FormReference.Invoke(new Action(() => { Form_Loader._FormReference.cFlowLayoutPanel_ProgressBarHolder.Controls.Add(TempcPB); }));
+                    if (!UnitTestRun)
+                    {
+                        Form_Loader._FormReference.Invoke(new Action(() => { Form_Loader._FormReference.cFlowLayoutPanel_ProgressBarHolder.Controls.Add(TempcPB); }));
+                    }
 
                     string ThumbnailURLTemp = null;
                     foreach (HtmlNode ImageNode in PictureNodes)
@@ -177,7 +179,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                                 TempDataRow["Info_MediaWidth"] = ResolutionHolder[0];
                                 TempDataRow["Info_MediaHeight"] = ResolutionHolder[1];
                                 TempDataRow["Thumbnail_FullInfo"] = true;
-                                if (ThumbnailURLTemp.EndsWith(".webp", StringComparison.OrdinalIgnoreCase))
+                                if (ThumbnailURLTemp.EndsWith(".wnebp", StringComparison.OrdinalIgnoreCase))
                                 {
                                     Module_Grabber.WriteImageInfo(TempDataRow); //do it here so data shown on image properly due to custom handling of webp
                                 }
@@ -187,7 +189,10 @@ namespace e621_ReBot_v2.Modules.Grabber
 
                         Thread.Sleep(Module_Grabber.PauseBetweenImages);
                     }
-                    Form_Loader._FormReference.BeginInvoke(new Action(() => { TempcPB.Dispose(); }));
+                    if (!UnitTestRun)
+                    {
+                        Form_Loader._FormReference.BeginInvoke(new Action(() => { TempcPB.Dispose(); }));
+                    }               
                 }
                 else
                 {
@@ -218,29 +223,32 @@ namespace e621_ReBot_v2.Modules.Grabber
                 }
 
             Skip2Exit:
+                string PrintText;
                 if (TempDataTable.Rows.Count == 0)
                 {
-                    lock (Module_Grabber._GrabQueue_URLs)
+                    lock (Module_Grabber._GrabQueue_WorkingOn)
                     {
                         Module_Grabber._GrabQueue_WorkingOn.Remove(Post_URL);
                     }
-                    Module_Grabber.Report_Info(string.Format("Grabbing skipped - All media already grabbed [@{0}]", Post_URL));
+                    PrintText = $"Grabbing skipped - All media already grabbed [@{Post_URL}]";
                 }
                 else
                 {
                     Module_Grabber._GrabQueue_WorkingOn[Post_URL] = TempDataTable;
-                    string PrintText = string.Format("Finished grabbing: {0}", Post_URL);
+                    PrintText = $"Finished grabbing: {Post_URL}";
                     if (SkipCounter > 0)
                     {
-                        PrintText += SkipCounter == 1 ? string.Format(", {0} media container has been skipped", SkipCounter) : string.Format(", {0} media containers have been skipped", SkipCounter);
+                        PrintText += $", {SkipCounter} media container{(SkipCounter > 1 ? "s have" : " has")} been skipped";
                     }
-                    Module_Grabber.Report_Info(PrintText);
                 }
                 lock (Module_Grabber._GrabQueue_URLs)
                 {
                     Module_Grabber._GrabQueue_URLs.Remove(Post_URL);
                 }
+                //Module_Grabber.Report_Info(PrintText);
+                return PrintText;
             }
+            return "Error encountered during Newgrounds grab";
         }
 
         private static void FillDataRow(ref DataRow TempDataRow, string URL, DateTime DateTime, string Title, string TextBody, string MediaURL, string ThumbURL, string Artist)
