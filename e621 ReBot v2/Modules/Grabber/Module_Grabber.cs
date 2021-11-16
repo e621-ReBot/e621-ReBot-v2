@@ -383,7 +383,7 @@ namespace e621_ReBot_v2.Modules
                 for (int rowindex = StartRowIndex; rowindex < Module_TableHolder.Database_Table.Rows.Count; rowindex++)
                 {
                     DataRow TempDataRow = Module_TableHolder.Database_Table.Rows[rowindex];
-                    Module_DB.DB_CheckMediaRecord(ref TempDataRow);
+                    Module_DB.DB_Media_CheckRecord(ref TempDataRow);
                     if (Form_Loader._GridFLPHolder.Controls.Count < Form_Loader._GridMaxControls)
                     {
                         Form_Loader._FormReference.AddGridItem(ref TempDataRow, false);

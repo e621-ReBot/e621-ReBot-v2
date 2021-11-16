@@ -444,7 +444,7 @@ namespace e621_ReBot_v2.Forms
             Form_Preview._FormReference.Label_AlreadyUploaded.Text = string.Format("Already uploaded as #{0}", Post.Name);
             if (Properties.Settings.Default.ManualInferiorSave)
             {
-                Module_DB.DB_CreateMediaRecord(ref DataRowTemp);
+                Module_DB.DB_Media_CreateRecord(ref DataRowTemp);
             }
             Close();
         }

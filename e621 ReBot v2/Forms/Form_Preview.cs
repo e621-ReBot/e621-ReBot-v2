@@ -505,17 +505,33 @@ namespace e621_ReBot_v2.Forms
 
         private void CheckMD5()
         {
-            string MD5Check = Module_e621Info.e621InfoDownload("https://e621.net/posts.json?md5=" + Preview_RowHolder["Info_MediaMD5"].ToString());
-            if (MD5Check != null && MD5Check.Length > 24)
+            string MD5Check = Module_DB.DB_MD5_CheckRecord((string)Preview_RowHolder["Info_MediaMD5"]);
+            if (MD5Check == null)
             {
-                JObject MD5CheckJSON = JObject.Parse(MD5Check);
-                Preview_RowHolder["Uploaded_As"] = MD5CheckJSON["post"]["id"].Value<string>();
-                Module_DB.DB_CreateMediaRecord(ref Preview_RowHolder);
-                Label_AlreadyUploaded.Text = string.Format("Already uploaded as #{0}", (string)Preview_RowHolder["Info_MediaMD5"]);
+                MD5Check = Module_e621Info.e621InfoDownload("https://e621.net/posts.json?md5=" + (string)Preview_RowHolder["Info_MediaMD5"]);
+                if (MD5Check != null && MD5Check.Length > 24)
+                {
+                    JObject MD5CheckJSON = JObject.Parse(MD5Check);
+                    Preview_RowHolder["Uploaded_As"] = MD5CheckJSON["post"]["id"].Value<string>();
+                    Preview_RowHolder["Upload_Rating"] = MD5CheckJSON["post"]["rating"].Value<string>().ToUpper();
+                    Module_DB.DB_Media_CreateRecord(ref Preview_RowHolder);
+                    Module_DB.DB_MD5_CreateRecord(MD5CheckJSON["post"]["id"].Value<int>(), (string)Preview_RowHolder["Info_MediaMD5"]);
+                    Label_AlreadyUploaded.Text = $"Already uploaded as #{(string)Preview_RowHolder["Info_MediaMD5"]}";
+                    e6_GridItem e6_GridItemTemp = Form_Loader._FormReference.IsE6PicVisibleInGrid(ref Preview_RowHolder);
+                    if (e6_GridItemTemp != null)
+                    {
+                        e6_GridItemTemp.cLabel_isUploaded.Text = MD5CheckJSON["post"]["id"].Value<string>();
+                    }
+                }
+            }
+            else
+            {
+                Preview_RowHolder["Uploaded_As"] = MD5Check;
+                Label_AlreadyUploaded.Text = $"Already uploaded as #{MD5Check}";
                 e6_GridItem e6_GridItemTemp = Form_Loader._FormReference.IsE6PicVisibleInGrid(ref Preview_RowHolder);
                 if (e6_GridItemTemp != null)
                 {
-                    e6_GridItemTemp.cLabel_isUploaded.Text = MD5CheckJSON["post"]["id"].Value<string>();
+                    e6_GridItemTemp.cLabel_isUploaded.Text = MD5Check;
                 }
             }
         }

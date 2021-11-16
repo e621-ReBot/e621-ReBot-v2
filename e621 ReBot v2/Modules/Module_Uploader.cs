@@ -599,7 +599,8 @@ namespace e621_ReBot_v2.Modules
         private static void DisplayUploadSuccess(ref DataRow DataRowRef, string ID)
         {
             DataRowRef["Uploaded_As"] = ID;
-            Module_DB.DB_CreateMediaRecord(ref DataRowRef);
+            Module_DB.DB_Media_CreateRecord(ref DataRowRef);
+            Module_DB.DB_MD5_CreateRecord(int.Parse(ID), (string)DataRowRef["Info_MediaMD5"]);
 
             DataRow DataRowTemp = DataRowRef;
             Form_Loader._FormReference.BeginInvoke(new Action(() =>
@@ -816,6 +817,5 @@ namespace e621_ReBot_v2.Modules
                 MessageBox.Show(string.Format("Error Code {0}\n{1}", e6Response.Key.StatusCode, e6Response.Value), "Change Parent");
             }
         }
-
     }
 }

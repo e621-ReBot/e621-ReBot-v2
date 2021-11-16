@@ -260,7 +260,7 @@ namespace e621_ReBot_v2.Forms
             Form_Preview._FormReference.Label_AlreadyUploaded.Text = string.Format("Already uploaded as #{0}", PostID);
             if (Properties.Settings.Default.ManualInferiorSave)
             {
-                Module_DB.DB_CreateMediaRecord(ref RowRefference);
+                Module_DB.DB_Media_CreateRecord(ref RowRefference);
             }
             Form_Preview._FormReference.UpdateButtons();
         }

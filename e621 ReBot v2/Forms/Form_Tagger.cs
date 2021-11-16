@@ -132,7 +132,7 @@ namespace e621_ReBot_v2.Forms
                 TB_ParentOffset.Tag = "Set";
             }
 
-            string ArtistA = Module_DB.DB_CheckAARecord(Tagger_RowHolder["Artist"].ToString(), Tagger_RowHolder["Grab_URL"].ToString());
+            string ArtistA = Module_DB.DB_AA_CheckRecord(Tagger_RowHolder["Artist"].ToString(), Tagger_RowHolder["Grab_URL"].ToString());
             textBox_Tags.AppendText(" " + ArtistA);
             TB_ArtistAlias.Tag = ArtistA;
 
@@ -396,7 +396,7 @@ namespace e621_ReBot_v2.Forms
             {
                 if (TB_ArtistAlias.ForeColor == Color.RoyalBlue)
                 {
-                    Module_DB.DB_DeleteAARecord((string)Tagger_RowHolder["Artist"], (string)Tagger_RowHolder["Grab_URL"]);
+                    Module_DB.DB_AA_DeleteRecord((string)Tagger_RowHolder["Artist"], (string)Tagger_RowHolder["Grab_URL"]);
                     textBox_Tags.Text = textBox_Tags.Text.Replace(TB_ArtistAlias.Tag.ToString(), "");
                     AddTags(true);
                     TB_ArtistAlias.ForeColor = SystemColors.ControlText;
@@ -432,11 +432,11 @@ namespace e621_ReBot_v2.Forms
                             InputText = InputText.ToLower();
                             if (TB_ArtistAlias.Tag == null)
                             {
-                                Module_DB.DB_CreateAARecord((string)Tagger_RowHolder["Artist"], (string)Tagger_RowHolder["Grab_URL"], InputText);
+                                Module_DB.DB_AA_CreateRecord((string)Tagger_RowHolder["Artist"], (string)Tagger_RowHolder["Grab_URL"], InputText);
                             }
                             else
                             {
-                                Module_DB.DB_UpdateAARecord((string)Tagger_RowHolder["Artist"], (string)Tagger_RowHolder["Grab_URL"], InputText);
+                                Module_DB.DB_AA_UpdateRecord((string)Tagger_RowHolder["Artist"], (string)Tagger_RowHolder["Grab_URL"], InputText);
                             }
 
                             MessageBox.Show(string.Format("{0} is now aliased to {1}", (string)Tagger_RowHolder["Artist"], InputText), "e621 ReBot");

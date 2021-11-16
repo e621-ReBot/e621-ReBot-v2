@@ -2118,7 +2118,7 @@ namespace e621_ReBot_v2
             {
                 if (CustomTagsTableHolder == null)
                 {
-                    CustomTagsTableHolder = Module_DB.DB_ReadCTTable();
+                    CustomTagsTableHolder = Module_DB.DB_CT_ReadTable();
                 }
 
                 if (CustomTagsTableHolder.Contains(textBox_AutoTagsEditor.Text))
@@ -2142,7 +2142,7 @@ namespace e621_ReBot_v2
         private void BU_AutoTagsAdd_Click(object sender, EventArgs e)
         {
             textBox_AutoTagsEditor.Text = textBox_AutoTagsEditor.Text.ToLower();
-            Module_DB.DB_CreateCTRecord(textBox_AutoTagsEditor.Text);
+            Module_DB.DB_CT_CreateRecord(textBox_AutoTagsEditor.Text);
             CustomTagsTableHolder.Add(textBox_AutoTagsEditor.Text);
             AutoTagsList_Tags.Add(new DC_AutocompleteItem(textBox_AutoTagsEditor.Text));
             textBox_AutoTagsEditor.AutoCompleteCustomSource.Clear();
@@ -2155,7 +2155,7 @@ namespace e621_ReBot_v2
         private void BU_AutoTagsRemove_Click(object sender, EventArgs e)
         {
             textBox_AutoTagsEditor.Text = textBox_AutoTagsEditor.Text.ToLower();
-            Module_DB.DB_DeleteCTRecord(textBox_AutoTagsEditor.Text);
+            Module_DB.DB_CT_DeleteRecord(textBox_AutoTagsEditor.Text);
             CustomTagsTableHolder.Remove(textBox_AutoTagsEditor.Text);
             AutoTagsList_Tags.Clear();
             AutoTags.Dispose();
@@ -2512,7 +2512,7 @@ namespace e621_ReBot_v2
             }
 
             CustomTagsTableHolder.Clear();
-            foreach (string StringTemp in Module_DB.DB_ReadCTTable())
+            foreach (string StringTemp in Module_DB.DB_CT_ReadTable())
             {
                 AutoTagsList_Tags.Add(new DC_AutocompleteItem(StringTemp));
                 CustomTagsTableHolder.Add(StringTemp);
