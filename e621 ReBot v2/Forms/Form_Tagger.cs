@@ -344,7 +344,7 @@ namespace e621_ReBot_v2.Forms
                 }
                 else
                 {
-                    Description = string.Format("[section{0}={1}]{2}{3}{4}[/section]", Properties.Settings.Default.ExpandedDescription ? ",expanded" : "", (string)Tagger_RowHolder["Grab_Title"], Environment.NewLine, (string)Tagger_RowHolder["Grab_TextBody"], Environment.NewLine);
+                    Description = $"[section{(Properties.Settings.Default.ExpandedDescription ? ",expanded" : null)}={(string)Tagger_RowHolder["Grab_Title"]}]\n{(string)Tagger_RowHolder["Grab_TextBody"]}\n[/section]";
                 }
                 Clipboard.SetText(Description);
                 MessageBox.Show("Descripton has been copied to clipboard.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);

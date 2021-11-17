@@ -153,11 +153,11 @@ namespace e621_ReBot_v2.Forms
             string CurrentDescriptionConstruct = null;
             if (RowRefference["Grab_TextBody"] == DBNull.Value)
             {
-                CurrentDescriptionConstruct = string.Format("[code]{0}[/code]", (string)RowRefference["Grab_Title"]);
+                CurrentDescriptionConstruct = $"[code]{(string)RowRefference["Grab_Title"]}[/code]";
             }
             else
             {
-                CurrentDescriptionConstruct = string.Format("[section{0}={1}]\n{2}\n[/section]", Properties.Settings.Default.ExpandedDescription ? ",expanded" : "", (string)RowRefference["Grab_Title"], (string)RowRefference["Grab_TextBody"]);
+                CurrentDescriptionConstruct = $"[section{(Properties.Settings.Default.ExpandedDescription ? ",expanded" : null)}={(string)RowRefference["Grab_Title"]}]\n{(string)RowRefference["Grab_TextBody"]}\n[/section]";
             }
 
             if (!InferiorDescription.Equals("") && InferiorDescription != CurrentDescriptionConstruct)

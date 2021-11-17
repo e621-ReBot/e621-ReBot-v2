@@ -525,7 +525,7 @@ namespace e621_ReBot_v2.Modules
 
             if (DataRowRef["Inferior_Description"] != DBNull.Value)
             {
-                Upload_Description += string.Format("\n - - - - - \n{0}", DataRowRef["Inferior_Description"]);
+                Upload_Description += $"\n - - - - - \n{DataRowRef["Inferior_Description"]}";
             }
 
             string ParentTag = null;
