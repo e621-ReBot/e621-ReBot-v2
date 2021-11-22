@@ -41,8 +41,10 @@ namespace CefSharp
             AdBlock.Add("a.adtng.com");
         }
 
+        public int RequestCount { get; set; }
         protected override bool OnBeforeBrowse(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool userGesture, bool isRedirect)
         {
+            RequestCount++;
             // Block Ads and shit
             if (AdBlock.Any(s => request.Url.Contains(s)))
             {
@@ -72,6 +74,7 @@ namespace CefSharp
                 return new CefSharp_ResourceRequestHandler_AdBlocker();
             }
 
+            //Console.WriteLine(request.Url);
             return null;
         }
     }

@@ -515,7 +515,7 @@ namespace e621_ReBot_v2.Forms
                     Preview_RowHolder["Uploaded_As"] = MD5CheckJSON["post"]["id"].Value<string>();
                     Preview_RowHolder["Upload_Rating"] = MD5CheckJSON["post"]["rating"].Value<string>().ToUpper();   
                     List<string> TagList = new List<string>();
-                    foreach (JProperty pTag in MD5CheckJSON["tags"].Children())
+                    foreach (JProperty pTag in MD5CheckJSON["post"]["tags"].Children())
                     {
                         foreach (JToken cTag in pTag.First)
                         {

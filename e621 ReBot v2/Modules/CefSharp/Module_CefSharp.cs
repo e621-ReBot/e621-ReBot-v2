@@ -22,6 +22,11 @@ namespace e621_ReBot_v2.Modules
 
         static Module_CefSharp()
         {
+            timer_Pixiv = new Timer
+            {
+                Interval = 500
+            };
+            timer_Pixiv.Tick += Pixiv_Timer_Tick;
             timer_Twitter = new Timer
             {
                 Interval = 500
@@ -36,6 +41,7 @@ namespace e621_ReBot_v2.Modules
 
         public static bool BrowserStartup = true;
         public static ChromiumWebBrowser CefSharpBrowser;
+        private static CefSharp_RequestHandler _RequestHandler;
 
         public static void InitializeBrowser(string WebAdress)
         {
@@ -51,10 +57,11 @@ namespace e621_ReBot_v2.Modules
             CefSharp_Settings.CefCommandLineArgs.Add("enable-system-flash");
             Cef.EnableHighDPISupport();
             Cef.Initialize(CefSharp_Settings);
+            _RequestHandler = new CefSharp_RequestHandler();
             CefSharpBrowser = new ChromiumWebBrowser(WebAdress)
             {
                 Dock = DockStyle.Fill,
-                RequestHandler = new CefSharp_RequestHandler(),
+                RequestHandler = _RequestHandler,
                 LifeSpanHandler = new CefSharp_LifeSpanHandler(),
                 UseParentFormMessageInterceptor = false,
             };
@@ -76,6 +83,9 @@ namespace e621_ReBot_v2.Modules
 
         private static void CefSharp_AddressChanged(object sender, AddressChangedEventArgs e)
         {
+            timer_Pixiv.Stop();
+            timer_Plurk.Stop();
+            timer_Twitter.Stop();
             Form_Loader._FormReference.Invoke(new Action(() =>
             {
                 Form_Loader._FormReference.URL_ComboBox.Text = WebUtility.UrlDecode(e.Address);
@@ -87,36 +97,27 @@ namespace e621_ReBot_v2.Modules
             }));
         }
 
+        //private static int PreviousReqCount = -1;
         private static void CefSharp_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
         {
+            if (BrowserStartup)
+            {
+                if (!e.IsLoading)
+                {
+                    BrowserStartup = false;
+                }
+                return;
+            }
+
             Form_Loader._FormReference.Invoke(new Action(() =>
             {
                 string CefAdress = CefSharpBrowser.Address;
-
-                Form_Loader._FormReference.BB_Reload.Enabled = !CefAdress.Equals("about:blank");
-                Form_Loader._FormReference.BB_Reload.BackColor = Form_Loader._FormReference.BB_Reload.Enabled ? Color.RoyalBlue : Color.Gray;
-
-                if (BrowserStartup)
-                {
-                    if (!e.IsLoading)
-                    {
-                        BrowserStartup = false;
-                    }
-                    return;
-                }
-
-                if (CefAdress.Contains("https://www.pixiv.net"))
-                {
-                    if (!FrameLoad.Keys.Contains(CefAdress) || FrameLoad[CefAdress] != 1)
-                    {
-                        return;
-                    }
-                }
-
                 Form_Loader._FormReference.BB_Bookmarks.Enabled = !e.IsLoading;
                 Form_Loader._FormReference.BB_Bookmarks.Enabled = !CefAdress.Equals("about:blank");
                 Form_Loader._FormReference.BB_Backward.Enabled = e.CanGoBack;
                 Form_Loader._FormReference.BB_Forward.Enabled = e.CanGoForward;
+                Form_Loader._FormReference.BB_Reload.Enabled = !CefAdress.Equals("about:blank");
+                Form_Loader._FormReference.BB_Reload.BackColor = Form_Loader._FormReference.BB_Reload.Enabled ? Color.RoyalBlue : Color.Gray;
 
                 if (e.IsLoading)
                 {
@@ -126,19 +127,9 @@ namespace e621_ReBot_v2.Modules
                 }
                 else
                 {
-                    if (Properties.Settings.Default.Bookmarks != null)
-                    {
-                        if (Properties.Settings.Default.Bookmarks.Contains(WebUtility.UrlDecode(CefAdress)))
-                        {
-                            Form_Loader._FormReference.BB_Bookmarks.BackColor = Color.RoyalBlue;
-                            Form_Loader._FormReference.toolTip_Display.SetToolTip(Form_Loader._FormReference.BB_Bookmarks, "Remove Bookmark." + Environment.NewLine + Environment.NewLine + "Hold Ctrl when clicking to clear all Bookmarks.");
-                        }
-                        else
-                        {
-                            Form_Loader._FormReference.BB_Bookmarks.BackColor = Color.Gray;
-                            Form_Loader._FormReference.toolTip_Display.SetToolTip(Form_Loader._FormReference.BB_Bookmarks, "Bookmark current page." + Environment.NewLine + Environment.NewLine + "Hold Ctrl when clicking to clear all Bookmarks.");
-                        }
-                    }
+                    //if (PreviousReqCount < _RequestHandler.RequestCount)
+                    //{
+                    //    PreviousReqCount = _RequestHandler.RequestCount;
 
                     if (Properties.Settings.Default.FirstRun)
                     {
@@ -169,6 +160,21 @@ namespace e621_ReBot_v2.Modules
                                     break;
                                 }
                         }
+                        return;
+                    }
+
+                    if (Properties.Settings.Default.Bookmarks != null)
+                    {
+                        if (Properties.Settings.Default.Bookmarks.Contains(WebUtility.UrlDecode(CefAdress)))
+                        {
+                            Form_Loader._FormReference.BB_Bookmarks.BackColor = Color.RoyalBlue;
+                            Form_Loader._FormReference.toolTip_Display.SetToolTip(Form_Loader._FormReference.BB_Bookmarks, "Remove Bookmark." + Environment.NewLine + Environment.NewLine + "Hold Ctrl when clicking to clear all Bookmarks.");
+                        }
+                        else
+                        {
+                            Form_Loader._FormReference.BB_Bookmarks.BackColor = Color.Gray;
+                            Form_Loader._FormReference.toolTip_Display.SetToolTip(Form_Loader._FormReference.BB_Bookmarks, "Bookmark current page." + Environment.NewLine + Environment.NewLine + "Hold Ctrl when clicking to clear all Bookmarks.");
+                        }
                     }
 
                     if (CefAdress.Contains("mastodon.social/@"))
@@ -176,6 +182,7 @@ namespace e621_ReBot_v2.Modules
                         CefSharpBrowser.ExecuteScriptAsync("document.querySelectorAll(\"button[class='status__content__spoiler-link']\").forEach(button=>button.click())");
                         CefSharpBrowser.ExecuteScriptAsync("document.querySelectorAll(\"button[class='spoiler-button__overlay']\").forEach(button=>button.click())");
                     }
+
                     GrabEnabler(CefAdress);
                     Module_Downloader.DownloadEnabler(CefAdress);
                 }
@@ -186,19 +193,9 @@ namespace e621_ReBot_v2.Modules
         private static Dictionary<string, int> FrameLoad = new Dictionary<string, int>();
         private static void CefSharpBrowser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
-            if (CefSharpBrowser.Address.Contains("https://www.pixiv.net"))
+            if ((CefSharpBrowser.Address.Contains("https://www.pixiv.net") || e.Url.Contains("https://www.pixiv.net")) && e.Frame.Name.Equals("footer"))
             {
-                if (e.Url.Contains("https://www.pixiv.net"))
-                {
-                    FrameLoad[e.Url] = 1;
-                }
-                else
-                {
-                    if (e.Frame.Name.Equals("footer"))
-                    {
-                        FrameLoad[CefSharpBrowser.Address] = 1;
-                    }
-                }
+                FrameLoad[CefSharpBrowser.Address] = 1;
             }
         }
 
@@ -249,6 +246,13 @@ namespace e621_ReBot_v2.Modules
                         return;
                     }
 
+                    if (WebAdress.Contains("https://www.pixiv.net") && FrameLoad[WebAdress] == 1)
+                    {
+                        FrameLoad[WebAdress] = 2;
+                        timer_Pixiv.Start();
+                        return;
+                    }
+
                     Form_Loader._FormReference.BB_Grab.Visible = true;
                     Form_Loader._FormReference.BB_Grab_All.Visible = false;
                     return;
@@ -267,6 +271,22 @@ namespace e621_ReBot_v2.Modules
             {
                 Form_Loader._FormReference.BB_Grab.Visible = true;
                 Form_Loader._FormReference.BB_Grab_All.Visible = false;
+            }
+        }
+
+        public static Timer timer_Pixiv;
+        public static void Pixiv_Timer_Tick(object sender, EventArgs e)
+        {
+            timer_Pixiv.Stop();
+            if (CefSharpBrowser.Address.StartsWith("https://www.pixiv.net/en/artworks/"))
+            {
+                HtmlDocument WebDoc = new HtmlDocument();
+                WebDoc.LoadHtml(GetHTMLSource());
+                if (WebDoc.DocumentNode.SelectSingleNode("//main/section//figure//button[@type='submit']") == null)
+                {
+                    Form_Loader._FormReference.BB_Grab.Visible = true;
+                }
+                //var test = CefSharpBrowser.EvaluateScriptAsync("(function() {return document.querySelector(\"main figure button[type ='submit']\");})();").Result; //refuses to work even if it works in console, returns null always 
             }
         }
 
@@ -313,7 +333,7 @@ namespace e621_ReBot_v2.Modules
                             timer_Twitter.Start();
                             return;
                         }
-                        
+
                         if (TweetNodeFinder.SelectNodes(".//article[@data-testid='tweet']") == null)
                         {
                             timer_Twitter.Start();

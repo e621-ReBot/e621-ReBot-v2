@@ -190,7 +190,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                 URL_Parameters = Post_URL.Substring(Post_URL.LastIndexOf("/") + 1);
             }
 
-            string JSONSourceTest = Module_Grabber.GrabPageSource("https://www.pixiv.net/ajax/illust/" + URL_Parameters, ref Module_CookieJar.Cookies_Pixiv);
+            string JSONSourceTest = Module_Grabber.GrabPageSource($"https://www.pixiv.net/ajax/illust/{URL_Parameters}", ref Module_CookieJar.Cookies_Pixiv);
             if (JSONSourceTest != null)
             {
                 DataTable TempDataTable = new DataTable();
@@ -236,7 +236,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                 }
                 else
                 {
-                    JObject JSONPages = JObject.Parse(Module_Grabber.GrabPageSource("https://www.pixiv.net/ajax/illust/" + URL_Parameters + "/pages", ref Module_CookieJar.Cookies_Pixiv));
+                    JObject JSONPages = JObject.Parse(Module_Grabber.GrabPageSource($"https://www.pixiv.net/ajax/illust/{URL_Parameters}/pages", ref Module_CookieJar.Cookies_Pixiv));
 
                     Custom_ProgressBar TempcPB = new Custom_ProgressBar(Post_URL, PicCount);
                     Form_Loader._FormReference.Invoke(new Action(() => { Form_Loader._FormReference.cFlowLayoutPanel_ProgressBarHolder.Controls.Add(TempcPB); }));
