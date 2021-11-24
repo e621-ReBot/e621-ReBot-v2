@@ -422,14 +422,14 @@ namespace e621_ReBot_v2.Forms
             PictureBox Post = (PictureBox)sender;
             if (ModifierKeys.HasFlag(Keys.Control))
             {
-                Form_e6Post.SuperiorSub(Post.Name, Form_Preview._FormReference.Preview_RowHolder);
+                Form_Preview.SuperiorSub(Post.Name, Form_Preview._FormReference.Preview_RowHolder);
                 Close();
                 return;
             }
 
             if (ModifierKeys.HasFlag(Keys.Alt))
             {
-                Process.Start("https://e621.net/posts/" + Post.Name);
+                Process.Start($"https://e621.net/posts/{Post.Name}");
                 return;
             }
 

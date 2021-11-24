@@ -548,7 +548,7 @@ namespace e621_ReBot_v2.Forms
         public void AutoTags()
         {
             List<string> CurrentTags = new List<string>();
-            CurrentTags.AddRange(Preview_RowHolder["Upload_Tags"].ToString().Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries));
+            CurrentTags.AddRange(Preview_RowHolder["Upload_Tags"].ToString().Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries));
             CurrentTags = CurrentTags.Distinct().ToList();
             string animated_tag = "";
             // /// = = = = = Check if GIF is animated
@@ -981,23 +981,179 @@ namespace e621_ReBot_v2.Forms
             Button SenderButton = (Button)sender;
             if (ModifierKeys.HasFlag(Keys.Control) || ModifierKeys.HasFlag(Keys.Shift))
             {
-                if (Form_e6Post._FormReference == null)
-                {
-                    new Form_e6Post(SenderButton.PointToScreen(Point.Empty), this);
-                }
-                Form_e6Post._FormReference.Show();
-                Form_e6Post._FormReference.BringToFront();
+                string PostIDReturned = null;
                 if (ModifierKeys.HasFlag(Keys.Shift))
                 {
-                    Form_e6Post._FormReference.Tag = "Inferior";
-                    Form_e6Post._FormReference.BackColor = Color.DarkOrange;
+                    PostIDReturned = Form_IDForm.Show(this, SenderButton.PointToScreen(Point.Empty), "Enter Post ID", Color.DarkOrange);
+                    if (PostIDReturned != null)
+                    {
+                        InferiorSub(PostIDReturned, Preview_RowHolder);
+                    }
                 }
+                else
+                {
+                    PostIDReturned = Form_IDForm.Show(this, SenderButton.PointToScreen(Point.Empty), "Enter Post ID");
+                    if (PostIDReturned != null)
+                    {
+                        SuperiorSub(PostIDReturned, Preview_RowHolder);
+                    }
+                }             
             }
             else
             {
                 new Form_SimilarSearch(SenderButton.Text, SenderButton.PointToScreen(Point.Empty), this);
                 Form_SimilarSearch._FormReference.ShowDialog();
             }
+        }
+
+        private static void InferiorSub(string PostID, DataRow RowRefference)
+        {
+            string PostTest = Module_e621Info.e621InfoDownload($"https://e621.net/posts/{PostID}.json", true);
+            if (PostTest == null || PostTest.Length < 10)
+            {
+                MessageBox.Show($"Post with ID#{PostID} does not exist.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            JToken PostData = JObject.Parse(PostTest)["post"];
+            RowRefference["Upload_Rating"] = PostData["rating"].Value<string>().ToUpper();
+            RowRefference["Uploaded_As"] = PostID;
+            e6_GridItem e6_GridItemTemp = Form_Loader._FormReference.IsE6PicVisibleInGrid(ref RowRefference);
+            if (e6_GridItemTemp != null)
+            {
+                e6_GridItemTemp._Rating = (string)RowRefference["Upload_Rating"];
+                e6_GridItemTemp.cLabel_isUploaded.Text = PostID;
+            }
+            _FormReference.Label_AlreadyUploaded.Text = $"Already uploaded as #{PostID}";
+            if (Properties.Settings.Default.ManualInferiorSave)
+            {
+                Module_DB.DB_Media_CreateRecord(ref RowRefference);
+            }
+            _FormReference.UpdateButtons();
+        }
+
+        public static void SuperiorSub(string PostID, DataRow RowRefference)
+        {
+            string PostTest = Module_e621Info.e621InfoDownload($"https://e621.net/posts/{PostID}.json", true);
+            if (PostTest == null || PostTest.Length < 10)
+            {
+                MessageBox.Show($"Post with ID#{PostID} does not exist.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            JToken PostData = JObject.Parse(PostTest)["post"];
+            RowRefference["Upload_Rating"] = PostData["rating"].Value<string>().ToUpper();
+            List<string> SortTags = new List<string>();
+            foreach (JProperty pTag in PostData["tags"].Children())
+            {
+                foreach (JToken cTag in pTag.First)
+                {
+                    SortTags.Add(cTag.Value<string>());
+                }
+            }
+            SortTags.Sort();
+
+            if (!PostData["pools"].ToString().Equals("[]"))
+            {
+                foreach (JToken pPool in PostData["pools"].Children())
+                {
+                    SortTags.Add($"pool:{pPool.Value<string>()}");
+                }
+            }
+
+            string InferiorParentID = PostData["relationships"]["parent_id"].Value<string>();
+            if (InferiorParentID != null)
+            {
+                SortTags.Add($"parent:{InferiorParentID}");
+                RowRefference["Inferior_ParentID"] = InferiorParentID;
+            }
+            RowRefference["Upload_Tags"] = string.Join(" ", SortTags);
+            RowRefference["Inferior_ID"] = PostID;
+            string InferiorDescription = PostData["description"].Value<string>();
+
+            string CurrentDescriptionConstruct = null;
+            if (RowRefference["Grab_TextBody"] == DBNull.Value)
+            {
+                CurrentDescriptionConstruct = $"[code]{(string)RowRefference["Grab_Title"]}[/code]";
+            }
+            else
+            {
+                CurrentDescriptionConstruct = $"[section{(Properties.Settings.Default.ExpandedDescription ? ",expanded" : null)}={(string)RowRefference["Grab_Title"]}]\n{(string)RowRefference["Grab_TextBody"]}\n[/section]";
+            }
+
+            if (!InferiorDescription.Equals("") && InferiorDescription != CurrentDescriptionConstruct)
+            {
+                RowRefference["Inferior_Description"] = InferiorDescription;
+            }
+
+            if (PostData["sources"].Children().Count() > 0)
+            {
+                List<string> SourceList = new List<string>();
+                foreach (JToken cChild in PostData["sources"])
+                {
+                    SourceList.Add(cChild.Value<string>());
+                }
+                RowRefference["Inferior_Sources"] = SourceList;
+            }
+
+            if (PostData["relationships"]["has_children"].Value<bool>())
+            {
+                List<string> ChildList = new List<string>();
+                foreach (JToken cChild in PostData["relationships"]["children"])
+                {
+                    ChildList.Add(cChild.Value<string>());
+                }
+                RowRefference["Inferior_Children"] = ChildList;
+            }
+
+            if (PostData["has_notes"].Value<bool>())
+            {
+                // when they fix api this should no longer maker 2 requests to get notes
+                PostTest = Module_e621Info.e621InfoDownload("https://e621.net/notes.json?search[post_id]=" + PostID, true);
+                if (!PostTest.StartsWith("{")) // no notes then
+                {
+                    RowRefference["Inferior_HasNotes"] = true;
+                    double NewNoteSizeRatio = Math.Max((int)RowRefference["Info_MediaWidth"], (int)RowRefference["Info_MediaHeight"]) / (double)Math.Max(PostData["file"]["width"].Value<int>(), PostData["file"]["height"].Value<int>());
+                    RowRefference["Inferior_NotesSizeRatio"] = NewNoteSizeRatio;
+                }
+            }
+            if (Properties.Settings.Default.RemoveBVAS)
+            {
+                RowRefference["Upload_Tags"] = ((string)RowRefference["Upload_Tags"]).Replace("better_version_at_source", "");
+            }
+            _FormReference.Label_Tags.Text = (string)RowRefference["Upload_Tags"];
+
+            DataRow DataRowTemp = _FormReference.Preview_RowHolder;
+            e6_GridItem e6_GridItemTemp = Form_Loader._FormReference.IsE6PicVisibleInGrid(ref DataRowTemp);
+            if (e6_GridItemTemp != null)
+            {
+                e6_GridItemTemp._Rating = (string)RowRefference["Upload_Rating"];
+                int TagCounter = ((string)RowRefference["Upload_Tags"]).Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).Count();
+                e6_GridItemTemp.cLabel_TagWarning.Visible = TagCounter < 5;
+                e6_GridItemTemp.cCheckBox_UPDL.Checked = true;
+                e6_GridItemTemp.toolTip_Display.SetToolTip(e6_GridItemTemp.cLabel_isSuperior, $"Media will be uploaded as superior of #{PostID}\n{e6_GridItemTemp.cLabel_isSuperior.Tag}"); ;
+                e6_GridItemTemp.cLabel_isSuperior.Visible = true;
+            }
+            else
+            {
+
+                if (DataRowTemp["Info_TooBig"] != DBNull.Value && Module_Uploader.Media2Big4User(ref DataRowTemp, true))
+                {
+                    // e6_GridItemTemp.cCheckBox_UPDL.Checked = false;
+                }
+                else
+                {
+                    Form_Loader._FormReference.UploadCounter += (bool)RowRefference["UPDL_Queued"] ? 0 : 1;
+                    Form_Loader._FormReference.DownloadCounter += (bool)RowRefference["UPDL_Queued"] ? 0 : 1;
+                    RowRefference["UPDL_Queued"] = true;
+                    if (!Properties.Settings.Default.API_Key.Equals(""))
+                    {
+                        Form_Loader._FormReference.GB_Upload.Enabled = Form_Loader._FormReference.UploadCounter > 0;
+                    }
+                    Form_Loader._FormReference.GB_Download.Enabled = Form_Loader._FormReference.DownloadCounter != 0;
+                }
+            }
+            _FormReference.UpdateButtons();
         }
 
         private bool LoadAllImagesMod;

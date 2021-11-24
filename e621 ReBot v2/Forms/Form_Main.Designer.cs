@@ -156,6 +156,8 @@
             this.rb_GameStart_1 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
             this.rb_GameStart_2 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
             this.bU_KoFi = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.GB_Right = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.GB_Left = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.Version_Label = new System.Windows.Forms.Label();
             this.Title_Label = new System.Windows.Forms.Label();
             this.Panel_Holder = new System.Windows.Forms.Panel();
@@ -190,8 +192,6 @@
             this.Label_PageShower = new System.Windows.Forms.Label();
             this.Label_RightPage = new System.Windows.Forms.Label();
             this.Label_LeftPage = new System.Windows.Forms.Label();
-            this.GB_Right = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.GB_Left = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.flowLayoutPanel_Grid = new System.Windows.Forms.FlowLayoutPanel();
             this.tabPage_Jobs = new System.Windows.Forms.TabPage();
             this.cCheckGroupBox_Retry = new e621_ReBot_v2.CustomControls.Custom_CheckGroupBox();
@@ -2398,6 +2398,48 @@
             this.bU_KoFi.UseVisualStyleBackColor = true;
             this.bU_KoFi.Click += new System.EventHandler(this.BU_KoFi_Click);
             // 
+            // GB_Right
+            // 
+            this.GB_Right.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.GB_Right.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.GB_Right.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.GB_Right.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GB_Right.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.GB_Right.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.GB_Right.Location = new System.Drawing.Point(1230, 672);
+            this.GB_Right.Margin = new System.Windows.Forms.Padding(0);
+            this.GB_Right.Name = "GB_Right";
+            this.GB_Right.Size = new System.Drawing.Size(32, 23);
+            this.GB_Right.TabIndex = 8;
+            this.GB_Right.TabStop = false;
+            this.GB_Right.Text = ">";
+            this.toolTip_Display.SetToolTip(this.GB_Right, "Next page.");
+            this.GB_Right.UseVisualStyleBackColor = true;
+            this.GB_Right.Visible = false;
+            this.GB_Right.VisibleChanged += new System.EventHandler(this.GB_Right_VisibleChanged);
+            this.GB_Right.Click += new System.EventHandler(this.GB_Right_Click);
+            // 
+            // GB_Left
+            // 
+            this.GB_Left.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.GB_Left.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.GB_Left.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.GB_Left.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GB_Left.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.GB_Left.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.GB_Left.Location = new System.Drawing.Point(0, 672);
+            this.GB_Left.Margin = new System.Windows.Forms.Padding(0);
+            this.GB_Left.Name = "GB_Left";
+            this.GB_Left.Size = new System.Drawing.Size(32, 23);
+            this.GB_Left.TabIndex = 1;
+            this.GB_Left.TabStop = false;
+            this.GB_Left.Text = "<";
+            this.toolTip_Display.SetToolTip(this.GB_Left, "Previous page.");
+            this.GB_Left.UseVisualStyleBackColor = true;
+            this.GB_Left.Visible = false;
+            this.GB_Left.VisibleChanged += new System.EventHandler(this.GB_Left_VisibleChanged);
+            this.GB_Left.Click += new System.EventHandler(this.GB_Left_Click);
+            // 
             // Version_Label
             // 
             this.Version_Label.AutoSize = true;
@@ -2425,7 +2467,7 @@
             this.Title_Label.Location = new System.Drawing.Point(44, 20);
             this.Title_Label.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
             this.Title_Label.Name = "Title_Label";
-            this.Title_Label.Size = new System.Drawing.Size(88, 16);
+            this.Title_Label.Size = new System.Drawing.Size(87, 16);
             this.Title_Label.TabIndex = 0;
             this.Title_Label.Text = "e621 ReBot";
             this.Title_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2758,7 +2800,7 @@
             this.tabPage_Grid.Controls.Add(this.flowLayoutPanel_Grid);
             this.tabPage_Grid.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Grid.Name = "tabPage_Grid";
-            this.tabPage_Grid.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Grid.Size = new System.Drawing.Size(192, 91);
             this.tabPage_Grid.TabIndex = 1;
             this.tabPage_Grid.Text = "tabPage_Grid";
             this.tabPage_Grid.Paint += new System.Windows.Forms.PaintEventHandler(this.TabPage_Grid_Paint);
@@ -2801,48 +2843,6 @@
             this.Label_LeftPage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.Label_LeftPage.Visible = false;
             // 
-            // GB_Right
-            // 
-            this.GB_Right.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.GB_Right.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.GB_Right.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.GB_Right.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GB_Right.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.GB_Right.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.GB_Right.Location = new System.Drawing.Point(1230, 672);
-            this.GB_Right.Margin = new System.Windows.Forms.Padding(0);
-            this.GB_Right.Name = "GB_Right";
-            this.GB_Right.Size = new System.Drawing.Size(32, 23);
-            this.GB_Right.TabIndex = 8;
-            this.GB_Right.TabStop = false;
-            this.GB_Right.Text = ">";
-            this.toolTip_Display.SetToolTip(this.GB_Right, "Next page.");
-            this.GB_Right.UseVisualStyleBackColor = true;
-            this.GB_Right.Visible = false;
-            this.GB_Right.VisibleChanged += new System.EventHandler(this.GB_Right_VisibleChanged);
-            this.GB_Right.Click += new System.EventHandler(this.GB_Right_Click);
-            // 
-            // GB_Left
-            // 
-            this.GB_Left.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.GB_Left.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.GB_Left.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.GB_Left.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GB_Left.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.GB_Left.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.GB_Left.Location = new System.Drawing.Point(0, 672);
-            this.GB_Left.Margin = new System.Windows.Forms.Padding(0);
-            this.GB_Left.Name = "GB_Left";
-            this.GB_Left.Size = new System.Drawing.Size(32, 23);
-            this.GB_Left.TabIndex = 1;
-            this.GB_Left.TabStop = false;
-            this.GB_Left.Text = "<";
-            this.toolTip_Display.SetToolTip(this.GB_Left, "Previous page.");
-            this.GB_Left.UseVisualStyleBackColor = true;
-            this.GB_Left.Visible = false;
-            this.GB_Left.VisibleChanged += new System.EventHandler(this.GB_Left_VisibleChanged);
-            this.GB_Left.Click += new System.EventHandler(this.GB_Left_Click);
-            // 
             // flowLayoutPanel_Grid
             // 
             this.flowLayoutPanel_Grid.BackColor = System.Drawing.Color.Transparent;
@@ -2851,7 +2851,7 @@
             this.flowLayoutPanel_Grid.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel_Grid.Name = "flowLayoutPanel_Grid";
             this.flowLayoutPanel_Grid.Padding = new System.Windows.Forms.Padding(0, 16, 0, 0);
-            this.flowLayoutPanel_Grid.Size = new System.Drawing.Size(1262, 650);
+            this.flowLayoutPanel_Grid.Size = new System.Drawing.Size(192, 650);
             this.flowLayoutPanel_Grid.TabIndex = 0;
             this.flowLayoutPanel_Grid.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.FlowLayoutPanel_Grid_ControlAdded);
             this.flowLayoutPanel_Grid.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.FlowLayoutPanel_Grid_ControlRemoved);
@@ -3219,7 +3219,7 @@
             this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_AppName);
             this.tabPage_Settings.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Settings.Name = "tabPage_Settings";
-            this.tabPage_Settings.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Settings.Size = new System.Drawing.Size(1262, 695);
             this.tabPage_Settings.TabIndex = 5;
             this.tabPage_Settings.Text = "tabPage_Settings";
             this.tabPage_Settings.Enter += new System.EventHandler(this.TabPage_Settings_Enter);

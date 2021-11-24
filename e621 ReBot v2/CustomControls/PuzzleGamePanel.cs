@@ -147,7 +147,7 @@ namespace e621_ReBot_v2.CustomControls
                 string FileURL = string.Format("https://static1.e621.net/data/{0}/{1}/{2}.{3}", RandomJSON["file"]["md5"].Value<string>().Substring(0, 2), RandomJSON["file"]["md5"].Value<string>().Substring(2, 2), RandomJSON["file"]["md5"].Value<string>(), RandomJSON["file"]["ext"].Value<string>());
                 if (RandomJSON["file"]["ext"].Value<string>().Equals("jpg") || RandomJSON["file"]["ext"].Value<string>().Equals("png"))
                 {
-                    Form_Loader._FormReference.labelPuzzle_SelectedPost.Text = "Random post #" + RandomJSON["id"].Value<string>();
+                    Form_Loader._FormReference.labelPuzzle_SelectedPost.Text = $"Random post #{RandomJSON["id"].Value<string>()}";
                     Form_Loader._FormReference.labelPuzzle_SelectedPost.Tag = RandomJSON["id"].Value<string>();
                     using (WebClient WebClientTemp = new WebClient())
                     {
@@ -162,19 +162,18 @@ namespace e621_ReBot_v2.CustomControls
             }
             if (Form_Loader._FormReference.rb_GameStart_3.Checked)
             {
-                string PuzzlePostID;
-                using (Form_e6Post Form_e6PostTemp = new Form_e6Post(Form_Loader._FormReference.GB_StartGame.PointToScreen(Point.Empty), Form_Loader._FormReference))
+                string PuzzlePostID = Form_IDForm.Show(Form_Loader._FormReference, Form_Loader._FormReference.GB_StartGame.PointToScreen(Point.Empty), "Enter Post ID");
+                if (PuzzlePostID == null)
                 {
-                    Form_e6PostTemp.Tag = "Puzzle";
-                    Form_e6PostTemp.ShowDialog();
+                    Form_Loader._FormReference.GB_StartGame.Enabled = true;
+                    return;
+                } 
 
-                    PuzzlePostID = Form_e6PostTemp.PuzzlePostID;
-                }
-
-                string PostTest = Module_e621Info.e621InfoDownload(string.Format("https://e621.net/posts/{0}.json", PuzzlePostID), false);
+                string PostTest = Module_e621Info.e621InfoDownload($"https://e621.net/posts/{PuzzlePostID}.json", false);
                 if (PostTest == null || PostTest.Length < 10)
                 {
-                    MessageBox.Show(string.Format("Post with ID#{0} does not exist.", PuzzlePostID), "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Form_Loader._FormReference.GB_StartGame.Enabled = true;
+                    MessageBox.Show($"Post with ID#{PuzzlePostID} does not exist.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -182,14 +181,15 @@ namespace e621_ReBot_v2.CustomControls
 
                 if (RandomJSON["flags"]["deleted"].Value<bool>())
                 {
-                    MessageBox.Show(string.Format("Post with ID#{0} does not exist anymore.", PuzzlePostID), "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Form_Loader._FormReference.GB_StartGame.Enabled = true;
+                    MessageBox.Show($"Post with ID#{PuzzlePostID} does not exist anymore.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 string FileURL = string.Format("https://static1.e621.net/data/{0}/{1}/{2}.{3}", RandomJSON["file"]["md5"].Value<string>().Substring(0, 2), RandomJSON["file"]["md5"].Value<string>().Substring(2, 2), RandomJSON["file"]["md5"].Value<string>(), RandomJSON["file"]["ext"].Value<string>());
                 if (RandomJSON["file"]["ext"].Value<string>().Equals("jpg") || RandomJSON["file"]["ext"].Value<string>().Equals("png"))
                 {
-                    Form_Loader._FormReference.labelPuzzle_SelectedPost.Text = "Selected post #" + PuzzlePostID;
+                    Form_Loader._FormReference.labelPuzzle_SelectedPost.Text = $"Selected post #{PuzzlePostID}";
                     Form_Loader._FormReference.labelPuzzle_SelectedPost.Tag = PuzzlePostID;
                     using (WebClient WebClientTemp = new WebClient())
                     {
@@ -199,7 +199,9 @@ namespace e621_ReBot_v2.CustomControls
                 }
                 else
                 {
-                    MessageBox.Show("That post does not contain an image of compatible format.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Form_Loader._FormReference.GB_StartGame.Enabled = true;
+                    MessageBox.Show("That post does not contain an media of compatible format.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
                 }
             }
         }

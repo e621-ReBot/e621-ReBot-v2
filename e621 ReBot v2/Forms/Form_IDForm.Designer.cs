@@ -1,7 +1,7 @@
 ﻿
-namespace e621_ReBot_v2.Forms
+namespace e621_ReBot_v2.CustomControls
 {
-    partial class Form_e6Post
+    partial class Form_IDForm
     {
         /// <summary>
         /// Required designer variable.
@@ -48,7 +48,7 @@ namespace e621_ReBot_v2.Forms
             this.ID_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ID_TextBox_KeyPress);
             this.ID_TextBox.Leave += new System.EventHandler(this.ID_TextBox_Leave);
             // 
-            // Form_e6Post
+            // Form_IDForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(105, 42);
@@ -57,11 +57,11 @@ namespace e621_ReBot_v2.Forms
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Form_e6Post";
+            this.Name = "Form_IDForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Enter Post ID";
+            this.Text = "Enter ID";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form_e6Post_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -1,8 +1,10 @@
-﻿using e621_ReBot_v2.Modules;
+﻿using e621_ReBot_v2.CustomControls;
+using e621_ReBot_v2.Modules;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -15,7 +17,7 @@ namespace e621_ReBot_v2.Forms
     {
         public static Form_PoolWatcher _FormReference;
 
-        public Form_PoolWatcher(Point LocationPass, Form OwnerPass)
+        public Form_PoolWatcher(Form OwnerPass, Point LocationPass)
         {
             InitializeComponent();
             _FormReference = this;
@@ -34,7 +36,7 @@ namespace e621_ReBot_v2.Forms
                     string PoolID = PoolToken["id"].Value<string>();
                     TreeNode PoolNode = new TreeNode()
                     {
-                        Text = string.Format("{0} | Posts: {1}", PoolName, PoolToken["post_count"].Value<int>()),
+                        Text = $"{PoolName} | Posts: {PoolToken["post_count"].Value<int>()}",
                         Name = PoolID,
                         ToolTipText = "Pool ID#" + PoolID,
                         Tag = PoolToken
@@ -43,7 +45,7 @@ namespace e621_ReBot_v2.Forms
                 }
                 TreeView_PoolWatcher.EndUpdate();
             }
-            this.Text = $"Pool Watcher - Watching {TreeView_PoolWatcher.Nodes.Count} pool{((TreeView_PoolWatcher.Nodes.Count > 0 && TreeView_PoolWatcher.Nodes.Count < 2) ? null : "s")}";
+            Text = $"Pool Watcher - Watching {TreeView_PoolWatcher.Nodes.Count} pool{((TreeView_PoolWatcher.Nodes.Count > 0 && TreeView_PoolWatcher.Nodes.Count < 2) ? null : "s")}";
         }
 
         private void TreeView_PoolWatcher_BeforeSelect(object sender, TreeViewCancelEventArgs e)
@@ -60,13 +62,50 @@ namespace e621_ReBot_v2.Forms
 
         private void ToolStripMenuItem_AddNode_Click(object sender, EventArgs e)
         {
-            if (Form_e6Pool._FormReference == null)
+            string AddPoolID = Form_IDForm.Show(this, Cursor.Position, "Enter Pool ID");
+
+            if (AddPoolID != null)
             {
-                new Form_e6Pool(Cursor.Position, this);
+                if (TreeView_PoolWatcher.Nodes.ContainsKey(AddPoolID))
+                {
+                    MessageBox.Show($"Pool with ID#{AddPoolID} is already being watched.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                string e6JSONResult = Module_e621Info.e621InfoDownload($"https://e621.net/pools/{AddPoolID}.json");
+                if (e6JSONResult == null)
+                {
+                    MessageBox.Show($"Pool with ID#{AddPoolID} does not exist.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                JObject PoolJSON = JObject.Parse(e6JSONResult);
+                string PoolName = PoolJSON["name"].Value<string>().Replace("_", " ");
+
+                JObject JObjectTemp = new JObject
+                {
+                    { "id", PoolJSON["id"].Value<int>() },
+                    { "name", PoolJSON["name"].Value<string>() },
+                    { "post_ids", PoolJSON["post_ids"].Value<JToken>() },
+                    { "post_count",  PoolJSON["post_count"].Value<int>() }
+                };
+                TreeNode PoolNode = new TreeNode()
+                {
+                    Text = $"{PoolName} | Posts: {PoolJSON["post_count"].Value<int>()}",
+                    Name = AddPoolID,
+                    ToolTipText = $"Pool ID#{AddPoolID}",
+                    Tag = JObjectTemp
+                };
+                TreeView_PoolWatcher.Nodes.Add(PoolNode);
+
+                //remake this so it respects api limits
+                BackgroundWorker BGW = new BackgroundWorker();
+                BGW.DoWork += Module_Downloader.GraBPoolInBG;
+                //BGW.RunWorkerCompleted += Module_Downloader.E6APIDL_BGW_Done;
+                BGW.RunWorkerAsync(AddPoolID);
+
+                Text = $"Pool Watcher - Watching {TreeView_PoolWatcher.Nodes.Count} pool{((TreeView_PoolWatcher.Nodes.Count > 0 && TreeView_PoolWatcher.Nodes.Count < 2) ? null : "s")}";
             }
-            Form_e6Pool._FormReference.BringToFront();
-            Form_e6Pool._FormReference.ShowDialog();
-            this.Text = $"Pool Watcher - Watching {TreeView_PoolWatcher.Nodes.Count} pool{((TreeView_PoolWatcher.Nodes.Count > 0 && TreeView_PoolWatcher.Nodes.Count < 2) ? null : "s")}";
         }
 
         private void ToolStripMenuItem_RemoveNode_Click(object sender, EventArgs e)
@@ -199,7 +238,7 @@ namespace e621_ReBot_v2.Forms
                     {
                         if (ItemsAddedCount > 0)
                         {
-                            Form_Loader._FormReference.textBox_Info.Text = string.Format("{0} Pool Watcher >>> Started download of {1} image{2}\n{3}", DateTime.Now.ToLongTimeString(), ItemsAddedCount, ItemsAddedCount > 1 ? "s" : "", Form_Loader._FormReference.textBox_Info.Text);
+                            Form_Loader._FormReference.textBox_Info.Text = $"{DateTime.Now.ToLongTimeString()} Pool Watcher >>> Started download of {ItemsAddedCount} image{(ItemsAddedCount > 1 ? "s" : null)}\n" + Form_Loader._FormReference.textBox_Info.Text;
                         }
                         Module_Downloader.timer_Download.Start();
                     }));

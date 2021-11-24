@@ -26,7 +26,7 @@ namespace e621_ReBot_v2.Forms
                 Command_ListView.Items.Clear();
                 foreach (string Command in Properties.Settings.Default.CommandLineCommands)
                 {
-                    string[] SplitString = Command.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] SplitString = Command.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
                     var CommandRow = new ListViewItem() { Text = SplitString[0] };
                     CommandRow.SubItems.Add(SplitString[1]);
                     Command_ListView.Items.Add(CommandRow);

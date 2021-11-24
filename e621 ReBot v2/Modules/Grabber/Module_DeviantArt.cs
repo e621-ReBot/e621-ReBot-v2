@@ -295,7 +295,7 @@ namespace e621_ReBot_v2.Modules.Grabber
             } 
             TempDataRow["Grab_MediaURL"] = MediaURL;
             TempDataRow["Grab_ThumbnailURL"] = ThumbURL;
-            string FormatFinder = MediaURL.Split(new string[] { "?token=" }, StringSplitOptions.RemoveEmptyEntries)[0];
+            string FormatFinder = MediaURL.Substring(0, MediaURL.IndexOf("?token="));
             TempDataRow["Info_MediaFormat"] = FormatFinder.Substring(FormatFinder.LastIndexOf(".") + 1); //-\w+(?:\.\w+\?token)
 
             //int ThumbWidth = 200;

@@ -221,7 +221,7 @@ namespace e621_ReBot_v2.Modules
             //ThreadTemp.Start();
             Module_Credits.Check_Credit_All(); //Doing it in bg causes no username issue?
 
-            CefSharpBrowser.Load(string.Format("https://e621.net/users/{0}/api_key", Properties.Settings.Default.UserID));
+            CefSharpBrowser.Load($"https://e621.net/users/{Properties.Settings.Default.UserID}/api_key");
         }
 
         // = = = = = 

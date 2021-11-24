@@ -16,7 +16,7 @@ namespace e621_ReBot_v2.Modules.Grabber
             }
             if (OutputString != null)
             {
-                OutputString = OutputString.Equals("") ? null : OutputString + " ";
+                OutputString = OutputString.Equals("") ? null : OutputString;
             }
 
             return OutputString;
@@ -50,8 +50,15 @@ namespace e621_ReBot_v2.Modules.Grabber
             switch (TextHolderNode.Name)
             {
                 case "#text":
-                    {
-                        TextHolder += TextHolderNode.InnerText;
+                    {        
+                        if (TextHolderNode.InnerText.Contains("\r\n\t"))
+                        {
+                            TextHolder += TextHolderNode.InnerText.Replace(" ", "💩").Trim().Replace("💩", " ");
+                        }
+                        else
+                        {
+                            TextHolder += TextHolderNode.InnerText;
+                        }
                         break;
                     }
 
@@ -67,11 +74,11 @@ namespace e621_ReBot_v2.Modules.Grabber
                         {
                                 if (TextHolderNode.ChildNodes.Count > 1)
                                 {
-                                    TextHolder += "[b]" + Html2Text_Inkbunny(TextHolderNode) + " [/b]";
+                                    TextHolder += $"[b]{Html2Text_Inkbunny(TextHolderNode)}[/b]";
                                 }
                                 else
                                 {
-                                    TextHolder += "[b]" + ParseNode_Inkbunny(TextHolderNode.FirstChild) + " [/b]";
+                                    TextHolder += $"[b]{ParseNode_Inkbunny(TextHolderNode.FirstChild)}[/b]";
                                 }
                         }
                         break;
@@ -85,16 +92,16 @@ namespace e621_ReBot_v2.Modules.Grabber
                             {
                                 if (TextHolderNode.ChildNodes.Count > 1)
                                 {
-                                    TextHolder += "[i]" + Html2Text_Inkbunny(TextHolderNode) + " [/i]";
+                                    TextHolder += $"[i]{Html2Text_Inkbunny(TextHolderNode)}[/i]";
                                 }
                                 else
                                 {
-                                    TextHolder += "[i]" + ParseNode_Inkbunny(TextHolderNode.FirstChild) + " [/i]";
+                                    TextHolder += $"[i]{ParseNode_Inkbunny(TextHolderNode.FirstChild)}[/i]";
                                 }
                             }
                             else
                             {
-                                TextHolder += "[i]" + TextHolderNode.InnerText + "[/i]";
+                                TextHolder += $"[i]{TextHolderNode.InnerText}[/i]";
                             }
                         }
                         break;
@@ -109,13 +116,12 @@ namespace e621_ReBot_v2.Modules.Grabber
                             {
                                 if (TextHolderNode.FirstChild.Attributes["src"].Value.Contains("internet-furaffinity.png"))
                                 {
-                                    // InkbunnyText &= String.Format("""🦊"":{0} ", Line.Attributes("href").Value)
                                     TextHolder += "🦊";
                                 }
                             }
                             else
                             {
-                                TextHolder += string.Format("\"{0}\":{1}", TextHolderNode.InnerText, TextHolderNode.Attributes["href"].Value);
+                                TextHolder += $"\"{TextHolderNode.InnerText}\":{TextHolderNode.Attributes["href"].Value}";
                             }
                         }
                         break;
@@ -130,17 +136,17 @@ namespace e621_ReBot_v2.Modules.Grabber
                             string PicUrl = SubElement.Attributes["src"].Value;
                             if (PicUrl.Contains("overlays/blocked.png")) // https://inkbunny.net/s/2163614
                             {
-                                string GetBlockedLink = "https://inkbunny.net" + TextHolderNode.SelectSingleNode(".//a").Attributes["href"].Value;
-                                TextHolder += string.Format("\"{0}\":{1}", GetBlockedLink, GetBlockedLink);
+                                string GetBlockedLink = $"https://inkbunny.net{TextHolderNode.SelectSingleNode(".//a").Attributes["href"].Value}";
+                                TextHolder += $"\"{GetBlockedLink}\":{GetBlockedLink}";
                             }
                             else // https://inkbunny.net/s/2165811
                             {
-                                TextHolder += string.Format("🐰\"{0}\":{1}", SubElement.Attributes["title"].Value, SubElement.ParentNode.Attributes["href"].Value);
+                                TextHolder += $"🐰\"{SubElement.Attributes["title"].Value}\":{SubElement.ParentNode.Attributes["href"].Value}";
                             }
                         }
                         else
                         {
-                            TextHolder += string.Format("🐰\"{0}\":{1}", SubElement.InnerText, SubElement.Attributes["href"].Value);
+                            TextHolder += $"🐰\"{SubElement.InnerText}\":{SubElement.Attributes["href"].Value}";
                         }
                         break;
                     }
@@ -153,7 +159,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                             {
                                 case "bbcode_quote":
                                     {
-                                        TextHolder += "[quote]" + TextHolderNode.InnerText + "[/quote]";
+                                        TextHolder += $"[quote]{TextHolderNode.InnerText}[/quote]";
                                         break;
                                     }
 

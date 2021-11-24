@@ -64,7 +64,7 @@ namespace CefSharp
 
             if (chromiumWebBrowser.Address.Contains("https://www.deviantart.com/") && request.Url.Contains("https://www.deviantart.com/_napi/da-user-profile/api/gallery/contents") && request.Url.Contains("&folderid="))
             {
-                Module_DeviantArt.FolderID = request.Url.Split(new string[] { "&folderid=" }, StringSplitOptions.RemoveEmptyEntries)[1];
+                Module_DeviantArt.FolderID = request.Url.Substring(request.Url.IndexOf("&folderid=") + 10);
                 return null;
             }
 

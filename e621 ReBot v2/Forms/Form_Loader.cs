@@ -3,9 +3,7 @@ using e621_ReBot_v2.Forms;
 using e621_ReBot_v2.Modules;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -111,7 +109,7 @@ namespace e621_ReBot_v2
 
             if (Form_Preview._FormReference != null)
             {
-                    Form_Preview._FormReference.Label_AlreadyUploaded.Cursor = AltState ? Cursor_BrowserNav : Cursor_ReBotNav;
+                Form_Preview._FormReference.Label_AlreadyUploaded.Cursor = AltState ? Cursor_BrowserNav : Cursor_ReBotNav;
             }
 
             if (Form_SimilarSearch._FormReference != null)
@@ -145,6 +143,7 @@ namespace e621_ReBot_v2
 
         [DllImport("user32.dll")]
         private static extern bool GetIconInfo(IntPtr hIcon, ref IconInfo pIconInfo);
+
         [DllImport("user32.dll")]
         private static extern IntPtr CreateIconIndirect(ref IconInfo icon);
 

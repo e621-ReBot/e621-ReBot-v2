@@ -1,10 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Data;
-using System.IO;
 using System.Linq;
 using System.Net;
-using System.Web.UI;
 using System.Windows.Forms;
 using HtmlAgilityPack;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
@@ -155,7 +153,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                 }
 
                 HtmlNode PicSizeNode = PostNode.SelectSingleNode(".//section[@class='info text']/div[4]/span | .//td[@class='alt1 stats-container']//b[text()='Resolution:']/following-sibling::text()");
-                string[] PicSizes = PicSizeNode.InnerText.Trim().Replace(" x ","x").Split(new[] { "x" }, StringSplitOptions.RemoveEmptyEntries);
+                string[] PicSizes = PicSizeNode.InnerText.Trim().Replace(" x ","x").Split(new string[] { "x" }, StringSplitOptions.RemoveEmptyEntries);
 
                 DataRow TempDataRow = TempDataTable.NewRow();
                 FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Title, Post_Text, Post_MediaURL, PicSizes[0], PicSizes[1], ArtistName);
@@ -192,7 +190,7 @@ namespace e621_ReBot_v2.Modules.Grabber
             TempDataRow["Grab_Title"] = WebUtility.HtmlDecode(string.Format("⮚ \"{0}\" ⮘ by {1} on FurAffinity", Title, Artist)); ;
             if (TextBody != null) TempDataRow["Grab_TextBody"] = TextBody;
             TempDataRow["Grab_MediaURL"] = MediaURL;
-            string ThumbnailURLTemp = string.Format("https://t.facdn.net/{0}@200-{1}.jpg", URL.Split(new[] { "/" }, StringSplitOptions.RemoveEmptyEntries).Last(), MediaURL.Remove(MediaURL.LastIndexOf("/")).Split(new[] { "/" }, StringSplitOptions.RemoveEmptyEntries).Last());
+            string ThumbnailURLTemp = string.Format("https://t.facdn.net/{0}@200-{1}.jpg", URL.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries).Last(), MediaURL.Remove(MediaURL.LastIndexOf("/")).Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries).Last());
             TempDataRow["Grab_ThumbnailURL"] = ThumbnailURLTemp;
             TempDataRow["Thumbnail_FullInfo"] = true;
             TempDataRow["Info_MediaFormat"] = MediaURL.Substring(MediaURL.LastIndexOf(".") + 1);

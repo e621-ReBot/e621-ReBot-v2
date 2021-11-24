@@ -27,7 +27,7 @@ namespace e621_ReBot_v2.Forms
             {
                 foreach (string Command in Properties.Settings.Default.CommandLineCommands)
                 {
-                    string[] SplitString = Command.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] SplitString = Command.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
                     CommandList.Add(SplitString[0], SplitString[1]);
                 }
 
@@ -77,7 +77,7 @@ namespace e621_ReBot_v2.Forms
                             else if (Tag.ToString().Equals("Edit"))
                             {
                                 string TagItem = Properties.Settings.Default.CommandLineCommands[(int)CommandLine_Textbox.Tag];
-                                var SplitString = TagItem.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                                var SplitString = TagItem.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
                                 Properties.Settings.Default.CommandLineCommands[(int)CommandLine_Textbox.Tag] = NewCommand + "," + SplitString[1];
                                 Properties.Settings.Default.Save();
                                 Close();
@@ -135,7 +135,7 @@ namespace e621_ReBot_v2.Forms
                                 if (Tag.ToString().Equals("Edit"))
                                 {
                                     string TagItem = Properties.Settings.Default.CommandLineCommands[(int)TagLine_Textbox.Tag];
-                                    var SplitString = TagItem.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                                    var SplitString = TagItem.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
                                     Properties.Settings.Default.CommandLineCommands[(int)TagLine_Textbox.Tag] = SplitString[0] + "," + TagLine_Textbox.Text;
                                 }
                                 else

@@ -134,7 +134,7 @@ namespace e621_ReBot_v2.Modules
                             }
                             else if (ReadLine.Contains("Stream #0:") && ReadLine.Contains(": Video:"))
                             {
-                                FrameCount = (int)(VideoDuration.TotalSeconds * double.Parse(ReadLine.Substring(ReadLine.IndexOf(" kb/s,") + 7, 7).Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)[0]));
+                                FrameCount = (int)(VideoDuration.TotalSeconds * double.Parse(ReadLine.Substring(ReadLine.IndexOf(" kb/s,") + 7, 7).Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries)[0]));
                                 break;
                             }
                             ReadLine = FFmpeg.StandardError.ReadLine();
@@ -150,7 +150,7 @@ namespace e621_ReBot_v2.Modules
                             {
                                 if (RunCount == 0)
                                 {
-                                    int CurrentFrame = int.Parse(ReadLine.Substring(0, ReadLine.IndexOf(" fps=")).Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)[1]);
+                                    int CurrentFrame = int.Parse(ReadLine.Substring(0, ReadLine.IndexOf(" fps=")).Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries)[1]);
                                     Module_Uploader.Report_Status(string.Format("Converting Video to WebM...{0}", (CurrentFrame / FrameCount / 2d).ToString("P0")));
                                 }
                                 else
@@ -333,7 +333,7 @@ namespace e621_ReBot_v2.Modules
                             else if (ReadLine.Contains("Stream #0:") && ReadLine.Contains(": Video:"))
                             {
                                 // Stream #0:1(eng): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(tv), 1920x1080 [SAR 1:1 DAR 16:9], 14070 kb/s, 29.97 fps, 29.97 tbr, 30k tbn, 59.94 tbc (default)
-                                FrameCount = (int)(VideoDuration.TotalSeconds * double.Parse(ReadLine.Substring(ReadLine.IndexOf(" kb/s,") + 7, 7).Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)[0]));
+                                FrameCount = (int)(VideoDuration.TotalSeconds * double.Parse(ReadLine.Substring(ReadLine.IndexOf(" kb/s,") + 7, 7).Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries)[0]));
                                 break;
                             }
                             ReadLine = FFmpeg.StandardError.ReadLine();
@@ -349,7 +349,7 @@ namespace e621_ReBot_v2.Modules
                             {
                                 if (RunCount == 0)
                                 {
-                                    int CurrentFrame = int.Parse(ReadLine.Substring(0, ReadLine.IndexOf(" fps=")).Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)[1]);
+                                    int CurrentFrame = int.Parse(ReadLine.Substring(0, ReadLine.IndexOf(" fps=")).Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries)[1]);
                                     ReportConversionProgress("CV", CurrentFrame / FrameCount / 2d, ref DataRowRef);
                                 }
                                 else

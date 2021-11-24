@@ -350,7 +350,7 @@ namespace e621_ReBot_v2
             Cef.Shutdown();
             Module_CefSharp.CefSharpBrowser.Dispose();
 
-            Properties.Settings.Default.LastStats = string.Format("{0},{1},{2}", label_Credit_Upload.Text, label_Credit_Flag.Text, label_Credit_Note.Text);
+            Properties.Settings.Default.LastStats = $"{label_Credit_Upload.Text},{label_Credit_Flag.Text},{label_Credit_Note.Text}";
             RetryQueue_Save();
 
             if (Properties.Settings.Default.ClearCache)
@@ -1038,7 +1038,7 @@ namespace e621_ReBot_v2
         {
             int CurrentPage = GridIndexTracker / Form_Loader._GridMaxControls + 1;
             int TotalPages = (int)Math.Ceiling((float)Module_TableHolder.Database_Table.Rows.Count / Form_Loader._GridMaxControls);
-            Label_PageShower.Text = string.Format("{0} / {1}", CurrentPage, TotalPages);
+            Label_PageShower.Text = $"{CurrentPage} / {TotalPages}";
             Label_LeftPage.Text = (CurrentPage - 1).ToString();
             Label_RightPage.Text = (CurrentPage + 1).ToString();
         }
@@ -1063,7 +1063,7 @@ namespace e621_ReBot_v2
                 E6ImagePic.Margin = new Padding(2, 1, 1, 24);
             }
 
-            if (((string)E6ImagePic._DataRowReference["Upload_Tags"]).Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries).Length > 5)
+            if (((string)E6ImagePic._DataRowReference["Upload_Tags"]).Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).Length > 5)
             {
                 E6ImagePic.cLabel_TagWarning.Visible = false;
             }
@@ -1744,7 +1744,7 @@ namespace e621_ReBot_v2
         {
             int CheckedChildNodesCount = int.Parse(ParentNode.Tag.ToString());
             ParentNode.Tag = CheckedChildNodesCount;
-            ParentNode.ToolTipText = string.Format("Selected: {0}/{1}", CheckedChildNodesCount, ParentNode.Nodes.Count);
+            ParentNode.ToolTipText = $"Selected: {CheckedChildNodesCount} / {ParentNode.Nodes.Count}";
             // ^ doesnt update while hovered.
         }
 
@@ -1773,7 +1773,7 @@ namespace e621_ReBot_v2
             else
             {
                 int NodeCount = cTreeView_UploadQueue.Nodes.Count;
-                cCheckGroupBox_Upload.Text = "Uploader" + (NodeCount > 0 ? string.Format(" ({0})", NodeCount) : null);
+                cCheckGroupBox_Upload.Text = $"Uploader{(NodeCount > 0 ? $" ({NodeCount})" : null)}";
                 Module_Uploader.timer_Upload.Enabled = ((CheckBox)sender).Checked && !Module_Uploader.Upload_BGW.IsBusy;
             }
         }
@@ -1865,7 +1865,7 @@ namespace e621_ReBot_v2
                 int NodesRemaining = cTreeView_ConversionQueue.Nodes.Count;
                 if (NodesRemaining > 0)
                 {
-                    cCheckGroupBox_Convert.Text = string.Format("Conversionist ({0})", NodesRemaining);
+                    cCheckGroupBox_Convert.Text = $"Conversionist ({NodesRemaining})";
                 }
                 else
                 {
@@ -2170,7 +2170,7 @@ namespace e621_ReBot_v2
         {
             if (Form_PoolWatcher._FormReference == null)
             {
-                new Form_PoolWatcher(bU_PoolWatcher.PointToScreen(Point.Empty), this);
+                new Form_PoolWatcher(this, bU_PoolWatcher.PointToScreen(Point.Empty));
             }
             Form_PoolWatcher._FormReference.ShowDialog();
         }
@@ -2178,7 +2178,7 @@ namespace e621_ReBot_v2
         public List<string> Blacklist = new List<string>();
         private void BU_Blacklist_Click(object sender, EventArgs e)
         {
-            new Form_Blacklist(bU_Blacklist.PointToScreen(Point.Empty), this);
+            new Form_Blacklist(this, bU_Blacklist.PointToScreen(Point.Empty));
             Form_Blacklist._FormReference.ShowDialog();
         }
 
@@ -2226,7 +2226,7 @@ namespace e621_ReBot_v2
 
         private void TrackBar_Volume_ValueChanged(object sender, EventArgs e)
         {
-            cGroupBoxColored_Volume.Text = string.Format("Volume ({0}%)", TrackBar_Volume.Value.ToString());
+            cGroupBoxColored_Volume.Text = $"Volume ({TrackBar_Volume.Value}%)";
         }
 
         private void Panel_CheckBoxOptions_Paint(object sender, PaintEventArgs e)
@@ -2343,7 +2343,7 @@ namespace e621_ReBot_v2
                             {
                                 DownloadedBytes.Write(DownloadBuffer, 0, DownloadStreamPartLength);
                                 double ReportPercentage = DownloadedBytes.Length / (double)DownloaderReponse.ContentLength;
-                                bU_DLTags.BeginInvoke(new Action(() => { ControlStatusUpdate.Text = string.Format("Downloading: {0}", ReportPercentage.ToString("P2")); }));
+                                bU_DLTags.BeginInvoke(new Action(() => { ControlStatusUpdate.Text = $"Downloading: {ReportPercentage.ToString("P2")}"; }));
                             }
                             else
                             {
@@ -2558,7 +2558,7 @@ namespace e621_ReBot_v2
                             while (!CSVParser.EndOfData)
                             {
                                 CSVFields = CSVParser.ReadFields();
-                                PoolList.Add(string.Format("{0},{1}", CSVFields[0], CSVFields[1]));
+                                PoolList.Add($"{CSVFields[0]},{CSVFields[1]}");
                             }
                         }
                     }

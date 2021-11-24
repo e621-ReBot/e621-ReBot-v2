@@ -35,6 +35,7 @@
             // timer_CursorFix
             // 
             this.timer_CursorFix.Enabled = true;
+            this.timer_CursorFix.Interval = 250;
             this.timer_CursorFix.Tick += new System.EventHandler(this.Timer_CursorFix_Tick);
             // 
             // Form_Loader

@@ -30,7 +30,7 @@ namespace e621_ReBot_v2.CustomControls
 
         private void DL_FolderIcon_Click(object sender, System.EventArgs e)
         {
-            Process.Start("explorer.exe", string.Format("/select, \"{0}\"", DL_FolderIcon.Tag.ToString()));
+            Process.Start("explorer.exe", $"/select, \"{DL_FolderIcon.Tag}\"");
         }
 
         private void PicBox_ImageHolder_LoadCompleted(object sender, AsyncCompletedEventArgs e)

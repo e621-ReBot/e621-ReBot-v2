@@ -101,7 +101,7 @@ namespace e621_ReBot_v2.Modules
         {
             foreach (DataRow DBRow in Module_TableHolder.Database_Table.Rows)
             {
-                if ((bool)DBRow["UPDL_Queued"] && DBRow["Uploaded_As"] == DBNull.Value && ((string)DBRow["Upload_Tags"]).Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries).Length < 5)
+                if ((bool)DBRow["UPDL_Queued"] && DBRow["Uploaded_As"] == DBNull.Value && ((string)DBRow["Upload_Tags"]).Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).Length < 5)
                 {
                     if (MessageBox.Show("There are images with insufficient number of tags selected for upload. Are you sure you want to proceed?", "e621 ReBot", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
                     {

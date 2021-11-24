@@ -15,7 +15,7 @@ namespace e621_ReBot_v2.Modules
             e621Info.UserAgent = Properties.Settings.Default.AppName;
             if (Auth)
             {
-                string AuthString = string.Format("{0}:{1}", Properties.Settings.Default.UserName, Module_Cryptor.Decrypt(Properties.Settings.Default.API_Key));
+                string AuthString = $"{Properties.Settings.Default.UserName}:{Module_Cryptor.Decrypt(Properties.Settings.Default.API_Key)}";
                 e621Info.Headers.Add(HttpRequestHeader.Authorization, "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(AuthString)));
             }
             try

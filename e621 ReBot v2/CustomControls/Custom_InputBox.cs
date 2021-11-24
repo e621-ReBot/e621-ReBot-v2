@@ -1,17 +1,17 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace e621_ReBot_v2.CustomControls
 {
     public partial class Custom_InputBox : Form
     {
-        public Custom_InputBox(ref Form FormPass)
+        public Custom_InputBox(in Form FormPass)
         {
             InitializeComponent();
             Owner = FormPass;
         }
 
-        protected string _txtInput;
         private void TextBox_Input_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -46,7 +46,8 @@ namespace e621_ReBot_v2.CustomControls
 
         }
 
-        private void Button_OK_Click(object sender, System.EventArgs e)
+        private string _txtInput;
+        private void Button_OK_Click(object sender, EventArgs e)
         {
             _txtInput = textBox_Input.Text;
             NotCanceled = true;
@@ -55,7 +56,7 @@ namespace e621_ReBot_v2.CustomControls
 
         public static string Show(Form FormPass, string Title, string Description, Point StartingLocation, string StartingSting = "")
         {
-            Custom_InputBox cInputBox = new Custom_InputBox(ref FormPass)
+            Custom_InputBox cInputBox = new Custom_InputBox(FormPass)
             {
                 Location = new Point(StartingLocation.X - 7, StartingLocation.Y - 2),
                 Text = Title
@@ -72,7 +73,7 @@ namespace e621_ReBot_v2.CustomControls
         {
             if (NotCanceled)
             {
-                _txtInput = _txtInput == null ? "✄" : _txtInput;
+                _txtInput = _txtInput ?? "✄";
             }
             else
             {

@@ -62,7 +62,7 @@ namespace e621_ReBot_v2.Forms
             Stream EncodedContentStream = EncodedContent.ReadAsStreamAsync().Result;
             //Debug.Print(New FormUrlEncodedContent(POST_RequestData).ReadAsStringAsync.Result)
 
-            string APIURL = string.Format("https://e621.net/posts/{0}/votes.json", "109434"); //https://e621.net/post/show/109434
+            string APIURL = $"https://e621.net/posts/{"109434"}/votes.json"; //https://e621.net/post/show/109434
 
             HttpWebRequest e621Request = (HttpWebRequest)WebRequest.Create(APIURL);
             e621Request.UserAgent = Form_Loader._FormReference.AppName_Label.Text;
@@ -109,7 +109,7 @@ namespace e621_ReBot_v2.Forms
 
         private void Form_APIKey_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Form_Loader._FormReference.Invoke(new Action(() => 
+            Form_Loader._FormReference.Invoke(new Action(() =>
             {
                 if (Properties.Settings.Default.FirstRun && !Properties.Settings.Default.API_Key.Equals(""))
                 {

@@ -4,8 +4,6 @@ using e621_ReBot_v2.Modules.Grabber;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Data;
-using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Text;

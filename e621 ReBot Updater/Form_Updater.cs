@@ -9,6 +9,15 @@ namespace e621_ReBot_Updater
 {
     public partial class Form_Updater : Form
     {
+        protected override void WndProc(ref Message message)
+        {
+            if (message.Msg == Program.WM_SHOWFIRSTINSTANCE)
+            {
+                WinApi.ShowToFront(Handle);
+            }
+            base.WndProc(ref message);
+        }
+
         public Form_Updater()
         {
             InitializeComponent();
@@ -18,7 +27,7 @@ namespace e621_ReBot_Updater
         {
             if (File.Exists("e621 ReBot v2.exe"))
             {
-                Label_Current.Text = string.Format("Current Version: {0}", FileVersionInfo.GetVersionInfo("e621 ReBot v2.exe").FileVersion);
+                Label_Current.Text = $"Current Version: {FileVersionInfo.GetVersionInfo("e621 ReBot v2.exe").FileVersion}";
             }
             else 
             {
@@ -50,7 +59,7 @@ namespace e621_ReBot_Updater
             {
                 string OFVString;
                 CookieContainer RequestCookieContainer = new CookieContainer();
-                string[] SplitCookieString = WebBrowser_Updater.Document.Cookie.Split(new[] { "=" }, StringSplitOptions.RemoveEmptyEntries);
+                string[] SplitCookieString = WebBrowser_Updater.Document.Cookie.Split(new string[] { "=" }, StringSplitOptions.RemoveEmptyEntries);
                 Cookie CreateCookie = new Cookie()
                 {
                     Domain = "e621rebot.infinityfreeapp.com",
@@ -64,7 +73,7 @@ namespace e621_ReBot_Updater
                 using (StreamReader DownloadStream = new StreamReader(VersionResponse.GetResponseStream()))
                 {
                     OFVString = DownloadStream.ReadToEnd();
-                    Label_Latest.Text = string.Format("Latest Version: {0}", OFVString);
+                    Label_Latest.Text = $"Latest Version: {OFVString}";
                 }
 
                 string CFVString = FileVersionInfo.GetVersionInfo("e621 ReBot v2.exe").FileVersion;
@@ -111,7 +120,7 @@ namespace e621_ReBot_Updater
                                 {
                                     DownloadedBytes.Write(DownloadBuffer, 0, DownloadStreamPartLength);
                                     double ReportPercentage = DownloadedBytes.Length / (double)UpdateDownloaderReponse.ContentLength;
-                                    Label_Download.BeginInvoke(new Action(() => Label_Download.Text = string.Format("Downloading: {0}", ReportPercentage.ToString("P2"))));
+                                    Label_Download.BeginInvoke(new Action(() => Label_Download.Text = $"Downloading: {ReportPercentage.ToString("P2")}"));
                                 }
                                 else
                                 {
@@ -127,7 +136,7 @@ namespace e621_ReBot_Updater
                         foreach (ZipArchiveEntry ZipEntry in UpdateZip.Entries)
                         {
                             ExtractCounter += 1;
-                            Label_Download.BeginInvoke(new Action(() => Label_Download.Text = string.Format("Extracting: {0} of {1}", ExtractCounter, UpdateZip.Entries.Count)));
+                            Label_Download.BeginInvoke(new Action(() => Label_Download.Text = $"Extracting: {ExtractCounter} of {UpdateZip.Entries.Count}"));
                             if (ZipEntry.FullName.EndsWith("/"))
                             {
                                 Directory.CreateDirectory(ZipEntry.FullName);

@@ -175,7 +175,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                             {
                                 string ResolutionStringHolder = ResolutionNodeHolder.InnerText.Trim();
                                 ResolutionStringHolder = ResolutionStringHolder.Substring(0, ResolutionStringHolder.Length - 3);
-                                string[] ResolutionHolder = ResolutionStringHolder.Split(new[] { " x " }, StringSplitOptions.RemoveEmptyEntries);
+                                string[] ResolutionHolder = ResolutionStringHolder.Split(new string[] { " x " }, StringSplitOptions.RemoveEmptyEntries);
                                 TempDataRow["Info_MediaWidth"] = ResolutionHolder[0];
                                 TempDataRow["Info_MediaHeight"] = ResolutionHolder[1];
                                 TempDataRow["Thumbnail_FullInfo"] = true;
