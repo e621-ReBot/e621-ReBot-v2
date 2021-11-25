@@ -15,6 +15,7 @@ using System.Security.Cryptography;
 using System.Threading;
 using System.Web;
 using System.Windows.Forms;
+using Timer = System.Windows.Forms.Timer;
 
 namespace e621_ReBot_v2.Forms
 {
@@ -25,6 +26,7 @@ namespace e621_ReBot_v2.Forms
         {
             InitializeComponent();
             _FormReference = this;
+
             GotFocus += Form_Preview_GotFocus;
             PB_Previous.Click += PB_Navigation_Click;
             PB_Next.Click += PB_Navigation_Click;
@@ -40,6 +42,9 @@ namespace e621_ReBot_v2.Forms
 
             PB_IQDBQ.Click += PB_SimilarSearch_Click;
             PB_SauceNao.Click += PB_SimilarSearch_Click;
+
+            timer_LoadAllDelay = new Timer();
+            timer_LoadAllDelay.Tick += Timer_LoadAllDelay_Tick;
         }
 
         public DataRow Preview_RowHolder;
@@ -293,7 +298,7 @@ namespace e621_ReBot_v2.Forms
 
             if (Pic_WebBrowser.Document.Images.Count > 1) // Fix for that navigation canceled page
             {
-                navCancelFix_Timer.Start();
+                timer_navCancelFix.Start();
                 return;
             }
 
@@ -412,16 +417,28 @@ namespace e621_ReBot_v2.Forms
                 }
                 else
                 {
-                    PB_Navigation_Click(PB_Next, null);
+                    DateTime DateTimeNowTemp = DateTime.UtcNow;
+                    TimeSpan TimeSpanTemp = LastTickTime - DateTimeNowTemp;
+                    if (TimeSpanTemp.TotalMilliseconds > 500)
+                    {
+                        PB_Navigation_Click(PB_Next, null);
+                    }
+                    else
+                    {
+                        LastTickTime = DateTimeNowTemp;
+                        timer_LoadAllDelay.Interval = (int)Math.Min(100, 500 - TimeSpanTemp.TotalMilliseconds);
+                        timer_LoadAllDelay.Start();
+                    }
                     return;
                 }
             }
             PB_LoadAllImages.Enabled = !(Preview_RowIndex == Module_TableHolder.Database_Table.Rows.Count - 1);
         }
 
+
         private void NavCancelFix_Timer_Tick(object sender, EventArgs e)
         {
-            navCancelFix_Timer.Stop();
+            timer_navCancelFix.Stop();
             SendKeys.SendWait("{ESC}");
             NavURL(URL2Navigate);
         }
@@ -1167,6 +1184,7 @@ namespace e621_ReBot_v2.Forms
                 PB_Tagger.Enabled = true;
                 UpdateNavButtons(); // color doesn't change automaticelly when panel is enabled.
                 LoadAllImagesMod = false;
+                timer_LoadAllDelay.Stop();
             }
             else
             {
@@ -1176,6 +1194,14 @@ namespace e621_ReBot_v2.Forms
                 LoadAllImagesMod = true;
                 PB_Navigation_Click(PB_Next, null);
             }
+        }
+
+        private DateTime LastTickTime;
+        private Timer timer_LoadAllDelay;
+        private void Timer_LoadAllDelay_Tick(object sender, EventArgs e)
+        {
+            timer_LoadAllDelay.Stop();
+            PB_Navigation_Click(PB_Next, null);
         }
 
         private void Label_AlreadyUploaded_TextChanged(object sender, EventArgs e)

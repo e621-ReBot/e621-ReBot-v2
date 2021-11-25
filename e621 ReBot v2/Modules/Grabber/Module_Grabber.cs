@@ -22,19 +22,13 @@ namespace e621_ReBot_v2.Modules
     {
         static Module_Grabber()
         {
-            Initilize_GrabEnabler();
-
             timer_Grab = new Timer
             {
                 Interval = Properties.Settings.Default.DelayGrabber
             };
             timer_Grab.Tick += TimerGrab_Tick;
             timer_Grab.Start();
-        }
 
-        public static readonly List<Regex> _GrabEnabler = new List<Regex>();
-        private static void Initilize_GrabEnabler()
-        {
             _GrabEnabler.Add(new Regex(@".+(inkbunny.net)/(s|gallery|scraps)/\w+"));
             _GrabEnabler.Add(new Regex(@".+(inkbunny.net/submissionsviewall.php)"));
             _GrabEnabler.Add(new Regex(@".+(pixiv.net)/\w+/(artworks|users)/\d+"));
@@ -51,6 +45,7 @@ namespace e621_ReBot_v2.Modules
             _GrabEnabler.Add(new Regex(@".+(baraag.net)/@(\w+)?(/\d+|/media)"));
         }
 
+        public static readonly List<Regex> _GrabEnabler = new List<Regex>();
 
 
         public static void Report_Info(string InfoMessage)

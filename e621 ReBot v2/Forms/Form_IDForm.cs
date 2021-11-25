@@ -23,7 +23,6 @@ namespace e621_ReBot_v2.CustomControls
         {
             WhitelistedURLs.Add("https://e621.net/posts/");
             WhitelistedURLs.Add("https://e621.net/pools/");
-            WhitelistedURLs.Add("https://e621.net/post_sets/");
         }
 
         private void ID_TextBox_Enter(object sender, EventArgs e)

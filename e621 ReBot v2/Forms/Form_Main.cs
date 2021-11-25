@@ -1443,8 +1443,15 @@ namespace e621_ReBot_v2
 
         private void BU_CancelAPIDL_Click(object sender, EventArgs e)
         {
-            bU_CancelAPIDL.Enabled = false;
-            Module_Downloader.e6APIDL_BGW.CancelAsync();
+            if (ModifierKeys.HasFlag(Keys.Control))
+            {
+                lock (Module_e621APIMinion._WorkQueue)
+                {
+                    Module_e621APIMinion._WorkQueue.Clear();
+                }
+            }
+            bU_CancelAPIDL.Enabled = Module_e621APIMinion._WorkQueue.Any();
+            Module_e621APIMinion.WorkerMinion.CancelAsync();
         }
 
         private void CCheckGroupBox_Download_CheckedChanged(object sender, EventArgs e)
@@ -1538,7 +1545,7 @@ namespace e621_ReBot_v2
 
         private void BU_ReverseDownload_Click(object sender, EventArgs e)
         {
-            if (cCheckGroupBox_Download.Checked | Module_Downloader.e6APIDL_BGW.IsBusy)
+            if (cCheckGroupBox_Download.Checked | Module_e621APIMinion.WorkerMinion.IsBusy)
             {
                 MessageBox.Show("Download queue and API should be stopped before attempting to reverse the order.", "e621 ReBot");
                 return;

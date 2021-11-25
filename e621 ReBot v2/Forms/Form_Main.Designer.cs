@@ -1226,7 +1226,8 @@
             this.bU_CancelAPIDL.TabIndex = 10;
             this.bU_CancelAPIDL.TabStop = false;
             this.bU_CancelAPIDL.Text = "Cancel";
-            this.toolTip_Display.SetToolTip(this.bU_CancelAPIDL, "Cancel grabbing further download links from e621 API.");
+            this.toolTip_Display.SetToolTip(this.bU_CancelAPIDL, "Cancel grabbing further download links from e621 API.\r\nClick to cancel current ta" +
+        "sk.\r\nCtrl+Click to cancel all queued tasks.");
             this.bU_CancelAPIDL.UseVisualStyleBackColor = true;
             this.bU_CancelAPIDL.Click += new System.EventHandler(this.BU_CancelAPIDL_Click);
             // 
@@ -3116,7 +3117,7 @@
             this.tabPage_Download.Controls.Add(this.cCheckGroupBox_Download);
             this.tabPage_Download.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Download.Name = "tabPage_Download";
-            this.tabPage_Download.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Download.Size = new System.Drawing.Size(1262, 695);
             this.tabPage_Download.TabIndex = 2;
             this.tabPage_Download.Text = "tabPage_Download";
             // 
@@ -3219,7 +3220,7 @@
             this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_AppName);
             this.tabPage_Settings.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Settings.Name = "tabPage_Settings";
-            this.tabPage_Settings.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Settings.Size = new System.Drawing.Size(192, 91);
             this.tabPage_Settings.TabIndex = 5;
             this.tabPage_Settings.Text = "tabPage_Settings";
             this.tabPage_Settings.Enter += new System.EventHandler(this.TabPage_Settings_Enter);

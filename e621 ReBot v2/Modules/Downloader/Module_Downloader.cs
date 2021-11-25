@@ -17,6 +17,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Runtime;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
@@ -36,11 +37,6 @@ namespace e621_ReBot_v2.Modules
             Download_BGW = new BackgroundWorker();
             Download_BGW.DoWork += DownloadBGW_Start;
             Download_BGW.RunWorkerCompleted += DownloadBGW_Done;
-            e6APIDL_BGW = new BackgroundWorker
-            {
-                WorkerSupportsCancellation = true
-            };
-            e6APIDL_BGW.RunWorkerCompleted += E6APIDL_BGW_Done;
             timer_DownloadRemovalThreading = new Timer
             {
                 Interval = 250
@@ -61,17 +57,24 @@ namespace e621_ReBot_v2.Modules
                 Interval = 1000
             };
             timer_CacheProgressTimer.Tick += CacheProgressTimer_Tick;
+
+            _DownloadEnabler.Add(new Regex(@".+(e621.net/posts)(/\d+|\?.+)?"));
+            _DownloadEnabler.Add(new Regex(@".+(e621.net/pools/\d+)"));
+            _DownloadEnabler.Add(new Regex(@".+(e621.net/favorites)"));
+            _DownloadEnabler.Add(new Regex(@".+(e621.net/explore/posts/popular)"));
         }
 
+        private static readonly List<Regex> _DownloadEnabler = new List<Regex>();
         public static void DownloadEnabler(string WebAdress)
         {
-            if (WebAdress.StartsWith("https://e621.net/posts", StringComparison.OrdinalIgnoreCase)
-            || WebAdress.StartsWith("https://e621.net/posts/", StringComparison.OrdinalIgnoreCase)
-            || WebAdress.StartsWith("https://e621.net/pools/", StringComparison.OrdinalIgnoreCase)
-            || WebAdress.StartsWith("https://e621.net/favorites", StringComparison.OrdinalIgnoreCase)
-            || WebAdress.Equals("https://e621.net/explore/posts/popular"))
+            foreach (Regex URLTest in _DownloadEnabler)
             {
-                Form_Loader._FormReference.BB_Download.Visible = true;
+                Match MatchTemp = URLTest.Match(WebAdress);
+                if (MatchTemp.Success)
+                {
+                    Form_Loader._FormReference.BB_Download.Visible = true;
+                    return;
+                }
             }
         }
 
@@ -934,18 +937,17 @@ namespace e621_ReBot_v2.Modules
 
                     if (MessageBox.Show("Do you want to download all images with current tags?\nPress no if you want current page only.", "e621 ReBot", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
-                        if (e6APIDL_BGW.IsBusy)
-                        {
-                            NotifyWhenDone = true;
-                            MessageBox.Show("You are already grabbing post from e621 API, you need to wait for it to finish.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            return;
-                        }
+                        //if (e6APIDL_BGW.IsBusy)
+                        //{
+                        //    NotifyWhenDone = true;
+                        //    MessageBox.Show("You are already grabbing post from e621 API, you need to wait for it to finish.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //    return;
+                        //}
 
-                        e6APIDL_BGW.DoWork += GrabAllImagesWithGivenTags;
                         string TagQuery = BrowserAdress;
                         TagQuery = TagQuery.Substring(TagQuery.IndexOf("tags=") + 5);
                         // TagQuery = WebUtility.UrlDecode(TagQuery).Replace(" ", "+")
-                        e6APIDL_BGW.RunWorkerAsync(new string[] { TagQuery, inputtext });
+                        Module_e621APIMinion.AddWork2Queue("Posts", Module_e621APIMinion.GrabAllImagesWithGivenTags, new string[] { TagQuery, inputtext });
                         return;
                     }
                     else
@@ -983,16 +985,15 @@ namespace e621_ReBot_v2.Modules
 
                 if (MessageBox.Show("Do you want to download the whole pool?\nPress no if you want current page only.", "e621 ReBot", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    if (e6APIDL_BGW.IsBusy)
-                    {
-                        NotifyWhenDone = true;
-                        MessageBox.Show("You are already grabbing post from e621 API, you need to wait for it to finish.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
+                    //if (e6APIDL_BGW.IsBusy)
+                    //{
+                    //    NotifyWhenDone = true;
+                    //    MessageBox.Show("You are already grabbing post from e621 API, you need to wait for it to finish.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //    return;
+                    //}
 
-                    e6APIDL_BGW.DoWork += GraBPoolInBG;
                     string ComicID = BrowserAdress.Replace("https://e621.net/pools/", "");
-                    e6APIDL_BGW.RunWorkerAsync(ComicID);
+                    Module_e621APIMinion.AddWork2Queue("Pool", Module_e621APIMinion.GraBPoolInBG, ComicID);
                     return;
                 }
             GrabPageOnly_Pools:
@@ -1069,13 +1070,12 @@ namespace e621_ReBot_v2.Modules
 
                 if (MessageBox.Show("Do you want to download all favorites?\nPress no if you want current page only.", "e621 ReBot", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    if (e6APIDL_BGW.IsBusy)
-                    {
-                        MessageBox.Show("You are already grabbing post from e621 API, you need to wait for it to finish.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
+                    //if (e6APIDL_BGW.IsBusy)
+                    //{
+                    //    MessageBox.Show("You are already grabbing post from e621 API, you need to wait for it to finish.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //    return;
+                    //}
 
-                    e6APIDL_BGW.DoWork += GrabAllImagesWithGivenTags;
                     string TagQuery = BrowserAdress;
                     if (TagQuery.Contains("user_id"))
                     {
@@ -1092,11 +1092,10 @@ namespace e621_ReBot_v2.Modules
                             TagQuery = WebDoc.DocumentNode.SelectSingleNode("//input[@id='tags']").Attributes["value"].Value;
                         }
                     }
-                    e6APIDL_BGW.RunWorkerAsync(new string[] { TagQuery, inputtext });
+                    Module_e621APIMinion.AddWork2Queue("Favorites", Module_e621APIMinion.GrabAllImagesWithGivenTags, new string[] { TagQuery, inputtext });
                     return;
                 }
             GrabPageOnly_Favorites:
-
                 HtmlNodeCollection NodeSelector = WebDoc.DocumentNode.SelectNodes("//div[@id='posts']/article");
                 if (NodeSelector != null)
                 {
@@ -1115,29 +1114,6 @@ namespace e621_ReBot_v2.Modules
                 }
                 return;
             }
-        }
-
-        public static BackgroundWorker e6APIDL_BGW;
-        private static bool NotifyWhenDone = false;
-        public static void E6APIDL_BGW_Done(object sender, RunWorkerCompletedEventArgs e)
-        {
-            e6APIDL_BGW.DoWork -= GraBPoolInBG;
-            e6APIDL_BGW.DoWork -= GrabAllImagesWithGivenTags;
-            Report_Status("Suspended.", false);
-            if (NotifyWhenDone)
-            {
-                NotifyWhenDone = false;
-                MessageBox.Show("Grabbing posts from e621 API is done, you can now queue more.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
-        private static void Report_Status(string StatusMessage, bool ButtonEnable)
-        {
-            Form_Loader._FormReference.BeginInvoke(new Action(() =>
-            {
-                Form_Loader._FormReference.label_DownloadStatus.Text = string.Format("API DL Status: {0}", StatusMessage);
-                Form_Loader._FormReference.bU_CancelAPIDL.Enabled = ButtonEnable;
-            }));
         }
 
 
@@ -1187,193 +1163,6 @@ namespace e621_ReBot_v2.Modules
                 Form_Loader._FormReference.bU_SkipDLCache.Enabled = true;
                 MessageBox.Show(string.Format("Cached {0} files.", DownloadFolderCache.Count), "e621 ReBot");
             }));
-        }
-
-
-
-        // - - - - - - - - - - -
-
-
-
-        public static void GrabAllImagesWithGivenTags(object sender, DoWorkEventArgs e)
-        {
-            string[] ArgumentPass = (string[])e.Argument;
-
-            string TagQuery = ArgumentPass[0];
-            string PostRequestString = "https://e621.net/posts.json?limit=320&tags=" + TagQuery;
-            string FolderName = ArgumentPass[1];
-
-            int PageCounter = 1;
-        GrabAnotherPage:
-            Report_Status(string.Format("Working on Tags page {0}.", PageCounter), true);
-            string TempRequestStringHolder = PostRequestString + (PageCounter > 1 ? "&page=" + PageCounter : null);
-            string test = Module_e621Info.e621InfoDownload(TempRequestStringHolder, true);
-            JToken JSON_Object = JObject.Parse(test)["posts"];
-            foreach (JObject cPost in JSON_Object.Children())
-            {
-                List<string> TempTagList = CreateTagList(cPost["tags"], cPost["rating"].Value<string>());
-                if (!Blacklist_Check(TempTagList))
-                {
-                    string PostID = cPost["id"].Value<string>();
-                    AddDownloadQueueItem(DataRowRef: null, URL: "https://e621.net/posts/" + PostID, Media_URL: cPost["file"]["url"].Value<string>(), e6_PostID: PostID, e6_PoolName: FolderName);
-                }
-            }
-            PageCounter += 1;
-
-            Form_Loader._FormReference.BeginInvoke(new Action(() =>
-            {
-                UpdateTreeViewText();
-                UpdateTreeViewNodes();
-                timer_Download.Start();
-            }));
-
-            if (e6APIDL_BGW.CancellationPending)
-            {
-                e.Cancel = true;
-                return;
-            }
-
-            Thread.Sleep(500);
-            if (JSON_Object.Children().Count() == 320)
-            {
-                goto GrabAnotherPage;
-            }
-            JSON_Object = null;
-        }
-
-        public static void GraBPoolInBG(object sender, DoWorkEventArgs e)
-        {
-            string PoolID = (string)e.Argument;
-
-            JToken PoolJSON = JObject.Parse(Module_e621Info.e621InfoDownload(string.Format("https://e621.net/pools/{0}.json", PoolID), false));
-            string PoolName = PoolJSON["name"].Value<string>().Replace("_", " ");
-            PoolName = string.Join("", PoolName.Split(Path.GetInvalidFileNameChars()));
-            string FolderPath = Path.Combine(Properties.Settings.Default.DownloadsFolderLocation, @"e621\", PoolName).ToString();
-
-            List<string> FoundComicPages = new List<string>();
-            if (Directory.Exists(FolderPath))
-            {
-                foreach (string FileFound in Directory.GetFiles(FolderPath))
-                {
-                    string CutPageName = FileFound.Substring(FileFound.LastIndexOf("_") + 1);
-                    FoundComicPages.Add(CutPageName);
-                }
-            }
-
-            List<string> ComicPages = PoolJSON["post_ids"].Values<string>().ToList();
-            int PageCount = (int)Math.Ceiling(PoolJSON["post_ids"].Count() / 320d);
-            string PoolRequestString = "https://e621.net/posts.json?limit=320&tags=pool:" + PoolID;
-            string e6JSONResult;
-            int SkippedPagesCounter = 0;
-            for (int p = 1; p <= PageCount; p++)
-            {
-                Report_Status($"Working on Pool page {p}.", true);
-                string TempRequestStringHolder = PoolRequestString + (p > 1 ? "&page=" + p : null);
-                e6JSONResult = Module_e621Info.e621InfoDownload(TempRequestStringHolder, true);
-
-                JToken JSON_Object = JObject.Parse(e6JSONResult)["posts"];
-                foreach (JObject Post in JSON_Object)
-                {
-                    string PicURL = Post["file"]["url"].Value<string>();
-                    string PicName = PicURL.Substring(PicURL.LastIndexOf("/") + 1);
-                    if (FoundComicPages.Contains(PicName))
-                    {
-                        SkippedPagesCounter += 1;
-                        continue;
-                    }
-
-                    string PostID = Post["id"].Value<string>();
-                    AddDownloadQueueItem(
-                        DataRowRef: null,
-                        URL: "https://e621.net/posts/" + PostID,
-                        Media_URL: PicURL,
-                        e6_PostID: PostID,
-                        e6_PoolName: PoolName,
-                        e6_PoolPostIndex: ComicPages.IndexOf(PostID).ToString()
-                        );
-                }
-                Form_Loader._FormReference.BeginInvoke(new Action(() =>
-                {
-                    UpdateTreeViewText();
-                    UpdateTreeViewNodes();
-                    timer_Download.Start();
-                }));
-
-                if (e6APIDL_BGW.CancellationPending)
-                {
-                    e.Cancel = true;
-                    return;
-                }
-
-                Thread.Sleep(500);
-                JSON_Object = null;
-            }
-            Form_Loader._FormReference.BeginInvoke(new Action(() =>
-            {
-                if (SkippedPagesCounter > 0)
-                {
-                    Form_Loader._FormReference.textBox_Info.Text = $"{DateTime.Now.ToLongTimeString()} Downloader >>> {PoolName}: {SkippedPagesCounter} page{(SkippedPagesCounter > 1 ? "s" : null)} skipped as they already exist\n{Form_Loader._FormReference.textBox_Info.Text}";
-                }
-            }));
-        }
-
-        private static List<string> CreateTagList(JToken PostTags, string RatingTag)
-        {
-            List<string> TempList = new List<string>();
-            foreach (JProperty TagCategory in PostTags.Children())
-            {
-                TempList.AddRange(TagCategory.First.ToObject<string[]>());
-            }
-            TempList.Add("rating:" + RatingTag);
-            return TempList;
-        }
-
-        private static bool Blacklist_Check(List<string> PostTags)
-        {
-            if (Form_Loader._FormReference.Blacklist.Count > 0)
-            {
-
-                foreach (string BlacklistLine in Form_Loader._FormReference.Blacklist)
-                {
-                    if (BlacklistLine.Contains("-"))
-                    {
-                        List<string> BlacklistLineList = new List<string>();
-                        BlacklistLineList.AddRange(BlacklistLine.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries));
-                        int HitCounter = 0;
-                        foreach (string BlacklistTag in BlacklistLineList)
-                        {
-                            string BlacklistTagTemp = BlacklistTag;
-                            if (BlacklistTag.StartsWith("-"))
-                            {
-                                BlacklistTagTemp = BlacklistTag.Substring(1);
-                                if (!PostTags.Contains(BlacklistTagTemp))
-                                {
-                                    HitCounter += 1;
-                                }
-                                continue;
-                            }
-
-                            if (PostTags.Contains(BlacklistTagTemp))
-                            {
-                                HitCounter += 1;
-                            }
-                        }
-
-                        if (HitCounter == BlacklistLineList.Count)
-                        {
-                            return true;
-                        }
-                        continue;
-                    }
-
-                    if (BlacklistLine.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).All(f => PostTags.Contains(f)))
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            }
-            return false;
         }
 
 

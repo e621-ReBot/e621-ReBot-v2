@@ -98,11 +98,7 @@ namespace e621_ReBot_v2.Forms
                 };
                 TreeView_PoolWatcher.Nodes.Add(PoolNode);
 
-                //remake this so it respects api limits
-                BackgroundWorker BGW = new BackgroundWorker();
-                BGW.DoWork += Module_Downloader.GraBPoolInBG;
-                //BGW.RunWorkerCompleted += Module_Downloader.E6APIDL_BGW_Done;
-                BGW.RunWorkerAsync(AddPoolID);
+                Module_e621APIMinion.AddWork2Queue("Pool Watcher", Module_e621APIMinion.GraBPoolInBG, AddPoolID);
 
                 Text = $"Pool Watcher - Watching {TreeView_PoolWatcher.Nodes.Count} pool{((TreeView_PoolWatcher.Nodes.Count > 0 && TreeView_PoolWatcher.Nodes.Count < 2) ? null : "s")}";
             }

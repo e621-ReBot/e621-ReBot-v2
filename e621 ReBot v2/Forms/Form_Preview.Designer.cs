@@ -53,7 +53,7 @@ namespace e621_ReBot_v2.Forms
             this.PB_Upload = new e621_ReBot_v2.CustomControls.Button_BrowserSmall();
             this.PB_Tagger = new e621_ReBot_v2.CustomControls.Button_BrowserSmall();
             this.panel_Search = new System.Windows.Forms.Panel();
-            this.navCancelFix_Timer = new System.Windows.Forms.Timer(this.components);
+            this.timer_navCancelFix = new System.Windows.Forms.Timer(this.components);
             this.Pic_WebBrowser = new e621_ReBot_v2.CustomControls.WebBrowserWithZoom();
             this.panel_Navigation.SuspendLayout();
             this.panel_Rating.SuspendLayout();
@@ -462,10 +462,10 @@ namespace e621_ReBot_v2.Forms
             this.panel_Search.Size = new System.Drawing.Size(180, 32);
             this.panel_Search.TabIndex = 119;
             // 
-            // navCancelFix_Timer
+            // timer_navCancelFix
             // 
-            this.navCancelFix_Timer.Interval = 250;
-            this.navCancelFix_Timer.Tick += new System.EventHandler(this.NavCancelFix_Timer_Tick);
+            this.timer_navCancelFix.Interval = 250;
+            this.timer_navCancelFix.Tick += new System.EventHandler(this.NavCancelFix_Timer_Tick);
             // 
             // Pic_WebBrowser
             // 
@@ -544,6 +544,6 @@ namespace e621_ReBot_v2.Forms
         private System.Windows.Forms.Timer timer_NavDelay;
         internal System.Windows.Forms.ToolTip toolTip_Display;
         internal System.Windows.Forms.Panel panel_Search;
-        internal System.Windows.Forms.Timer navCancelFix_Timer;
+        internal System.Windows.Forms.Timer timer_navCancelFix;
     }
 }

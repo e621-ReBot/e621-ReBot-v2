@@ -320,7 +320,8 @@
     <Compile Include="Modules\Module_Credits.cs" />
     <Compile Include="Modules\Module_Cryptor.cs" />
     <Compile Include="Modules\Module_DB.cs" />
-    <Compile Include="Modules\Module_Downloader.cs" />
+    <Compile Include="Modules\Downloader\Module_Downloader.cs" />
+    <Compile Include="Modules\Downloader\Module_e621APIMinion.cs" />
     <Compile Include="Modules\Module_e621Info.cs" />
     <Compile Include="Modules\Module_FFmpeg.cs" />
     <Compile Include="Modules\Module_Retry.cs" />
