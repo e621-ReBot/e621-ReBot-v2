@@ -34,7 +34,7 @@ namespace e621_ReBot_v2.Modules
         public static void AddWork2Queue(string WorkTag, Action<object> WorkMethod, object WorkParameterPass)
         {
             _WorkQueue.Add(new Tuple<string, Action<object>, object>(WorkTag, WorkMethod, WorkParameterPass));
-            if (!WorkerMinion.IsBusy)
+            if (!WorkerMinion.IsBusy && !timer_WorkDelay.Enabled)
             {
                 WorkerMinion.RunWorkerAsync();
             }
