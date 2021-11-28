@@ -25,8 +25,8 @@ Features:
 ---
 ## Requirements:
 - Windows, resolution 1366 x 768 (+)
-- .Net 4.6 (+)
-- C++ 2015
+- .Net 4.8 (+)
+- C++ 2019
 
 ---
 ### Discord:
