@@ -39,6 +39,12 @@ namespace CefSharp
 
             //Newgrounds
             AdBlock.Add("a.adtng.com");
+
+            //Hentai Foundry
+            AdBlock.Add(".jads.co");
+            AdBlock.Add("iadoremakingpics.com");
+            AdBlock.Add("suchenachmuschi.space");
+            AdBlock.Add("img.hentai-foundry.com/themes/Hentai/");
         }
 
         public int RequestCount { get; set; }
@@ -50,6 +56,8 @@ namespace CefSharp
             {
                 return true;
             }
+
+            //Console.WriteLine(request.Url);
             return false;
         }
 

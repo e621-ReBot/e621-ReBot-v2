@@ -486,7 +486,6 @@ namespace e621_ReBot_v2.Modules
         }
 
         private static readonly Timer timer_DownloadRemovalThreading;
-
         public static void DownloadRemovalThreading_Tick(object sender, EventArgs e)
         {
             timer_DownloadRemovalThreading.Stop();

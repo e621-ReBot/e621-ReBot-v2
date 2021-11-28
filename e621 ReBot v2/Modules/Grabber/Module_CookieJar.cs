@@ -16,6 +16,7 @@ namespace e621_ReBot_v2.Modules
         //Mastadon?
         public static CookieContainer Cookies_Plurk;
         public static CookieContainer Cookies_Weasyl;
+        public static CookieContainer Cookies_HentaiFoundry;
         public static CookieContainer Cookies_DeviantArt;
 
         public static void GetCookies(string WebAdress, ref CookieContainer WhichCookie)

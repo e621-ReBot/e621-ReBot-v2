@@ -21,7 +21,7 @@ namespace e621_ReBot_Tests
             DataRowTemp["Grab_URL"] = "https://inkbunny.net/s/2";
             DataRowTemp["Grab_DateTime"] = new DateTime(2010, 03, 03, 14, 26, 00);
             DataRowTemp["Grab_Title"] = "⮚ \"Mapleleaf story\" ⮘ by mek on Inkbunny";
-            DataRowTemp["Grab_TextBody"] = "Old art of old characters~ ~ ";
+            DataRowTemp["Grab_TextBody"] = "Old art of old characters~ ~";
             DataRowTemp["Grab_MediaURL"] = "https://nl.ib.metapix.net/files/full/0/2_mek_spmcover001ed.png";
             DataRowTemp["Grab_ThumbnailURL"] = "https://nl.ib.metapix.net/thumbnails/large/0/2_mek_spmcover001ed_noncustom.jpg";
             DataRowTemp["Info_MediaFormat"] = "png";
@@ -76,7 +76,7 @@ namespace e621_ReBot_Tests
             DataRowTemp["Grab_URL"] = "https://www.furaffinity.net/view/1";
             DataRowTemp["Grab_DateTime"] = new DateTime(2005, 12, 04, 19, 31, 00);
             DataRowTemp["Grab_Title"] = "⮚ \"Congratulations!\" ⮘ by alkora on FurAffinity";
-            DataRowTemp["Grab_TextBody"] = "You've made it to submission number 1!\r\n\r\nYou gain 1 fat fender :D ";
+            DataRowTemp["Grab_TextBody"] = "You've made it to submission number 1!\r\n\r\nYou gain 1 fat fender :D";
             DataRowTemp["Grab_MediaURL"] = "https://d.furaffinity.net/art/alkora/1436887262/1133739096.alkora_background.jpg";
             DataRowTemp["Grab_ThumbnailURL"] = "https://t.facdn.net/1@200-1436887262.jpg";
             DataRowTemp["Thumbnail_FullInfo"] = true;
@@ -135,7 +135,7 @@ namespace e621_ReBot_Tests
             DataRowTemp["Grab_URL"] = "https://www.newgrounds.com/art/view/banzchan/bomber-man";
             DataRowTemp["Grab_DateTime"] = new DateTime(2009, 08, 26, 9, 52, 00);
             DataRowTemp["Grab_Title"] = "⮚ \"Bomber Man\" ⮘ by Banzchan on Newgrounds";
-            DataRowTemp["Grab_TextBody"] = "Created in March 2006. Posted on my Deviantart. Four hour drawing using pencils, a Copic brush pen, 02 Micron, and Photoshop 5. I was bored and wanted to do something that was quick and high octane.\r\n\n\n\r\nSweet! This got featured! Thanks Newgrounds. :D ";
+            DataRowTemp["Grab_TextBody"] = "Created in March 2006. Posted on my Deviantart. Four hour drawing using pencils, a Copic brush pen, 02 Micron, and Photoshop 5. I was bored and wanted to do something that was quick and high octane.\r\n\n\n\r\nSweet! This got featured! Thanks Newgrounds. :D";
             DataRowTemp["Grab_MediaURL"] = "https://art.ngfiles.com/images/39000/39423_banzchan_bomber-man.jpg";
             DataRowTemp["Grab_ThumbnailURL"] = "https://art.ngfiles.com/thumbnails/39000/39423_full.jpg";
             DataRowTemp["Thumbnail_FullInfo"] = true;
@@ -171,7 +171,7 @@ namespace e621_ReBot_Tests
             DataRowTemp["Grab_URL"] = "https://www.hiccears.com/picture.php?pid=4";
             DataRowTemp["Grab_DateTime"] = new DateTime(2016, 02, 05, 5, 32, 07);
             DataRowTemp["Grab_Title"] = "⮚ \"妈妈生日快乐\" ⮘ by Lee on HicceArs";
-            DataRowTemp["Grab_TextBody"] = "Description: \n\t\t\t\t\t\t\t果然还是暑假时间比较多 ";
+            DataRowTemp["Grab_TextBody"] = "Description: \n\t\t\t\t\t\t\t果然还是暑假时间比较多";
             DataRowTemp["Grab_MediaURL"] = "https://www.hiccears.com/upl0ads/imgs/b39b7ba7e07d710447e89c40277171aa4c568e3d-08e4970d7579288af5bf3f4393a35bc12ba5b2794391eccf63a32706d7a2d0402f2289c9512d95d00d61bdec03d2b99d6ecc455ee5644ae52d10e7c-a61c93062dc97a3.jpg";
             DataRowTemp["Grab_ThumbnailURL"] = "https://www.hiccears.com/upl0ads/thumbnails/b39b7ba7e07d710447e89c40277171aa4c568e3d-08e4970d7579288af5bf3f4393a35bc12ba5b2794391eccf63a32706d7a2d0402f2289c9512d95d00d61bdec03d2b99d6ecc455ee5644ae52d10e7c-a61c93062dc97a3.png";
             DataRowTemp["Info_MediaFormat"] = "jpg";
@@ -362,6 +362,38 @@ namespace e621_ReBot_Tests
             //{
             //    Debug.Print(DataRowTemp[i].Equals(DataRowResult[i]).ToString());
             //}
+
+            Assert.IsTrue(RowsAreEqual);
+        }
+
+        [TestMethod]
+        public void Test_HentaiFoundry()
+        {
+            //Set cookies first, doesn't work without it.
+            HttpWebRequest HTMLWebRequest = (HttpWebRequest)WebRequest.Create("https://www.hentai-foundry.com/pictures/user/Twinstar/12/Pretty-Girl?enterAgree=1&size=0");
+            HTMLWebRequest.UserAgent = Form_Loader.GlobalUserAgent;
+            HTMLWebRequest.CookieContainer = new CookieContainer();
+            HTMLWebRequest.GetResponse().Close();
+            Module_CookieJar.Cookies_HentaiFoundry = HTMLWebRequest.CookieContainer;
+
+            DataTable DataTableTemp = Module_TableHolder.Database_Table.Clone();
+            DataRow DataRowTemp = DataTableTemp.NewRow();
+            DataRowTemp["Grab_URL"] = "https://www.hentai-foundry.com/pictures/user/Twinstar/12/Pretty-Girl";
+            DataRowTemp["Grab_DateTime"] = new DateTime(2006, 07, 18, 13, 54, 37);
+            DataRowTemp["Grab_Title"] = "⮚ \"Pretty Girl\" ⮘ by Twinstar on Hentai Foundry";
+            DataRowTemp["Grab_MediaURL"] = "https://pictures.hentai-foundry.com/t/Twinstar/12/Twinstar-12-Pretty_Girl.jpg";
+            DataRowTemp["Grab_ThumbnailURL"] = "https://thumbs.hentai-foundry.com/thumb.php?pid=12&size=200";
+            DataRowTemp["Info_MediaFormat"] = "jpg";
+            DataRowTemp["Info_MediaByteLength"] = 182020;
+            DataRowTemp["Upload_Rating"] = "E";
+            DataRowTemp["Upload_Tags"] = "2006";
+            DataRowTemp["Artist"] = "Twinstar";
+
+            Module_Grabber._GrabQueue_URLs.Add("https://www.hentai-foundry.com/pictures/user/Twinstar/12/Pretty-Girl");
+            Module_HentaiFoundry.Grab("https://www.hentai-foundry.com/pictures/user/Twinstar/12/Pretty-Girl");
+            DataRow DataRowResult = ((DataTable)Module_Grabber._GrabQueue_WorkingOn["https://www.hentai-foundry.com/pictures/user/Twinstar/12/Pretty-Girl"]).Rows[0];
+
+            bool RowsAreEqual = DataRowResult.ItemArray.SequenceEqual(DataRowTemp.ItemArray);
 
             Assert.IsTrue(RowsAreEqual);
         }

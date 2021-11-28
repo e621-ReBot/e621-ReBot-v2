@@ -1,22 +1,24 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Data;
+using System.Drawing;
+using System.Linq;
 using System.Net;
 using System.Windows.Forms;
 using HtmlAgilityPack;
-using Newtonsoft.Json.Linq;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
 namespace e621_ReBot_v2.Modules.Grabber
 {
-    public static class Module_SoFurry
+    public static class Module_HentaiFoundry
     {
         public static void QueuePrep(string WebAdress)
         {
-            Module_CookieJar.GetCookies(WebAdress, ref Module_CookieJar.Cookies_SoFurry);
-            if (WebAdress.Contains("sofurry.com/view/"))
+            Module_CookieJar.GetCookies(WebAdress, ref Module_CookieJar.Cookies_HentaiFoundry);
+            string[] WebAdressSplit = WebAdress.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
+            if (WebAdress.Contains("hentai-foundry.com/pictures/user/") && WebAdressSplit.Length == 7 && !WebAdressSplit[5].Equals("page"))
             {
-                Queue_Single(WebAdress);
+                Queue_Single(WebAdress);        
             }
             else
             {
@@ -48,15 +50,15 @@ namespace e621_ReBot_v2.Modules.Grabber
             HtmlDocument WebDoc = new HtmlDocument();
             WebDoc.LoadHtml(HTMLSource);
 
-            HtmlNodeCollection ArtNodes = WebDoc.DocumentNode.SelectNodes(".//div[@id='yw1']//a[@class='sfArtworkSmallInner']");
-            if (ArtNodes == null)
+            HtmlNodeCollection HtmlNodecollectionTemp = WebDoc.DocumentNode.SelectNodes(".//div[@id='yw0']//div[@class='thumb_square']");
+            if (HtmlNodecollectionTemp == null || HtmlNodecollectionTemp.Count == 0)
             {
-                ArtNodes = WebDoc.DocumentNode.SelectNodes(".//div[@id='yw0']//a[@class='sfArtworkSmallInner']");
+                return;
             }
 
-            foreach (HtmlNode ChildNode in ArtNodes)
+            foreach (HtmlNode ChildNode in HtmlNodecollectionTemp)
             {
-                string DirectLink2Post = "https://www.sofurry.com" + ChildNode.Attributes["href"].Value;
+                string DirectLink2Post = "https://www.hentai-foundry.com" + ChildNode.SelectSingleNode(".//a[@class='thumbLink']").Attributes["href"].Value;
                 if (Module_Grabber._GrabQueue_URLs.Contains(DirectLink2Post))
                 {
                     Module_Grabber.Report_Info(string.Format("Skipped grabbing - Already in queue [@{0}]", DirectLink2Post));
@@ -70,7 +72,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                     }
                 }
 
-                string WorkTitle = WebUtility.HtmlDecode(ChildNode.SelectSingleNode("./img").Attributes["alt"].Value);
+                string WorkTitle = WebUtility.HtmlDecode(ChildNode.SelectSingleNode(".//div[@class='thumbTitle']").InnerText.Trim());
                 if (!Module_Grabber.CreateChildTreeNode(ref TreeViewParentNode, WorkTitle, DirectLink2Post))
                 {
                     Module_Grabber.Report_Info(string.Format("Skipped grabbing - Already in queue [@{0}]", DirectLink2Post));
@@ -86,38 +88,37 @@ namespace e621_ReBot_v2.Modules.Grabber
 
         public static string Grab(string WebAdress)
         {
-            string Post_URL = WebAdress;
-            string Post_ID = WebAdress.Substring(WebAdress.LastIndexOf("/") + 1);
-
-            string JSONSource = Module_Grabber.GrabPageSource("https://api2.sofurry.com/std/getSubmissionDetails?id=" + Post_ID, ref Module_CookieJar.Cookies_SoFurry);
-            if (JSONSource != null)
+            string HTMLSource = Module_Grabber.GrabPageSource(WebAdress, ref Module_CookieJar.Cookies_HentaiFoundry);
+            if (HTMLSource != null)
             {
                 DataTable TempDataTable = new DataTable();
                 Module_TableHolder.Create_DBTable(ref TempDataTable);
 
-                JObject SoFurryJSON = JObject.Parse(JSONSource);
+                HtmlDocument WebDoc = new HtmlDocument();
+                WebDoc.LoadHtml(HTMLSource);
 
-                bool UnsupportedType = false;
-                if (!SoFurryJSON["contentType"].Value<string>().Equals("1")) // (0=story, 1=art, 2=music, 3=journal, 4=photo)
-                {
-                    UnsupportedType = true;
-                    goto Skip2Exit;
-                }
+                string Post_URL = WebAdress;
 
-                DateTime Post_Time = DateTime.UtcNow;
+                HtmlNode PostNode = WebDoc.DocumentNode.SelectSingleNode("html");
 
-                string Post_Title = SoFurryJSON["title"].Value<string>();
+                string Post_TimeTemp = PostNode.SelectSingleNode(".//section[@id='yw0']//time[@datetime]").Attributes["datetime"].Value;
+                DateTime Post_Time = DateTime.Parse(Post_TimeTemp);
+
+                string Post_Title = PostNode.SelectSingleNode(".//section[@id='picBox']//span[@class='imageTitle']").InnerText.Trim();
                 Post_Title = Post_Title.Replace("[", "⟦").Replace("]", "⟧");
 
-                string ArtistName = SoFurryJSON["author"].Value<string>();
+                string ArtistName = PostNode.SelectSingleNode(".//section[@id='picBox']//a").InnerText.Trim();
 
-                HtmlDocument WebDocTemp = new HtmlDocument();
-                WebDocTemp.LoadHtml(SoFurryJSON["description"].Value<string>());
+                HtmlNode Post_TextNode = PostNode.SelectSingleNode(".//section[@id='descriptionBox']//div[@class='picDescript']");
+                string Post_Text = null; //Module_Html2Text.Html2Text_HentaiFoundry(Post_TextNode);
 
-                string Post_Text = Module_Html2Text.Html2Text_SoFurry(WebDocTemp.DocumentNode);
+                HtmlNode ImageNodeTest = PostNode.SelectSingleNode(".//section[@id='picBox']/div[@class='boxbody']").SelectSingleNode(".//img | .//embed");
+                string Post_MediaURL = "https:" + ImageNodeTest.Attributes["src"].Value;
+                if (Post_MediaURL.Contains("/thumb.php"))
+                {
+                    Post_MediaURL = "https:" + PostNode.SelectSingleNode(".//section[@id='picBox']//img[@class='center']").Attributes["onClick"].Value.Split(new string[] { "&#039;" }, StringSplitOptions.RemoveEmptyEntries)[1];
+                }
 
-                // contentSourceUrl is enough but combine with fileName
-                string Post_MediaURL = string.Format("{0}&{1}", SoFurryJSON["contentSourceUrl"].Value<string>(), SoFurryJSON["fileName"].Value<string>());
                 if (Module_Grabber._Grabbed_MediaURLs.Contains(Post_MediaURL))
                 {
                     goto Skip2Exit;
@@ -131,12 +132,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                 }
 
                 DataRow TempDataRow = TempDataTable.NewRow();
-                FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Title, Post_Text, Post_MediaURL, SoFurryJSON["thumbnailSourceUrl"].Value<string>(), ArtistName);
-                if (Post_MediaURL.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) || Post_MediaURL.EndsWith(".swf", StringComparison.OrdinalIgnoreCase))
-                {
-                    TempDataRow["Info_MediaWidth"] = SoFurryJSON["width"].Value<string>();
-                    TempDataRow["Info_MediaHeight"] = SoFurryJSON["height"].Value<string>();
-                }
+                FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Title, Post_Text, Post_MediaURL, ArtistName);
                 TempDataTable.Rows.Add(TempDataRow);
 
             Skip2Exit:
@@ -147,7 +143,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                     {
                         Module_Grabber._GrabQueue_WorkingOn.Remove(Post_URL);
                     }
-                    PrintText = $"Grabbing skipped - {(UnsupportedType ? "Unsupported submission type" : "All media already grabbed")} [@{Post_URL}]";
+                    PrintText = $"Grabbing skipped - Media already grabbed [@{Post_URL}]";
                 }
                 else
                 {
@@ -158,24 +154,30 @@ namespace e621_ReBot_v2.Modules.Grabber
                 {
                     Module_Grabber._GrabQueue_URLs.Remove(Post_URL);
                 }
-                //Module_Grabber.Report_Info(PrintText);
                 return PrintText;
             }
-            return "Error encountered during SoFurry grab";
+            return "Error encountered during Hentai Foundry grab";
         }
 
-        private static void FillDataRow(ref DataRow TempDataRow, string URL, DateTime DateTime, string Title, string TextBody, string MediaURL, string ThumbnailURL, string Artist)
+        private static void FillDataRow(ref DataRow TempDataRow, string URL, DateTime DateTime, string Title, string TextBody, string MediaURL, string Artist)
         {
             TempDataRow["Grab_URL"] = URL;
-            //TempDataRow["Grab_DateTime"] = DateTime;
-            TempDataRow["Grab_Title"] = WebUtility.HtmlDecode(string.Format("\"{0}\" by {1} on SoFurry", Title, Artist)); ;
+            TempDataRow["Grab_DateTime"] = DateTime;
+            TempDataRow["Grab_Title"] = WebUtility.HtmlDecode(string.Format("⮚ \"{0}\" ⮘ by {1} on Hentai Foundry", Title, Artist)); ;
             if (TextBody != null) TempDataRow["Grab_TextBody"] = TextBody;
             TempDataRow["Grab_MediaURL"] = MediaURL;
-            TempDataRow["Grab_ThumbnailURL"] = ThumbnailURL;
+            if (MediaURL.EndsWith(".swf", StringComparison.OrdinalIgnoreCase))
+            {
+                TempDataRow["Thumbnail_Image"] = new Bitmap(Properties.Resources.E6Image_Flash);
+            }
+            else
+            {
+                string picID = MediaURL.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries)[4];
+                TempDataRow["Grab_ThumbnailURL"] = $"https://thumbs.hentai-foundry.com/thumb.php?pid={picID}&size=200";
+            }
             TempDataRow["Info_MediaFormat"] = MediaURL.Substring(MediaURL.LastIndexOf(".") + 1);
-            //TempDataRow["Info_MediaByteLength"] = Module_Grabber.GetMediaSize(MediaURL);
-            //TempDataRow["Upload_Tags"] = DateTime.Year
-            TempDataRow["Upload_Tags"] = "";
+            TempDataRow["Info_MediaByteLength"] = Module_Grabber.GetMediaSize(MediaURL);
+            TempDataRow["Upload_Tags"] = DateTime.Year;
             TempDataRow["Artist"] = Artist;
         }
     }

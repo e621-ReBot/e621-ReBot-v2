@@ -50,7 +50,7 @@ namespace e621_ReBot_v2.Modules.Grabber
             switch (TextHolderNode.Name)
             {
                 case "#text":
-                    {        
+                    {
                         if (TextHolderNode.InnerText.Contains("\r\n\t"))
                         {
                             TextHolder += TextHolderNode.InnerText.Replace(" ", "💩").Trim().Replace("💩", " ");
@@ -72,14 +72,14 @@ namespace e621_ReBot_v2.Modules.Grabber
                     {
                         if (TextHolderNode.FirstChild != null) // can be blank sometimes
                         {
-                                if (TextHolderNode.ChildNodes.Count > 1)
-                                {
-                                    TextHolder += $"[b]{Html2Text_Inkbunny(TextHolderNode)}[/b]";
-                                }
-                                else
-                                {
-                                    TextHolder += $"[b]{ParseNode_Inkbunny(TextHolderNode.FirstChild)}[/b]";
-                                }
+                            if (TextHolderNode.ChildNodes.Count > 1)
+                            {
+                                TextHolder += $"[b]{Html2Text_Inkbunny(TextHolderNode)}[/b]";
+                            }
+                            else
+                            {
+                                TextHolder += $"[b]{ParseNode_Inkbunny(TextHolderNode.FirstChild)}[/b]";
+                            }
                         }
                         break;
                     }
@@ -604,6 +604,7 @@ namespace e621_ReBot_v2.Modules.Grabber
 
                 case "a":
                     {
+
                         string aURL = WebUtility.UrlDecode(TextHolderNode.Attributes["href"].Value);
                         TextHolder += string.Format("\"{0}\":{1} ", TextHolderNode.InnerText, aURL);
                         break;
@@ -619,6 +620,126 @@ namespace e621_ReBot_v2.Modules.Grabber
                 case "div":
                     {
                         TextHolder += Html2Text_Weasyl(TextHolderNode);
+                        break;
+                    }
+
+                default:
+                    {
+                        TextHolder += "UNKNOWN ELEMENT";
+                        break;
+                    }
+            }
+
+            return TextHolder;
+        }
+
+
+
+        public static string Html2Text_HentaiFoundry(HtmlNode TextHolderNode)
+        {
+            string TextString = null;
+
+            foreach (HtmlNode Line in TextHolderNode.ChildNodes)
+            {
+                TextString += ParseNode_HentaiFoundry(Line);
+            }
+
+            return DecodeText(TextString);
+        }
+
+        private static string ParseNode_HentaiFoundry(HtmlNode TextHolderNode)
+        {
+            string TextHolder = null;
+            switch (TextHolderNode.Name)
+            {
+                case "#text":
+                    {
+                        TextHolder += TextHolderNode.InnerText;
+                        break;
+                    }
+
+                case "br":
+                    {
+                        TextHolder += Environment.NewLine;
+                        break;
+                    }
+
+                case "i":
+                    {
+                        TextHolder += "[i]" + TextHolderNode.InnerText + "[/i]";
+                        break;
+                    }
+
+                case "u":
+                    {
+                        TextHolder += "[u]" + TextHolderNode.InnerText + "[/u]";
+                        break;
+                    }
+
+                case "a":
+                    {
+                        string aURL = WebUtility.UrlDecode(TextHolderNode.Attributes["href"].Value);
+                        string TempTextHolder = TextHolderNode.InnerText.Replace("&nbsp;", " ").Trim();
+                        TextHolder += $"\"{TempTextHolder}\":{aURL}";
+                        break;
+                    }
+
+                case "strong":
+                    {
+                        if (TextHolderNode.ChildNodes.Count > 1)
+                        {
+                            TextHolder += $"[b]{Html2Text_FurAffinity(TextHolderNode)}[/b]";
+                        }
+                        else
+                        {
+                            TextHolder += $"[b]{ParseNode_FurAffinity(TextHolderNode.FirstChild)}[/b]";
+                        }
+                        break;
+                    }
+
+                case "span":
+                    {
+                        switch (TextHolderNode.Attributes["class"].Value)
+                        {
+                            case "bbcode_quote":
+                                {
+                                    TextHolder += TextHolderNode.ChildNodes.Count > 1 ? "[quote]" + Html2Text_FurAffinity(TextHolderNode) + " [/quote]" : "[quote]" + ParseNode_FurAffinity(TextHolderNode.FirstChild) + " [/quote]";
+                                    break;
+                                }
+
+                            default:
+                                {
+                                    TextHolder += TextHolderNode.ChildNodes.Count > 1 ? Html2Text_FurAffinity(TextHolderNode) : ParseNode_FurAffinity(TextHolderNode.FirstChild);
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+
+                case "h2": //https://www.furaffinity.net/view/39735601/
+                case "code":
+                case "sub": // https://www.furaffinity.net/view/36370763/
+                    {
+                        TextHolder += Html2Text_FurAffinity(TextHolderNode);
+                        break;
+                    }
+
+                case "div":
+                    {
+                        switch (TextHolderNode.Attributes["class"].Value)
+                        {
+                            case "submission-footer": // https://www.furaffinity.net/view/36368046/
+                                {
+                                    TextHolder += Environment.NewLine + Environment.NewLine + Html2Text_FurAffinity(TextHolderNode);
+                                    break;
+                                }
+
+                            default:
+                                {
+                                    TextHolder += "UNKNOWN DIV";
+                                    break;
+                                }
+                        }
                         break;
                     }
 

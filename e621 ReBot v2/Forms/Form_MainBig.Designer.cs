@@ -156,11 +156,6 @@
             this.pictureBox_Logo.Location = new System.Drawing.Point(1547, 64);
             this.pictureBox_Logo.Margin = new System.Windows.Forms.Padding(0, 64, 64, 0);
             // 
-            // label_FlashPlayer
-            // 
-            this.label_FlashPlayer.Location = new System.Drawing.Point(64, 915);
-            this.label_FlashPlayer.Margin = new System.Windows.Forms.Padding(64, 0, 0, 64);
-            // 
             // label_Forum
             // 
             this.label_Forum.Location = new System.Drawing.Point(1362, 759);

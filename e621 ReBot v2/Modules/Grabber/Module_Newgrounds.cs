@@ -179,7 +179,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                                 TempDataRow["Info_MediaWidth"] = ResolutionHolder[0];
                                 TempDataRow["Info_MediaHeight"] = ResolutionHolder[1];
                                 TempDataRow["Thumbnail_FullInfo"] = true;
-                                if (ThumbnailURLTemp.EndsWith(".wnebp", StringComparison.OrdinalIgnoreCase))
+                                if (ThumbnailURLTemp.EndsWith(".webp", StringComparison.OrdinalIgnoreCase))
                                 {
                                     Module_Grabber.WriteImageInfo(TempDataRow); //do it here so data shown on image properly due to custom handling of webp
                                 }

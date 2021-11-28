@@ -88,7 +88,6 @@
             this.pictureBox_GitHub = new System.Windows.Forms.PictureBox();
             this.pictureBox_KoFi = new System.Windows.Forms.PictureBox();
             this.pictureBox_Logo = new System.Windows.Forms.PictureBox();
-            this.label_FlashPlayer = new System.Windows.Forms.Label();
             this.label_Forum = new System.Windows.Forms.Label();
             this.pictureBox_Discord = new System.Windows.Forms.PictureBox();
             this.bU_GetDNPs = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
@@ -158,6 +157,7 @@
             this.bU_KoFi = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.GB_Right = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.GB_Left = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.BQB_HentaiFoundry = new e621_ReBot_v2.CustomControls.Button_Browser();
             this.Version_Label = new System.Windows.Forms.Label();
             this.Title_Label = new System.Windows.Forms.Label();
             this.Panel_Holder = new System.Windows.Forms.Panel();
@@ -180,7 +180,6 @@
             this.cTabControl_e621ReBot = new e621_ReBot_v2.CustomControls.Custom_TabControl();
             this.tabPage_Browser = new System.Windows.Forms.TabPage();
             this.QuickButtonPanel = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel_Browser = new System.Windows.Forms.Panel();
             this.panel_ComboBoxBlocker = new System.Windows.Forms.Panel();
             this.panel_BrowserDisplay = new System.Windows.Forms.Panel();
@@ -1293,20 +1292,6 @@
             this.pictureBox_Logo.TabIndex = 102;
             this.pictureBox_Logo.TabStop = false;
             this.toolTip_Display.SetToolTip(this.pictureBox_Logo, "e621 ReBot Logo");
-            // 
-            // label_FlashPlayer
-            // 
-            this.label_FlashPlayer.AutoSize = true;
-            this.label_FlashPlayer.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label_FlashPlayer.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.label_FlashPlayer.Location = new System.Drawing.Point(69, 645);
-            this.label_FlashPlayer.Margin = new System.Windows.Forms.Padding(64, 0, 0, 32);
-            this.label_FlashPlayer.Name = "label_FlashPlayer";
-            this.label_FlashPlayer.Size = new System.Drawing.Size(388, 13);
-            this.label_FlashPlayer.TabIndex = 101;
-            this.label_FlashPlayer.Text = "To enable Flash you need to install Flash Player for Opera and Chromium - PPAPI";
-            this.toolTip_Display.SetToolTip(this.label_FlashPlayer, "Open Adobe.com Flash Player download page.");
-            this.label_FlashPlayer.Click += new System.EventHandler(this.Label_FlashPlayer_Click);
             // 
             // label_Forum
             // 
@@ -2441,6 +2426,26 @@
             this.GB_Left.VisibleChanged += new System.EventHandler(this.GB_Left_VisibleChanged);
             this.GB_Left.Click += new System.EventHandler(this.GB_Left_Click);
             // 
+            // BQB_HentaiFoundry
+            // 
+            this.BQB_HentaiFoundry.BackColor = System.Drawing.Color.Transparent;
+            this.BQB_HentaiFoundry.BackgroundImage = global::e621_ReBot_v2.Properties.Resources.BrowserIcon_HentaiFoundry;
+            this.BQB_HentaiFoundry.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BQB_HentaiFoundry.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BQB_HentaiFoundry.FlatAppearance.BorderSize = 0;
+            this.BQB_HentaiFoundry.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.BQB_HentaiFoundry.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.BQB_HentaiFoundry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BQB_HentaiFoundry.Location = new System.Drawing.Point(30, 132);
+            this.BQB_HentaiFoundry.MaximumSize = new System.Drawing.Size(64, 56);
+            this.BQB_HentaiFoundry.MinimumSize = new System.Drawing.Size(64, 56);
+            this.BQB_HentaiFoundry.Name = "BQB_HentaiFoundry";
+            this.BQB_HentaiFoundry.Size = new System.Drawing.Size(64, 56);
+            this.BQB_HentaiFoundry.TabIndex = 14;
+            this.BQB_HentaiFoundry.Tag = "https://www.hentai-foundry.com/";
+            this.toolTip_Display.SetToolTip(this.BQB_HentaiFoundry, "Hentai-Foundry.com");
+            this.BQB_HentaiFoundry.UseVisualStyleBackColor = false;
+            // 
             // Version_Label
             // 
             this.Version_Label.AutoSize = true;
@@ -2641,7 +2646,7 @@
             this.QuickButtonPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.QuickButtonPanel.BackColor = System.Drawing.Color.Transparent;
             this.QuickButtonPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.QuickButtonPanel.Controls.Add(this.label1);
+            this.QuickButtonPanel.Controls.Add(this.BQB_HentaiFoundry);
             this.QuickButtonPanel.Controls.Add(this.BQB_Baraag);
             this.QuickButtonPanel.Controls.Add(this.BQB_Weasyl);
             this.QuickButtonPanel.Controls.Add(this.BQB_Pawoo);
@@ -2660,15 +2665,6 @@
             this.QuickButtonPanel.Size = new System.Drawing.Size(320, 320);
             this.QuickButtonPanel.TabIndex = 1;
             this.QuickButtonPanel.Visible = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(39, 153);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 13);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "Soon™?";
             // 
             // panel_Browser
             // 
@@ -3117,7 +3113,7 @@
             this.tabPage_Download.Controls.Add(this.cCheckGroupBox_Download);
             this.tabPage_Download.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Download.Name = "tabPage_Download";
-            this.tabPage_Download.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Download.Size = new System.Drawing.Size(192, 91);
             this.tabPage_Download.TabIndex = 2;
             this.tabPage_Download.Text = "tabPage_Download";
             // 
@@ -3128,7 +3124,6 @@
             this.tabPage_Info.Controls.Add(this.pictureBox_GitHub);
             this.tabPage_Info.Controls.Add(this.pictureBox_KoFi);
             this.tabPage_Info.Controls.Add(this.pictureBox_Logo);
-            this.tabPage_Info.Controls.Add(this.label_FlashPlayer);
             this.tabPage_Info.Controls.Add(this.label_Forum);
             this.tabPage_Info.Controls.Add(this.pictureBox_Discord);
             this.tabPage_Info.Controls.Add(this.Label_GridHelp2);
@@ -3137,7 +3132,7 @@
             this.tabPage_Info.Controls.Add(this.label_API2);
             this.tabPage_Info.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Info.Name = "tabPage_Info";
-            this.tabPage_Info.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Info.Size = new System.Drawing.Size(1262, 695);
             this.tabPage_Info.TabIndex = 4;
             this.tabPage_Info.Text = "tabPage_Info";
             // 
@@ -3654,7 +3649,6 @@
             this.cTabControl_e621ReBot.ResumeLayout(false);
             this.tabPage_Browser.ResumeLayout(false);
             this.QuickButtonPanel.ResumeLayout(false);
-            this.QuickButtonPanel.PerformLayout();
             this.panel_Browser.ResumeLayout(false);
             this.flowLayoutPanel_BrowserButtons.ResumeLayout(false);
             this.tabPage_Grid.ResumeLayout(false);
@@ -3738,7 +3732,6 @@
         internal System.Windows.Forms.Label AppName_Label;
         private System.Windows.Forms.TabPage tabPage_Info;
         protected internal System.Windows.Forms.PictureBox pictureBox_Logo;
-        protected internal System.Windows.Forms.Label label_FlashPlayer;
         protected internal System.Windows.Forms.Label label_Forum;
         protected internal System.Windows.Forms.PictureBox pictureBox_Discord;
         protected internal System.Windows.Forms.Label Label_GridHelp2;
@@ -3880,7 +3873,6 @@
         private CustomControls.Button_Browser BQB_Pawoo;
         protected internal System.Windows.Forms.CheckBox CheckBox_ClearCache;
         private CustomControls.Button_Browser BQB_Baraag;
-        private System.Windows.Forms.Label label1;
         internal CustomControls.Custom_RadioButton Naming_e6_0;
         internal CustomControls.Custom_RadioButton Naming_e6_1;
         internal CustomControls.Custom_RadioButton Naming_e6_2;
@@ -3905,6 +3897,7 @@
         protected internal CustomControls.Custom_RadioButton rb_GameStart_1;
         protected internal CustomControls.Custom_RadioButton rb_GameStart_2;
         protected internal CustomControls.Custom_RadioButton rb_GameStart_3;
+        private CustomControls.Button_Browser BQB_HentaiFoundry;
     }
 }
 

@@ -29,20 +29,24 @@ namespace e621_ReBot_v2.Modules
             timer_Grab.Tick += TimerGrab_Tick;
             timer_Grab.Start();
 
-            _GrabEnabler.Add(new Regex(@".+(inkbunny.net)/(s|gallery|scraps)/\w+"));
+            _GrabEnabler.Add(new Regex(@".+(inkbunny.net/)(s|gallery|scraps)(/\w+)"));
             _GrabEnabler.Add(new Regex(@".+(inkbunny.net/submissionsviewall.php)"));
-            _GrabEnabler.Add(new Regex(@".+(pixiv.net)/\w+/(artworks|users)/\d+"));
-            _GrabEnabler.Add(new Regex(@".+(furaffinity.net)/((view|full)/\d+/|(gallery|scraps|favorites)/.+/)"));
-            _GrabEnabler.Add(new Regex(@".+(furaffinity.net/search/)"));
-            _GrabEnabler.Add(new Regex(@".+(twitter.com)/(\w+/?(media|status/\d+/?$|$))"));
-            _GrabEnabler.Add(new Regex(@".+(newgrounds.com)/(movies/|portal/view/\d+|art?.+)"));
-            _GrabEnabler.Add(new Regex(@".+(hiccears.com)/(picture|gallery|artist-content).+"));
-            _GrabEnabler.Add(new Regex(@".+(sofurry.com)/(view/\d+|browse/\w+/art.+)"));
-            _GrabEnabler.Add(new Regex(@".+(mastodon.social)/@(\w+)?(/\d+|/media)"));
-            _GrabEnabler.Add(new Regex(@".+(plurk.com)/(p/\w+|\w+(?!.))"));
-            _GrabEnabler.Add(new Regex(@".+(pawoo.net)/@(\w+)?(/\d+|/media|\?\w+=\d+)"));
-            _GrabEnabler.Add(new Regex(@".+(weasyl.com)/(search.+|submissions.+|collections.+|~\w+/submissions/\d+/.+)"));
-            _GrabEnabler.Add(new Regex(@".+(baraag.net)/@(\w+)?(/\d+|/media)"));
+            _GrabEnabler.Add(new Regex(@".+(pixiv.net/)(\w+/)(artworks|users)/\d+"));
+            _GrabEnabler.Add(new Regex(@".+(www.furaffinity.net/)(view|full|gallery|scraps|favorites)(/\w+/)"));
+            _GrabEnabler.Add(new Regex(@".+(www.furaffinity.net/search/)"));
+            _GrabEnabler.Add(new Regex(@".+(twitter.com/)(\w+/(media|status/\d+/?$))"));
+            _GrabEnabler.Add(new Regex(@".+(.newgrounds.com/)(movies/|portal/view/\d+|art?.+)"));
+            _GrabEnabler.Add(new Regex(@".+(www.hiccears.com/)(picture|gallery|artist-content)(.+)"));
+            _GrabEnabler.Add(new Regex(@".+(.sofurry.com)/(view/\d+|browse/\w+/art?.+)"));
+            _GrabEnabler.Add(new Regex(@".+(mastodon.social/)(@\w+)(/\d+|/media)"));
+            _GrabEnabler.Add(new Regex(@".+(www.plurk.com/)(p/\w+|\w+$)"));
+            _GrabEnabler.Add(new Regex(@".+(pawoo.net/)(@\w+)(/\d+|/media)"));
+            _GrabEnabler.Add(new Regex(@".+(www.weasyl.com/)(~\w+/submissions/\d+/.+|submissions.+|collections.+)")); //collections are favorites*
+            _GrabEnabler.Add(new Regex(@".+(www.weasyl.com/)(search.+)(find=submit)"));
+            _GrabEnabler.Add(new Regex(@".+(baraag.net/)(@\w+)?(/\d+|/media)"));
+            _GrabEnabler.Add(new Regex(@".+(www.hentai-foundry.com/)(pictures/user/.+|user/.+?/faves/pictures)"));
+            _GrabEnabler.Add(new Regex(@".+(www.hentai-foundry.com/)(pictures/(featured|popular|random|recent/))"));
+
         }
 
         public static readonly List<Regex> _GrabEnabler = new List<Regex>();
@@ -52,7 +56,7 @@ namespace e621_ReBot_v2.Modules
         {
             Form_Loader._FormReference.BeginInvoke(new Action(() =>
             {
-                Form_Loader._FormReference.textBox_Info.Text = string.Format("{0} Grabber >>> {1}\n", DateTime.Now.ToLongTimeString(), InfoMessage) + Form_Loader._FormReference.textBox_Info.Text;
+                Form_Loader._FormReference.textBox_Info.Text = $"{DateTime.Now.ToLongTimeString()} Grabber >>> {InfoMessage}\n{Form_Loader._FormReference.textBox_Info.Text}";
             }
             ));
         }
@@ -123,6 +127,11 @@ namespace e621_ReBot_v2.Modules
                 case "baraag.net":
                     {
                         Module_Mastodon.QueuePrep(WebAdress);
+                        break;
+                    }
+                case "www.hentai-foundry.com":
+                    {
+                        Module_HentaiFoundry.QueuePrep(WebAdress);
                         break;
                     }
             }
@@ -316,6 +325,11 @@ namespace e621_ReBot_v2.Modules
                         BGWTemp.DoWork += Module_Mastodon.RunGrabber;
                         BGWTemp.RunWorkerAsync(NeededData);
                         return;
+                    }
+                case "www.hentai-foundry.com":
+                    {
+                        BGWTemp.DoWork += Module_HentaiFoundry.RunGrabber;
+                        break;
                     }
             }
             BGWTemp.RunWorkerAsync(WebAdress);

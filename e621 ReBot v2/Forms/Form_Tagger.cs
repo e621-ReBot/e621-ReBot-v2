@@ -144,8 +144,8 @@ namespace e621_ReBot_v2.Forms
                 if (TaggerCBList.ContainsKey(SortTags[i]))
                 {
                     TaggerCBList[SortTags[i]].Checked = true;
-                    CheckboxTagCount += 1;
-                    SortTags.RemoveAt(i);
+                    //CheckboxTagCount += 1;
+                    //SortTags.RemoveAt(i);
                 }
             }
             textBox_Tags.Clear();
@@ -254,6 +254,14 @@ namespace e621_ReBot_v2.Forms
         {
             switch (e.KeyCode)
             {
+                case Keys.Space:
+                    {
+                        if (textBox_Tags.Text.Substring(textBox_Tags.SelectionStart - 1, 1).Equals(" "))
+                        {
+                            e.SuppressKeyPress = true;
+                        }
+                        break;
+                    }
                 case Keys.Enter:
                     {
                         if (!Form_Loader._FormReference.AutoTags.Visible)
@@ -278,6 +286,37 @@ namespace e621_ReBot_v2.Forms
                 case Keys.Tab:
                     {
                         e.SuppressKeyPress = true;
+                        break;
+                    }
+
+                case Keys.V:
+                    {
+                        if (ModifierKeys.HasFlag(Keys.Control))
+                        {
+                            e.SuppressKeyPress = true;
+                            e.Handled = true;
+                            if (Clipboard.GetDataObject().GetDataPresent(DataFormats.StringFormat))
+                            {
+                                List<string> PasteTags = ((string)Clipboard.GetDataObject().GetData(DataFormats.StringFormat)).ToLower().Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).Distinct().ToList();
+
+                                List<string> SortTags = new List<string>();
+                                SortTags.AddRange(textBox_Tags.Text.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries));
+                                SortTags = SortTags.Distinct().ToList();
+
+                                for (int i = PasteTags.Count - 1; i >=0; i--)
+                                {
+                                    if (SortTags.Contains(PasteTags[i]))
+                                    {
+                                        PasteTags.RemoveAt(i);
+                                    }
+                                }
+
+                                SortTags.AddRange(PasteTags);
+                                textBox_Tags.Text = string.Join(" ", SortTags) + " ";
+                                textBox_Tags.SelectionStart = textBox_Tags.Text.Length;
+                                TagCounter();
+                            }
+                        }
                         break;
                     }
             }
@@ -626,16 +665,10 @@ namespace e621_ReBot_v2.Forms
 
         private void TagCounter()
         {
-            int CursorHolder = textBox_Tags.SelectionStart;
-            textBox_Tags.Text = Regex.Replace(textBox_Tags.Text, "[ ]{2,}", " ", RegexOptions.None); // replace multiple spaces with one https://codesnippets.fesslersoft.de/how-to-replace-multiple-spaces-with-a-single-space-in-c-or-vb-net/
-            textBox_Tags.Text = textBox_Tags.Text.ToLower();
-            textBox_Tags.SelectionStart = CursorHolder;
-
             List<string> SortTags = new List<string>();
             SortTags.AddRange(textBox_Tags.Text.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries));
             SortTags = SortTags.Distinct().ToList();
-            int TagTotal = SortTags.Count + CheckboxTagCount;
-            Text = string.Format("Tagger - Tags: {0}", TagTotal);
+            Text = $"Tagger - Tags: {SortTags.Count}";
             if (TB_ParentOffset.Tag == null)
             {
                 TB_ParentOffset.ForeColor = SystemColors.ControlText;
@@ -645,30 +678,59 @@ namespace e621_ReBot_v2.Forms
                 TB_ParentOffset.ForeColor = Color.RoyalBlue;
                 Text += "   [Parent offset is set]";
             }
+
+            for (int i = SortTags.Count - 1; i >= 0; i--)
+            {
+                if (TaggerCBList.ContainsKey(SortTags[i]))
+                {
+                    TaggerCBList[SortTags[i]].Checked = true;
+                    //CheckboxTagCount += 1;
+                    //SortTags.RemoveAt(i);
+                }
+            }
+
+            if (textBox_Tags.SelectionStart > 0)
+            {
+                string SelectedWord = null;
+                int TextBoxCursorIndex = textBox_Tags.SelectionStart - 1;
+                var test = textBox_Tags.Text.Substring(TextBoxCursorIndex, 1);
+                if (textBox_Tags.Text.Substring(TextBoxCursorIndex, 1).Equals(" "))
+                {
+                    int WordStartIndex = textBox_Tags.Text.Substring(0, TextBoxCursorIndex).LastIndexOf(" ") + 1;
+                    int WordEndIndex = textBox_Tags.Text.IndexOf(" ", WordStartIndex);
+                    if (WordEndIndex == -1) WordEndIndex = textBox_Tags.Text.Length;
+                    SelectedWord = textBox_Tags.Text.Substring(WordStartIndex, WordEndIndex - WordStartIndex);
+                    SortTags.Clear();
+                    SortTags.AddRange(textBox_Tags.Text.Remove(WordStartIndex, WordEndIndex - WordStartIndex).Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries));
+                    if (SortTags.Contains(SelectedWord))
+                    {
+                        textBox_Tags.Text = textBox_Tags.Text.Remove(WordStartIndex, WordEndIndex - WordStartIndex);
+                        textBox_Tags.SelectionStart = textBox_Tags.Text.Length;
+                    }
+                }
+            }
+
+            int CursorHolder = textBox_Tags.SelectionStart;
+            textBox_Tags.Text = Regex.Replace(textBox_Tags.Text, "[ ]{2,}", " ", RegexOptions.None); // replace multiple spaces with one https://codesnippets.fesslersoft.de/how-to-replace-multiple-spaces-with-a-single-space-in-c-or-vb-net/
+            textBox_Tags.Text = textBox_Tags.Text.TrimStart().ToLower();
+            textBox_Tags.SelectionStart = CursorHolder;
         }
 
-        private int CheckboxTagCount;
         private void CheckboxClicked(object sender, EventArgs e)
         {
             CheckBox checkBoxSender = (CheckBox)sender;
 
+            if (checkBoxSender.CheckState == CheckState.Checked)
+            {
+                if (!textBox_Tags.Text.Contains(checkBoxSender.Text)) textBox_Tags.Text = $"{checkBoxSender.Text} {textBox_Tags.Text}";
+            }
+            else
+            {
+                textBox_Tags.Text = textBox_Tags.Text.Replace(checkBoxSender.Text, "");
+            }
             textBox_Tags.Focus();
             textBox_Tags.SelectionStart = textBox_Tags.TextLength;
-            List<string> SortTags = new List<string>();
-            SortTags.AddRange(textBox_Tags.Text.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries));
-            SortTags = SortTags.Distinct().ToList();
-            if (!SortTags.Contains(checkBoxSender.Text))
-            {
-                if (checkBoxSender.CheckState == CheckState.Checked)
-                {
-                    CheckboxTagCount += 1;
-                }
-                else
-                {
-                    CheckboxTagCount -= 1;
-                }
-                TagCounter();
-            }
+            TagCounter();
         }
 
 

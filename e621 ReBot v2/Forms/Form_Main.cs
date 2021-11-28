@@ -85,6 +85,7 @@ namespace e621_ReBot_v2
             BQB_Pawoo.Click += BrowserQuickButton_Click;
             BQB_Weasyl.Click += BrowserQuickButton_Click;
             BQB_Baraag.Click += BrowserQuickButton_Click;
+            BQB_HentaiFoundry.Click += BrowserQuickButton_Click;
 
             cCheckGroupBox_Grab.Paint += CCheckGroupBox_Jobs_Paint;
             cCheckGroupBox_Upload.Paint += CCheckGroupBox_Jobs_Paint;
@@ -1919,11 +1920,6 @@ namespace e621_ReBot_v2
         private void PictureBox_GitHub_Click(object sender, EventArgs e)
         {
             Process.Start("https://github.com/e621-ReBot/e621-ReBot-v2");
-        }
-
-        private void Label_FlashPlayer_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://get.adobe.com/flashplayer/otherversions/");
         }
 
         private void PictureBox_KoFi_Click(object sender, EventArgs e)

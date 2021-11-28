@@ -7,6 +7,7 @@ using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
@@ -47,14 +48,20 @@ namespace e621_ReBot_v2.Modules
         {
             CefSettings CefSharp_Settings = new CefSettings
             {
-                CachePath = Application.StartupPath + "\\CefSharp Cache",
+                CachePath = $"{Application.StartupPath}\\CefSharp Cache",
                 PersistSessionCookies = true,
                 BackgroundColor = (uint)ColorTranslator.ToWin32(Color.DimGray),
-                BrowserSubprocessPath = Application.StartupPath + "\\CefSharp.BrowserSubprocess.exe",
+                BrowserSubprocessPath = $"{Application.StartupPath}\\CefSharp Browser\\CefSharp.BrowserSubprocess.exe",
                 LogSeverity = LogSeverity.Error
             };
             CefSharp_Settings.BackgroundColor = Cef.ColorSetARGB(255, 105, 105, 105);
-            CefSharp_Settings.CefCommandLineArgs.Add("enable-system-flash");
+            CefSharp_Settings.CefCommandLineArgs.Add("enable-system-flash" , "1");
+            //if (File.Exists("pepflashplayer32_32_0_0_465.dll"))
+            //{
+            //    CefSharp_Settings.CefCommandLineArgs.Add("ppapi-flash-path", $"{Application.StartupPath}\\pepflashplayer32_32_0_0_465.dll");
+            //    CefSharp_Settings.CefCommandLineArgs.Add("ppapi-flash-version", "33.0.0.465");
+            //    CefSharp_Settings.CefCommandLineArgs.Add("plugin-policy", "allow");
+            //}
             Cef.EnableHighDPISupport();
             Cef.Initialize(CefSharp_Settings);
             _RequestHandler = new CefSharp_RequestHandler();
@@ -239,10 +246,10 @@ namespace e621_ReBot_v2.Modules
                     // Twitter is special
                     if (WebAdress.Contains("https://twitter.com/"))
                     {
-                        timer_Twitter.Start();
                         Form_Loader._FormReference.BB_Grab_All.Text = "Grab All";
                         Form_Loader._FormReference.LastBrowserPosition = 0;
                         Form_Loader._FormReference.LastBrowserPositionCounter = 0;
+                        timer_Twitter.Start();
                         return;
                     }
 
@@ -304,23 +311,28 @@ namespace e621_ReBot_v2.Modules
             {
                 if (WebDoc.DocumentNode.SelectSingleNode(".//main[@role='main']//div[@data-testid='emptyState']") == null)
                 {
-                    if (CefSharpBrowser.Address.Contains("/status/") && !CefSharpBrowser.Address.Contains("/photo/"))
+                    if (CefSharpBrowser.Address.Contains("/status/"))
                     {
-                        HtmlNode TweetNodeFinder = WebDoc.DocumentNode.SelectSingleNode(".//article[@data-testid='tweet']");
-                        if (TweetNodeFinder == null)
+                        if (!CefSharpBrowser.Address.Contains("/photo/"))
                         {
-                            timer_Twitter.Start();
-                            return;
-                        }
+                            HtmlNode TweetNodeFinder = WebDoc.DocumentNode.SelectSingleNode(".//article[@data-testid='tweet']");
+                            if (TweetNodeFinder == null)
+                            {
+                                timer_Twitter.Start();
+                                return;
+                            }
 
-                        if (TweetNodeFinder.InnerHtml.Contains("The following media includes potentially sensitive content."))
-                        {
-                            CefSharpBrowser.ExecuteScriptAsync("document.querySelector(\"article[data-testid='tweet'] article[role='article'] div[role='button']:not([aria-label])\").click()");
+                            if (TweetNodeFinder.InnerHtml.Contains("The following media includes potentially sensitive content."))
+                            {
+                                CefSharpBrowser.ExecuteScriptAsync("document.querySelector(\"article[data-testid='tweet'] article[role='article'] div[role='button']:not([aria-label])\").click()");
+                            }
+                            Form_Loader._FormReference.BB_Grab.Visible = true;
+                            Form_Loader._FormReference.BB_Grab_All.Visible = false;
                         }
-                        Form_Loader._FormReference.BB_Grab.Visible = true;
-                        Form_Loader._FormReference.BB_Grab_All.Visible = false;
+                        return;
                     }
-                    else if (!CefSharpBrowser.Address.Contains("/search?"))
+
+                    if (!CefSharpBrowser.Address.Contains("/search?"))
                     {
                         HtmlNode TweetNodeFinder = WebDoc.DocumentNode.SelectSingleNode(".//h1[@id='accessible-list-2']");
                         if (TweetNodeFinder != null)
@@ -354,6 +366,15 @@ namespace e621_ReBot_v2.Modules
             }
             else
             {
+                if (CefSharpBrowser.Address.Contains("/status/"))
+                {
+                    if (!CefSharpBrowser.Address.Contains("/photo/"))
+                    {
+                        Form_Loader._FormReference.BB_Grab.Visible = true;
+                        Form_Loader._FormReference.BB_Grab_All.Visible = false;
+                    }
+                    return;
+                }
                 Form_Loader._FormReference.BB_Grab.Visible = true;
                 Form_Loader._FormReference.BB_Grab_All.Visible = true;
             }
