@@ -46,7 +46,10 @@ namespace e621_ReBot_v2.CustomControls
             GraphicsPath path = new GraphicsPath();
             path.AddPolygon(HexagonPoints);
             Region = new Region(path);
-            e.Graphics.DrawLine(new Pen(Color.Black, 1), new Point(5, 13), new Point(12, 13)); // there's no line at the bottom so draw it.
+            using (Pen TempPen = new Pen(Color.Black, 1))
+            {
+                e.Graphics.DrawLine(TempPen, new Point(5, 13), new Point(12, 13)); // there's no line at the bottom so draw it.
+            }         
         }
 
         private void MenuButton_MouseEnter(object sender, EventArgs e)
@@ -65,7 +68,7 @@ namespace e621_ReBot_v2.CustomControls
             // 
             // Button_MenuClose
             // 
-            Font = new Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Pixel, ((byte)(0)));
             ResumeLayout(false);
 
         }

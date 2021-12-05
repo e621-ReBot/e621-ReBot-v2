@@ -31,7 +31,10 @@ namespace e621_ReBot_v2.CustomControls
                 {
                     g.AddString(Text, Font.FontFamily, (int)Font.Style, Font.Size + ExtraSize, ClientRectangle, sf);
                 }
-                e.Graphics.DrawPath(new Pen(Color.Black, StokeSize), g);
+                using (Pen TempPen = new Pen(Color.Black, StokeSize))
+                {
+                    e.Graphics.DrawPath(TempPen, g);
+                }
                 e.Graphics.FillPath(new SolidBrush(ForeColor), g);
             }
         }

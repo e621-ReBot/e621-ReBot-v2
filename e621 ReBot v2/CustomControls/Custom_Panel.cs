@@ -43,7 +43,7 @@ namespace e621_ReBot_v2.CustomControls
             // 
             // Custom_Panel
             // 
-            Font = new Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Pixel, ((byte)(0)));
             SizeChanged += new System.EventHandler(Custom_Panel_SizeChanged);
             Paint += new PaintEventHandler(Custom_Panel_Paint);
             ResumeLayout(false);

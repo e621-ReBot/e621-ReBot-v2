@@ -42,7 +42,7 @@ namespace e621_ReBot_v2.CustomControls
             // 
             // Custom_TabControl
             // 
-            Font = new Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Pixel, ((byte)(0)));
             ResumeLayout(false);
 
         }

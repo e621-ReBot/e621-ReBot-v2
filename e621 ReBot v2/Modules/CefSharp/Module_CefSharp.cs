@@ -55,7 +55,7 @@ namespace e621_ReBot_v2.Modules
                 LogSeverity = LogSeverity.Error
             };
             CefSharp_Settings.BackgroundColor = Cef.ColorSetARGB(255, 105, 105, 105);
-            CefSharp_Settings.CefCommandLineArgs.Add("enable-system-flash" , "1");
+            //CefSharp_Settings.CefCommandLineArgs.Add("enable-system-flash" , "1");
             //if (File.Exists("pepflashplayer32_32_0_0_465.dll"))
             //{
             //    CefSharp_Settings.CefCommandLineArgs.Add("ppapi-flash-path", $"{Application.StartupPath}\\pepflashplayer32_32_0_0_465.dll");

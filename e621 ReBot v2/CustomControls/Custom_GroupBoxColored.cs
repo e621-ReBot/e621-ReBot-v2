@@ -76,7 +76,7 @@ namespace e621_ReBot_v2.CustomControls
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            base.OnPaint(e);
+            //base.OnPaint(e);
 
             Size tSize = TextRenderer.MeasureText(Text, Font);
 

@@ -282,7 +282,10 @@ namespace e621_ReBot_v2.CustomControls
                                 gPath.AddString(PieceIndex.ToString(), Font.FontFamily, (int)Font.Style, FontSize, new Rectangle(new Point(0, _PieceHeight - 32), new Size(48, 32)), StringFormatTemp);
                             }
                         }
-                        TempGraphics.DrawPath(new Pen(Color.Black, 4), gPath);
+                        using (Pen TempPen = new Pen(Color.Black, 4))
+                        {
+                            TempGraphics.DrawPath(TempPen, gPath);
+                        }        
                         TempGraphics.FillPath(new SolidBrush(Color.DarkOrange), gPath);
                     }
                 }

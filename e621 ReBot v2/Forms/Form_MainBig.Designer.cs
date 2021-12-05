@@ -87,27 +87,27 @@
             // bU_RefreshCredit
             // 
             this.bU_RefreshCredit.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_RefreshCredit.Location = new System.Drawing.Point(1103, 439);
+            this.bU_RefreshCredit.Location = new System.Drawing.Point(323, 70);
             // 
             // bU_Blacklist
             // 
             this.bU_Blacklist.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_Blacklist.Location = new System.Drawing.Point(876, 439);
+            this.bU_Blacklist.Location = new System.Drawing.Point(1063, 355);
             // 
             // bU_PoolWatcher
             // 
             this.bU_PoolWatcher.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_PoolWatcher.Location = new System.Drawing.Point(648, 439);
+            this.bU_PoolWatcher.Location = new System.Drawing.Point(552, 614);
             // 
             // cGroupBoxColored_Volume
             // 
-            this.cGroupBoxColored_Volume.Location = new System.Drawing.Point(1355, 508);
-            this.cGroupBoxColored_Volume.Margin = new System.Windows.Forms.Padding(4, 32, 256, 4);
+            this.cGroupBoxColored_Volume.Location = new System.Drawing.Point(1063, 256);
+            this.cGroupBoxColored_Volume.Margin = new System.Windows.Forms.Padding(4, 256, 32, 4);
             this.cGroupBoxColored_Volume.Text = "Volume (100%)";
             // 
             // panel_CheckBoxOptions
             // 
-            this.panel_CheckBoxOptions.Location = new System.Drawing.Point(256, 614);
+            this.panel_CheckBoxOptions.Location = new System.Drawing.Point(260, 614);
             this.panel_CheckBoxOptions.Margin = new System.Windows.Forms.Padding(256, 32, 4, 4);
             // 
             // bU_ResetSettings
@@ -118,28 +118,28 @@
             // 
             // cGroupBoxColored_AutocompleteTagEditor
             // 
-            this.cGroupBoxColored_AutocompleteTagEditor.Location = new System.Drawing.Point(648, 348);
-            this.cGroupBoxColored_AutocompleteTagEditor.Size = new System.Drawing.Size(575, 32);
+            this.cGroupBoxColored_AutocompleteTagEditor.Location = new System.Drawing.Point(1063, 540);
+            this.cGroupBoxColored_AutocompleteTagEditor.Size = new System.Drawing.Size(548, 32);
             // 
             // cGroupBoxColored_NamingE621
             // 
-            this.cGroupBoxColored_NamingE621.Location = new System.Drawing.Point(1355, 340);
+            this.cGroupBoxColored_NamingE621.Location = new System.Drawing.Point(260, 424);
+            this.cGroupBoxColored_NamingE621.Margin = new System.Windows.Forms.Padding(256, 32, 4, 4);
             // 
             // cGroupBoxColored_DownloadsFolderLocation
             // 
-            this.cGroupBoxColored_DownloadsFolderLocation.Location = new System.Drawing.Point(648, 264);
-            this.cGroupBoxColored_DownloadsFolderLocation.Margin = new System.Windows.Forms.Padding(128, 72, 128, 4);
-            this.cGroupBoxColored_DownloadsFolderLocation.Size = new System.Drawing.Size(575, 32);
+            this.cGroupBoxColored_DownloadsFolderLocation.Location = new System.Drawing.Point(1063, 432);
+            this.cGroupBoxColored_DownloadsFolderLocation.Margin = new System.Windows.Forms.Padding(4, 72, 256, 4);
             // 
             // cGroupBoxColored_AppNotes
             // 
-            this.cGroupBoxColored_AppNotes.Location = new System.Drawing.Point(256, 424);
-            this.cGroupBoxColored_AppNotes.Margin = new System.Windows.Forms.Padding(256, 32, 4, 4);
+            this.cGroupBoxColored_AppNotes.Location = new System.Drawing.Point(552, 256);
+            this.cGroupBoxColored_AppNotes.Margin = new System.Windows.Forms.Padding(32, 256, 4, 4);
             // 
             // cGroupBoxColored_APIKey
             // 
-            this.cGroupBoxColored_APIKey.Location = new System.Drawing.Point(256, 340);
-            this.cGroupBoxColored_APIKey.Margin = new System.Windows.Forms.Padding(256, 32, 4, 4);
+            this.cGroupBoxColored_APIKey.Location = new System.Drawing.Point(260, 256);
+            this.cGroupBoxColored_APIKey.Margin = new System.Windows.Forms.Padding(256, 256, 4, 4);
             // 
             // cGroupBoxColored_Update
             // 
@@ -148,8 +148,8 @@
             // 
             // cGroupBoxColored_AppName
             // 
-            this.cGroupBoxColored_AppName.Location = new System.Drawing.Point(256, 256);
-            this.cGroupBoxColored_AppName.Margin = new System.Windows.Forms.Padding(256, 256, 4, 4);
+            this.cGroupBoxColored_AppName.Location = new System.Drawing.Point(68, 64);
+            this.cGroupBoxColored_AppName.Margin = new System.Windows.Forms.Padding(64, 64, 4, 4);
             // 
             // pictureBox_Logo
             // 
@@ -225,7 +225,7 @@
             // 
             // QuickButtonPanel
             // 
-            this.QuickButtonPanel.Location = new System.Drawing.Point(772, 337);
+            this.QuickButtonPanel.Location = new System.Drawing.Point(803, 374);
             // 
             // panel_Browser
             // 
@@ -253,17 +253,17 @@
             // 
             // cGroupBoxColored_GridItemStyle
             // 
-            this.cGroupBoxColored_GridItemStyle.Location = new System.Drawing.Point(1355, 592);
+            this.cGroupBoxColored_GridItemStyle.Location = new System.Drawing.Point(552, 340);
             // 
             // cGroupBoxColored_ProgressBarStyle
             // 
-            this.cGroupBoxColored_ProgressBarStyle.Location = new System.Drawing.Point(1491, 592);
+            this.cGroupBoxColored_ProgressBarStyle.Location = new System.Drawing.Point(688, 340);
             this.cGroupBoxColored_ProgressBarStyle.Margin = new System.Windows.Forms.Padding(64, 32, 256, 4);
             // 
             // cGroupBoxColored_GrabDisplayOrder
             // 
-            this.cGroupBoxColored_GrabDisplayOrder.Location = new System.Drawing.Point(1355, 676);
-            this.cGroupBoxColored_GrabDisplayOrder.Margin = new System.Windows.Forms.Padding(4, 32, 256, 4);
+            this.cGroupBoxColored_GrabDisplayOrder.Location = new System.Drawing.Point(260, 340);
+            this.cGroupBoxColored_GrabDisplayOrder.Margin = new System.Windows.Forms.Padding(256, 32, 4, 4);
             // 
             // cCheckGroupBox_Info
             // 
@@ -302,13 +302,13 @@
             // bU_DLPools
             // 
             this.bU_DLPools.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_DLPools.Location = new System.Drawing.Point(648, 544);
+            this.bU_DLPools.Location = new System.Drawing.Point(688, 544);
             this.bU_DLPools.Margin = new System.Windows.Forms.Padding(256, 4, 4, 256);
             // 
             // bU_DLTags
             // 
             this.bU_DLTags.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_DLTags.Location = new System.Drawing.Point(648, 514);
+            this.bU_DLTags.Location = new System.Drawing.Point(688, 514);
             this.bU_DLTags.Margin = new System.Windows.Forms.Padding(256, 4, 4, 256);
             // 
             // cTreeView_GrabQueue
@@ -334,17 +334,16 @@
             // bU_AutoTagsAdd
             // 
             this.bU_AutoTagsAdd.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_AutoTagsAdd.Location = new System.Drawing.Point(512, 6);
+            this.bU_AutoTagsAdd.Location = new System.Drawing.Point(485, 6);
             // 
             // bU_AutoTagsRemove
             // 
             this.bU_AutoTagsRemove.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_AutoTagsRemove.Location = new System.Drawing.Point(543, 6);
+            this.bU_AutoTagsRemove.Location = new System.Drawing.Point(516, 6);
             // 
             // bU_DownloadFolderChange
             // 
             this.bU_DownloadFolderChange.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_DownloadFolderChange.Location = new System.Drawing.Point(515, 6);
             // 
             // textBox_AutoTagsEditor
             // 
@@ -356,16 +355,17 @@
             // 
             // cGroupBoxColored_ConversionistOptions
             // 
-            this.cGroupBoxColored_ConversionistOptions.Location = new System.Drawing.Point(257, 508);
+            this.cGroupBoxColored_ConversionistOptions.Location = new System.Drawing.Point(260, 508);
             this.cGroupBoxColored_ConversionistOptions.Margin = new System.Windows.Forms.Padding(256, 32, 4, 4);
             // 
             // cGroupBoxColored_ActionDelay
             // 
-            this.cGroupBoxColored_ActionDelay.Location = new System.Drawing.Point(1103, 508);
+            this.cGroupBoxColored_ActionDelay.Location = new System.Drawing.Point(1491, 330);
+            this.cGroupBoxColored_ActionDelay.Margin = new System.Windows.Forms.Padding(4, 32, 256, 4);
             // 
             // label_DragDropConvert
             // 
-            this.label_DragDropConvert.Location = new System.Drawing.Point(876, 514);
+            this.label_DragDropConvert.Location = new System.Drawing.Point(552, 515);
             this.label_DragDropConvert.Size = new System.Drawing.Size(120, 61);
             // 
             // bU_KoFi
@@ -378,7 +378,7 @@
             // bU_GetGenders
             // 
             this.bU_GetGenders.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_GetGenders.Location = new System.Drawing.Point(256, 779);
+            this.bU_GetGenders.Location = new System.Drawing.Point(1191, 355);
             // 
             // bU_DownloadPageDown
             // 
@@ -441,7 +441,7 @@
             // 
             // cGroupBoxColored_NamingWeb
             // 
-            this.cGroupBoxColored_NamingWeb.Location = new System.Drawing.Point(1355, 424);
+            this.cGroupBoxColored_NamingWeb.Location = new System.Drawing.Point(552, 424);
             // 
             // pictureBox_GitHub
             // 
@@ -468,7 +468,8 @@
             // bU_AppData
             // 
             this.bU_AppData.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_AppData.Location = new System.Drawing.Point(1355, 743);
+            this.bU_AppData.Location = new System.Drawing.Point(1547, 675);
+            this.bU_AppData.Margin = new System.Windows.Forms.Padding(4, 4, 256, 32);
             // 
             // CC_GameAnimations
             // 
@@ -508,7 +509,7 @@
             // bU_GetDNPs
             // 
             this.bU_GetDNPs.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_GetDNPs.Location = new System.Drawing.Point(393, 779);
+            this.bU_GetDNPs.Location = new System.Drawing.Point(1319, 355);
             // 
             // panel_ComboBoxBlocker
             // 

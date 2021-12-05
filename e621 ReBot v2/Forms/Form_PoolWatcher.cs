@@ -201,7 +201,7 @@ namespace e621_ReBot_v2.Forms
                 JObject PoolData_JSON = Pool2Get.Key;
 
                 string PostsString = string.Join(",", Pool2Get.Value);
-                string e6JSONResult = Module_e621Info.e621InfoDownload("https://e621.net/posts.json?tags=id:" + PostsString, true);
+                string e6JSONResult = Module_e621Info.e621InfoDownload($"https://e621.net/posts.json?tags=id:{PostsString}", true);
                 if (e6JSONResult != null && e6JSONResult.Length > 24)
                 {
                     JToken CurrentPoolPosts_Unsorted = JObject.Parse(e6JSONResult)["posts"];

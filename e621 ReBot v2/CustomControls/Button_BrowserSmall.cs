@@ -72,10 +72,13 @@ namespace e621_ReBot_v2.CustomControls
                 theta += dtheta;
             }
 
-            var path = new GraphicsPath();
+            GraphicsPath path = new GraphicsPath();
             path.AddPolygon(HexagonPoints);
             Region = new Region(path);
-            e.Graphics.DrawPolygon(new Pen(Color.Black, 2f), HexagonPoints);
+            using (Pen TempPen = new Pen(Color.Black, 2))
+            {
+                e.Graphics.DrawPolygon(TempPen, HexagonPoints);
+            }
         }
     }
 }

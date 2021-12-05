@@ -33,6 +33,7 @@ namespace e621_ReBot_v2
     //Comment Searching RegEx ^((\s*/+)).
     public partial class Form_Main : Form
     {
+        //designer for big form doesn't work becase of this ???
         protected override void WndProc(ref Message message)
         {
             if (message.Msg == Program.WM_SHOWFIRSTINSTANCE)
@@ -601,7 +602,10 @@ namespace e621_ReBot_v2
         private void Panel_Browser_Paint(object sender, PaintEventArgs e)
         {
             ControlPaint.DrawBorder(e.Graphics, panel_Browser.ClientRectangle, Color.Black, ButtonBorderStyle.Solid);
-            e.Graphics.DrawLine(new Pen(Color.Black, 1), new Point(panel_BrowserDisplay.Location.X, panel_BrowserDisplay.Location.Y - 1), new Point(panel_BrowserDisplay.Width, panel_BrowserDisplay.Location.Y - 1));
+            using (Pen TempPen = new Pen(Color.Black, 1))
+            {
+                e.Graphics.DrawLine(TempPen, new Point(panel_BrowserDisplay.Location.X, panel_BrowserDisplay.Location.Y - 1), new Point(panel_BrowserDisplay.Width, panel_BrowserDisplay.Location.Y - 1));
+            }
         }
 
         private void SetQuickButtonPanelRegion()
@@ -624,24 +628,29 @@ namespace e621_ReBot_v2
             System.Runtime.InteropServices.Marshal.Copy(bmpData.Scan0, rgbValues, 0, numBytes);
 
             int LineStart;
-            for (int y = 20; y <= BGHeight - 76; y++)
+            for (int y = 0; y < BGHeight; y++)
             {
-                LineStart = 0;
-                for (int x = 31; x <= BGWidth - 30; x++)
+                LineStart = -1;
+                for (int x = 0; x < BGWidth; x++)
                 {
                     // Get the various pixel locations  This calculation is for a 32bpp Argb bitmap
                     int ByteLocation = (y * BGWidth * PixelSize) + (x * PixelSize);
 
                     if (rgbValues[ByteLocation + 3] != 0)
                     {
-                        if (LineStart == 0)
+                        if (x == 0)
+                        {
+                            PanelRegionPath.AddRectangle(new Rectangle(new Point(0, y), new Size(BGWidth, 1)));
+                            break;
+                        }
+                        if (LineStart == -1)
                         {
                             LineStart = x;
                         }
                     }
                     else
                     {
-                        if (LineStart != 0)
+                        if (LineStart != -1)
                         {
                             PanelRegionPath.AddRectangle(new Rectangle(new Point(LineStart, y), new Size(x - LineStart, 1)));
                             break;
@@ -980,9 +989,13 @@ namespace e621_ReBot_v2
         private void TabPage_Grid_Paint(object sender, PaintEventArgs e)
         {
             Form_Loader.LastAltState = !Form_Loader.LastAltState;
-            e.Graphics.DrawLine(new Pen(Color.Black, 1), new Point(0, tabPage_Grid.Height - 27), new Point(tabPage_Grid.Width, tabPage_Grid.Height - 27)); //Horizontal, at bottom
-            e.Graphics.DrawLine(new Pen(Color.Black, 1), new Point(36 - 1, tabPage_Grid.Height - 27), new Point(36 - 1, tabPage_Grid.Height)); // Vertical, left
-            e.Graphics.DrawLine(new Pen(Color.Black, 1), new Point(tabPage_Grid.Width - 36, tabPage_Grid.Height - 27), new Point(tabPage_Grid.Width - 36, tabPage_Grid.Height)); // Vertical, right
+            using (Pen TempPen = new Pen(Color.Black, 1))
+            {
+                e.Graphics.DrawLine(TempPen, new Point(0, tabPage_Grid.Height - 27), new Point(tabPage_Grid.Width, tabPage_Grid.Height - 27)); //Horizontal, at bottom
+                e.Graphics.DrawLine(TempPen, new Point(36 - 1, tabPage_Grid.Height - 27), new Point(36 - 1, tabPage_Grid.Height)); // Vertical, left
+                e.Graphics.DrawLine(TempPen, new Point(tabPage_Grid.Width - 36, tabPage_Grid.Height - 27), new Point(tabPage_Grid.Width - 36, tabPage_Grid.Height)); // Vertical, right
+            }
+
         }
 
         public int GridIndexTracker = 0;
@@ -1939,6 +1952,14 @@ namespace e621_ReBot_v2
 
         #region "Settings"
 
+        //private void TabPage_Settings_Paint(object sender, PaintEventArgs e)
+        //{
+        //    using (Pen TempPen = new Pen(Color.Black, 1))
+        //    {
+        //        TempPen.DashStyle = DashStyle.DashDotDot;
+        //        e.Graphics.DrawLine(TempPen, new Point(36, 129), new Point(1229, 129));
+        //    }
+        //}
 
         private void TabPage_Settings_Enter(object sender, EventArgs e)
         {
@@ -2235,9 +2256,12 @@ namespace e621_ReBot_v2
         private void Panel_CheckBoxOptions_Paint(object sender, PaintEventArgs e)
         {
             int TempHeightHolder = panel_CheckBoxOptions.Height - (CheckBox_DontFlag.Visible ? 0 : 24) - 1;
-            e.Graphics.DrawLine(new Pen(Color.Black, 1), new Point(0, 0), new Point(0, TempHeightHolder));
-            e.Graphics.DrawLine(new Pen(Color.Black, 1), new Point(0, 0), new Point(8, 0));
-            e.Graphics.DrawLine(new Pen(Color.Black, 1), new Point(0, TempHeightHolder), new Point(8, TempHeightHolder));
+            using (Pen TempPen = new Pen(Color.Black, 1))
+            {
+                e.Graphics.DrawLine(TempPen, new Point(0, 0), new Point(0, TempHeightHolder));
+                e.Graphics.DrawLine(TempPen, new Point(0, 0), new Point(8, 0));
+                e.Graphics.DrawLine(TempPen, new Point(0, TempHeightHolder), new Point(8, TempHeightHolder));
+            }
         }
 
         private void RadioButton_GridItemStyle_CheckedChanged(object sender, EventArgs e)
@@ -3012,5 +3036,6 @@ namespace e621_ReBot_v2
         }
 
         #endregion
+
     }
 }

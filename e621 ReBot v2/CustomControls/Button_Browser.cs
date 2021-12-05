@@ -45,14 +45,17 @@ namespace e621_ReBot_v2.CustomControls
             path.AddPolygon(HexagonPoints);
             Region = new Region(path);
             // e.Graphics.DrawPolygon(New Pen(Color.Black, 2), HexagonPoints)
-            e.Graphics.DrawLine(new Pen(Color.Black, 1), HexagonPoints[0], HexagonPoints[1]);
-            e.Graphics.DrawLine(new Pen(Color.Black, 2), HexagonPoints[1], HexagonPoints[2]);
-            e.Graphics.DrawLine(new Pen(Color.Black, 2), HexagonPoints[2], HexagonPoints[3]);
-            e.Graphics.DrawLine(new Pen(Color.Black, 2), HexagonPoints[3], HexagonPoints[4]);
-            e.Graphics.DrawLine(new Pen(Color.Black, 2), HexagonPoints[4], HexagonPoints[5]);
-            e.Graphics.DrawLine(new Pen(Color.Black, 2), HexagonPoints[5], HexagonPoints[6]);
-            e.Graphics.DrawLine(new Pen(Color.Black, 2), HexagonPoints[6], HexagonPoints[7]);
-            e.Graphics.DrawLine(new Pen(Color.Black, 2), HexagonPoints[7], HexagonPoints[0]);
+            using (Pen TempPen = new Pen(Color.Black, 2))
+            {
+                e.Graphics.DrawLine(TempPen, HexagonPoints[0], HexagonPoints[1]);
+                e.Graphics.DrawLine(TempPen, HexagonPoints[1], HexagonPoints[2]);
+                e.Graphics.DrawLine(TempPen, HexagonPoints[2], HexagonPoints[3]);
+                e.Graphics.DrawLine(TempPen, HexagonPoints[3], HexagonPoints[4]);
+                e.Graphics.DrawLine(TempPen, HexagonPoints[4], HexagonPoints[5]);
+                e.Graphics.DrawLine(TempPen, HexagonPoints[5], HexagonPoints[6]);
+                e.Graphics.DrawLine(TempPen, HexagonPoints[6], HexagonPoints[7]);
+                e.Graphics.DrawLine(TempPen, HexagonPoints[7], HexagonPoints[0]);
+            }         
         }
 
         private void InitializeComponent()
@@ -61,7 +64,7 @@ namespace e621_ReBot_v2.CustomControls
             // 
             // Button_Browser
             // 
-            Font = new Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Pixel, 0);
             ResumeLayout(false);
 
         }

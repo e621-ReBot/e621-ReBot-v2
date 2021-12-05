@@ -431,7 +431,7 @@
             this.BQB_Baraag.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.BQB_Baraag.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.BQB_Baraag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BQB_Baraag.Location = new System.Drawing.Point(30, 76);
+            this.BQB_Baraag.Location = new System.Drawing.Point(-1, 55);
             this.BQB_Baraag.MaximumSize = new System.Drawing.Size(64, 56);
             this.BQB_Baraag.MinimumSize = new System.Drawing.Size(64, 56);
             this.BQB_Baraag.Name = "BQB_Baraag";
@@ -451,7 +451,7 @@
             this.BQB_Weasyl.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.BQB_Weasyl.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.BQB_Weasyl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BQB_Weasyl.Location = new System.Drawing.Point(226, 132);
+            this.BQB_Weasyl.Location = new System.Drawing.Point(195, 110);
             this.BQB_Weasyl.MaximumSize = new System.Drawing.Size(64, 56);
             this.BQB_Weasyl.MinimumSize = new System.Drawing.Size(64, 56);
             this.BQB_Weasyl.Name = "BQB_Weasyl";
@@ -471,7 +471,7 @@
             this.BQB_Pawoo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.BQB_Pawoo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.BQB_Pawoo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BQB_Pawoo.Location = new System.Drawing.Point(226, 76);
+            this.BQB_Pawoo.Location = new System.Drawing.Point(195, 55);
             this.BQB_Pawoo.MaximumSize = new System.Drawing.Size(64, 56);
             this.BQB_Pawoo.MinimumSize = new System.Drawing.Size(64, 56);
             this.BQB_Pawoo.Name = "BQB_Pawoo";
@@ -491,7 +491,7 @@
             this.BQB_Plurk.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.BQB_Plurk.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.BQB_Plurk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BQB_Plurk.Location = new System.Drawing.Point(177, 48);
+            this.BQB_Plurk.Location = new System.Drawing.Point(146, 28);
             this.BQB_Plurk.MaximumSize = new System.Drawing.Size(64, 56);
             this.BQB_Plurk.MinimumSize = new System.Drawing.Size(64, 56);
             this.BQB_Plurk.Name = "BQB_Plurk";
@@ -511,7 +511,7 @@
             this.BQB_Mastodon.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.BQB_Mastodon.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.BQB_Mastodon.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BQB_Mastodon.Location = new System.Drawing.Point(128, 20);
+            this.BQB_Mastodon.Location = new System.Drawing.Point(97, 0);
             this.BQB_Mastodon.MaximumSize = new System.Drawing.Size(64, 56);
             this.BQB_Mastodon.MinimumSize = new System.Drawing.Size(64, 56);
             this.BQB_Mastodon.Name = "BQB_Mastodon";
@@ -531,7 +531,7 @@
             this.BQB_SoFurry.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.BQB_SoFurry.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.BQB_SoFurry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BQB_SoFurry.Location = new System.Drawing.Point(79, 48);
+            this.BQB_SoFurry.Location = new System.Drawing.Point(48, 28);
             this.BQB_SoFurry.MaximumSize = new System.Drawing.Size(64, 56);
             this.BQB_SoFurry.MinimumSize = new System.Drawing.Size(64, 56);
             this.BQB_SoFurry.Name = "BQB_SoFurry";
@@ -551,7 +551,7 @@
             this.BQB_Newgrounds.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.BQB_Newgrounds.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.BQB_Newgrounds.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BQB_Newgrounds.Location = new System.Drawing.Point(79, 104);
+            this.BQB_Newgrounds.Location = new System.Drawing.Point(48, 83);
             this.BQB_Newgrounds.MaximumSize = new System.Drawing.Size(64, 56);
             this.BQB_Newgrounds.MinimumSize = new System.Drawing.Size(64, 56);
             this.BQB_Newgrounds.Name = "BQB_Newgrounds";
@@ -571,7 +571,7 @@
             this.BQB_Twitter.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.BQB_Twitter.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.BQB_Twitter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BQB_Twitter.Location = new System.Drawing.Point(79, 160);
+            this.BQB_Twitter.Location = new System.Drawing.Point(48, 138);
             this.BQB_Twitter.MaximumSize = new System.Drawing.Size(64, 56);
             this.BQB_Twitter.MinimumSize = new System.Drawing.Size(64, 56);
             this.BQB_Twitter.Name = "BQB_Twitter";
@@ -591,7 +591,7 @@
             this.BQB_FurAffinity.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.BQB_FurAffinity.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.BQB_FurAffinity.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BQB_FurAffinity.Location = new System.Drawing.Point(128, 188);
+            this.BQB_FurAffinity.Location = new System.Drawing.Point(97, 165);
             this.BQB_FurAffinity.MaximumSize = new System.Drawing.Size(64, 56);
             this.BQB_FurAffinity.MinimumSize = new System.Drawing.Size(64, 56);
             this.BQB_FurAffinity.Name = "BQB_FurAffinity";
@@ -611,7 +611,7 @@
             this.BQB_Pixiv.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.BQB_Pixiv.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.BQB_Pixiv.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BQB_Pixiv.Location = new System.Drawing.Point(177, 160);
+            this.BQB_Pixiv.Location = new System.Drawing.Point(146, 138);
             this.BQB_Pixiv.MaximumSize = new System.Drawing.Size(64, 56);
             this.BQB_Pixiv.MinimumSize = new System.Drawing.Size(64, 56);
             this.BQB_Pixiv.Name = "BQB_Pixiv";
@@ -632,7 +632,7 @@
             this.BQB_Inkbunny.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.BQB_Inkbunny.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.BQB_Inkbunny.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BQB_Inkbunny.Location = new System.Drawing.Point(177, 104);
+            this.BQB_Inkbunny.Location = new System.Drawing.Point(146, 83);
             this.BQB_Inkbunny.MaximumSize = new System.Drawing.Size(64, 56);
             this.BQB_Inkbunny.MinimumSize = new System.Drawing.Size(64, 56);
             this.BQB_Inkbunny.Name = "BQB_Inkbunny";
@@ -652,7 +652,7 @@
             this.BQB_HicceArs.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.BQB_HicceArs.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.BQB_HicceArs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BQB_HicceArs.Location = new System.Drawing.Point(128, 76);
+            this.BQB_HicceArs.Location = new System.Drawing.Point(97, 55);
             this.BQB_HicceArs.MaximumSize = new System.Drawing.Size(64, 56);
             this.BQB_HicceArs.MinimumSize = new System.Drawing.Size(64, 56);
             this.BQB_HicceArs.Name = "BQB_HicceArs";
@@ -672,7 +672,7 @@
             this.BQB_Start.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.BQB_Start.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.BQB_Start.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BQB_Start.Location = new System.Drawing.Point(128, 132);
+            this.BQB_Start.Location = new System.Drawing.Point(97, 110);
             this.BQB_Start.MaximumSize = new System.Drawing.Size(64, 56);
             this.BQB_Start.MinimumSize = new System.Drawing.Size(64, 56);
             this.BQB_Start.Name = "BQB_Start";
@@ -1331,7 +1331,7 @@
             this.bU_GetDNPs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bU_GetDNPs.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_GetDNPs.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.bU_GetDNPs.Location = new System.Drawing.Point(618, 598);
+            this.bU_GetDNPs.Location = new System.Drawing.Point(906, 163);
             this.bU_GetDNPs.Margin = new System.Windows.Forms.Padding(4);
             this.bU_GetDNPs.Name = "bU_GetDNPs";
             this.bU_GetDNPs.Size = new System.Drawing.Size(120, 28);
@@ -1353,7 +1353,8 @@
             this.bU_AppData.ForeColor = System.Drawing.Color.LightSteelBlue;
             this.bU_AppData.Image = global::e621_ReBot_v2.Properties.Resources.FolderIconSmall;
             this.bU_AppData.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.bU_AppData.Location = new System.Drawing.Point(942, 562);
+            this.bU_AppData.Location = new System.Drawing.Point(1134, 494);
+            this.bU_AppData.Margin = new System.Windows.Forms.Padding(4, 4, 64, 32);
             this.bU_AppData.Name = "bU_AppData";
             this.bU_AppData.Size = new System.Drawing.Size(64, 64);
             this.bU_AppData.TabIndex = 150;
@@ -1367,14 +1368,14 @@
             // cGroupBoxColored_NamingWeb
             // 
             this.cGroupBoxColored_NamingWeb.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_NamingWeb.BottomBorderFix = 1;
+            this.cGroupBoxColored_NamingWeb.BottomBorderFix = 0;
             this.cGroupBoxColored_NamingWeb.Controls.Add(this.Naming_web_0);
             this.cGroupBoxColored_NamingWeb.Controls.Add(this.Naming_web_1);
             this.cGroupBoxColored_NamingWeb.Controls.Add(this.Naming_web_2);
             this.cGroupBoxColored_NamingWeb.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_NamingWeb.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cGroupBoxColored_NamingWeb.Location = new System.Drawing.Point(942, 232);
-            this.cGroupBoxColored_NamingWeb.Margin = new System.Windows.Forms.Padding(4, 32, 64, 4);
+            this.cGroupBoxColored_NamingWeb.Location = new System.Drawing.Point(360, 232);
+            this.cGroupBoxColored_NamingWeb.Margin = new System.Windows.Forms.Padding(32, 32, 4, 4);
             this.cGroupBoxColored_NamingWeb.Name = "cGroupBoxColored_NamingWeb";
             this.cGroupBoxColored_NamingWeb.Padding = new System.Windows.Forms.Padding(1);
             this.cGroupBoxColored_NamingWeb.Size = new System.Drawing.Size(256, 48);
@@ -1433,7 +1434,7 @@
             this.bU_GetGenders.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bU_GetGenders.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_GetGenders.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.bU_GetGenders.Location = new System.Drawing.Point(754, 598);
+            this.bU_GetGenders.Location = new System.Drawing.Point(778, 163);
             this.bU_GetGenders.Margin = new System.Windows.Forms.Padding(4);
             this.bU_GetGenders.Name = "bU_GetGenders";
             this.bU_GetGenders.Size = new System.Drawing.Size(120, 28);
@@ -1452,9 +1453,10 @@
             this.label_DragDropConvert.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label_DragDropConvert.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.label_DragDropConvert.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.label_DragDropConvert.Location = new System.Drawing.Point(566, 322);
+            this.label_DragDropConvert.Location = new System.Drawing.Point(360, 322);
+            this.label_DragDropConvert.Margin = new System.Windows.Forms.Padding(32, 36, 4, 4);
             this.label_DragDropConvert.Name = "label_DragDropConvert";
-            this.label_DragDropConvert.Size = new System.Drawing.Size(120, 62);
+            this.label_DragDropConvert.Size = new System.Drawing.Size(120, 63);
             this.label_DragDropConvert.TabIndex = 147;
             this.label_DragDropConvert.Text = "Drop Converter";
             this.label_DragDropConvert.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1466,7 +1468,7 @@
             // cGroupBoxColored_ActionDelay
             // 
             this.cGroupBoxColored_ActionDelay.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_ActionDelay.BottomBorderFix = 1;
+            this.cGroupBoxColored_ActionDelay.BottomBorderFix = 0;
             this.cGroupBoxColored_ActionDelay.Controls.Add(this.textBox_DelayDownload);
             this.cGroupBoxColored_ActionDelay.Controls.Add(this.label_DownloadDelay);
             this.cGroupBoxColored_ActionDelay.Controls.Add(this.textBox_DelayUploader);
@@ -1475,8 +1477,8 @@
             this.cGroupBoxColored_ActionDelay.Controls.Add(this.label_GrabberDelay);
             this.cGroupBoxColored_ActionDelay.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_ActionDelay.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cGroupBoxColored_ActionDelay.Location = new System.Drawing.Point(754, 316);
-            this.cGroupBoxColored_ActionDelay.Margin = new System.Windows.Forms.Padding(64, 32, 64, 4);
+            this.cGroupBoxColored_ActionDelay.Location = new System.Drawing.Point(1078, 138);
+            this.cGroupBoxColored_ActionDelay.Margin = new System.Windows.Forms.Padding(4, 32, 64, 4);
             this.cGroupBoxColored_ActionDelay.Name = "cGroupBoxColored_ActionDelay";
             this.cGroupBoxColored_ActionDelay.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
             this.cGroupBoxColored_ActionDelay.Size = new System.Drawing.Size(120, 68);
@@ -1612,10 +1614,10 @@
             this.bU_DLPools.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bU_DLPools.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_DLPools.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.bU_DLPools.Location = new System.Drawing.Point(388, 351);
+            this.bU_DLPools.Location = new System.Drawing.Point(496, 353);
             this.bU_DLPools.Margin = new System.Windows.Forms.Padding(64, 4, 4, 64);
             this.bU_DLPools.Name = "bU_DLPools";
-            this.bU_DLPools.Size = new System.Drawing.Size(120, 31);
+            this.bU_DLPools.Size = new System.Drawing.Size(120, 32);
             this.bU_DLPools.TabIndex = 140;
             this.bU_DLPools.TabStop = false;
             this.bU_DLPools.Text = "DL Pools";
@@ -1631,10 +1633,10 @@
             this.bU_DLTags.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bU_DLTags.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_DLTags.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.bU_DLTags.Location = new System.Drawing.Point(388, 321);
+            this.bU_DLTags.Location = new System.Drawing.Point(496, 322);
             this.bU_DLTags.Margin = new System.Windows.Forms.Padding(64, 4, 4, 64);
             this.bU_DLTags.Name = "bU_DLTags";
-            this.bU_DLTags.Size = new System.Drawing.Size(120, 31);
+            this.bU_DLTags.Size = new System.Drawing.Size(120, 32);
             this.bU_DLTags.TabIndex = 139;
             this.bU_DLTags.TabStop = false;
             this.bU_DLTags.Text = "DL Tags";
@@ -1677,10 +1679,10 @@
             this.bU_RefreshCredit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bU_RefreshCredit.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_RefreshCredit.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.bU_RefreshCredit.Location = new System.Drawing.Point(754, 247);
+            this.bU_RefreshCredit.Location = new System.Drawing.Point(267, 14);
             this.bU_RefreshCredit.Margin = new System.Windows.Forms.Padding(4);
             this.bU_RefreshCredit.Name = "bU_RefreshCredit";
-            this.bU_RefreshCredit.Size = new System.Drawing.Size(120, 28);
+            this.bU_RefreshCredit.Size = new System.Drawing.Size(120, 26);
             this.bU_RefreshCredit.TabIndex = 135;
             this.bU_RefreshCredit.TabStop = false;
             this.bU_RefreshCredit.Text = "Refresh Credit";
@@ -1697,8 +1699,8 @@
             this.bU_Blacklist.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bU_Blacklist.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_Blacklist.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.bU_Blacklist.Location = new System.Drawing.Point(566, 247);
-            this.bU_Blacklist.Margin = new System.Windows.Forms.Padding(64, 4, 64, 4);
+            this.bU_Blacklist.Location = new System.Drawing.Point(650, 163);
+            this.bU_Blacklist.Margin = new System.Windows.Forms.Padding(32, 4, 4, 4);
             this.bU_Blacklist.Name = "bU_Blacklist";
             this.bU_Blacklist.Size = new System.Drawing.Size(120, 28);
             this.bU_Blacklist.TabIndex = 134;
@@ -1717,10 +1719,10 @@
             this.bU_PoolWatcher.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bU_PoolWatcher.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_PoolWatcher.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.bU_PoolWatcher.Location = new System.Drawing.Point(388, 247);
-            this.bU_PoolWatcher.Margin = new System.Windows.Forms.Padding(4);
+            this.bU_PoolWatcher.Location = new System.Drawing.Point(360, 422);
+            this.bU_PoolWatcher.Margin = new System.Windows.Forms.Padding(32, 32, 4, 4);
             this.bU_PoolWatcher.Name = "bU_PoolWatcher";
-            this.bU_PoolWatcher.Size = new System.Drawing.Size(120, 28);
+            this.bU_PoolWatcher.Size = new System.Drawing.Size(120, 48);
             this.bU_PoolWatcher.TabIndex = 133;
             this.bU_PoolWatcher.TabStop = false;
             this.bU_PoolWatcher.Text = "Pool Watcher";
@@ -1736,8 +1738,8 @@
             this.cGroupBoxColored_Volume.Controls.Add(this.TrackBar_Volume);
             this.cGroupBoxColored_Volume.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_Volume.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cGroupBoxColored_Volume.Location = new System.Drawing.Point(942, 316);
-            this.cGroupBoxColored_Volume.Margin = new System.Windows.Forms.Padding(4, 32, 64, 4);
+            this.cGroupBoxColored_Volume.Location = new System.Drawing.Point(650, 63);
+            this.cGroupBoxColored_Volume.Margin = new System.Windows.Forms.Padding(4, 64, 32, 4);
             this.cGroupBoxColored_Volume.Name = "cGroupBoxColored_Volume";
             this.cGroupBoxColored_Volume.Padding = new System.Windows.Forms.Padding(1);
             this.cGroupBoxColored_Volume.Size = new System.Drawing.Size(256, 48);
@@ -1905,17 +1907,17 @@
             // cGroupBoxColored_AutocompleteTagEditor
             // 
             this.cGroupBoxColored_AutocompleteTagEditor.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_AutocompleteTagEditor.BottomBorderFix = 1;
+            this.cGroupBoxColored_AutocompleteTagEditor.BottomBorderFix = 0;
             this.cGroupBoxColored_AutocompleteTagEditor.Controls.Add(this.bU_AutoTagsAdd);
             this.cGroupBoxColored_AutocompleteTagEditor.Controls.Add(this.textBox_AutoTagsEditor);
             this.cGroupBoxColored_AutocompleteTagEditor.Controls.Add(this.bU_AutoTagsRemove);
             this.cGroupBoxColored_AutocompleteTagEditor.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_AutocompleteTagEditor.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cGroupBoxColored_AutocompleteTagEditor.Location = new System.Drawing.Point(388, 156);
-            this.cGroupBoxColored_AutocompleteTagEditor.Margin = new System.Windows.Forms.Padding(64, 48, 64, 4);
+            this.cGroupBoxColored_AutocompleteTagEditor.Location = new System.Drawing.Point(650, 336);
+            this.cGroupBoxColored_AutocompleteTagEditor.Margin = new System.Windows.Forms.Padding(4, 48, 64, 4);
             this.cGroupBoxColored_AutocompleteTagEditor.Name = "cGroupBoxColored_AutocompleteTagEditor";
             this.cGroupBoxColored_AutocompleteTagEditor.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
-            this.cGroupBoxColored_AutocompleteTagEditor.Size = new System.Drawing.Size(486, 32);
+            this.cGroupBoxColored_AutocompleteTagEditor.Size = new System.Drawing.Size(549, 32);
             this.cGroupBoxColored_AutocompleteTagEditor.TabIndex = 126;
             this.cGroupBoxColored_AutocompleteTagEditor.TabStop = false;
             this.cGroupBoxColored_AutocompleteTagEditor.Text = "Autocomplete Tags Editor";
@@ -1930,10 +1932,10 @@
             this.bU_AutoTagsAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bU_AutoTagsAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_AutoTagsAdd.ForeColor = System.Drawing.Color.LimeGreen;
-            this.bU_AutoTagsAdd.Location = new System.Drawing.Point(423, 6);
+            this.bU_AutoTagsAdd.Location = new System.Drawing.Point(486, 6);
             this.bU_AutoTagsAdd.Margin = new System.Windows.Forms.Padding(4);
             this.bU_AutoTagsAdd.Name = "bU_AutoTagsAdd";
-            this.bU_AutoTagsAdd.Size = new System.Drawing.Size(32, 25);
+            this.bU_AutoTagsAdd.Size = new System.Drawing.Size(32, 26);
             this.bU_AutoTagsAdd.TabIndex = 124;
             this.bU_AutoTagsAdd.TabStop = false;
             this.bU_AutoTagsAdd.Text = "✓";
@@ -1970,10 +1972,10 @@
             this.bU_AutoTagsRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bU_AutoTagsRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.bU_AutoTagsRemove.ForeColor = System.Drawing.Color.Red;
-            this.bU_AutoTagsRemove.Location = new System.Drawing.Point(454, 6);
+            this.bU_AutoTagsRemove.Location = new System.Drawing.Point(517, 6);
             this.bU_AutoTagsRemove.Margin = new System.Windows.Forms.Padding(4);
             this.bU_AutoTagsRemove.Name = "bU_AutoTagsRemove";
-            this.bU_AutoTagsRemove.Size = new System.Drawing.Size(32, 25);
+            this.bU_AutoTagsRemove.Size = new System.Drawing.Size(32, 26);
             this.bU_AutoTagsRemove.TabIndex = 122;
             this.bU_AutoTagsRemove.TabStop = false;
             this.bU_AutoTagsRemove.Text = "✕";
@@ -1984,14 +1986,14 @@
             // cGroupBoxColored_NamingE621
             // 
             this.cGroupBoxColored_NamingE621.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_NamingE621.BottomBorderFix = 1;
+            this.cGroupBoxColored_NamingE621.BottomBorderFix = 0;
             this.cGroupBoxColored_NamingE621.Controls.Add(this.Naming_e6_0);
             this.cGroupBoxColored_NamingE621.Controls.Add(this.Naming_e6_1);
             this.cGroupBoxColored_NamingE621.Controls.Add(this.Naming_e6_2);
             this.cGroupBoxColored_NamingE621.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_NamingE621.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cGroupBoxColored_NamingE621.Location = new System.Drawing.Point(942, 148);
-            this.cGroupBoxColored_NamingE621.Margin = new System.Windows.Forms.Padding(4, 32, 64, 4);
+            this.cGroupBoxColored_NamingE621.Location = new System.Drawing.Point(68, 232);
+            this.cGroupBoxColored_NamingE621.Margin = new System.Windows.Forms.Padding(64, 32, 4, 4);
             this.cGroupBoxColored_NamingE621.Name = "cGroupBoxColored_NamingE621";
             this.cGroupBoxColored_NamingE621.Padding = new System.Windows.Forms.Padding(1);
             this.cGroupBoxColored_NamingE621.Size = new System.Drawing.Size(256, 48);
@@ -2045,16 +2047,16 @@
             // cGroupBoxColored_DownloadsFolderLocation
             // 
             this.cGroupBoxColored_DownloadsFolderLocation.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_DownloadsFolderLocation.BottomBorderFix = 1;
+            this.cGroupBoxColored_DownloadsFolderLocation.BottomBorderFix = 0;
             this.cGroupBoxColored_DownloadsFolderLocation.Controls.Add(this.bU_DownloadFolderChange);
             this.cGroupBoxColored_DownloadsFolderLocation.Controls.Add(this.label_DownloadsFolder);
             this.cGroupBoxColored_DownloadsFolderLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_DownloadsFolderLocation.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cGroupBoxColored_DownloadsFolderLocation.Location = new System.Drawing.Point(388, 72);
-            this.cGroupBoxColored_DownloadsFolderLocation.Margin = new System.Windows.Forms.Padding(64, 72, 64, 4);
+            this.cGroupBoxColored_DownloadsFolderLocation.Location = new System.Drawing.Point(650, 240);
+            this.cGroupBoxColored_DownloadsFolderLocation.Margin = new System.Windows.Forms.Padding(32, 72, 64, 4);
             this.cGroupBoxColored_DownloadsFolderLocation.Name = "cGroupBoxColored_DownloadsFolderLocation";
             this.cGroupBoxColored_DownloadsFolderLocation.Padding = new System.Windows.Forms.Padding(1);
-            this.cGroupBoxColored_DownloadsFolderLocation.Size = new System.Drawing.Size(486, 32);
+            this.cGroupBoxColored_DownloadsFolderLocation.Size = new System.Drawing.Size(548, 32);
             this.cGroupBoxColored_DownloadsFolderLocation.TabIndex = 125;
             this.cGroupBoxColored_DownloadsFolderLocation.TabStop = false;
             this.cGroupBoxColored_DownloadsFolderLocation.Text = "Downloads Folder Location";
@@ -2068,10 +2070,10 @@
             this.bU_DownloadFolderChange.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.bU_DownloadFolderChange.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bU_DownloadFolderChange.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.bU_DownloadFolderChange.Location = new System.Drawing.Point(426, 6);
+            this.bU_DownloadFolderChange.Location = new System.Drawing.Point(488, 6);
             this.bU_DownloadFolderChange.Margin = new System.Windows.Forms.Padding(4);
             this.bU_DownloadFolderChange.Name = "bU_DownloadFolderChange";
-            this.bU_DownloadFolderChange.Size = new System.Drawing.Size(60, 25);
+            this.bU_DownloadFolderChange.Size = new System.Drawing.Size(60, 26);
             this.bU_DownloadFolderChange.TabIndex = 122;
             this.bU_DownloadFolderChange.TabStop = false;
             this.bU_DownloadFolderChange.Text = "Change";
@@ -2218,11 +2220,11 @@
             this.cGroupBoxColored_AppName.Controls.Add(this.AppName_Label);
             this.cGroupBoxColored_AppName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_AppName.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cGroupBoxColored_AppName.Location = new System.Drawing.Point(64, 64);
-            this.cGroupBoxColored_AppName.Margin = new System.Windows.Forms.Padding(64, 64, 4, 4);
+            this.cGroupBoxColored_AppName.Location = new System.Drawing.Point(12, 8);
+            this.cGroupBoxColored_AppName.Margin = new System.Windows.Forms.Padding(8);
             this.cGroupBoxColored_AppName.Name = "cGroupBoxColored_AppName";
             this.cGroupBoxColored_AppName.Padding = new System.Windows.Forms.Padding(1);
-            this.cGroupBoxColored_AppName.Size = new System.Drawing.Size(256, 48);
+            this.cGroupBoxColored_AppName.Size = new System.Drawing.Size(256, 32);
             this.cGroupBoxColored_AppName.TabIndex = 122;
             this.cGroupBoxColored_AppName.TabStop = false;
             this.cGroupBoxColored_AppName.Text = "App Name";
@@ -2237,7 +2239,7 @@
             this.AppName_Label.Location = new System.Drawing.Point(1, 14);
             this.AppName_Label.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.AppName_Label.Name = "AppName_Label";
-            this.AppName_Label.Size = new System.Drawing.Size(254, 33);
+            this.AppName_Label.Size = new System.Drawing.Size(254, 17);
             this.AppName_Label.TabIndex = 121;
             this.AppName_Label.Text = "e621 ReBot (<Name>)";
             this.AppName_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2436,7 +2438,7 @@
             this.BQB_HentaiFoundry.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.BQB_HentaiFoundry.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.BQB_HentaiFoundry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BQB_HentaiFoundry.Location = new System.Drawing.Point(30, 132);
+            this.BQB_HentaiFoundry.Location = new System.Drawing.Point(-1, 110);
             this.BQB_HentaiFoundry.MaximumSize = new System.Drawing.Size(64, 56);
             this.BQB_HentaiFoundry.MinimumSize = new System.Drawing.Size(64, 56);
             this.BQB_HentaiFoundry.Name = "BQB_HentaiFoundry";
@@ -2660,9 +2662,9 @@
             this.QuickButtonPanel.Controls.Add(this.BQB_Inkbunny);
             this.QuickButtonPanel.Controls.Add(this.BQB_HicceArs);
             this.QuickButtonPanel.Controls.Add(this.BQB_Start);
-            this.QuickButtonPanel.Location = new System.Drawing.Point(470, 187);
+            this.QuickButtonPanel.Location = new System.Drawing.Point(504, 223);
             this.QuickButtonPanel.Name = "QuickButtonPanel";
-            this.QuickButtonPanel.Size = new System.Drawing.Size(320, 320);
+            this.QuickButtonPanel.Size = new System.Drawing.Size(259, 221);
             this.QuickButtonPanel.TabIndex = 1;
             this.QuickButtonPanel.Visible = false;
             // 
@@ -3132,7 +3134,7 @@
             this.tabPage_Info.Controls.Add(this.label_API2);
             this.tabPage_Info.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Info.Name = "tabPage_Info";
-            this.tabPage_Info.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Info.Size = new System.Drawing.Size(192, 91);
             this.tabPage_Info.TabIndex = 4;
             this.tabPage_Info.Text = "tabPage_Info";
             // 
@@ -3228,8 +3230,8 @@
             this.cGroupBoxColored_ConversionistOptions.Controls.Add(this.CheckBox_ConverterKeepOriginal);
             this.cGroupBoxColored_ConversionistOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_ConversionistOptions.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cGroupBoxColored_ConversionistOptions.Location = new System.Drawing.Point(64, 316);
-            this.cGroupBoxColored_ConversionistOptions.Margin = new System.Windows.Forms.Padding(4, 32, 64, 4);
+            this.cGroupBoxColored_ConversionistOptions.Location = new System.Drawing.Point(68, 316);
+            this.cGroupBoxColored_ConversionistOptions.Margin = new System.Windows.Forms.Padding(64, 32, 4, 4);
             this.cGroupBoxColored_ConversionistOptions.Name = "cGroupBoxColored_ConversionistOptions";
             this.cGroupBoxColored_ConversionistOptions.Padding = new System.Windows.Forms.Padding(1);
             this.cGroupBoxColored_ConversionistOptions.Size = new System.Drawing.Size(256, 70);
@@ -3241,13 +3243,13 @@
             // cGroupBoxColored_GrabDisplayOrder
             // 
             this.cGroupBoxColored_GrabDisplayOrder.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_GrabDisplayOrder.BottomBorderFix = 1;
+            this.cGroupBoxColored_GrabDisplayOrder.BottomBorderFix = 0;
             this.cGroupBoxColored_GrabDisplayOrder.Controls.Add(this.radioButton_GrabDisplayOrder1);
             this.cGroupBoxColored_GrabDisplayOrder.Controls.Add(this.radioButton_GrabDisplayOrder0);
             this.cGroupBoxColored_GrabDisplayOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_GrabDisplayOrder.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cGroupBoxColored_GrabDisplayOrder.Location = new System.Drawing.Point(942, 484);
-            this.cGroupBoxColored_GrabDisplayOrder.Margin = new System.Windows.Forms.Padding(4, 32, 64, 4);
+            this.cGroupBoxColored_GrabDisplayOrder.Location = new System.Drawing.Point(68, 148);
+            this.cGroupBoxColored_GrabDisplayOrder.Margin = new System.Windows.Forms.Padding(64, 32, 4, 4);
             this.cGroupBoxColored_GrabDisplayOrder.Name = "cGroupBoxColored_GrabDisplayOrder";
             this.cGroupBoxColored_GrabDisplayOrder.Padding = new System.Windows.Forms.Padding(1);
             this.cGroupBoxColored_GrabDisplayOrder.Size = new System.Drawing.Size(256, 48);
@@ -3259,13 +3261,13 @@
             // cGroupBoxColored_ProgressBarStyle
             // 
             this.cGroupBoxColored_ProgressBarStyle.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_ProgressBarStyle.BottomBorderFix = 1;
+            this.cGroupBoxColored_ProgressBarStyle.BottomBorderFix = 0;
             this.cGroupBoxColored_ProgressBarStyle.Controls.Add(this.panel_BorderFixer);
             this.cGroupBoxColored_ProgressBarStyle.Controls.Add(this.radioButton_ProgressBarStyle1);
             this.cGroupBoxColored_ProgressBarStyle.Controls.Add(this.radioButton_ProgressBarStyle0);
             this.cGroupBoxColored_ProgressBarStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_ProgressBarStyle.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cGroupBoxColored_ProgressBarStyle.Location = new System.Drawing.Point(1078, 400);
+            this.cGroupBoxColored_ProgressBarStyle.Location = new System.Drawing.Point(496, 148);
             this.cGroupBoxColored_ProgressBarStyle.Margin = new System.Windows.Forms.Padding(64, 32, 64, 4);
             this.cGroupBoxColored_ProgressBarStyle.Name = "cGroupBoxColored_ProgressBarStyle";
             this.cGroupBoxColored_ProgressBarStyle.Padding = new System.Windows.Forms.Padding(1);
@@ -3310,13 +3312,13 @@
             // cGroupBoxColored_GridItemStyle
             // 
             this.cGroupBoxColored_GridItemStyle.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_GridItemStyle.BottomBorderFix = 1;
+            this.cGroupBoxColored_GridItemStyle.BottomBorderFix = 0;
             this.cGroupBoxColored_GridItemStyle.Controls.Add(this.radioButton_GridItemStyle1);
             this.cGroupBoxColored_GridItemStyle.Controls.Add(this.radioButton_GridItemStyle0);
             this.cGroupBoxColored_GridItemStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_GridItemStyle.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cGroupBoxColored_GridItemStyle.Location = new System.Drawing.Point(942, 400);
-            this.cGroupBoxColored_GridItemStyle.Margin = new System.Windows.Forms.Padding(64, 32, 4, 4);
+            this.cGroupBoxColored_GridItemStyle.Location = new System.Drawing.Point(360, 148);
+            this.cGroupBoxColored_GridItemStyle.Margin = new System.Windows.Forms.Padding(32, 32, 4, 4);
             this.cGroupBoxColored_GridItemStyle.Name = "cGroupBoxColored_GridItemStyle";
             this.cGroupBoxColored_GridItemStyle.Padding = new System.Windows.Forms.Padding(1);
             this.cGroupBoxColored_GridItemStyle.Size = new System.Drawing.Size(136, 48);
@@ -3358,7 +3360,7 @@
             this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_ExpandedDescription);
             this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_AutocompleteTags);
             this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_RemoveBVAS);
-            this.panel_CheckBoxOptions.Location = new System.Drawing.Point(64, 422);
+            this.panel_CheckBoxOptions.Location = new System.Drawing.Point(68, 422);
             this.panel_CheckBoxOptions.Margin = new System.Windows.Forms.Padding(64, 32, 4, 4);
             this.panel_CheckBoxOptions.Name = "panel_CheckBoxOptions";
             this.panel_CheckBoxOptions.Size = new System.Drawing.Size(256, 172);
@@ -3368,12 +3370,12 @@
             // cGroupBoxColored_AppNotes
             // 
             this.cGroupBoxColored_AppNotes.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_AppNotes.BottomBorderFix = 1;
+            this.cGroupBoxColored_AppNotes.BottomBorderFix = 0;
             this.cGroupBoxColored_AppNotes.Controls.Add(this.bU_NoteRemove);
             this.cGroupBoxColored_AppNotes.Controls.Add(this.bU_NoteAdd);
             this.cGroupBoxColored_AppNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_AppNotes.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cGroupBoxColored_AppNotes.Location = new System.Drawing.Point(64, 232);
+            this.cGroupBoxColored_AppNotes.Location = new System.Drawing.Point(360, 64);
             this.cGroupBoxColored_AppNotes.Margin = new System.Windows.Forms.Padding(64, 32, 4, 4);
             this.cGroupBoxColored_AppNotes.Name = "cGroupBoxColored_AppNotes";
             this.cGroupBoxColored_AppNotes.Padding = new System.Windows.Forms.Padding(1);
@@ -3390,7 +3392,7 @@
             this.cGroupBoxColored_APIKey.Controls.Add(this.bU_APIKey);
             this.cGroupBoxColored_APIKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cGroupBoxColored_APIKey.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cGroupBoxColored_APIKey.Location = new System.Drawing.Point(64, 148);
+            this.cGroupBoxColored_APIKey.Location = new System.Drawing.Point(68, 64);
             this.cGroupBoxColored_APIKey.Margin = new System.Windows.Forms.Padding(64, 32, 4, 4);
             this.cGroupBoxColored_APIKey.Name = "cGroupBoxColored_APIKey";
             this.cGroupBoxColored_APIKey.Padding = new System.Windows.Forms.Padding(1);
