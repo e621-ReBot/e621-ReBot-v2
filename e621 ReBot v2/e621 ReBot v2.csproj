@@ -101,12 +101,15 @@
   <ItemGroup>
     <Reference Include="CefSharp, Version=96.0.142.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
       <HintPath>..\packages\CefSharp.Common.96.0.142\lib\net452\CefSharp.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="CefSharp.Core, Version=96.0.142.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
       <HintPath>..\packages\CefSharp.Common.96.0.142\lib\net452\CefSharp.Core.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="CefSharp.WinForms, Version=96.0.142.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
       <HintPath>..\packages\CefSharp.WinForms.96.0.142\lib\net462\CefSharp.WinForms.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.11.39.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.11.39\lib\Net45\HtmlAgilityPack.dll</HintPath>
@@ -562,8 +565,34 @@
     <Error Condition="!Exists('..\packages\CefSharp.Common.96.0.142\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.96.0.142\build\CefSharp.Common.targets'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>del "$(TargetDir)CefSharp.BrowserSubprocess.exe"
+del "$(TargetDir)CefSharp.BrowserSubprocess.pdb"
+del "$(TargetDir)CefSharp.BrowserSubprocess.Core.dll"
+del "$(TargetDir)CefSharp.BrowserSubprocess.Core.pdb"
+del "$(TargetDir)CefSharp.Core.Runtime.dll"
+del "$(TargetDir)CefSharp.Core.Runtime.pdb"
+del "$(TargetDir)CefSharp.Core.Runtime.xml"
+del "$(TargetDir)chrome_100_percent.pak"
+del "$(TargetDir)chrome_200_percent.pak"
+del "$(TargetDir)chrome_elf.dll"
+del "$(TargetDir)d3dcompiler_47.dll"
+del "$(TargetDir)icudtl.dat"
+del "$(TargetDir)libcef.dll"
+del "$(TargetDir)libEGL.dll"
+del "$(TargetDir)libGLESv2.dll"
+del "$(TargetDir)resources.pak"
+del "$(TargetDir)snapshot_blob.bin"
+del "$(TargetDir)v8_context_snapshot.bin"
+del "$(TargetDir)vk_swiftshader.dll"
+del "$(TargetDir)vk_swiftshader_icd.json"
+del "$(TargetDir)vulkan-1.dll"
+del "$(TargetDir)README.txt"
+RD /S /Q "$(TargetDir)locales"
+RD /S /Q "$(TargetDir)swiftshader"
+del "$(TargetDir)HtmlAgilityPack.pdb"
+del "$(TargetDir)HtmlAgilityPack.xml"
+del "$(TargetDir)Newtonsoft.Json.xml"
+</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
   <Import Project="..\packages\CefSharp.Common.96.0.142\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.96.0.142\build\CefSharp.Common.targets')" />

@@ -207,15 +207,24 @@ namespace e621_ReBot_v2.CustomControls
             {
                 Form_Loader._FormReference._Selected_e6GridItem.Unselect_e6GridItem();
             }
-            _IsSelectedCheck = true;
+
+            if (_IsSelectedCheck)
+            {
+                _IsSelectedCheck = false;
+            }
+            else
+            {
+                _IsSelectedCheck = true;
+                Form_Loader._FormReference._Selected_e6GridItem = this;
+            }
             DoubleClickTimerCheck.Start();
             Refresh();
-            Form_Loader._FormReference._Selected_e6GridItem = this;
         }
 
         public void Unselect_e6GridItem()
         {
-            _IsSelectedCheck = false;
+            Form_Loader._FormReference._Selected_e6GridItem._IsSelectedCheck = false;
+            Form_Loader._FormReference._Selected_e6GridItem = null;
             DoubleClickTimerCheck.Stop();
             Refresh();
         }

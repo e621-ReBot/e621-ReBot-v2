@@ -535,7 +535,10 @@ namespace e621_ReBot_v2
 
                         case Keys.T:
                             {
-                                Form_Tagger.OpenTagger(this, _Selected_e6GridItem._DataRowReference, Cursor.Position);
+                                if (_Selected_e6GridItem != null)
+                                {
+                                    Form_Tagger.OpenTagger(this, _Selected_e6GridItem._DataRowReference, Cursor.Position);
+                                }
                                 break;
                             }
 
