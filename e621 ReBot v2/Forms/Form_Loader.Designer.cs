@@ -28,15 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.timer_CursorFix = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
-            // 
-            // timer_CursorFix
-            // 
-            this.timer_CursorFix.Enabled = true;
-            this.timer_CursorFix.Interval = 250;
-            this.timer_CursorFix.Tick += new System.EventHandler(this.Timer_CursorFix_Tick);
             // 
             // Form_Loader
             // 
@@ -54,12 +46,11 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_Loader";
+            this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Timer timer_CursorFix;
     }
 }

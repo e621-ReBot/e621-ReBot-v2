@@ -54,6 +54,7 @@
             this.Note_TextBox.Location = new System.Drawing.Point(0, 0);
             this.Note_TextBox.Margin = new System.Windows.Forms.Padding(0);
             this.Note_TextBox.Name = "Note_TextBox";
+            this.Note_TextBox.ShortcutsEnabled = false;
             this.Note_TextBox.Size = new System.Drawing.Size(300, 127);
             this.Note_TextBox.TabIndex = 3;
             this.Note_TextBox.Text = "";

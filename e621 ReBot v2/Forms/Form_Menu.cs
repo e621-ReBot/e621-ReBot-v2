@@ -80,11 +80,11 @@ namespace e621_ReBot_v2.Forms
             Enabled = false;
             ActionTimer = 0;
             timer_FadeOut.Start();
+
             if (Form_APIKey._FormReference != null)
             {
                 Form_APIKey._FormReference.Close();
             }
-
             if (Form_Tagger._FormReference != null && Form_Tagger._FormReference.Owner == Form_Loader._FormReference)
             {
                 Form_Tagger._FormReference.Close();

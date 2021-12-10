@@ -79,8 +79,12 @@ namespace e621_ReBot_v2.CustomControls
             {
                 _txtInput = "✄";
             }
-            Owner.Activate();
-            Owner.Focus();
+
+            if (Owner != null)
+            {
+                Owner.Activate();
+                Owner.Focus();
+            }
             Dispose();
         }
     }

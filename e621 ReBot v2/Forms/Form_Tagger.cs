@@ -402,6 +402,8 @@ namespace e621_ReBot_v2.Forms
                             Size = new Size(320, 320),
                             StartPosition = FormStartPosition.Manual,
                             Location = new Point(Location.X - 320, Location.Y),
+                            MinimizeBox = false,
+                            MaximizeBox = false,
                             ControlBox = false,
                             ShowIcon = false,
                             ShowInTaskbar = false

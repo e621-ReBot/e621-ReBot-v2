@@ -36,128 +36,6 @@
             this.label_Credit_Upload = new System.Windows.Forms.Label();
             this.label_UserLevel = new System.Windows.Forms.Label();
             this.Menu_Btn = new System.Windows.Forms.Button();
-            this.button_AppMinimize = new e621_ReBot_v2.CustomControls.Button_App_Minimize();
-            this.button_AppClose = new e621_ReBot_v2.CustomControls.Button_App_Close();
-            this.Opene6_btn = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.BQB_Baraag = new e621_ReBot_v2.CustomControls.Button_Browser();
-            this.BQB_Weasyl = new e621_ReBot_v2.CustomControls.Button_Browser();
-            this.BQB_Pawoo = new e621_ReBot_v2.CustomControls.Button_Browser();
-            this.BQB_Plurk = new e621_ReBot_v2.CustomControls.Button_Browser();
-            this.BQB_Mastodon = new e621_ReBot_v2.CustomControls.Button_Browser();
-            this.BQB_SoFurry = new e621_ReBot_v2.CustomControls.Button_Browser();
-            this.BQB_Newgrounds = new e621_ReBot_v2.CustomControls.Button_Browser();
-            this.BQB_Twitter = new e621_ReBot_v2.CustomControls.Button_Browser();
-            this.BQB_FurAffinity = new e621_ReBot_v2.CustomControls.Button_Browser();
-            this.BQB_Pixiv = new e621_ReBot_v2.CustomControls.Button_Browser();
-            this.BQB_Inkbunny = new e621_ReBot_v2.CustomControls.Button_Browser();
-            this.BQB_HicceArs = new e621_ReBot_v2.CustomControls.Button_Browser();
-            this.BQB_Start = new e621_ReBot_v2.CustomControls.Button_Browser();
-            this.BB_Home = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.BB_Forward = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.BB_Reload = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.BB_Backward = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.BB_Bookmarks = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.BB_Grab_All = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.BB_Grab = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.BB_Download = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.GB_Upload = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.GB_Download = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.GB_Clear = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.GB_Uncheck = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.GB_Inverse = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.GB_Check = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.bU_SkipDLCache = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.bU_DownloadPageDown = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.bU_DownloadPageUp = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.bU_ClearDLHistory = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.cGroupBoxColored_DLThreads = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
-            this.RadioButton_DL1 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
-            this.RadioButton_DL2 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
-            this.RadioButton_DL3 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
-            this.RadioButton_DL4 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
-            this.bU_DownloadFolder = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.cGroupBoxColored_Downloaded = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
-            this.DownloadFLP_Downloaded = new e621_ReBot_v2.CustomControls.Custom_FlowLayoutPanel();
-            this.cGroupBoxColored_InProgress = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
-            this.DownloadFLP_InProgress = new e621_ReBot_v2.CustomControls.Custom_FlowLayoutPanel();
-            this.cCheckGroupBox_Download = new e621_ReBot_v2.CustomControls.Custom_CheckGroupBox();
-            this.bU_ReverseDownload = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.bU_CancelAPIDL = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.label_DownloadStatus = new System.Windows.Forms.Label();
-            this.cTreeView_DownloadQueue = new e621_ReBot_v2.CustomControls.Custom_TreeView();
-            this.pictureBox_GitHub = new System.Windows.Forms.PictureBox();
-            this.pictureBox_KoFi = new System.Windows.Forms.PictureBox();
-            this.pictureBox_Logo = new System.Windows.Forms.PictureBox();
-            this.label_Forum = new System.Windows.Forms.Label();
-            this.pictureBox_Discord = new System.Windows.Forms.PictureBox();
-            this.bU_GetDNPs = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.bU_AppData = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.cGroupBoxColored_NamingWeb = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
-            this.Naming_web_0 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
-            this.Naming_web_1 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
-            this.Naming_web_2 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
-            this.bU_GetGenders = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.label_DragDropConvert = new System.Windows.Forms.Label();
-            this.cGroupBoxColored_ActionDelay = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
-            this.textBox_DelayDownload = new System.Windows.Forms.TextBox();
-            this.label_DownloadDelay = new System.Windows.Forms.Label();
-            this.textBox_DelayUploader = new System.Windows.Forms.TextBox();
-            this.label_UploaderDelay = new System.Windows.Forms.Label();
-            this.textBox_DelayGrabber = new System.Windows.Forms.TextBox();
-            this.label_GrabberDelay = new System.Windows.Forms.Label();
-            this.CheckBox_ConverterDontConvertVideos = new System.Windows.Forms.CheckBox();
-            this.CheckBox_ConverterKeepOriginal = new System.Windows.Forms.CheckBox();
-            this.bU_DLPools = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.bU_DLTags = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.radioButton_GrabDisplayOrder1 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
-            this.radioButton_GrabDisplayOrder0 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
-            this.bU_RefreshCredit = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.bU_Blacklist = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.bU_PoolWatcher = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.cGroupBoxColored_Volume = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
-            this.TrackBar_Volume = new System.Windows.Forms.TrackBar();
-            this.CheckBox_ClearCache = new System.Windows.Forms.CheckBox();
-            this.CheckBox_ManualInferiorSave = new System.Windows.Forms.CheckBox();
-            this.CheckBox_DontFlag = new System.Windows.Forms.CheckBox();
-            this.CheckBox_BigMode = new System.Windows.Forms.CheckBox();
-            this.CheckBox_ExpandedDescription = new System.Windows.Forms.CheckBox();
-            this.CheckBox_AutocompleteTags = new System.Windows.Forms.CheckBox();
-            this.CheckBox_RemoveBVAS = new System.Windows.Forms.CheckBox();
-            this.bU_ResetSettings = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.cGroupBoxColored_AutocompleteTagEditor = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
-            this.bU_AutoTagsAdd = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.textBox_AutoTagsEditor = new System.Windows.Forms.TextBox();
-            this.bU_AutoTagsRemove = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.cGroupBoxColored_NamingE621 = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
-            this.Naming_e6_0 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
-            this.Naming_e6_1 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
-            this.Naming_e6_2 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
-            this.cGroupBoxColored_DownloadsFolderLocation = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
-            this.bU_DownloadFolderChange = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.label_DownloadsFolder = new System.Windows.Forms.Label();
-            this.bU_NoteRemove = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.bU_NoteAdd = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.cGroupBoxColored_Update = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
-            this.UpdateDays_30 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
-            this.UpdateDays_15 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
-            this.UpdateDays_7 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
-            this.UpdateDays_3 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
-            this.UpdateDays_1 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
-            this.cGroupBoxColored_AppName = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
-            this.AppName_Label = new System.Windows.Forms.Label();
-            this.labelPuzzle_SelectedPost = new System.Windows.Forms.Label();
-            this.CC_GameThumb = new e621_ReBot_v2.CustomControls.Custom_CheckBox();
-            this.CC_GameIndexHints = new e621_ReBot_v2.CustomControls.Custom_CheckBox();
-            this.CC_GameAnimations = new e621_ReBot_v2.CustomControls.Custom_CheckBox();
-            this.labelPuzzle_Collumns = new System.Windows.Forms.Label();
-            this.labelPuzzle_Rows = new System.Windows.Forms.Label();
-            this.rb_GameStart_3 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
-            this.rb_GameStart_1 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
-            this.rb_GameStart_2 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
-            this.bU_KoFi = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.GB_Right = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.GB_Left = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
-            this.BQB_HentaiFoundry = new e621_ReBot_v2.CustomControls.Button_Browser();
             this.Version_Label = new System.Windows.Forms.Label();
             this.Title_Label = new System.Windows.Forms.Label();
             this.Panel_Holder = new System.Windows.Forms.Panel();
@@ -177,20 +55,53 @@
             this.contextMenuStrip_Conversion = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ToolStripMenuItem_RemoveConversionNode = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_RemoveConversionAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.button_AppMinimize = new e621_ReBot_v2.CustomControls.Button_App_Minimize();
+            this.button_AppClose = new e621_ReBot_v2.CustomControls.Button_App_Close();
+            this.Opene6_btn = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.cTabControl_e621ReBot = new e621_ReBot_v2.CustomControls.Custom_TabControl();
             this.tabPage_Browser = new System.Windows.Forms.TabPage();
             this.QuickButtonPanel = new System.Windows.Forms.Panel();
+            this.BQB_HentaiFoundry = new e621_ReBot_v2.CustomControls.Button_Browser();
+            this.BQB_Baraag = new e621_ReBot_v2.CustomControls.Button_Browser();
+            this.BQB_Weasyl = new e621_ReBot_v2.CustomControls.Button_Browser();
+            this.BQB_Pawoo = new e621_ReBot_v2.CustomControls.Button_Browser();
+            this.BQB_Plurk = new e621_ReBot_v2.CustomControls.Button_Browser();
+            this.BQB_Mastodon = new e621_ReBot_v2.CustomControls.Button_Browser();
+            this.BQB_SoFurry = new e621_ReBot_v2.CustomControls.Button_Browser();
+            this.BQB_Newgrounds = new e621_ReBot_v2.CustomControls.Button_Browser();
+            this.BQB_Twitter = new e621_ReBot_v2.CustomControls.Button_Browser();
+            this.BQB_FurAffinity = new e621_ReBot_v2.CustomControls.Button_Browser();
+            this.BQB_Pixiv = new e621_ReBot_v2.CustomControls.Button_Browser();
+            this.BQB_Inkbunny = new e621_ReBot_v2.CustomControls.Button_Browser();
+            this.BQB_HicceArs = new e621_ReBot_v2.CustomControls.Button_Browser();
+            this.BQB_Start = new e621_ReBot_v2.CustomControls.Button_Browser();
             this.panel_Browser = new System.Windows.Forms.Panel();
             this.panel_ComboBoxBlocker = new System.Windows.Forms.Panel();
             this.panel_BrowserDisplay = new System.Windows.Forms.Panel();
             this.BB_Navigate = new System.Windows.Forms.Button();
             this.URL_ComboBox = new System.Windows.Forms.ComboBox();
+            this.BB_Home = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.BB_Forward = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.BB_Reload = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.BB_Backward = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.BB_Bookmarks = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.flowLayoutPanel_BrowserButtons = new System.Windows.Forms.FlowLayoutPanel();
+            this.BB_Grab_All = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.BB_Grab = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.BB_Download = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.DevTools_Button = new System.Windows.Forms.Button();
             this.tabPage_Grid = new System.Windows.Forms.TabPage();
             this.Label_PageShower = new System.Windows.Forms.Label();
             this.Label_RightPage = new System.Windows.Forms.Label();
             this.Label_LeftPage = new System.Windows.Forms.Label();
+            this.GB_Right = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.GB_Upload = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.GB_Download = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.GB_Clear = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.GB_Uncheck = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.GB_Inverse = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.GB_Check = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.GB_Left = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.flowLayoutPanel_Grid = new System.Windows.Forms.FlowLayoutPanel();
             this.tabPage_Jobs = new System.Windows.Forms.TabPage();
             this.cCheckGroupBox_Retry = new e621_ReBot_v2.CustomControls.Custom_CheckGroupBox();
@@ -209,14 +120,60 @@
             this.cCheckGroupBox_Info = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
             this.textBox_Info = new System.Windows.Forms.RichTextBox();
             this.tabPage_Download = new System.Windows.Forms.TabPage();
+            this.bU_SkipDLCache = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.bU_DownloadPageDown = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.bU_DownloadPageUp = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.bU_ClearDLHistory = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.cGroupBoxColored_DLThreads = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
+            this.RadioButton_DL1 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
+            this.RadioButton_DL2 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
+            this.RadioButton_DL3 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
+            this.RadioButton_DL4 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
+            this.bU_DownloadFolder = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.cGroupBoxColored_Downloaded = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
+            this.DownloadFLP_Downloaded = new e621_ReBot_v2.CustomControls.Custom_FlowLayoutPanel();
+            this.cGroupBoxColored_InProgress = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
+            this.DownloadFLP_InProgress = new e621_ReBot_v2.CustomControls.Custom_FlowLayoutPanel();
+            this.cCheckGroupBox_Download = new e621_ReBot_v2.CustomControls.Custom_CheckGroupBox();
+            this.bU_ReverseDownload = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.bU_CancelAPIDL = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.label_DownloadStatus = new System.Windows.Forms.Label();
+            this.cTreeView_DownloadQueue = new e621_ReBot_v2.CustomControls.Custom_TreeView();
             this.tabPage_Info = new System.Windows.Forms.TabPage();
+            this.label_PanicInfo = new System.Windows.Forms.Label();
+            this.pictureBox_GitHub = new System.Windows.Forms.PictureBox();
+            this.pictureBox_KoFi = new System.Windows.Forms.PictureBox();
+            this.pictureBox_Logo = new System.Windows.Forms.PictureBox();
+            this.label_Forum = new System.Windows.Forms.Label();
+            this.pictureBox_Discord = new System.Windows.Forms.PictureBox();
             this.Label_GridHelp2 = new System.Windows.Forms.Label();
             this.Label_GridHelp1 = new System.Windows.Forms.Label();
             this.label_API1 = new System.Windows.Forms.Label();
             this.label_API2 = new System.Windows.Forms.Label();
             this.tabPage_Settings = new System.Windows.Forms.TabPage();
+            this.bU_GetDNPs = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.bU_AppData = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.cGroupBoxColored_NamingWeb = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
+            this.Naming_web_0 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
+            this.Naming_web_1 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
+            this.Naming_web_2 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
+            this.bU_GetGenders = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.label_DragDropConvert = new System.Windows.Forms.Label();
+            this.cGroupBoxColored_ActionDelay = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
+            this.textBox_DelayDownload = new System.Windows.Forms.TextBox();
+            this.label_DownloadDelay = new System.Windows.Forms.Label();
+            this.textBox_DelayUploader = new System.Windows.Forms.TextBox();
+            this.label_UploaderDelay = new System.Windows.Forms.Label();
+            this.textBox_DelayGrabber = new System.Windows.Forms.TextBox();
+            this.label_GrabberDelay = new System.Windows.Forms.Label();
             this.cGroupBoxColored_ConversionistOptions = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
+            this.CheckBox_ConverterDontConvertVideos = new System.Windows.Forms.CheckBox();
+            this.CheckBox_ConverterKeepOriginal = new System.Windows.Forms.CheckBox();
+            this.bU_DLPools = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.bU_DLTags = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.cGroupBoxColored_GrabDisplayOrder = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
+            this.radioButton_GrabDisplayOrder1 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
+            this.radioButton_GrabDisplayOrder0 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
             this.cGroupBoxColored_ProgressBarStyle = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
             this.panel_BorderFixer = new System.Windows.Forms.Panel();
             this.radioButton_ProgressBarStyle1 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
@@ -224,43 +181,70 @@
             this.cGroupBoxColored_GridItemStyle = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
             this.radioButton_GridItemStyle1 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
             this.radioButton_GridItemStyle0 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
+            this.bU_RefreshCredit = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.bU_Blacklist = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.bU_PoolWatcher = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.cGroupBoxColored_Volume = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
+            this.TrackBar_Volume = new System.Windows.Forms.TrackBar();
             this.panel_CheckBoxOptions = new System.Windows.Forms.Panel();
+            this.CheckBox_ClearCache = new System.Windows.Forms.CheckBox();
+            this.CheckBox_ManualInferiorSave = new System.Windows.Forms.CheckBox();
+            this.CheckBox_DontFlag = new System.Windows.Forms.CheckBox();
+            this.CheckBox_BigMode = new System.Windows.Forms.CheckBox();
+            this.CheckBox_ExpandedDescription = new System.Windows.Forms.CheckBox();
+            this.CheckBox_AutocompleteTags = new System.Windows.Forms.CheckBox();
+            this.CheckBox_RemoveBVAS = new System.Windows.Forms.CheckBox();
+            this.bU_ResetSettings = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.cGroupBoxColored_AutocompleteTagEditor = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
+            this.bU_AutoTagsAdd = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.textBox_AutoTagsEditor = new System.Windows.Forms.TextBox();
+            this.bU_AutoTagsRemove = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.cGroupBoxColored_NamingE621 = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
+            this.Naming_e6_0 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
+            this.Naming_e6_1 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
+            this.Naming_e6_2 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
+            this.cGroupBoxColored_DownloadsFolderLocation = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
+            this.bU_DownloadFolderChange = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.label_DownloadsFolder = new System.Windows.Forms.Label();
             this.cGroupBoxColored_AppNotes = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
+            this.bU_NoteRemove = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.bU_NoteAdd = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.cGroupBoxColored_APIKey = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
             this.bU_APIKey = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
+            this.cGroupBoxColored_Update = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
+            this.UpdateDays_30 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
+            this.UpdateDays_15 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
+            this.UpdateDays_7 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
+            this.UpdateDays_3 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
+            this.UpdateDays_1 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
+            this.cGroupBoxColored_AppName = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
+            this.AppName_Label = new System.Windows.Forms.Label();
             this.tabPage_PuzzleGame = new System.Windows.Forms.TabPage();
+            this.labelPuzzle_SelectedPost = new System.Windows.Forms.Label();
             this.cGroupBox_GameCheats = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
+            this.CC_GameThumb = new e621_ReBot_v2.CustomControls.Custom_CheckBox();
+            this.CC_GameIndexHints = new e621_ReBot_v2.CustomControls.Custom_CheckBox();
             this.pB_GameThumb = new System.Windows.Forms.PictureBox();
+            this.CC_GameAnimations = new e621_ReBot_v2.CustomControls.Custom_CheckBox();
             this.GB_RestartGame = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.GB_StartGame = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.gamePanel_Main = new e621_ReBot_v2.CustomControls.PuzzleGamePanel();
             this.panel_GameStart = new System.Windows.Forms.Panel();
             this.comboBox_PuzzleCollumns = new System.Windows.Forms.ComboBox();
+            this.labelPuzzle_Collumns = new System.Windows.Forms.Label();
             this.comboBox_PuzzleRows = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.button_AppMinimize)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.button_AppClose)).BeginInit();
-            this.cGroupBoxColored_DLThreads.SuspendLayout();
-            this.cGroupBoxColored_Downloaded.SuspendLayout();
-            this.cGroupBoxColored_InProgress.SuspendLayout();
-            this.cCheckGroupBox_Download.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_GitHub)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_KoFi)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Logo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Discord)).BeginInit();
-            this.cGroupBoxColored_NamingWeb.SuspendLayout();
-            this.cGroupBoxColored_ActionDelay.SuspendLayout();
-            this.cGroupBoxColored_Volume.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.TrackBar_Volume)).BeginInit();
-            this.cGroupBoxColored_AutocompleteTagEditor.SuspendLayout();
-            this.cGroupBoxColored_NamingE621.SuspendLayout();
-            this.cGroupBoxColored_DownloadsFolderLocation.SuspendLayout();
-            this.cGroupBoxColored_Update.SuspendLayout();
-            this.cGroupBoxColored_AppName.SuspendLayout();
+            this.labelPuzzle_Rows = new System.Windows.Forms.Label();
+            this.rb_GameStart_3 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
+            this.rb_GameStart_1 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
+            this.rb_GameStart_2 = new e621_ReBot_v2.CustomControls.Custom_RadioButton();
+            this.bU_KoFi = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.Panel_Holder.SuspendLayout();
             this.contextMenuStrip_Download.SuspendLayout();
             this.contextMenuStrip_cTreeView.SuspendLayout();
             this.contextMenuStrip_InfoBox.SuspendLayout();
             this.contextMenuStrip_Conversion.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.button_AppMinimize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.button_AppClose)).BeginInit();
             this.cTabControl_e621ReBot.SuspendLayout();
             this.tabPage_Browser.SuspendLayout();
             this.QuickButtonPanel.SuspendLayout();
@@ -274,15 +258,32 @@
             this.cCheckGroupBox_Grab.SuspendLayout();
             this.cCheckGroupBox_Info.SuspendLayout();
             this.tabPage_Download.SuspendLayout();
+            this.cGroupBoxColored_DLThreads.SuspendLayout();
+            this.cGroupBoxColored_Downloaded.SuspendLayout();
+            this.cGroupBoxColored_InProgress.SuspendLayout();
+            this.cCheckGroupBox_Download.SuspendLayout();
             this.tabPage_Info.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_GitHub)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_KoFi)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Logo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Discord)).BeginInit();
             this.tabPage_Settings.SuspendLayout();
+            this.cGroupBoxColored_NamingWeb.SuspendLayout();
+            this.cGroupBoxColored_ActionDelay.SuspendLayout();
             this.cGroupBoxColored_ConversionistOptions.SuspendLayout();
             this.cGroupBoxColored_GrabDisplayOrder.SuspendLayout();
             this.cGroupBoxColored_ProgressBarStyle.SuspendLayout();
             this.cGroupBoxColored_GridItemStyle.SuspendLayout();
+            this.cGroupBoxColored_Volume.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TrackBar_Volume)).BeginInit();
             this.panel_CheckBoxOptions.SuspendLayout();
+            this.cGroupBoxColored_AutocompleteTagEditor.SuspendLayout();
+            this.cGroupBoxColored_NamingE621.SuspendLayout();
+            this.cGroupBoxColored_DownloadsFolderLocation.SuspendLayout();
             this.cGroupBoxColored_AppNotes.SuspendLayout();
             this.cGroupBoxColored_APIKey.SuspendLayout();
+            this.cGroupBoxColored_Update.SuspendLayout();
+            this.cGroupBoxColored_AppName.SuspendLayout();
             this.tabPage_PuzzleGame.SuspendLayout();
             this.cGroupBox_GameCheats.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pB_GameThumb)).BeginInit();
@@ -382,6 +383,167 @@
             this.Menu_Btn.Visible = false;
             this.Menu_Btn.Click += new System.EventHandler(this.Menu_Btn_Click);
             // 
+            // Version_Label
+            // 
+            this.Version_Label.AutoSize = true;
+            this.Version_Label.BackColor = System.Drawing.Color.Transparent;
+            this.Version_Label.Cursor = System.Windows.Forms.Cursors.NoMove2D;
+            this.Version_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.Version_Label.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.Version_Label.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Version_Label.Location = new System.Drawing.Point(136, 22);
+            this.Version_Label.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
+            this.Version_Label.Name = "Version_Label";
+            this.Version_Label.Size = new System.Drawing.Size(46, 13);
+            this.Version_Label.TabIndex = 1;
+            this.Version_Label.Text = "v2.0.0.0";
+            this.Version_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Title_Label
+            // 
+            this.Title_Label.AutoSize = true;
+            this.Title_Label.BackColor = System.Drawing.Color.Transparent;
+            this.Title_Label.Cursor = System.Windows.Forms.Cursors.NoMove2D;
+            this.Title_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.Title_Label.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.Title_Label.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Title_Label.Location = new System.Drawing.Point(44, 20);
+            this.Title_Label.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
+            this.Title_Label.Name = "Title_Label";
+            this.Title_Label.Size = new System.Drawing.Size(87, 16);
+            this.Title_Label.TabIndex = 0;
+            this.Title_Label.Text = "e621 ReBot";
+            this.Title_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Panel_Holder
+            // 
+            this.Panel_Holder.BackColor = System.Drawing.Color.Transparent;
+            this.Panel_Holder.Controls.Add(this.bU_KoFi);
+            this.Panel_Holder.Controls.Add(this.label_Credit_Flag);
+            this.Panel_Holder.Controls.Add(this.label_Credit_Note);
+            this.Panel_Holder.Controls.Add(this.label_Credit_Upload);
+            this.Panel_Holder.Controls.Add(this.label_UserLevel);
+            this.Panel_Holder.Cursor = System.Windows.Forms.Cursors.NoMove2D;
+            this.Panel_Holder.Location = new System.Drawing.Point(0, 0);
+            this.Panel_Holder.Name = "Panel_Holder";
+            this.Panel_Holder.Size = new System.Drawing.Size(1304, 74);
+            this.Panel_Holder.TabIndex = 116;
+            // 
+            // timer_FadeIn
+            // 
+            this.timer_FadeIn.Interval = 16;
+            this.timer_FadeIn.Tick += new System.EventHandler(this.Timer_FadeIn_Tick);
+            // 
+            // timer_TwitterGrabber
+            // 
+            this.timer_TwitterGrabber.Interval = 1000;
+            this.timer_TwitterGrabber.Tick += new System.EventHandler(this.Timer_TwitterGrabber_Tick);
+            // 
+            // timer_Refresh
+            // 
+            this.timer_Refresh.Interval = 5;
+            this.timer_Refresh.Tick += new System.EventHandler(this.Timer_Refresh_Tick);
+            // 
+            // contextMenuStrip_Download
+            // 
+            this.contextMenuStrip_Download.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip_Download.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItem_RemoveDLNode,
+            this.ToolStripMenuItem_RemoveDLAll});
+            this.contextMenuStrip_Download.Name = "ContextMenuStrip_Download";
+            this.contextMenuStrip_Download.Size = new System.Drawing.Size(135, 48);
+            // 
+            // ToolStripMenuItem_RemoveDLNode
+            // 
+            this.ToolStripMenuItem_RemoveDLNode.Name = "ToolStripMenuItem_RemoveDLNode";
+            this.ToolStripMenuItem_RemoveDLNode.Size = new System.Drawing.Size(134, 22);
+            this.ToolStripMenuItem_RemoveDLNode.Text = "Remove";
+            this.ToolStripMenuItem_RemoveDLNode.Click += new System.EventHandler(this.ToolStripMenuItem_RemoveDLNode_Click);
+            // 
+            // ToolStripMenuItem_RemoveDLAll
+            // 
+            this.ToolStripMenuItem_RemoveDLAll.Name = "ToolStripMenuItem_RemoveDLAll";
+            this.ToolStripMenuItem_RemoveDLAll.Size = new System.Drawing.Size(134, 22);
+            this.ToolStripMenuItem_RemoveDLAll.Text = "Remove All";
+            this.ToolStripMenuItem_RemoveDLAll.Click += new System.EventHandler(this.ToolStripMenuItem_RemoveDLAll_Click);
+            // 
+            // contextMenuStrip_cTreeView
+            // 
+            this.contextMenuStrip_cTreeView.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip_cTreeView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItem_RemoveNode,
+            this.ToolStripMenuItem_RemoveAll,
+            this.ToolStripMenuItem_ExpandAll,
+            this.ToolStripMenuItem_CollapseAll});
+            this.contextMenuStrip_cTreeView.Name = "contextMenuStrip_cTreeView";
+            this.contextMenuStrip_cTreeView.Size = new System.Drawing.Size(137, 92);
+            // 
+            // ToolStripMenuItem_RemoveNode
+            // 
+            this.ToolStripMenuItem_RemoveNode.Name = "ToolStripMenuItem_RemoveNode";
+            this.ToolStripMenuItem_RemoveNode.Size = new System.Drawing.Size(136, 22);
+            this.ToolStripMenuItem_RemoveNode.Text = "Remove";
+            this.ToolStripMenuItem_RemoveNode.Click += new System.EventHandler(this.ToolStripMenuItem_RemoveNode_Click);
+            // 
+            // ToolStripMenuItem_RemoveAll
+            // 
+            this.ToolStripMenuItem_RemoveAll.Name = "ToolStripMenuItem_RemoveAll";
+            this.ToolStripMenuItem_RemoveAll.Size = new System.Drawing.Size(136, 22);
+            this.ToolStripMenuItem_RemoveAll.Text = "Remove All";
+            this.ToolStripMenuItem_RemoveAll.Click += new System.EventHandler(this.ToolStripMenuItem_RemoveAll_Click);
+            // 
+            // ToolStripMenuItem_ExpandAll
+            // 
+            this.ToolStripMenuItem_ExpandAll.Name = "ToolStripMenuItem_ExpandAll";
+            this.ToolStripMenuItem_ExpandAll.Size = new System.Drawing.Size(136, 22);
+            this.ToolStripMenuItem_ExpandAll.Text = "Expand All";
+            this.ToolStripMenuItem_ExpandAll.Click += new System.EventHandler(this.ToolStripMenuItem_ExpandAll_Click);
+            // 
+            // ToolStripMenuItem_CollapseAll
+            // 
+            this.ToolStripMenuItem_CollapseAll.Name = "ToolStripMenuItem_CollapseAll";
+            this.ToolStripMenuItem_CollapseAll.Size = new System.Drawing.Size(136, 22);
+            this.ToolStripMenuItem_CollapseAll.Text = "Collapse All";
+            this.ToolStripMenuItem_CollapseAll.Click += new System.EventHandler(this.ToolStripMenuItem_CollapseAll_Click);
+            // 
+            // contextMenuStrip_InfoBox
+            // 
+            this.contextMenuStrip_InfoBox.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip_InfoBox.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItem_ClearReports});
+            this.contextMenuStrip_InfoBox.Name = "contextMenuStrip_InfoBox";
+            this.contextMenuStrip_InfoBox.Size = new System.Drawing.Size(102, 26);
+            // 
+            // ToolStripMenuItem_ClearReports
+            // 
+            this.ToolStripMenuItem_ClearReports.Name = "ToolStripMenuItem_ClearReports";
+            this.ToolStripMenuItem_ClearReports.Size = new System.Drawing.Size(101, 22);
+            this.ToolStripMenuItem_ClearReports.Text = "Clear";
+            this.ToolStripMenuItem_ClearReports.Click += new System.EventHandler(this.ToolStripMenuItem_ClearReports_Click);
+            // 
+            // contextMenuStrip_Conversion
+            // 
+            this.contextMenuStrip_Conversion.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip_Conversion.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItem_RemoveConversionNode,
+            this.ToolStripMenuItem_RemoveConversionAll});
+            this.contextMenuStrip_Conversion.Name = "ContextMenuStrip_Download";
+            this.contextMenuStrip_Conversion.Size = new System.Drawing.Size(135, 48);
+            // 
+            // ToolStripMenuItem_RemoveConversionNode
+            // 
+            this.ToolStripMenuItem_RemoveConversionNode.Name = "ToolStripMenuItem_RemoveConversionNode";
+            this.ToolStripMenuItem_RemoveConversionNode.Size = new System.Drawing.Size(134, 22);
+            this.ToolStripMenuItem_RemoveConversionNode.Text = "Remove";
+            this.ToolStripMenuItem_RemoveConversionNode.Click += new System.EventHandler(this.ToolStripMenuItem_RemoveConversionNode_Click);
+            // 
+            // ToolStripMenuItem_RemoveConversionAll
+            // 
+            this.ToolStripMenuItem_RemoveConversionAll.Name = "ToolStripMenuItem_RemoveConversionAll";
+            this.ToolStripMenuItem_RemoveConversionAll.Size = new System.Drawing.Size(134, 22);
+            this.ToolStripMenuItem_RemoveConversionAll.Text = "Remove All";
+            this.ToolStripMenuItem_RemoveConversionAll.Click += new System.EventHandler(this.ToolStripMenuItem_RemoveConversionAll_Click);
+            // 
             // button_AppMinimize
             // 
             this.button_AppMinimize.BackColor = System.Drawing.Color.Transparent;
@@ -420,6 +582,85 @@
             this.toolTip_Display.SetToolTip(this.Opene6_btn, "Open e621.net");
             this.Opene6_btn.UseVisualStyleBackColor = false;
             this.Opene6_btn.Click += new System.EventHandler(this.Opene6_btn_Click);
+            // 
+            // cTabControl_e621ReBot
+            // 
+            this.cTabControl_e621ReBot.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
+            this.cTabControl_e621ReBot.Controls.Add(this.tabPage_Browser);
+            this.cTabControl_e621ReBot.Controls.Add(this.tabPage_Grid);
+            this.cTabControl_e621ReBot.Controls.Add(this.tabPage_Jobs);
+            this.cTabControl_e621ReBot.Controls.Add(this.tabPage_Download);
+            this.cTabControl_e621ReBot.Controls.Add(this.tabPage_Info);
+            this.cTabControl_e621ReBot.Controls.Add(this.tabPage_Settings);
+            this.cTabControl_e621ReBot.Controls.Add(this.tabPage_PuzzleGame);
+            this.cTabControl_e621ReBot.ItemSize = new System.Drawing.Size(0, 1);
+            this.cTabControl_e621ReBot.Location = new System.Drawing.Point(23, 34);
+            this.cTabControl_e621ReBot.Margin = new System.Windows.Forms.Padding(0);
+            this.cTabControl_e621ReBot.Name = "cTabControl_e621ReBot";
+            this.cTabControl_e621ReBot.SelectedIndex = 0;
+            this.cTabControl_e621ReBot.Size = new System.Drawing.Size(1270, 704);
+            this.cTabControl_e621ReBot.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.cTabControl_e621ReBot.TabIndex = 118;
+            this.cTabControl_e621ReBot.TabStop = false;
+            this.cTabControl_e621ReBot.SelectedIndexChanged += new System.EventHandler(this.CTabControl_e621ReBot_SelectedIndexChanged);
+            // 
+            // tabPage_Browser
+            // 
+            this.tabPage_Browser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
+            this.tabPage_Browser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tabPage_Browser.Controls.Add(this.QuickButtonPanel);
+            this.tabPage_Browser.Controls.Add(this.panel_Browser);
+            this.tabPage_Browser.Location = new System.Drawing.Point(4, 5);
+            this.tabPage_Browser.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage_Browser.Name = "tabPage_Browser";
+            this.tabPage_Browser.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Browser.TabIndex = 0;
+            this.tabPage_Browser.Text = "tabPage_Browser";
+            // 
+            // QuickButtonPanel
+            // 
+            this.QuickButtonPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.QuickButtonPanel.BackColor = System.Drawing.Color.Transparent;
+            this.QuickButtonPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.QuickButtonPanel.Controls.Add(this.BQB_HentaiFoundry);
+            this.QuickButtonPanel.Controls.Add(this.BQB_Baraag);
+            this.QuickButtonPanel.Controls.Add(this.BQB_Weasyl);
+            this.QuickButtonPanel.Controls.Add(this.BQB_Pawoo);
+            this.QuickButtonPanel.Controls.Add(this.BQB_Plurk);
+            this.QuickButtonPanel.Controls.Add(this.BQB_Mastodon);
+            this.QuickButtonPanel.Controls.Add(this.BQB_SoFurry);
+            this.QuickButtonPanel.Controls.Add(this.BQB_Newgrounds);
+            this.QuickButtonPanel.Controls.Add(this.BQB_Twitter);
+            this.QuickButtonPanel.Controls.Add(this.BQB_FurAffinity);
+            this.QuickButtonPanel.Controls.Add(this.BQB_Pixiv);
+            this.QuickButtonPanel.Controls.Add(this.BQB_Inkbunny);
+            this.QuickButtonPanel.Controls.Add(this.BQB_HicceArs);
+            this.QuickButtonPanel.Controls.Add(this.BQB_Start);
+            this.QuickButtonPanel.Location = new System.Drawing.Point(504, 223);
+            this.QuickButtonPanel.Name = "QuickButtonPanel";
+            this.QuickButtonPanel.Size = new System.Drawing.Size(259, 221);
+            this.QuickButtonPanel.TabIndex = 1;
+            this.QuickButtonPanel.Visible = false;
+            // 
+            // BQB_HentaiFoundry
+            // 
+            this.BQB_HentaiFoundry.BackColor = System.Drawing.Color.Transparent;
+            this.BQB_HentaiFoundry.BackgroundImage = global::e621_ReBot_v2.Properties.Resources.BrowserIcon_HentaiFoundry;
+            this.BQB_HentaiFoundry.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BQB_HentaiFoundry.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BQB_HentaiFoundry.FlatAppearance.BorderSize = 0;
+            this.BQB_HentaiFoundry.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.BQB_HentaiFoundry.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.BQB_HentaiFoundry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BQB_HentaiFoundry.Location = new System.Drawing.Point(-1, 110);
+            this.BQB_HentaiFoundry.MaximumSize = new System.Drawing.Size(64, 56);
+            this.BQB_HentaiFoundry.MinimumSize = new System.Drawing.Size(64, 56);
+            this.BQB_HentaiFoundry.Name = "BQB_HentaiFoundry";
+            this.BQB_HentaiFoundry.Size = new System.Drawing.Size(64, 56);
+            this.BQB_HentaiFoundry.TabIndex = 14;
+            this.BQB_HentaiFoundry.Tag = "https://www.hentai-foundry.com/";
+            this.toolTip_Display.SetToolTip(this.BQB_HentaiFoundry, "Hentai-Foundry.com");
+            this.BQB_HentaiFoundry.UseVisualStyleBackColor = false;
             // 
             // BQB_Baraag
             // 
@@ -682,6 +923,90 @@
             this.toolTip_Display.SetToolTip(this.BQB_Start, "Open Webbrowser");
             this.BQB_Start.UseVisualStyleBackColor = false;
             // 
+            // panel_Browser
+            // 
+            this.panel_Browser.BackColor = System.Drawing.Color.DimGray;
+            this.panel_Browser.Controls.Add(this.panel_ComboBoxBlocker);
+            this.panel_Browser.Controls.Add(this.panel_BrowserDisplay);
+            this.panel_Browser.Controls.Add(this.BB_Navigate);
+            this.panel_Browser.Controls.Add(this.URL_ComboBox);
+            this.panel_Browser.Controls.Add(this.BB_Home);
+            this.panel_Browser.Controls.Add(this.BB_Forward);
+            this.panel_Browser.Controls.Add(this.BB_Reload);
+            this.panel_Browser.Controls.Add(this.BB_Backward);
+            this.panel_Browser.Controls.Add(this.BB_Bookmarks);
+            this.panel_Browser.Controls.Add(this.flowLayoutPanel_BrowserButtons);
+            this.panel_Browser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_Browser.Location = new System.Drawing.Point(0, 0);
+            this.panel_Browser.Margin = new System.Windows.Forms.Padding(0);
+            this.panel_Browser.Name = "panel_Browser";
+            this.panel_Browser.Padding = new System.Windows.Forms.Padding(1);
+            this.panel_Browser.Size = new System.Drawing.Size(1262, 695);
+            this.panel_Browser.TabIndex = 2;
+            this.panel_Browser.Visible = false;
+            this.panel_Browser.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel_Browser_Paint);
+            // 
+            // panel_ComboBoxBlocker
+            // 
+            this.panel_ComboBoxBlocker.BackColor = System.Drawing.Color.Transparent;
+            this.panel_ComboBoxBlocker.BackgroundImage = global::e621_ReBot_v2.Properties.Resources.ComboBox_Disabled;
+            this.panel_ComboBoxBlocker.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.panel_ComboBoxBlocker.Location = new System.Drawing.Point(849, 3);
+            this.panel_ComboBoxBlocker.Name = "panel_ComboBoxBlocker";
+            this.panel_ComboBoxBlocker.Size = new System.Drawing.Size(18, 21);
+            this.panel_ComboBoxBlocker.TabIndex = 22;
+            // 
+            // panel_BrowserDisplay
+            // 
+            this.panel_BrowserDisplay.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel_BrowserDisplay.Location = new System.Drawing.Point(1, 27);
+            this.panel_BrowserDisplay.Margin = new System.Windows.Forms.Padding(0);
+            this.panel_BrowserDisplay.Name = "panel_BrowserDisplay";
+            this.panel_BrowserDisplay.Size = new System.Drawing.Size(1260, 667);
+            this.panel_BrowserDisplay.TabIndex = 21;
+            // 
+            // BB_Navigate
+            // 
+            this.BB_Navigate.BackColor = System.Drawing.SystemColors.Control;
+            this.BB_Navigate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BB_Navigate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BB_Navigate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.BB_Navigate.Location = new System.Drawing.Point(869, 2);
+            this.BB_Navigate.Margin = new System.Windows.Forms.Padding(2);
+            this.BB_Navigate.Name = "BB_Navigate";
+            this.BB_Navigate.Size = new System.Drawing.Size(75, 23);
+            this.BB_Navigate.TabIndex = 20;
+            this.BB_Navigate.TabStop = false;
+            this.BB_Navigate.Text = "Navigate";
+            this.BB_Navigate.UseVisualStyleBackColor = false;
+            this.BB_Navigate.Click += new System.EventHandler(this.BB_Navigate_Click);
+            // 
+            // URL_ComboBox
+            // 
+            this.URL_ComboBox.AutoCompleteCustomSource.AddRange(new string[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"});
+            this.URL_ComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.URL_ComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.URL_ComboBox.BackColor = System.Drawing.SystemColors.Window;
+            this.URL_ComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.URL_ComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.URL_ComboBox.FormattingEnabled = true;
+            this.URL_ComboBox.ItemHeight = 13;
+            this.URL_ComboBox.Location = new System.Drawing.Point(147, 3);
+            this.URL_ComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 2, 2);
+            this.URL_ComboBox.Name = "URL_ComboBox";
+            this.URL_ComboBox.Size = new System.Drawing.Size(720, 21);
+            this.URL_ComboBox.TabIndex = 19;
+            this.URL_ComboBox.TabStop = false;
+            this.URL_ComboBox.SelectedIndexChanged += new System.EventHandler(this.URL_ComboBox_SelectedIndexChanged);
+            this.URL_ComboBox.TextChanged += new System.EventHandler(this.URL_ComboBox_TextChanged);
+            this.URL_ComboBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.URL_ComboBox_KeyDown);
+            this.URL_ComboBox.Leave += new System.EventHandler(this.URL_ComboBox_Leave);
+            // 
             // BB_Home
             // 
             this.BB_Home.BackColor = System.Drawing.Color.Transparent;
@@ -776,6 +1101,19 @@
             this.BB_Bookmarks.UseVisualStyleBackColor = false;
             this.BB_Bookmarks.Click += new System.EventHandler(this.BB_Bookmarks_Click);
             // 
+            // flowLayoutPanel_BrowserButtons
+            // 
+            this.flowLayoutPanel_BrowserButtons.Controls.Add(this.BB_Grab_All);
+            this.flowLayoutPanel_BrowserButtons.Controls.Add(this.BB_Grab);
+            this.flowLayoutPanel_BrowserButtons.Controls.Add(this.BB_Download);
+            this.flowLayoutPanel_BrowserButtons.Controls.Add(this.DevTools_Button);
+            this.flowLayoutPanel_BrowserButtons.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            this.flowLayoutPanel_BrowserButtons.Location = new System.Drawing.Point(951, 2);
+            this.flowLayoutPanel_BrowserButtons.Margin = new System.Windows.Forms.Padding(0, 2, 2, 0);
+            this.flowLayoutPanel_BrowserButtons.Name = "flowLayoutPanel_BrowserButtons";
+            this.flowLayoutPanel_BrowserButtons.Size = new System.Drawing.Size(309, 24);
+            this.flowLayoutPanel_BrowserButtons.TabIndex = 13;
+            // 
             // BB_Grab_All
             // 
             this.BB_Grab_All.BackColor = System.Drawing.SystemColors.Control;
@@ -829,6 +1167,104 @@
             this.BB_Download.UseVisualStyleBackColor = false;
             this.BB_Download.Visible = false;
             this.BB_Download.Click += new System.EventHandler(this.BB_Download_Click);
+            // 
+            // DevTools_Button
+            // 
+            this.DevTools_Button.BackColor = System.Drawing.Color.DarkOrange;
+            this.DevTools_Button.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DevTools_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DevTools_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.DevTools_Button.Location = new System.Drawing.Point(3, 0);
+            this.DevTools_Button.Margin = new System.Windows.Forms.Padding(0);
+            this.DevTools_Button.Name = "DevTools_Button";
+            this.DevTools_Button.Size = new System.Drawing.Size(75, 23);
+            this.DevTools_Button.TabIndex = 9;
+            this.DevTools_Button.Text = "Dev Tools";
+            this.DevTools_Button.UseVisualStyleBackColor = false;
+            this.DevTools_Button.Visible = false;
+            this.DevTools_Button.Click += new System.EventHandler(this.DevTools_Button_Click);
+            // 
+            // tabPage_Grid
+            // 
+            this.tabPage_Grid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
+            this.tabPage_Grid.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tabPage_Grid.Controls.Add(this.Label_PageShower);
+            this.tabPage_Grid.Controls.Add(this.Label_RightPage);
+            this.tabPage_Grid.Controls.Add(this.Label_LeftPage);
+            this.tabPage_Grid.Controls.Add(this.GB_Right);
+            this.tabPage_Grid.Controls.Add(this.GB_Upload);
+            this.tabPage_Grid.Controls.Add(this.GB_Download);
+            this.tabPage_Grid.Controls.Add(this.GB_Clear);
+            this.tabPage_Grid.Controls.Add(this.GB_Uncheck);
+            this.tabPage_Grid.Controls.Add(this.GB_Inverse);
+            this.tabPage_Grid.Controls.Add(this.GB_Check);
+            this.tabPage_Grid.Controls.Add(this.GB_Left);
+            this.tabPage_Grid.Controls.Add(this.flowLayoutPanel_Grid);
+            this.tabPage_Grid.Location = new System.Drawing.Point(4, 5);
+            this.tabPage_Grid.Name = "tabPage_Grid";
+            this.tabPage_Grid.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Grid.TabIndex = 1;
+            this.tabPage_Grid.Text = "tabPage_Grid";
+            this.tabPage_Grid.Paint += new System.Windows.Forms.PaintEventHandler(this.TabPage_Grid_Paint);
+            // 
+            // Label_PageShower
+            // 
+            this.Label_PageShower.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.Label_PageShower.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.Label_PageShower.Location = new System.Drawing.Point(580, 652);
+            this.Label_PageShower.Margin = new System.Windows.Forms.Padding(0, 0, 0, 8);
+            this.Label_PageShower.Name = "Label_PageShower";
+            this.Label_PageShower.Size = new System.Drawing.Size(100, 12);
+            this.Label_PageShower.TabIndex = 105;
+            this.Label_PageShower.Text = "2 / 3";
+            this.Label_PageShower.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Label_RightPage
+            // 
+            this.Label_RightPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.Label_RightPage.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.Label_RightPage.Location = new System.Drawing.Point(1190, 672);
+            this.Label_RightPage.Margin = new System.Windows.Forms.Padding(0, 0, 8, 0);
+            this.Label_RightPage.Name = "Label_RightPage";
+            this.Label_RightPage.Size = new System.Drawing.Size(32, 23);
+            this.Label_RightPage.TabIndex = 104;
+            this.Label_RightPage.Text = "3";
+            this.Label_RightPage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.Label_RightPage.Visible = false;
+            // 
+            // Label_LeftPage
+            // 
+            this.Label_LeftPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.Label_LeftPage.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.Label_LeftPage.Location = new System.Drawing.Point(40, 672);
+            this.Label_LeftPage.Margin = new System.Windows.Forms.Padding(8, 0, 0, 0);
+            this.Label_LeftPage.Name = "Label_LeftPage";
+            this.Label_LeftPage.Size = new System.Drawing.Size(32, 23);
+            this.Label_LeftPage.TabIndex = 103;
+            this.Label_LeftPage.Text = "1";
+            this.Label_LeftPage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Label_LeftPage.Visible = false;
+            // 
+            // GB_Right
+            // 
+            this.GB_Right.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.GB_Right.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.GB_Right.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.GB_Right.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GB_Right.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.GB_Right.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.GB_Right.Location = new System.Drawing.Point(1230, 672);
+            this.GB_Right.Margin = new System.Windows.Forms.Padding(0);
+            this.GB_Right.Name = "GB_Right";
+            this.GB_Right.Size = new System.Drawing.Size(32, 23);
+            this.GB_Right.TabIndex = 8;
+            this.GB_Right.TabStop = false;
+            this.GB_Right.Text = ">";
+            this.toolTip_Display.SetToolTip(this.GB_Right, "Next page.");
+            this.GB_Right.UseVisualStyleBackColor = true;
+            this.GB_Right.Visible = false;
+            this.GB_Right.VisibleChanged += new System.EventHandler(this.GB_Right_VisibleChanged);
+            this.GB_Right.Click += new System.EventHandler(this.GB_Right_Click);
             // 
             // GB_Upload
             // 
@@ -951,6 +1387,304 @@
             this.toolTip_Display.SetToolTip(this.GB_Check, "Check all visible media.\r\nCtrl+Click to check all media.");
             this.GB_Check.UseVisualStyleBackColor = true;
             this.GB_Check.Click += new System.EventHandler(this.GB_Check_Click);
+            // 
+            // GB_Left
+            // 
+            this.GB_Left.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.GB_Left.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.GB_Left.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.GB_Left.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GB_Left.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.GB_Left.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.GB_Left.Location = new System.Drawing.Point(0, 672);
+            this.GB_Left.Margin = new System.Windows.Forms.Padding(0);
+            this.GB_Left.Name = "GB_Left";
+            this.GB_Left.Size = new System.Drawing.Size(32, 23);
+            this.GB_Left.TabIndex = 1;
+            this.GB_Left.TabStop = false;
+            this.GB_Left.Text = "<";
+            this.toolTip_Display.SetToolTip(this.GB_Left, "Previous page.");
+            this.GB_Left.UseVisualStyleBackColor = true;
+            this.GB_Left.Visible = false;
+            this.GB_Left.VisibleChanged += new System.EventHandler(this.GB_Left_VisibleChanged);
+            this.GB_Left.Click += new System.EventHandler(this.GB_Left_Click);
+            // 
+            // flowLayoutPanel_Grid
+            // 
+            this.flowLayoutPanel_Grid.BackColor = System.Drawing.Color.Transparent;
+            this.flowLayoutPanel_Grid.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flowLayoutPanel_Grid.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel_Grid.Margin = new System.Windows.Forms.Padding(0);
+            this.flowLayoutPanel_Grid.Name = "flowLayoutPanel_Grid";
+            this.flowLayoutPanel_Grid.Padding = new System.Windows.Forms.Padding(0, 16, 0, 0);
+            this.flowLayoutPanel_Grid.Size = new System.Drawing.Size(192, 650);
+            this.flowLayoutPanel_Grid.TabIndex = 0;
+            this.flowLayoutPanel_Grid.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.FlowLayoutPanel_Grid_ControlAdded);
+            this.flowLayoutPanel_Grid.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.FlowLayoutPanel_Grid_ControlRemoved);
+            // 
+            // tabPage_Jobs
+            // 
+            this.tabPage_Jobs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
+            this.tabPage_Jobs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tabPage_Jobs.Controls.Add(this.cCheckGroupBox_Retry);
+            this.tabPage_Jobs.Controls.Add(this.cCheckGroupBox_Convert);
+            this.tabPage_Jobs.Controls.Add(this.cCheckGroupBox_Upload);
+            this.tabPage_Jobs.Controls.Add(this.cCheckGroupBox_Grab);
+            this.tabPage_Jobs.Controls.Add(this.cCheckGroupBox_Info);
+            this.tabPage_Jobs.Location = new System.Drawing.Point(4, 5);
+            this.tabPage_Jobs.Name = "tabPage_Jobs";
+            this.tabPage_Jobs.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Jobs.TabIndex = 3;
+            this.tabPage_Jobs.Text = "tabPage_Jobs";
+            // 
+            // cCheckGroupBox_Retry
+            // 
+            this.cCheckGroupBox_Retry.BorderColor = System.Drawing.Color.Black;
+            this.cCheckGroupBox_Retry.BottomBorderFix = 1;
+            this.cCheckGroupBox_Retry.Controls.Add(this.cTreeView_RetryQueue);
+            this.cCheckGroupBox_Retry.Controls.Add(this.label_RetryStatus);
+            this.cCheckGroupBox_Retry.DisableChildrenIfUnchecked = false;
+            this.cCheckGroupBox_Retry.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cCheckGroupBox_Retry.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.cCheckGroupBox_Retry.Location = new System.Drawing.Point(644, 504);
+            this.cCheckGroupBox_Retry.Margin = new System.Windows.Forms.Padding(8, 8, 32, 16);
+            this.cCheckGroupBox_Retry.Name = "cCheckGroupBox_Retry";
+            this.cCheckGroupBox_Retry.Size = new System.Drawing.Size(592, 170);
+            this.cCheckGroupBox_Retry.TabIndex = 8;
+            this.cCheckGroupBox_Retry.TabStop = false;
+            this.cCheckGroupBox_Retry.Text = "Retry Queue";
+            this.cCheckGroupBox_Retry.TextOffset = 0;
+            this.cCheckGroupBox_Retry.TooltipTextOnCheckbox = "Toggle this (On) to retry failed jobs.";
+            this.cCheckGroupBox_Retry.CheckedChanged += new System.EventHandler(this.CCheckGroupBox_Retry_CheckedChanged);
+            // 
+            // cTreeView_RetryQueue
+            // 
+            this.cTreeView_RetryQueue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
+            this.cTreeView_RetryQueue.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.cTreeView_RetryQueue.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.cTreeView_RetryQueue.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
+            this.cTreeView_RetryQueue.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.cTreeView_RetryQueue.Location = new System.Drawing.Point(3, 33);
+            this.cTreeView_RetryQueue.Margin = new System.Windows.Forms.Padding(0, 4, 0, 0);
+            this.cTreeView_RetryQueue.Name = "cTreeView_RetryQueue";
+            this.cTreeView_RetryQueue.NodeBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
+            this.cTreeView_RetryQueue.ShowNodeToolTips = true;
+            this.cTreeView_RetryQueue.Size = new System.Drawing.Size(586, 134);
+            this.cTreeView_RetryQueue.TabIndex = 7;
+            this.cTreeView_RetryQueue.TabStop = false;
+            // 
+            // label_RetryStatus
+            // 
+            this.label_RetryStatus.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label_RetryStatus.Location = new System.Drawing.Point(3, 16);
+            this.label_RetryStatus.Margin = new System.Windows.Forms.Padding(0);
+            this.label_RetryStatus.Name = "label_RetryStatus";
+            this.label_RetryStatus.Size = new System.Drawing.Size(586, 13);
+            this.label_RetryStatus.TabIndex = 2;
+            this.label_RetryStatus.Text = "Status: Empty.";
+            // 
+            // cCheckGroupBox_Convert
+            // 
+            this.cCheckGroupBox_Convert.BorderColor = System.Drawing.Color.Black;
+            this.cCheckGroupBox_Convert.BottomBorderFix = 1;
+            this.cCheckGroupBox_Convert.Controls.Add(this.cTreeView_ConversionQueue);
+            this.cCheckGroupBox_Convert.Controls.Add(this.label_ConversionStatus);
+            this.cCheckGroupBox_Convert.DisableChildrenIfUnchecked = false;
+            this.cCheckGroupBox_Convert.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cCheckGroupBox_Convert.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.cCheckGroupBox_Convert.Location = new System.Drawing.Point(644, 288);
+            this.cCheckGroupBox_Convert.Margin = new System.Windows.Forms.Padding(8, 8, 32, 8);
+            this.cCheckGroupBox_Convert.Name = "cCheckGroupBox_Convert";
+            this.cCheckGroupBox_Convert.Size = new System.Drawing.Size(592, 200);
+            this.cCheckGroupBox_Convert.TabIndex = 7;
+            this.cCheckGroupBox_Convert.TabStop = false;
+            this.cCheckGroupBox_Convert.Text = "Conversionist";
+            this.cCheckGroupBox_Convert.TextOffset = 0;
+            this.cCheckGroupBox_Convert.TooltipTextOnCheckbox = "Conversionist converts the media formats.";
+            this.cCheckGroupBox_Convert.CheckedChanged += new System.EventHandler(this.CCheckGroupBox_Convert_CheckedChanged);
+            // 
+            // cTreeView_ConversionQueue
+            // 
+            this.cTreeView_ConversionQueue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
+            this.cTreeView_ConversionQueue.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.cTreeView_ConversionQueue.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.cTreeView_ConversionQueue.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
+            this.cTreeView_ConversionQueue.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.cTreeView_ConversionQueue.Location = new System.Drawing.Point(3, 33);
+            this.cTreeView_ConversionQueue.Margin = new System.Windows.Forms.Padding(0, 4, 0, 0);
+            this.cTreeView_ConversionQueue.Name = "cTreeView_ConversionQueue";
+            this.cTreeView_ConversionQueue.NodeBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
+            this.cTreeView_ConversionQueue.ShowNodeToolTips = true;
+            this.cTreeView_ConversionQueue.Size = new System.Drawing.Size(586, 164);
+            this.cTreeView_ConversionQueue.TabIndex = 6;
+            this.cTreeView_ConversionQueue.TabStop = false;
+            // 
+            // label_ConversionStatus
+            // 
+            this.label_ConversionStatus.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label_ConversionStatus.Location = new System.Drawing.Point(3, 16);
+            this.label_ConversionStatus.Margin = new System.Windows.Forms.Padding(0);
+            this.label_ConversionStatus.Name = "label_ConversionStatus";
+            this.label_ConversionStatus.Size = new System.Drawing.Size(586, 13);
+            this.label_ConversionStatus.TabIndex = 2;
+            this.label_ConversionStatus.Text = "Status: Reading.";
+            // 
+            // cCheckGroupBox_Upload
+            // 
+            this.cCheckGroupBox_Upload.BorderColor = System.Drawing.Color.Black;
+            this.cCheckGroupBox_Upload.BottomBorderFix = 1;
+            this.cCheckGroupBox_Upload.Controls.Add(this.cTreeView_UploadQueue);
+            this.cCheckGroupBox_Upload.Controls.Add(this.label_UploadStatus);
+            this.cCheckGroupBox_Upload.DisableChildrenIfUnchecked = false;
+            this.cCheckGroupBox_Upload.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cCheckGroupBox_Upload.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.cCheckGroupBox_Upload.Location = new System.Drawing.Point(644, 16);
+            this.cCheckGroupBox_Upload.Margin = new System.Windows.Forms.Padding(8, 16, 32, 8);
+            this.cCheckGroupBox_Upload.Name = "cCheckGroupBox_Upload";
+            this.cCheckGroupBox_Upload.Size = new System.Drawing.Size(592, 256);
+            this.cCheckGroupBox_Upload.TabIndex = 6;
+            this.cCheckGroupBox_Upload.TabStop = false;
+            this.cCheckGroupBox_Upload.Text = "Uploader";
+            this.cCheckGroupBox_Upload.TextOffset = 0;
+            this.cCheckGroupBox_Upload.TooltipTextOnCheckbox = "Uploader uploads the media.";
+            this.cCheckGroupBox_Upload.CheckedChanged += new System.EventHandler(this.CCheckGroupBox_Upload_CheckedChanged);
+            // 
+            // cTreeView_UploadQueue
+            // 
+            this.cTreeView_UploadQueue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
+            this.cTreeView_UploadQueue.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.cTreeView_UploadQueue.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.cTreeView_UploadQueue.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
+            this.cTreeView_UploadQueue.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.cTreeView_UploadQueue.Location = new System.Drawing.Point(3, 33);
+            this.cTreeView_UploadQueue.Margin = new System.Windows.Forms.Padding(0, 4, 0, 0);
+            this.cTreeView_UploadQueue.Name = "cTreeView_UploadQueue";
+            this.cTreeView_UploadQueue.NodeBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
+            this.cTreeView_UploadQueue.ShowNodeToolTips = true;
+            this.cTreeView_UploadQueue.Size = new System.Drawing.Size(586, 220);
+            this.cTreeView_UploadQueue.TabIndex = 5;
+            this.cTreeView_UploadQueue.TabStop = false;
+            // 
+            // label_UploadStatus
+            // 
+            this.label_UploadStatus.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label_UploadStatus.Location = new System.Drawing.Point(3, 16);
+            this.label_UploadStatus.Margin = new System.Windows.Forms.Padding(0);
+            this.label_UploadStatus.Name = "label_UploadStatus";
+            this.label_UploadStatus.Size = new System.Drawing.Size(586, 13);
+            this.label_UploadStatus.TabIndex = 2;
+            this.label_UploadStatus.Text = "Status: Sleeping.";
+            // 
+            // cCheckGroupBox_Grab
+            // 
+            this.cCheckGroupBox_Grab.BorderColor = System.Drawing.Color.Black;
+            this.cCheckGroupBox_Grab.BottomBorderFix = 1;
+            this.cCheckGroupBox_Grab.Controls.Add(this.cTreeView_GrabQueue);
+            this.cCheckGroupBox_Grab.Controls.Add(this.cFlowLayoutPanel_ProgressBarHolder);
+            this.cCheckGroupBox_Grab.Controls.Add(this.label_GrabStatus);
+            this.cCheckGroupBox_Grab.DisableChildrenIfUnchecked = false;
+            this.cCheckGroupBox_Grab.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cCheckGroupBox_Grab.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.cCheckGroupBox_Grab.Location = new System.Drawing.Point(36, 16);
+            this.cCheckGroupBox_Grab.Margin = new System.Windows.Forms.Padding(32, 16, 8, 8);
+            this.cCheckGroupBox_Grab.Name = "cCheckGroupBox_Grab";
+            this.cCheckGroupBox_Grab.Size = new System.Drawing.Size(592, 256);
+            this.cCheckGroupBox_Grab.TabIndex = 4;
+            this.cCheckGroupBox_Grab.TabStop = false;
+            this.cCheckGroupBox_Grab.Text = "Grabber";
+            this.cCheckGroupBox_Grab.TextOffset = 0;
+            this.cCheckGroupBox_Grab.TooltipTextOnCheckbox = "Grabber grabs the media.";
+            this.cCheckGroupBox_Grab.CheckedChanged += new System.EventHandler(this.CCheckGroupBox_Grab_CheckedChanged);
+            this.cCheckGroupBox_Grab.Paint += new System.Windows.Forms.PaintEventHandler(this.CCheckGroupBox_Grab_Paint);
+            // 
+            // cTreeView_GrabQueue
+            // 
+            this.cTreeView_GrabQueue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
+            this.cTreeView_GrabQueue.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.cTreeView_GrabQueue.CheckBoxes = true;
+            this.cTreeView_GrabQueue.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
+            this.cTreeView_GrabQueue.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.cTreeView_GrabQueue.Location = new System.Drawing.Point(54, 33);
+            this.cTreeView_GrabQueue.Margin = new System.Windows.Forms.Padding(2, 4, 0, 0);
+            this.cTreeView_GrabQueue.Name = "cTreeView_GrabQueue";
+            this.cTreeView_GrabQueue.NodeBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
+            this.cTreeView_GrabQueue.ShowNodeToolTips = true;
+            this.cTreeView_GrabQueue.Size = new System.Drawing.Size(535, 220);
+            this.cTreeView_GrabQueue.TabIndex = 4;
+            this.cTreeView_GrabQueue.TabStop = false;
+            this.cTreeView_GrabQueue.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.CTreeView_GrabQueue_AfterCheck);
+            // 
+            // cFlowLayoutPanel_ProgressBarHolder
+            // 
+            this.cFlowLayoutPanel_ProgressBarHolder.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.cFlowLayoutPanel_ProgressBarHolder.Location = new System.Drawing.Point(3, 33);
+            this.cFlowLayoutPanel_ProgressBarHolder.Margin = new System.Windows.Forms.Padding(0, 16, 0, 0);
+            this.cFlowLayoutPanel_ProgressBarHolder.Name = "cFlowLayoutPanel_ProgressBarHolder";
+            this.cFlowLayoutPanel_ProgressBarHolder.Size = new System.Drawing.Size(49, 221);
+            this.cFlowLayoutPanel_ProgressBarHolder.TabIndex = 3;
+            // 
+            // label_GrabStatus
+            // 
+            this.label_GrabStatus.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label_GrabStatus.Location = new System.Drawing.Point(3, 16);
+            this.label_GrabStatus.Margin = new System.Windows.Forms.Padding(0);
+            this.label_GrabStatus.Name = "label_GrabStatus";
+            this.label_GrabStatus.Size = new System.Drawing.Size(586, 13);
+            this.label_GrabStatus.TabIndex = 2;
+            this.label_GrabStatus.Text = "Status: Sleeping.";
+            // 
+            // cCheckGroupBox_Info
+            // 
+            this.cCheckGroupBox_Info.BorderColor = System.Drawing.Color.Black;
+            this.cCheckGroupBox_Info.BottomBorderFix = 1;
+            this.cCheckGroupBox_Info.Controls.Add(this.textBox_Info);
+            this.cCheckGroupBox_Info.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cCheckGroupBox_Info.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.cCheckGroupBox_Info.Location = new System.Drawing.Point(36, 288);
+            this.cCheckGroupBox_Info.Margin = new System.Windows.Forms.Padding(32, 8, 8, 16);
+            this.cCheckGroupBox_Info.Name = "cCheckGroupBox_Info";
+            this.cCheckGroupBox_Info.Size = new System.Drawing.Size(592, 386);
+            this.cCheckGroupBox_Info.TabIndex = 3;
+            this.cCheckGroupBox_Info.TabStop = false;
+            this.cCheckGroupBox_Info.Text = "Info Message Log";
+            this.cCheckGroupBox_Info.TextOffset = 0;
+            // 
+            // textBox_Info
+            // 
+            this.textBox_Info.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
+            this.textBox_Info.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox_Info.ContextMenuStrip = this.contextMenuStrip_InfoBox;
+            this.textBox_Info.DetectUrls = false;
+            this.textBox_Info.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_Info.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.textBox_Info.Location = new System.Drawing.Point(3, 16);
+            this.textBox_Info.MaxLength = 0;
+            this.textBox_Info.Name = "textBox_Info";
+            this.textBox_Info.ReadOnly = true;
+            this.textBox_Info.Size = new System.Drawing.Size(586, 367);
+            this.textBox_Info.TabIndex = 3;
+            this.textBox_Info.TabStop = false;
+            this.textBox_Info.Text = "";
+            this.textBox_Info.WordWrap = false;
+            // 
+            // tabPage_Download
+            // 
+            this.tabPage_Download.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
+            this.tabPage_Download.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tabPage_Download.Controls.Add(this.bU_SkipDLCache);
+            this.tabPage_Download.Controls.Add(this.bU_DownloadPageDown);
+            this.tabPage_Download.Controls.Add(this.bU_DownloadPageUp);
+            this.tabPage_Download.Controls.Add(this.bU_ClearDLHistory);
+            this.tabPage_Download.Controls.Add(this.cGroupBoxColored_DLThreads);
+            this.tabPage_Download.Controls.Add(this.bU_DownloadFolder);
+            this.tabPage_Download.Controls.Add(this.cGroupBoxColored_Downloaded);
+            this.tabPage_Download.Controls.Add(this.cGroupBoxColored_InProgress);
+            this.tabPage_Download.Controls.Add(this.cCheckGroupBox_Download);
+            this.tabPage_Download.Location = new System.Drawing.Point(4, 5);
+            this.tabPage_Download.Name = "tabPage_Download";
+            this.tabPage_Download.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Download.TabIndex = 2;
+            this.tabPage_Download.Text = "tabPage_Download";
             // 
             // bU_SkipDLCache
             // 
@@ -1254,6 +1988,39 @@
             this.cTreeView_DownloadQueue.Size = new System.Drawing.Size(488, 240);
             this.cTreeView_DownloadQueue.TabIndex = 1;
             // 
+            // tabPage_Info
+            // 
+            this.tabPage_Info.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
+            this.tabPage_Info.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tabPage_Info.Controls.Add(this.label_PanicInfo);
+            this.tabPage_Info.Controls.Add(this.pictureBox_GitHub);
+            this.tabPage_Info.Controls.Add(this.pictureBox_KoFi);
+            this.tabPage_Info.Controls.Add(this.pictureBox_Logo);
+            this.tabPage_Info.Controls.Add(this.label_Forum);
+            this.tabPage_Info.Controls.Add(this.pictureBox_Discord);
+            this.tabPage_Info.Controls.Add(this.Label_GridHelp2);
+            this.tabPage_Info.Controls.Add(this.Label_GridHelp1);
+            this.tabPage_Info.Controls.Add(this.label_API1);
+            this.tabPage_Info.Controls.Add(this.label_API2);
+            this.tabPage_Info.Location = new System.Drawing.Point(4, 5);
+            this.tabPage_Info.Name = "tabPage_Info";
+            this.tabPage_Info.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Info.TabIndex = 4;
+            this.tabPage_Info.Text = "tabPage_Info";
+            // 
+            // label_PanicInfo
+            // 
+            this.label_PanicInfo.AutoSize = true;
+            this.label_PanicInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label_PanicInfo.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.label_PanicInfo.Location = new System.Drawing.Point(68, 503);
+            this.label_PanicInfo.Margin = new System.Windows.Forms.Padding(64, 32, 0, 0);
+            this.label_PanicInfo.Name = "label_PanicInfo";
+            this.label_PanicInfo.Size = new System.Drawing.Size(130, 20);
+            this.label_PanicInfo.TabIndex = 105;
+            this.label_PanicInfo.Text = "F1 - Panic button";
+            this.toolTip_Display.SetToolTip(this.label_PanicInfo, "Hold it shortly to hide me.");
+            // 
             // pictureBox_GitHub
             // 
             this.pictureBox_GitHub.BackgroundImage = global::e621_ReBot_v2.Properties.Resources.GitHubLogo;
@@ -1322,6 +2089,90 @@
             this.pictureBox_Discord.TabStop = false;
             this.toolTip_Display.SetToolTip(this.pictureBox_Discord, "https://discord.gg/7ncEzah");
             this.pictureBox_Discord.Click += new System.EventHandler(this.PictureBox_Discord_Click);
+            // 
+            // Label_GridHelp2
+            // 
+            this.Label_GridHelp2.AutoSize = true;
+            this.Label_GridHelp2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.Label_GridHelp2.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.Label_GridHelp2.Location = new System.Drawing.Point(100, 286);
+            this.Label_GridHelp2.Margin = new System.Windows.Forms.Padding(96, 8, 32, 32);
+            this.Label_GridHelp2.Name = "Label_GridHelp2";
+            this.Label_GridHelp2.Size = new System.Drawing.Size(436, 153);
+            this.Label_GridHelp2.TabIndex = 24;
+            this.Label_GridHelp2.Text = resources.GetString("Label_GridHelp2.Text");
+            // 
+            // Label_GridHelp1
+            // 
+            this.Label_GridHelp1.AutoSize = true;
+            this.Label_GridHelp1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.Label_GridHelp1.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.Label_GridHelp1.Location = new System.Drawing.Point(68, 258);
+            this.Label_GridHelp1.Margin = new System.Windows.Forms.Padding(64, 32, 0, 0);
+            this.Label_GridHelp1.Name = "Label_GridHelp1";
+            this.Label_GridHelp1.Size = new System.Drawing.Size(116, 20);
+            this.Label_GridHelp1.TabIndex = 23;
+            this.Label_GridHelp1.Text = "Grid Shortcuts:";
+            // 
+            // label_API1
+            // 
+            this.label_API1.AutoSize = true;
+            this.label_API1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label_API1.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.label_API1.Location = new System.Drawing.Point(68, 64);
+            this.label_API1.Margin = new System.Windows.Forms.Padding(64, 64, 0, 0);
+            this.label_API1.Name = "label_API1";
+            this.label_API1.Size = new System.Drawing.Size(165, 20);
+            this.label_API1.TabIndex = 2;
+            this.label_API1.Text = "API Key is needed for:";
+            // 
+            // label_API2
+            // 
+            this.label_API2.AutoSize = true;
+            this.label_API2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label_API2.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.label_API2.Location = new System.Drawing.Point(100, 92);
+            this.label_API2.Margin = new System.Windows.Forms.Padding(96, 8, 32, 32);
+            this.label_API2.Name = "label_API2";
+            this.label_API2.Size = new System.Drawing.Size(330, 102);
+            this.label_API2.TabIndex = 3;
+            this.label_API2.Text = resources.GetString("label_API2.Text");
+            // 
+            // tabPage_Settings
+            // 
+            this.tabPage_Settings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
+            this.tabPage_Settings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tabPage_Settings.Controls.Add(this.bU_GetDNPs);
+            this.tabPage_Settings.Controls.Add(this.bU_AppData);
+            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_NamingWeb);
+            this.tabPage_Settings.Controls.Add(this.bU_GetGenders);
+            this.tabPage_Settings.Controls.Add(this.label_DragDropConvert);
+            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_ActionDelay);
+            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_ConversionistOptions);
+            this.tabPage_Settings.Controls.Add(this.bU_DLPools);
+            this.tabPage_Settings.Controls.Add(this.bU_DLTags);
+            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_GrabDisplayOrder);
+            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_ProgressBarStyle);
+            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_GridItemStyle);
+            this.tabPage_Settings.Controls.Add(this.bU_RefreshCredit);
+            this.tabPage_Settings.Controls.Add(this.bU_Blacklist);
+            this.tabPage_Settings.Controls.Add(this.bU_PoolWatcher);
+            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_Volume);
+            this.tabPage_Settings.Controls.Add(this.panel_CheckBoxOptions);
+            this.tabPage_Settings.Controls.Add(this.bU_ResetSettings);
+            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_AutocompleteTagEditor);
+            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_NamingE621);
+            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_DownloadsFolderLocation);
+            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_AppNotes);
+            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_APIKey);
+            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_Update);
+            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_AppName);
+            this.tabPage_Settings.Location = new System.Drawing.Point(4, 5);
+            this.tabPage_Settings.Name = "tabPage_Settings";
+            this.tabPage_Settings.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Settings.TabIndex = 5;
+            this.tabPage_Settings.Text = "tabPage_Settings";
+            this.tabPage_Settings.Enter += new System.EventHandler(this.TabPage_Settings_Enter);
             // 
             // bU_GetDNPs
             // 
@@ -1575,6 +2426,24 @@
             this.label_GrabberDelay.Text = "Grabber:";
             this.toolTip_Display.SetToolTip(this.label_GrabberDelay, "Set delay between starting two Grabber tasks.");
             // 
+            // cGroupBoxColored_ConversionistOptions
+            // 
+            this.cGroupBoxColored_ConversionistOptions.BorderColor = System.Drawing.Color.Black;
+            this.cGroupBoxColored_ConversionistOptions.BottomBorderFix = 1;
+            this.cGroupBoxColored_ConversionistOptions.Controls.Add(this.CheckBox_ConverterDontConvertVideos);
+            this.cGroupBoxColored_ConversionistOptions.Controls.Add(this.CheckBox_ConverterKeepOriginal);
+            this.cGroupBoxColored_ConversionistOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cGroupBoxColored_ConversionistOptions.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.cGroupBoxColored_ConversionistOptions.Location = new System.Drawing.Point(68, 316);
+            this.cGroupBoxColored_ConversionistOptions.Margin = new System.Windows.Forms.Padding(64, 32, 4, 4);
+            this.cGroupBoxColored_ConversionistOptions.Name = "cGroupBoxColored_ConversionistOptions";
+            this.cGroupBoxColored_ConversionistOptions.Padding = new System.Windows.Forms.Padding(1);
+            this.cGroupBoxColored_ConversionistOptions.Size = new System.Drawing.Size(256, 70);
+            this.cGroupBoxColored_ConversionistOptions.TabIndex = 143;
+            this.cGroupBoxColored_ConversionistOptions.TabStop = false;
+            this.cGroupBoxColored_ConversionistOptions.Text = "Conversionist Options:";
+            this.cGroupBoxColored_ConversionistOptions.TextOffset = 8;
+            // 
             // CheckBox_ConverterDontConvertVideos
             // 
             this.CheckBox_ConverterDontConvertVideos.AutoSize = true;
@@ -1644,6 +2513,24 @@
             this.bU_DLTags.UseVisualStyleBackColor = true;
             this.bU_DLTags.Click += new System.EventHandler(this.BU_DLTags_Click);
             // 
+            // cGroupBoxColored_GrabDisplayOrder
+            // 
+            this.cGroupBoxColored_GrabDisplayOrder.BorderColor = System.Drawing.Color.Black;
+            this.cGroupBoxColored_GrabDisplayOrder.BottomBorderFix = 0;
+            this.cGroupBoxColored_GrabDisplayOrder.Controls.Add(this.radioButton_GrabDisplayOrder1);
+            this.cGroupBoxColored_GrabDisplayOrder.Controls.Add(this.radioButton_GrabDisplayOrder0);
+            this.cGroupBoxColored_GrabDisplayOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cGroupBoxColored_GrabDisplayOrder.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.cGroupBoxColored_GrabDisplayOrder.Location = new System.Drawing.Point(68, 148);
+            this.cGroupBoxColored_GrabDisplayOrder.Margin = new System.Windows.Forms.Padding(64, 32, 4, 4);
+            this.cGroupBoxColored_GrabDisplayOrder.Name = "cGroupBoxColored_GrabDisplayOrder";
+            this.cGroupBoxColored_GrabDisplayOrder.Padding = new System.Windows.Forms.Padding(1);
+            this.cGroupBoxColored_GrabDisplayOrder.Size = new System.Drawing.Size(256, 48);
+            this.cGroupBoxColored_GrabDisplayOrder.TabIndex = 138;
+            this.cGroupBoxColored_GrabDisplayOrder.TabStop = false;
+            this.cGroupBoxColored_GrabDisplayOrder.Text = "Grabbed media display order";
+            this.cGroupBoxColored_GrabDisplayOrder.TextOffset = 8;
+            // 
             // radioButton_GrabDisplayOrder1
             // 
             this.radioButton_GrabDisplayOrder1.AutoSize = true;
@@ -1669,6 +2556,99 @@
             this.radioButton_GrabDisplayOrder0.Text = "Default order";
             this.toolTip_Display.SetToolTip(this.radioButton_GrabDisplayOrder0, resources.GetString("radioButton_GrabDisplayOrder0.ToolTip"));
             this.radioButton_GrabDisplayOrder0.UseVisualStyleBackColor = true;
+            // 
+            // cGroupBoxColored_ProgressBarStyle
+            // 
+            this.cGroupBoxColored_ProgressBarStyle.BorderColor = System.Drawing.Color.Black;
+            this.cGroupBoxColored_ProgressBarStyle.BottomBorderFix = 0;
+            this.cGroupBoxColored_ProgressBarStyle.Controls.Add(this.panel_BorderFixer);
+            this.cGroupBoxColored_ProgressBarStyle.Controls.Add(this.radioButton_ProgressBarStyle1);
+            this.cGroupBoxColored_ProgressBarStyle.Controls.Add(this.radioButton_ProgressBarStyle0);
+            this.cGroupBoxColored_ProgressBarStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cGroupBoxColored_ProgressBarStyle.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.cGroupBoxColored_ProgressBarStyle.Location = new System.Drawing.Point(496, 148);
+            this.cGroupBoxColored_ProgressBarStyle.Margin = new System.Windows.Forms.Padding(64, 32, 64, 4);
+            this.cGroupBoxColored_ProgressBarStyle.Name = "cGroupBoxColored_ProgressBarStyle";
+            this.cGroupBoxColored_ProgressBarStyle.Padding = new System.Windows.Forms.Padding(1);
+            this.cGroupBoxColored_ProgressBarStyle.Size = new System.Drawing.Size(120, 48);
+            this.cGroupBoxColored_ProgressBarStyle.TabIndex = 137;
+            this.cGroupBoxColored_ProgressBarStyle.TabStop = false;
+            this.cGroupBoxColored_ProgressBarStyle.Text = "Progress Bar Style";
+            this.cGroupBoxColored_ProgressBarStyle.TextOffset = 4;
+            // 
+            // panel_BorderFixer
+            // 
+            this.panel_BorderFixer.Location = new System.Drawing.Point(0, 7);
+            this.panel_BorderFixer.Margin = new System.Windows.Forms.Padding(0);
+            this.panel_BorderFixer.Name = "panel_BorderFixer";
+            this.panel_BorderFixer.Size = new System.Drawing.Size(1, 39);
+            this.panel_BorderFixer.TabIndex = 138;
+            // 
+            // radioButton_ProgressBarStyle1
+            // 
+            this.radioButton_ProgressBarStyle1.AutoSize = true;
+            this.radioButton_ProgressBarStyle1.Location = new System.Drawing.Point(57, 22);
+            this.radioButton_ProgressBarStyle1.Margin = new System.Windows.Forms.Padding(4, 8, 4, 4);
+            this.radioButton_ProgressBarStyle1.Name = "radioButton_ProgressBarStyle1";
+            this.radioButton_ProgressBarStyle1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.radioButton_ProgressBarStyle1.Size = new System.Drawing.Size(57, 17);
+            this.radioButton_ProgressBarStyle1.TabIndex = 2;
+            this.radioButton_ProgressBarStyle1.Text = "Round";
+            this.radioButton_ProgressBarStyle1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_ProgressBarStyle0
+            // 
+            this.radioButton_ProgressBarStyle0.AutoSize = true;
+            this.radioButton_ProgressBarStyle0.Checked = true;
+            this.radioButton_ProgressBarStyle0.Location = new System.Drawing.Point(5, 22);
+            this.radioButton_ProgressBarStyle0.Margin = new System.Windows.Forms.Padding(4, 8, 4, 4);
+            this.radioButton_ProgressBarStyle0.Name = "radioButton_ProgressBarStyle0";
+            this.radioButton_ProgressBarStyle0.Size = new System.Drawing.Size(44, 17);
+            this.radioButton_ProgressBarStyle0.TabIndex = 1;
+            this.radioButton_ProgressBarStyle0.Text = "Hex";
+            this.radioButton_ProgressBarStyle0.UseVisualStyleBackColor = true;
+            // 
+            // cGroupBoxColored_GridItemStyle
+            // 
+            this.cGroupBoxColored_GridItemStyle.BorderColor = System.Drawing.Color.Black;
+            this.cGroupBoxColored_GridItemStyle.BottomBorderFix = 0;
+            this.cGroupBoxColored_GridItemStyle.Controls.Add(this.radioButton_GridItemStyle1);
+            this.cGroupBoxColored_GridItemStyle.Controls.Add(this.radioButton_GridItemStyle0);
+            this.cGroupBoxColored_GridItemStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cGroupBoxColored_GridItemStyle.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.cGroupBoxColored_GridItemStyle.Location = new System.Drawing.Point(360, 148);
+            this.cGroupBoxColored_GridItemStyle.Margin = new System.Windows.Forms.Padding(32, 32, 4, 4);
+            this.cGroupBoxColored_GridItemStyle.Name = "cGroupBoxColored_GridItemStyle";
+            this.cGroupBoxColored_GridItemStyle.Padding = new System.Windows.Forms.Padding(1);
+            this.cGroupBoxColored_GridItemStyle.Size = new System.Drawing.Size(136, 48);
+            this.cGroupBoxColored_GridItemStyle.TabIndex = 136;
+            this.cGroupBoxColored_GridItemStyle.TabStop = false;
+            this.cGroupBoxColored_GridItemStyle.Text = "Grid Item Style";
+            this.cGroupBoxColored_GridItemStyle.TextOffset = 2;
+            // 
+            // radioButton_GridItemStyle1
+            // 
+            this.radioButton_GridItemStyle1.AutoSize = true;
+            this.radioButton_GridItemStyle1.Location = new System.Drawing.Point(72, 22);
+            this.radioButton_GridItemStyle1.Margin = new System.Windows.Forms.Padding(4, 8, 4, 4);
+            this.radioButton_GridItemStyle1.Name = "radioButton_GridItemStyle1";
+            this.radioButton_GridItemStyle1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.radioButton_GridItemStyle1.Size = new System.Drawing.Size(56, 17);
+            this.radioButton_GridItemStyle1.TabIndex = 2;
+            this.radioButton_GridItemStyle1.Text = "Simple";
+            this.radioButton_GridItemStyle1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_GridItemStyle0
+            // 
+            this.radioButton_GridItemStyle0.AutoSize = true;
+            this.radioButton_GridItemStyle0.Checked = true;
+            this.radioButton_GridItemStyle0.Location = new System.Drawing.Point(5, 22);
+            this.radioButton_GridItemStyle0.Margin = new System.Windows.Forms.Padding(4, 8, 4, 4);
+            this.radioButton_GridItemStyle0.Name = "radioButton_GridItemStyle0";
+            this.radioButton_GridItemStyle0.Size = new System.Drawing.Size(59, 17);
+            this.radioButton_GridItemStyle0.TabIndex = 1;
+            this.radioButton_GridItemStyle0.Text = "Default";
+            this.radioButton_GridItemStyle0.UseVisualStyleBackColor = true;
             // 
             // bU_RefreshCredit
             // 
@@ -1765,6 +2745,22 @@
             this.TrackBar_Volume.Value = 25;
             this.TrackBar_Volume.Scroll += new System.EventHandler(this.TrackBar_Volume_Scroll);
             this.TrackBar_Volume.ValueChanged += new System.EventHandler(this.TrackBar_Volume_ValueChanged);
+            // 
+            // panel_CheckBoxOptions
+            // 
+            this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_ClearCache);
+            this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_ManualInferiorSave);
+            this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_DontFlag);
+            this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_BigMode);
+            this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_ExpandedDescription);
+            this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_AutocompleteTags);
+            this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_RemoveBVAS);
+            this.panel_CheckBoxOptions.Location = new System.Drawing.Point(68, 422);
+            this.panel_CheckBoxOptions.Margin = new System.Windows.Forms.Padding(64, 32, 4, 4);
+            this.panel_CheckBoxOptions.Name = "panel_CheckBoxOptions";
+            this.panel_CheckBoxOptions.Size = new System.Drawing.Size(256, 172);
+            this.panel_CheckBoxOptions.TabIndex = 128;
+            this.panel_CheckBoxOptions.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel_CheckBoxOptions_Paint);
             // 
             // CheckBox_ClearCache
             // 
@@ -2094,6 +3090,24 @@
             this.label_DownloadsFolder.Text = "Z:\\TestFolder\\Downloads";
             this.label_DownloadsFolder.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // cGroupBoxColored_AppNotes
+            // 
+            this.cGroupBoxColored_AppNotes.BorderColor = System.Drawing.Color.Black;
+            this.cGroupBoxColored_AppNotes.BottomBorderFix = 0;
+            this.cGroupBoxColored_AppNotes.Controls.Add(this.bU_NoteRemove);
+            this.cGroupBoxColored_AppNotes.Controls.Add(this.bU_NoteAdd);
+            this.cGroupBoxColored_AppNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cGroupBoxColored_AppNotes.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.cGroupBoxColored_AppNotes.Location = new System.Drawing.Point(360, 64);
+            this.cGroupBoxColored_AppNotes.Margin = new System.Windows.Forms.Padding(64, 32, 4, 4);
+            this.cGroupBoxColored_AppNotes.Name = "cGroupBoxColored_AppNotes";
+            this.cGroupBoxColored_AppNotes.Padding = new System.Windows.Forms.Padding(1);
+            this.cGroupBoxColored_AppNotes.Size = new System.Drawing.Size(256, 48);
+            this.cGroupBoxColored_AppNotes.TabIndex = 124;
+            this.cGroupBoxColored_AppNotes.TabStop = false;
+            this.cGroupBoxColored_AppNotes.Text = "App Notes";
+            this.cGroupBoxColored_AppNotes.TextOffset = 0;
+            // 
             // bU_NoteRemove
             // 
             this.bU_NoteRemove.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
@@ -2129,6 +3143,42 @@
             this.toolTip_Display.SetToolTip(this.bU_NoteAdd, "Leave a note for yourself that will appear when application starts.");
             this.bU_NoteAdd.UseVisualStyleBackColor = true;
             this.bU_NoteAdd.Click += new System.EventHandler(this.BU_NoteAdd_Click);
+            // 
+            // cGroupBoxColored_APIKey
+            // 
+            this.cGroupBoxColored_APIKey.BorderColor = System.Drawing.Color.Black;
+            this.cGroupBoxColored_APIKey.BottomBorderFix = 0;
+            this.cGroupBoxColored_APIKey.Controls.Add(this.bU_APIKey);
+            this.cGroupBoxColored_APIKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cGroupBoxColored_APIKey.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.cGroupBoxColored_APIKey.Location = new System.Drawing.Point(68, 64);
+            this.cGroupBoxColored_APIKey.Margin = new System.Windows.Forms.Padding(64, 32, 4, 4);
+            this.cGroupBoxColored_APIKey.Name = "cGroupBoxColored_APIKey";
+            this.cGroupBoxColored_APIKey.Padding = new System.Windows.Forms.Padding(1);
+            this.cGroupBoxColored_APIKey.Size = new System.Drawing.Size(256, 48);
+            this.cGroupBoxColored_APIKey.TabIndex = 123;
+            this.cGroupBoxColored_APIKey.TabStop = false;
+            this.cGroupBoxColored_APIKey.Text = "API Key";
+            this.cGroupBoxColored_APIKey.TextOffset = 0;
+            // 
+            // bU_APIKey
+            // 
+            this.bU_APIKey.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.bU_APIKey.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bU_APIKey.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.bU_APIKey.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.bU_APIKey.FlatAppearance.BorderSize = 0;
+            this.bU_APIKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bU_APIKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.bU_APIKey.Location = new System.Drawing.Point(1, 14);
+            this.bU_APIKey.Name = "bU_APIKey";
+            this.bU_APIKey.Size = new System.Drawing.Size(254, 33);
+            this.bU_APIKey.TabIndex = 0;
+            this.bU_APIKey.TabStop = false;
+            this.bU_APIKey.Text = "Add API Key";
+            this.bU_APIKey.UseVisualStyleBackColor = true;
+            this.bU_APIKey.TextChanged += new System.EventHandler(this.BU_APIKey_TextChanged);
+            this.bU_APIKey.Click += new System.EventHandler(this.BU_APIKey_Click);
             // 
             // cGroupBoxColored_Update
             // 
@@ -2244,6 +3294,24 @@
             this.AppName_Label.Text = "e621 ReBot (<Name>)";
             this.AppName_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // tabPage_PuzzleGame
+            // 
+            this.tabPage_PuzzleGame.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
+            this.tabPage_PuzzleGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tabPage_PuzzleGame.Controls.Add(this.labelPuzzle_SelectedPost);
+            this.tabPage_PuzzleGame.Controls.Add(this.cGroupBox_GameCheats);
+            this.tabPage_PuzzleGame.Controls.Add(this.pB_GameThumb);
+            this.tabPage_PuzzleGame.Controls.Add(this.CC_GameAnimations);
+            this.tabPage_PuzzleGame.Controls.Add(this.GB_RestartGame);
+            this.tabPage_PuzzleGame.Controls.Add(this.GB_StartGame);
+            this.tabPage_PuzzleGame.Controls.Add(this.gamePanel_Main);
+            this.tabPage_PuzzleGame.Controls.Add(this.panel_GameStart);
+            this.tabPage_PuzzleGame.Location = new System.Drawing.Point(4, 5);
+            this.tabPage_PuzzleGame.Name = "tabPage_PuzzleGame";
+            this.tabPage_PuzzleGame.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_PuzzleGame.TabIndex = 6;
+            this.tabPage_PuzzleGame.Text = "tabPage_PuzzleGame";
+            // 
             // labelPuzzle_SelectedPost
             // 
             this.labelPuzzle_SelectedPost.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -2258,6 +3326,23 @@
             this.toolTip_Display.SetToolTip(this.labelPuzzle_SelectedPost, "Click to navigate to post.\r\nAlt+Click to open in your default browser.");
             this.labelPuzzle_SelectedPost.Visible = false;
             this.labelPuzzle_SelectedPost.Click += new System.EventHandler(this.LabelPuzzle_SelectedPost_Click);
+            // 
+            // cGroupBox_GameCheats
+            // 
+            this.cGroupBox_GameCheats.BorderColor = System.Drawing.Color.Black;
+            this.cGroupBox_GameCheats.BottomBorderFix = 1;
+            this.cGroupBox_GameCheats.Controls.Add(this.CC_GameThumb);
+            this.cGroupBox_GameCheats.Controls.Add(this.CC_GameIndexHints);
+            this.cGroupBox_GameCheats.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cGroupBox_GameCheats.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.cGroupBox_GameCheats.Location = new System.Drawing.Point(1106, 623);
+            this.cGroupBox_GameCheats.Margin = new System.Windows.Forms.Padding(4, 4, 16, 4);
+            this.cGroupBox_GameCheats.Name = "cGroupBox_GameCheats";
+            this.cGroupBox_GameCheats.Size = new System.Drawing.Size(150, 65);
+            this.cGroupBox_GameCheats.TabIndex = 8;
+            this.cGroupBox_GameCheats.TabStop = false;
+            this.cGroupBox_GameCheats.Text = "Cheats";
+            this.cGroupBox_GameCheats.TextOffset = 0;
             // 
             // CC_GameThumb
             // 
@@ -2285,6 +3370,17 @@
         "me.)");
             this.CC_GameIndexHints.UseVisualStyleBackColor = true;
             // 
+            // pB_GameThumb
+            // 
+            this.pB_GameThumb.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pB_GameThumb.Location = new System.Drawing.Point(1026, 386);
+            this.pB_GameThumb.Name = "pB_GameThumb";
+            this.pB_GameThumb.Size = new System.Drawing.Size(230, 230);
+            this.pB_GameThumb.TabIndex = 7;
+            this.pB_GameThumb.TabStop = false;
+            this.pB_GameThumb.Visible = false;
+            this.pB_GameThumb.Paint += new System.Windows.Forms.PaintEventHandler(this.PB_GameThumb_Paint);
+            // 
             // CC_GameAnimations
             // 
             this.CC_GameAnimations.AutoSize = true;
@@ -2299,1173 +3395,6 @@
             this.CC_GameAnimations.Text = "Enable Game Animations";
             this.toolTip_Display.SetToolTip(this.CC_GameAnimations, "Show game animations.");
             this.CC_GameAnimations.UseVisualStyleBackColor = true;
-            // 
-            // labelPuzzle_Collumns
-            // 
-            this.labelPuzzle_Collumns.AutoSize = true;
-            this.labelPuzzle_Collumns.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.labelPuzzle_Collumns.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.labelPuzzle_Collumns.Location = new System.Drawing.Point(4, 30);
-            this.labelPuzzle_Collumns.Name = "labelPuzzle_Collumns";
-            this.labelPuzzle_Collumns.Size = new System.Drawing.Size(52, 13);
-            this.labelPuzzle_Collumns.TabIndex = 11;
-            this.labelPuzzle_Collumns.Text = "Collumns:";
-            this.toolTip_Display.SetToolTip(this.labelPuzzle_Collumns, "Number of puzzle collumns.");
-            // 
-            // labelPuzzle_Rows
-            // 
-            this.labelPuzzle_Rows.AutoSize = true;
-            this.labelPuzzle_Rows.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.labelPuzzle_Rows.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.labelPuzzle_Rows.Location = new System.Drawing.Point(19, 6);
-            this.labelPuzzle_Rows.Name = "labelPuzzle_Rows";
-            this.labelPuzzle_Rows.Size = new System.Drawing.Size(37, 13);
-            this.labelPuzzle_Rows.TabIndex = 3;
-            this.labelPuzzle_Rows.Text = "Rows:";
-            this.toolTip_Display.SetToolTip(this.labelPuzzle_Rows, "Number of puzzle rows.");
-            // 
-            // rb_GameStart_3
-            // 
-            this.rb_GameStart_3.AutoSize = true;
-            this.rb_GameStart_3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.rb_GameStart_3.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.rb_GameStart_3.Location = new System.Drawing.Point(4, 118);
-            this.rb_GameStart_3.Margin = new System.Windows.Forms.Padding(4);
-            this.rb_GameStart_3.Name = "rb_GameStart_3";
-            this.rb_GameStart_3.Size = new System.Drawing.Size(122, 17);
-            this.rb_GameStart_3.TabIndex = 2;
-            this.rb_GameStart_3.Text = "Image from e621.net";
-            this.toolTip_Display.SetToolTip(this.rb_GameStart_3, "Pick an image from e621 when starting a game.");
-            this.rb_GameStart_3.UseVisualStyleBackColor = true;
-            // 
-            // rb_GameStart_1
-            // 
-            this.rb_GameStart_1.AutoSize = true;
-            this.rb_GameStart_1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.rb_GameStart_1.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.rb_GameStart_1.Location = new System.Drawing.Point(5, 93);
-            this.rb_GameStart_1.Margin = new System.Windows.Forms.Padding(4);
-            this.rb_GameStart_1.Name = "rb_GameStart_1";
-            this.rb_GameStart_1.Size = new System.Drawing.Size(51, 17);
-            this.rb_GameStart_1.TabIndex = 1;
-            this.rb_GameStart_1.Text = "Local";
-            this.toolTip_Display.SetToolTip(this.rb_GameStart_1, "Pick an image from local location when starting a game.");
-            this.rb_GameStart_1.UseVisualStyleBackColor = true;
-            // 
-            // rb_GameStart_2
-            // 
-            this.rb_GameStart_2.AutoSize = true;
-            this.rb_GameStart_2.Checked = true;
-            this.rb_GameStart_2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.rb_GameStart_2.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.rb_GameStart_2.Location = new System.Drawing.Point(64, 93);
-            this.rb_GameStart_2.Margin = new System.Windows.Forms.Padding(4);
-            this.rb_GameStart_2.Name = "rb_GameStart_2";
-            this.rb_GameStart_2.Size = new System.Drawing.Size(65, 17);
-            this.rb_GameStart_2.TabIndex = 0;
-            this.rb_GameStart_2.Text = "Random";
-            this.toolTip_Display.SetToolTip(this.rb_GameStart_2, "Picks a random image from e621 when starting a game.");
-            this.rb_GameStart_2.UseVisualStyleBackColor = true;
-            // 
-            // bU_KoFi
-            // 
-            this.bU_KoFi.BackgroundImage = global::e621_ReBot_v2.Properties.Resources.Ko_Fi_ButtonSmall;
-            this.bU_KoFi.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.bU_KoFi.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bU_KoFi.FlatAppearance.BorderSize = 0;
-            this.bU_KoFi.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.bU_KoFi.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.bU_KoFi.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bU_KoFi.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.bU_KoFi.Location = new System.Drawing.Point(1243, 18);
-            this.bU_KoFi.Name = "bU_KoFi";
-            this.bU_KoFi.Size = new System.Drawing.Size(20, 16);
-            this.bU_KoFi.TabIndex = 113;
-            this.bU_KoFi.TabStop = false;
-            this.toolTip_Display.SetToolTip(this.bU_KoFi, "Support me on Ko-Fi.");
-            this.bU_KoFi.UseVisualStyleBackColor = true;
-            this.bU_KoFi.Click += new System.EventHandler(this.BU_KoFi_Click);
-            // 
-            // GB_Right
-            // 
-            this.GB_Right.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.GB_Right.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.GB_Right.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.GB_Right.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GB_Right.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.GB_Right.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.GB_Right.Location = new System.Drawing.Point(1230, 672);
-            this.GB_Right.Margin = new System.Windows.Forms.Padding(0);
-            this.GB_Right.Name = "GB_Right";
-            this.GB_Right.Size = new System.Drawing.Size(32, 23);
-            this.GB_Right.TabIndex = 8;
-            this.GB_Right.TabStop = false;
-            this.GB_Right.Text = ">";
-            this.toolTip_Display.SetToolTip(this.GB_Right, "Next page.");
-            this.GB_Right.UseVisualStyleBackColor = true;
-            this.GB_Right.Visible = false;
-            this.GB_Right.VisibleChanged += new System.EventHandler(this.GB_Right_VisibleChanged);
-            this.GB_Right.Click += new System.EventHandler(this.GB_Right_Click);
-            // 
-            // GB_Left
-            // 
-            this.GB_Left.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.GB_Left.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.GB_Left.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.GB_Left.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GB_Left.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.GB_Left.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.GB_Left.Location = new System.Drawing.Point(0, 672);
-            this.GB_Left.Margin = new System.Windows.Forms.Padding(0);
-            this.GB_Left.Name = "GB_Left";
-            this.GB_Left.Size = new System.Drawing.Size(32, 23);
-            this.GB_Left.TabIndex = 1;
-            this.GB_Left.TabStop = false;
-            this.GB_Left.Text = "<";
-            this.toolTip_Display.SetToolTip(this.GB_Left, "Previous page.");
-            this.GB_Left.UseVisualStyleBackColor = true;
-            this.GB_Left.Visible = false;
-            this.GB_Left.VisibleChanged += new System.EventHandler(this.GB_Left_VisibleChanged);
-            this.GB_Left.Click += new System.EventHandler(this.GB_Left_Click);
-            // 
-            // BQB_HentaiFoundry
-            // 
-            this.BQB_HentaiFoundry.BackColor = System.Drawing.Color.Transparent;
-            this.BQB_HentaiFoundry.BackgroundImage = global::e621_ReBot_v2.Properties.Resources.BrowserIcon_HentaiFoundry;
-            this.BQB_HentaiFoundry.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.BQB_HentaiFoundry.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BQB_HentaiFoundry.FlatAppearance.BorderSize = 0;
-            this.BQB_HentaiFoundry.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.BQB_HentaiFoundry.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.BQB_HentaiFoundry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BQB_HentaiFoundry.Location = new System.Drawing.Point(-1, 110);
-            this.BQB_HentaiFoundry.MaximumSize = new System.Drawing.Size(64, 56);
-            this.BQB_HentaiFoundry.MinimumSize = new System.Drawing.Size(64, 56);
-            this.BQB_HentaiFoundry.Name = "BQB_HentaiFoundry";
-            this.BQB_HentaiFoundry.Size = new System.Drawing.Size(64, 56);
-            this.BQB_HentaiFoundry.TabIndex = 14;
-            this.BQB_HentaiFoundry.Tag = "https://www.hentai-foundry.com/";
-            this.toolTip_Display.SetToolTip(this.BQB_HentaiFoundry, "Hentai-Foundry.com");
-            this.BQB_HentaiFoundry.UseVisualStyleBackColor = false;
-            // 
-            // Version_Label
-            // 
-            this.Version_Label.AutoSize = true;
-            this.Version_Label.BackColor = System.Drawing.Color.Transparent;
-            this.Version_Label.Cursor = System.Windows.Forms.Cursors.NoMove2D;
-            this.Version_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.Version_Label.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.Version_Label.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Version_Label.Location = new System.Drawing.Point(136, 22);
-            this.Version_Label.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
-            this.Version_Label.Name = "Version_Label";
-            this.Version_Label.Size = new System.Drawing.Size(46, 13);
-            this.Version_Label.TabIndex = 1;
-            this.Version_Label.Text = "v2.0.0.0";
-            this.Version_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Title_Label
-            // 
-            this.Title_Label.AutoSize = true;
-            this.Title_Label.BackColor = System.Drawing.Color.Transparent;
-            this.Title_Label.Cursor = System.Windows.Forms.Cursors.NoMove2D;
-            this.Title_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.Title_Label.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.Title_Label.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Title_Label.Location = new System.Drawing.Point(44, 20);
-            this.Title_Label.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
-            this.Title_Label.Name = "Title_Label";
-            this.Title_Label.Size = new System.Drawing.Size(87, 16);
-            this.Title_Label.TabIndex = 0;
-            this.Title_Label.Text = "e621 ReBot";
-            this.Title_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Panel_Holder
-            // 
-            this.Panel_Holder.BackColor = System.Drawing.Color.Transparent;
-            this.Panel_Holder.Controls.Add(this.bU_KoFi);
-            this.Panel_Holder.Controls.Add(this.label_Credit_Flag);
-            this.Panel_Holder.Controls.Add(this.label_Credit_Note);
-            this.Panel_Holder.Controls.Add(this.label_Credit_Upload);
-            this.Panel_Holder.Controls.Add(this.label_UserLevel);
-            this.Panel_Holder.Cursor = System.Windows.Forms.Cursors.NoMove2D;
-            this.Panel_Holder.Location = new System.Drawing.Point(0, 0);
-            this.Panel_Holder.Name = "Panel_Holder";
-            this.Panel_Holder.Size = new System.Drawing.Size(1304, 74);
-            this.Panel_Holder.TabIndex = 116;
-            // 
-            // timer_FadeIn
-            // 
-            this.timer_FadeIn.Interval = 16;
-            this.timer_FadeIn.Tick += new System.EventHandler(this.Timer_FadeIn_Tick);
-            // 
-            // timer_TwitterGrabber
-            // 
-            this.timer_TwitterGrabber.Interval = 1000;
-            this.timer_TwitterGrabber.Tick += new System.EventHandler(this.Timer_TwitterGrabber_Tick);
-            // 
-            // timer_Refresh
-            // 
-            this.timer_Refresh.Interval = 5;
-            this.timer_Refresh.Tick += new System.EventHandler(this.Timer_Refresh_Tick);
-            // 
-            // contextMenuStrip_Download
-            // 
-            this.contextMenuStrip_Download.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenuStrip_Download.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStripMenuItem_RemoveDLNode,
-            this.ToolStripMenuItem_RemoveDLAll});
-            this.contextMenuStrip_Download.Name = "ContextMenuStrip_Download";
-            this.contextMenuStrip_Download.Size = new System.Drawing.Size(135, 48);
-            // 
-            // ToolStripMenuItem_RemoveDLNode
-            // 
-            this.ToolStripMenuItem_RemoveDLNode.Name = "ToolStripMenuItem_RemoveDLNode";
-            this.ToolStripMenuItem_RemoveDLNode.Size = new System.Drawing.Size(134, 22);
-            this.ToolStripMenuItem_RemoveDLNode.Text = "Remove";
-            this.ToolStripMenuItem_RemoveDLNode.Click += new System.EventHandler(this.ToolStripMenuItem_RemoveDLNode_Click);
-            // 
-            // ToolStripMenuItem_RemoveDLAll
-            // 
-            this.ToolStripMenuItem_RemoveDLAll.Name = "ToolStripMenuItem_RemoveDLAll";
-            this.ToolStripMenuItem_RemoveDLAll.Size = new System.Drawing.Size(134, 22);
-            this.ToolStripMenuItem_RemoveDLAll.Text = "Remove All";
-            this.ToolStripMenuItem_RemoveDLAll.Click += new System.EventHandler(this.ToolStripMenuItem_RemoveDLAll_Click);
-            // 
-            // contextMenuStrip_cTreeView
-            // 
-            this.contextMenuStrip_cTreeView.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenuStrip_cTreeView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStripMenuItem_RemoveNode,
-            this.ToolStripMenuItem_RemoveAll,
-            this.ToolStripMenuItem_ExpandAll,
-            this.ToolStripMenuItem_CollapseAll});
-            this.contextMenuStrip_cTreeView.Name = "contextMenuStrip_cTreeView";
-            this.contextMenuStrip_cTreeView.Size = new System.Drawing.Size(137, 92);
-            // 
-            // ToolStripMenuItem_RemoveNode
-            // 
-            this.ToolStripMenuItem_RemoveNode.Name = "ToolStripMenuItem_RemoveNode";
-            this.ToolStripMenuItem_RemoveNode.Size = new System.Drawing.Size(136, 22);
-            this.ToolStripMenuItem_RemoveNode.Text = "Remove";
-            this.ToolStripMenuItem_RemoveNode.Click += new System.EventHandler(this.ToolStripMenuItem_RemoveNode_Click);
-            // 
-            // ToolStripMenuItem_RemoveAll
-            // 
-            this.ToolStripMenuItem_RemoveAll.Name = "ToolStripMenuItem_RemoveAll";
-            this.ToolStripMenuItem_RemoveAll.Size = new System.Drawing.Size(136, 22);
-            this.ToolStripMenuItem_RemoveAll.Text = "Remove All";
-            this.ToolStripMenuItem_RemoveAll.Click += new System.EventHandler(this.ToolStripMenuItem_RemoveAll_Click);
-            // 
-            // ToolStripMenuItem_ExpandAll
-            // 
-            this.ToolStripMenuItem_ExpandAll.Name = "ToolStripMenuItem_ExpandAll";
-            this.ToolStripMenuItem_ExpandAll.Size = new System.Drawing.Size(136, 22);
-            this.ToolStripMenuItem_ExpandAll.Text = "Expand All";
-            this.ToolStripMenuItem_ExpandAll.Click += new System.EventHandler(this.ToolStripMenuItem_ExpandAll_Click);
-            // 
-            // ToolStripMenuItem_CollapseAll
-            // 
-            this.ToolStripMenuItem_CollapseAll.Name = "ToolStripMenuItem_CollapseAll";
-            this.ToolStripMenuItem_CollapseAll.Size = new System.Drawing.Size(136, 22);
-            this.ToolStripMenuItem_CollapseAll.Text = "Collapse All";
-            this.ToolStripMenuItem_CollapseAll.Click += new System.EventHandler(this.ToolStripMenuItem_CollapseAll_Click);
-            // 
-            // contextMenuStrip_InfoBox
-            // 
-            this.contextMenuStrip_InfoBox.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenuStrip_InfoBox.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStripMenuItem_ClearReports});
-            this.contextMenuStrip_InfoBox.Name = "contextMenuStrip_InfoBox";
-            this.contextMenuStrip_InfoBox.Size = new System.Drawing.Size(102, 26);
-            // 
-            // ToolStripMenuItem_ClearReports
-            // 
-            this.ToolStripMenuItem_ClearReports.Name = "ToolStripMenuItem_ClearReports";
-            this.ToolStripMenuItem_ClearReports.Size = new System.Drawing.Size(101, 22);
-            this.ToolStripMenuItem_ClearReports.Text = "Clear";
-            this.ToolStripMenuItem_ClearReports.Click += new System.EventHandler(this.ToolStripMenuItem_ClearReports_Click);
-            // 
-            // contextMenuStrip_Conversion
-            // 
-            this.contextMenuStrip_Conversion.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenuStrip_Conversion.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStripMenuItem_RemoveConversionNode,
-            this.ToolStripMenuItem_RemoveConversionAll});
-            this.contextMenuStrip_Conversion.Name = "ContextMenuStrip_Download";
-            this.contextMenuStrip_Conversion.Size = new System.Drawing.Size(135, 48);
-            // 
-            // ToolStripMenuItem_RemoveConversionNode
-            // 
-            this.ToolStripMenuItem_RemoveConversionNode.Name = "ToolStripMenuItem_RemoveConversionNode";
-            this.ToolStripMenuItem_RemoveConversionNode.Size = new System.Drawing.Size(134, 22);
-            this.ToolStripMenuItem_RemoveConversionNode.Text = "Remove";
-            this.ToolStripMenuItem_RemoveConversionNode.Click += new System.EventHandler(this.ToolStripMenuItem_RemoveConversionNode_Click);
-            // 
-            // ToolStripMenuItem_RemoveConversionAll
-            // 
-            this.ToolStripMenuItem_RemoveConversionAll.Name = "ToolStripMenuItem_RemoveConversionAll";
-            this.ToolStripMenuItem_RemoveConversionAll.Size = new System.Drawing.Size(134, 22);
-            this.ToolStripMenuItem_RemoveConversionAll.Text = "Remove All";
-            this.ToolStripMenuItem_RemoveConversionAll.Click += new System.EventHandler(this.ToolStripMenuItem_RemoveConversionAll_Click);
-            // 
-            // cTabControl_e621ReBot
-            // 
-            this.cTabControl_e621ReBot.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
-            this.cTabControl_e621ReBot.Controls.Add(this.tabPage_Browser);
-            this.cTabControl_e621ReBot.Controls.Add(this.tabPage_Grid);
-            this.cTabControl_e621ReBot.Controls.Add(this.tabPage_Jobs);
-            this.cTabControl_e621ReBot.Controls.Add(this.tabPage_Download);
-            this.cTabControl_e621ReBot.Controls.Add(this.tabPage_Info);
-            this.cTabControl_e621ReBot.Controls.Add(this.tabPage_Settings);
-            this.cTabControl_e621ReBot.Controls.Add(this.tabPage_PuzzleGame);
-            this.cTabControl_e621ReBot.ItemSize = new System.Drawing.Size(0, 1);
-            this.cTabControl_e621ReBot.Location = new System.Drawing.Point(23, 34);
-            this.cTabControl_e621ReBot.Margin = new System.Windows.Forms.Padding(0);
-            this.cTabControl_e621ReBot.Name = "cTabControl_e621ReBot";
-            this.cTabControl_e621ReBot.SelectedIndex = 0;
-            this.cTabControl_e621ReBot.Size = new System.Drawing.Size(1270, 704);
-            this.cTabControl_e621ReBot.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.cTabControl_e621ReBot.TabIndex = 118;
-            this.cTabControl_e621ReBot.TabStop = false;
-            this.cTabControl_e621ReBot.SelectedIndexChanged += new System.EventHandler(this.CTabControl_e621ReBot_SelectedIndexChanged);
-            // 
-            // tabPage_Browser
-            // 
-            this.tabPage_Browser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
-            this.tabPage_Browser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.tabPage_Browser.Controls.Add(this.QuickButtonPanel);
-            this.tabPage_Browser.Controls.Add(this.panel_Browser);
-            this.tabPage_Browser.Location = new System.Drawing.Point(4, 5);
-            this.tabPage_Browser.Margin = new System.Windows.Forms.Padding(0);
-            this.tabPage_Browser.Name = "tabPage_Browser";
-            this.tabPage_Browser.Size = new System.Drawing.Size(1262, 695);
-            this.tabPage_Browser.TabIndex = 0;
-            this.tabPage_Browser.Text = "tabPage_Browser";
-            // 
-            // QuickButtonPanel
-            // 
-            this.QuickButtonPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.QuickButtonPanel.BackColor = System.Drawing.Color.Transparent;
-            this.QuickButtonPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.QuickButtonPanel.Controls.Add(this.BQB_HentaiFoundry);
-            this.QuickButtonPanel.Controls.Add(this.BQB_Baraag);
-            this.QuickButtonPanel.Controls.Add(this.BQB_Weasyl);
-            this.QuickButtonPanel.Controls.Add(this.BQB_Pawoo);
-            this.QuickButtonPanel.Controls.Add(this.BQB_Plurk);
-            this.QuickButtonPanel.Controls.Add(this.BQB_Mastodon);
-            this.QuickButtonPanel.Controls.Add(this.BQB_SoFurry);
-            this.QuickButtonPanel.Controls.Add(this.BQB_Newgrounds);
-            this.QuickButtonPanel.Controls.Add(this.BQB_Twitter);
-            this.QuickButtonPanel.Controls.Add(this.BQB_FurAffinity);
-            this.QuickButtonPanel.Controls.Add(this.BQB_Pixiv);
-            this.QuickButtonPanel.Controls.Add(this.BQB_Inkbunny);
-            this.QuickButtonPanel.Controls.Add(this.BQB_HicceArs);
-            this.QuickButtonPanel.Controls.Add(this.BQB_Start);
-            this.QuickButtonPanel.Location = new System.Drawing.Point(504, 223);
-            this.QuickButtonPanel.Name = "QuickButtonPanel";
-            this.QuickButtonPanel.Size = new System.Drawing.Size(259, 221);
-            this.QuickButtonPanel.TabIndex = 1;
-            this.QuickButtonPanel.Visible = false;
-            // 
-            // panel_Browser
-            // 
-            this.panel_Browser.BackColor = System.Drawing.Color.DimGray;
-            this.panel_Browser.Controls.Add(this.panel_ComboBoxBlocker);
-            this.panel_Browser.Controls.Add(this.panel_BrowserDisplay);
-            this.panel_Browser.Controls.Add(this.BB_Navigate);
-            this.panel_Browser.Controls.Add(this.URL_ComboBox);
-            this.panel_Browser.Controls.Add(this.BB_Home);
-            this.panel_Browser.Controls.Add(this.BB_Forward);
-            this.panel_Browser.Controls.Add(this.BB_Reload);
-            this.panel_Browser.Controls.Add(this.BB_Backward);
-            this.panel_Browser.Controls.Add(this.BB_Bookmarks);
-            this.panel_Browser.Controls.Add(this.flowLayoutPanel_BrowserButtons);
-            this.panel_Browser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_Browser.Location = new System.Drawing.Point(0, 0);
-            this.panel_Browser.Margin = new System.Windows.Forms.Padding(0);
-            this.panel_Browser.Name = "panel_Browser";
-            this.panel_Browser.Padding = new System.Windows.Forms.Padding(1);
-            this.panel_Browser.Size = new System.Drawing.Size(1262, 695);
-            this.panel_Browser.TabIndex = 2;
-            this.panel_Browser.Visible = false;
-            this.panel_Browser.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel_Browser_Paint);
-            // 
-            // panel_ComboBoxBlocker
-            // 
-            this.panel_ComboBoxBlocker.BackColor = System.Drawing.Color.Transparent;
-            this.panel_ComboBoxBlocker.BackgroundImage = global::e621_ReBot_v2.Properties.Resources.ComboBox_Disabled;
-            this.panel_ComboBoxBlocker.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.panel_ComboBoxBlocker.Location = new System.Drawing.Point(849, 3);
-            this.panel_ComboBoxBlocker.Name = "panel_ComboBoxBlocker";
-            this.panel_ComboBoxBlocker.Size = new System.Drawing.Size(18, 21);
-            this.panel_ComboBoxBlocker.TabIndex = 22;
-            // 
-            // panel_BrowserDisplay
-            // 
-            this.panel_BrowserDisplay.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel_BrowserDisplay.Location = new System.Drawing.Point(1, 27);
-            this.panel_BrowserDisplay.Margin = new System.Windows.Forms.Padding(0);
-            this.panel_BrowserDisplay.Name = "panel_BrowserDisplay";
-            this.panel_BrowserDisplay.Size = new System.Drawing.Size(1260, 667);
-            this.panel_BrowserDisplay.TabIndex = 21;
-            // 
-            // BB_Navigate
-            // 
-            this.BB_Navigate.BackColor = System.Drawing.SystemColors.Control;
-            this.BB_Navigate.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BB_Navigate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BB_Navigate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.BB_Navigate.Location = new System.Drawing.Point(869, 2);
-            this.BB_Navigate.Margin = new System.Windows.Forms.Padding(2);
-            this.BB_Navigate.Name = "BB_Navigate";
-            this.BB_Navigate.Size = new System.Drawing.Size(75, 23);
-            this.BB_Navigate.TabIndex = 20;
-            this.BB_Navigate.TabStop = false;
-            this.BB_Navigate.Text = "Navigate";
-            this.BB_Navigate.UseVisualStyleBackColor = false;
-            this.BB_Navigate.Click += new System.EventHandler(this.BB_Navigate_Click);
-            // 
-            // URL_ComboBox
-            // 
-            this.URL_ComboBox.AutoCompleteCustomSource.AddRange(new string[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5"});
-            this.URL_ComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.URL_ComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.URL_ComboBox.BackColor = System.Drawing.SystemColors.Window;
-            this.URL_ComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.URL_ComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.URL_ComboBox.FormattingEnabled = true;
-            this.URL_ComboBox.ItemHeight = 13;
-            this.URL_ComboBox.Location = new System.Drawing.Point(147, 3);
-            this.URL_ComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 2, 2);
-            this.URL_ComboBox.Name = "URL_ComboBox";
-            this.URL_ComboBox.Size = new System.Drawing.Size(720, 21);
-            this.URL_ComboBox.TabIndex = 19;
-            this.URL_ComboBox.TabStop = false;
-            this.URL_ComboBox.SelectedIndexChanged += new System.EventHandler(this.URL_ComboBox_SelectedIndexChanged);
-            this.URL_ComboBox.TextChanged += new System.EventHandler(this.URL_ComboBox_TextChanged);
-            this.URL_ComboBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.URL_ComboBox_KeyDown);
-            this.URL_ComboBox.Leave += new System.EventHandler(this.URL_ComboBox_Leave);
-            // 
-            // flowLayoutPanel_BrowserButtons
-            // 
-            this.flowLayoutPanel_BrowserButtons.Controls.Add(this.BB_Grab_All);
-            this.flowLayoutPanel_BrowserButtons.Controls.Add(this.BB_Grab);
-            this.flowLayoutPanel_BrowserButtons.Controls.Add(this.BB_Download);
-            this.flowLayoutPanel_BrowserButtons.Controls.Add(this.DevTools_Button);
-            this.flowLayoutPanel_BrowserButtons.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel_BrowserButtons.Location = new System.Drawing.Point(951, 2);
-            this.flowLayoutPanel_BrowserButtons.Margin = new System.Windows.Forms.Padding(0, 2, 2, 0);
-            this.flowLayoutPanel_BrowserButtons.Name = "flowLayoutPanel_BrowserButtons";
-            this.flowLayoutPanel_BrowserButtons.Size = new System.Drawing.Size(309, 24);
-            this.flowLayoutPanel_BrowserButtons.TabIndex = 13;
-            // 
-            // DevTools_Button
-            // 
-            this.DevTools_Button.BackColor = System.Drawing.Color.DarkOrange;
-            this.DevTools_Button.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DevTools_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DevTools_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.DevTools_Button.Location = new System.Drawing.Point(3, 0);
-            this.DevTools_Button.Margin = new System.Windows.Forms.Padding(0);
-            this.DevTools_Button.Name = "DevTools_Button";
-            this.DevTools_Button.Size = new System.Drawing.Size(75, 23);
-            this.DevTools_Button.TabIndex = 9;
-            this.DevTools_Button.Text = "Dev Tools";
-            this.DevTools_Button.UseVisualStyleBackColor = false;
-            this.DevTools_Button.Visible = false;
-            this.DevTools_Button.Click += new System.EventHandler(this.DevTools_Button_Click);
-            // 
-            // tabPage_Grid
-            // 
-            this.tabPage_Grid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
-            this.tabPage_Grid.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.tabPage_Grid.Controls.Add(this.Label_PageShower);
-            this.tabPage_Grid.Controls.Add(this.Label_RightPage);
-            this.tabPage_Grid.Controls.Add(this.Label_LeftPage);
-            this.tabPage_Grid.Controls.Add(this.GB_Right);
-            this.tabPage_Grid.Controls.Add(this.GB_Upload);
-            this.tabPage_Grid.Controls.Add(this.GB_Download);
-            this.tabPage_Grid.Controls.Add(this.GB_Clear);
-            this.tabPage_Grid.Controls.Add(this.GB_Uncheck);
-            this.tabPage_Grid.Controls.Add(this.GB_Inverse);
-            this.tabPage_Grid.Controls.Add(this.GB_Check);
-            this.tabPage_Grid.Controls.Add(this.GB_Left);
-            this.tabPage_Grid.Controls.Add(this.flowLayoutPanel_Grid);
-            this.tabPage_Grid.Location = new System.Drawing.Point(4, 5);
-            this.tabPage_Grid.Name = "tabPage_Grid";
-            this.tabPage_Grid.Size = new System.Drawing.Size(192, 91);
-            this.tabPage_Grid.TabIndex = 1;
-            this.tabPage_Grid.Text = "tabPage_Grid";
-            this.tabPage_Grid.Paint += new System.Windows.Forms.PaintEventHandler(this.TabPage_Grid_Paint);
-            // 
-            // Label_PageShower
-            // 
-            this.Label_PageShower.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.Label_PageShower.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.Label_PageShower.Location = new System.Drawing.Point(580, 652);
-            this.Label_PageShower.Margin = new System.Windows.Forms.Padding(0, 0, 0, 8);
-            this.Label_PageShower.Name = "Label_PageShower";
-            this.Label_PageShower.Size = new System.Drawing.Size(100, 12);
-            this.Label_PageShower.TabIndex = 105;
-            this.Label_PageShower.Text = "2 / 3";
-            this.Label_PageShower.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Label_RightPage
-            // 
-            this.Label_RightPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.Label_RightPage.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.Label_RightPage.Location = new System.Drawing.Point(1190, 672);
-            this.Label_RightPage.Margin = new System.Windows.Forms.Padding(0, 0, 8, 0);
-            this.Label_RightPage.Name = "Label_RightPage";
-            this.Label_RightPage.Size = new System.Drawing.Size(32, 23);
-            this.Label_RightPage.TabIndex = 104;
-            this.Label_RightPage.Text = "3";
-            this.Label_RightPage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.Label_RightPage.Visible = false;
-            // 
-            // Label_LeftPage
-            // 
-            this.Label_LeftPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.Label_LeftPage.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.Label_LeftPage.Location = new System.Drawing.Point(40, 672);
-            this.Label_LeftPage.Margin = new System.Windows.Forms.Padding(8, 0, 0, 0);
-            this.Label_LeftPage.Name = "Label_LeftPage";
-            this.Label_LeftPage.Size = new System.Drawing.Size(32, 23);
-            this.Label_LeftPage.TabIndex = 103;
-            this.Label_LeftPage.Text = "1";
-            this.Label_LeftPage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Label_LeftPage.Visible = false;
-            // 
-            // flowLayoutPanel_Grid
-            // 
-            this.flowLayoutPanel_Grid.BackColor = System.Drawing.Color.Transparent;
-            this.flowLayoutPanel_Grid.Dock = System.Windows.Forms.DockStyle.Top;
-            this.flowLayoutPanel_Grid.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel_Grid.Margin = new System.Windows.Forms.Padding(0);
-            this.flowLayoutPanel_Grid.Name = "flowLayoutPanel_Grid";
-            this.flowLayoutPanel_Grid.Padding = new System.Windows.Forms.Padding(0, 16, 0, 0);
-            this.flowLayoutPanel_Grid.Size = new System.Drawing.Size(192, 650);
-            this.flowLayoutPanel_Grid.TabIndex = 0;
-            this.flowLayoutPanel_Grid.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.FlowLayoutPanel_Grid_ControlAdded);
-            this.flowLayoutPanel_Grid.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.FlowLayoutPanel_Grid_ControlRemoved);
-            // 
-            // tabPage_Jobs
-            // 
-            this.tabPage_Jobs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
-            this.tabPage_Jobs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.tabPage_Jobs.Controls.Add(this.cCheckGroupBox_Retry);
-            this.tabPage_Jobs.Controls.Add(this.cCheckGroupBox_Convert);
-            this.tabPage_Jobs.Controls.Add(this.cCheckGroupBox_Upload);
-            this.tabPage_Jobs.Controls.Add(this.cCheckGroupBox_Grab);
-            this.tabPage_Jobs.Controls.Add(this.cCheckGroupBox_Info);
-            this.tabPage_Jobs.Location = new System.Drawing.Point(4, 5);
-            this.tabPage_Jobs.Name = "tabPage_Jobs";
-            this.tabPage_Jobs.Size = new System.Drawing.Size(192, 91);
-            this.tabPage_Jobs.TabIndex = 3;
-            this.tabPage_Jobs.Text = "tabPage_Jobs";
-            // 
-            // cCheckGroupBox_Retry
-            // 
-            this.cCheckGroupBox_Retry.BorderColor = System.Drawing.Color.Black;
-            this.cCheckGroupBox_Retry.BottomBorderFix = 1;
-            this.cCheckGroupBox_Retry.Controls.Add(this.cTreeView_RetryQueue);
-            this.cCheckGroupBox_Retry.Controls.Add(this.label_RetryStatus);
-            this.cCheckGroupBox_Retry.DisableChildrenIfUnchecked = false;
-            this.cCheckGroupBox_Retry.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.cCheckGroupBox_Retry.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cCheckGroupBox_Retry.Location = new System.Drawing.Point(644, 504);
-            this.cCheckGroupBox_Retry.Margin = new System.Windows.Forms.Padding(8, 8, 32, 16);
-            this.cCheckGroupBox_Retry.Name = "cCheckGroupBox_Retry";
-            this.cCheckGroupBox_Retry.Size = new System.Drawing.Size(592, 170);
-            this.cCheckGroupBox_Retry.TabIndex = 8;
-            this.cCheckGroupBox_Retry.TabStop = false;
-            this.cCheckGroupBox_Retry.Text = "Retry Queue";
-            this.cCheckGroupBox_Retry.TextOffset = 0;
-            this.cCheckGroupBox_Retry.TooltipTextOnCheckbox = "Toggle this (On) to retry failed jobs.";
-            this.cCheckGroupBox_Retry.CheckedChanged += new System.EventHandler(this.CCheckGroupBox_Retry_CheckedChanged);
-            // 
-            // cTreeView_RetryQueue
-            // 
-            this.cTreeView_RetryQueue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
-            this.cTreeView_RetryQueue.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.cTreeView_RetryQueue.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.cTreeView_RetryQueue.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
-            this.cTreeView_RetryQueue.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cTreeView_RetryQueue.Location = new System.Drawing.Point(3, 33);
-            this.cTreeView_RetryQueue.Margin = new System.Windows.Forms.Padding(0, 4, 0, 0);
-            this.cTreeView_RetryQueue.Name = "cTreeView_RetryQueue";
-            this.cTreeView_RetryQueue.NodeBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
-            this.cTreeView_RetryQueue.ShowNodeToolTips = true;
-            this.cTreeView_RetryQueue.Size = new System.Drawing.Size(586, 134);
-            this.cTreeView_RetryQueue.TabIndex = 7;
-            this.cTreeView_RetryQueue.TabStop = false;
-            // 
-            // label_RetryStatus
-            // 
-            this.label_RetryStatus.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label_RetryStatus.Location = new System.Drawing.Point(3, 16);
-            this.label_RetryStatus.Margin = new System.Windows.Forms.Padding(0);
-            this.label_RetryStatus.Name = "label_RetryStatus";
-            this.label_RetryStatus.Size = new System.Drawing.Size(586, 13);
-            this.label_RetryStatus.TabIndex = 2;
-            this.label_RetryStatus.Text = "Status: Empty.";
-            // 
-            // cCheckGroupBox_Convert
-            // 
-            this.cCheckGroupBox_Convert.BorderColor = System.Drawing.Color.Black;
-            this.cCheckGroupBox_Convert.BottomBorderFix = 1;
-            this.cCheckGroupBox_Convert.Controls.Add(this.cTreeView_ConversionQueue);
-            this.cCheckGroupBox_Convert.Controls.Add(this.label_ConversionStatus);
-            this.cCheckGroupBox_Convert.DisableChildrenIfUnchecked = false;
-            this.cCheckGroupBox_Convert.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.cCheckGroupBox_Convert.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cCheckGroupBox_Convert.Location = new System.Drawing.Point(644, 288);
-            this.cCheckGroupBox_Convert.Margin = new System.Windows.Forms.Padding(8, 8, 32, 8);
-            this.cCheckGroupBox_Convert.Name = "cCheckGroupBox_Convert";
-            this.cCheckGroupBox_Convert.Size = new System.Drawing.Size(592, 200);
-            this.cCheckGroupBox_Convert.TabIndex = 7;
-            this.cCheckGroupBox_Convert.TabStop = false;
-            this.cCheckGroupBox_Convert.Text = "Conversionist";
-            this.cCheckGroupBox_Convert.TextOffset = 0;
-            this.cCheckGroupBox_Convert.TooltipTextOnCheckbox = "Conversionist converts the media formats.";
-            this.cCheckGroupBox_Convert.CheckedChanged += new System.EventHandler(this.CCheckGroupBox_Convert_CheckedChanged);
-            // 
-            // cTreeView_ConversionQueue
-            // 
-            this.cTreeView_ConversionQueue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
-            this.cTreeView_ConversionQueue.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.cTreeView_ConversionQueue.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.cTreeView_ConversionQueue.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
-            this.cTreeView_ConversionQueue.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cTreeView_ConversionQueue.Location = new System.Drawing.Point(3, 33);
-            this.cTreeView_ConversionQueue.Margin = new System.Windows.Forms.Padding(0, 4, 0, 0);
-            this.cTreeView_ConversionQueue.Name = "cTreeView_ConversionQueue";
-            this.cTreeView_ConversionQueue.NodeBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
-            this.cTreeView_ConversionQueue.ShowNodeToolTips = true;
-            this.cTreeView_ConversionQueue.Size = new System.Drawing.Size(586, 164);
-            this.cTreeView_ConversionQueue.TabIndex = 6;
-            this.cTreeView_ConversionQueue.TabStop = false;
-            // 
-            // label_ConversionStatus
-            // 
-            this.label_ConversionStatus.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label_ConversionStatus.Location = new System.Drawing.Point(3, 16);
-            this.label_ConversionStatus.Margin = new System.Windows.Forms.Padding(0);
-            this.label_ConversionStatus.Name = "label_ConversionStatus";
-            this.label_ConversionStatus.Size = new System.Drawing.Size(586, 13);
-            this.label_ConversionStatus.TabIndex = 2;
-            this.label_ConversionStatus.Text = "Status: Reading.";
-            // 
-            // cCheckGroupBox_Upload
-            // 
-            this.cCheckGroupBox_Upload.BorderColor = System.Drawing.Color.Black;
-            this.cCheckGroupBox_Upload.BottomBorderFix = 1;
-            this.cCheckGroupBox_Upload.Controls.Add(this.cTreeView_UploadQueue);
-            this.cCheckGroupBox_Upload.Controls.Add(this.label_UploadStatus);
-            this.cCheckGroupBox_Upload.DisableChildrenIfUnchecked = false;
-            this.cCheckGroupBox_Upload.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.cCheckGroupBox_Upload.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cCheckGroupBox_Upload.Location = new System.Drawing.Point(644, 16);
-            this.cCheckGroupBox_Upload.Margin = new System.Windows.Forms.Padding(8, 16, 32, 8);
-            this.cCheckGroupBox_Upload.Name = "cCheckGroupBox_Upload";
-            this.cCheckGroupBox_Upload.Size = new System.Drawing.Size(592, 256);
-            this.cCheckGroupBox_Upload.TabIndex = 6;
-            this.cCheckGroupBox_Upload.TabStop = false;
-            this.cCheckGroupBox_Upload.Text = "Uploader";
-            this.cCheckGroupBox_Upload.TextOffset = 0;
-            this.cCheckGroupBox_Upload.TooltipTextOnCheckbox = "Uploader uploads the media.";
-            this.cCheckGroupBox_Upload.CheckedChanged += new System.EventHandler(this.CCheckGroupBox_Upload_CheckedChanged);
-            // 
-            // cTreeView_UploadQueue
-            // 
-            this.cTreeView_UploadQueue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
-            this.cTreeView_UploadQueue.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.cTreeView_UploadQueue.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.cTreeView_UploadQueue.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
-            this.cTreeView_UploadQueue.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cTreeView_UploadQueue.Location = new System.Drawing.Point(3, 33);
-            this.cTreeView_UploadQueue.Margin = new System.Windows.Forms.Padding(0, 4, 0, 0);
-            this.cTreeView_UploadQueue.Name = "cTreeView_UploadQueue";
-            this.cTreeView_UploadQueue.NodeBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
-            this.cTreeView_UploadQueue.ShowNodeToolTips = true;
-            this.cTreeView_UploadQueue.Size = new System.Drawing.Size(586, 220);
-            this.cTreeView_UploadQueue.TabIndex = 5;
-            this.cTreeView_UploadQueue.TabStop = false;
-            // 
-            // label_UploadStatus
-            // 
-            this.label_UploadStatus.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label_UploadStatus.Location = new System.Drawing.Point(3, 16);
-            this.label_UploadStatus.Margin = new System.Windows.Forms.Padding(0);
-            this.label_UploadStatus.Name = "label_UploadStatus";
-            this.label_UploadStatus.Size = new System.Drawing.Size(586, 13);
-            this.label_UploadStatus.TabIndex = 2;
-            this.label_UploadStatus.Text = "Status: Sleeping.";
-            // 
-            // cCheckGroupBox_Grab
-            // 
-            this.cCheckGroupBox_Grab.BorderColor = System.Drawing.Color.Black;
-            this.cCheckGroupBox_Grab.BottomBorderFix = 1;
-            this.cCheckGroupBox_Grab.Controls.Add(this.cTreeView_GrabQueue);
-            this.cCheckGroupBox_Grab.Controls.Add(this.cFlowLayoutPanel_ProgressBarHolder);
-            this.cCheckGroupBox_Grab.Controls.Add(this.label_GrabStatus);
-            this.cCheckGroupBox_Grab.DisableChildrenIfUnchecked = false;
-            this.cCheckGroupBox_Grab.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.cCheckGroupBox_Grab.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cCheckGroupBox_Grab.Location = new System.Drawing.Point(36, 16);
-            this.cCheckGroupBox_Grab.Margin = new System.Windows.Forms.Padding(32, 16, 8, 8);
-            this.cCheckGroupBox_Grab.Name = "cCheckGroupBox_Grab";
-            this.cCheckGroupBox_Grab.Size = new System.Drawing.Size(592, 256);
-            this.cCheckGroupBox_Grab.TabIndex = 4;
-            this.cCheckGroupBox_Grab.TabStop = false;
-            this.cCheckGroupBox_Grab.Text = "Grabber";
-            this.cCheckGroupBox_Grab.TextOffset = 0;
-            this.cCheckGroupBox_Grab.TooltipTextOnCheckbox = "Grabber grabs the media.";
-            this.cCheckGroupBox_Grab.CheckedChanged += new System.EventHandler(this.CCheckGroupBox_Grab_CheckedChanged);
-            this.cCheckGroupBox_Grab.Paint += new System.Windows.Forms.PaintEventHandler(this.CCheckGroupBox_Grab_Paint);
-            // 
-            // cTreeView_GrabQueue
-            // 
-            this.cTreeView_GrabQueue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
-            this.cTreeView_GrabQueue.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.cTreeView_GrabQueue.CheckBoxes = true;
-            this.cTreeView_GrabQueue.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
-            this.cTreeView_GrabQueue.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cTreeView_GrabQueue.Location = new System.Drawing.Point(54, 33);
-            this.cTreeView_GrabQueue.Margin = new System.Windows.Forms.Padding(2, 4, 0, 0);
-            this.cTreeView_GrabQueue.Name = "cTreeView_GrabQueue";
-            this.cTreeView_GrabQueue.NodeBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
-            this.cTreeView_GrabQueue.ShowNodeToolTips = true;
-            this.cTreeView_GrabQueue.Size = new System.Drawing.Size(535, 220);
-            this.cTreeView_GrabQueue.TabIndex = 4;
-            this.cTreeView_GrabQueue.TabStop = false;
-            this.cTreeView_GrabQueue.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.CTreeView_GrabQueue_AfterCheck);
-            // 
-            // cFlowLayoutPanel_ProgressBarHolder
-            // 
-            this.cFlowLayoutPanel_ProgressBarHolder.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.cFlowLayoutPanel_ProgressBarHolder.Location = new System.Drawing.Point(3, 33);
-            this.cFlowLayoutPanel_ProgressBarHolder.Margin = new System.Windows.Forms.Padding(0, 16, 0, 0);
-            this.cFlowLayoutPanel_ProgressBarHolder.Name = "cFlowLayoutPanel_ProgressBarHolder";
-            this.cFlowLayoutPanel_ProgressBarHolder.Size = new System.Drawing.Size(49, 221);
-            this.cFlowLayoutPanel_ProgressBarHolder.TabIndex = 3;
-            // 
-            // label_GrabStatus
-            // 
-            this.label_GrabStatus.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label_GrabStatus.Location = new System.Drawing.Point(3, 16);
-            this.label_GrabStatus.Margin = new System.Windows.Forms.Padding(0);
-            this.label_GrabStatus.Name = "label_GrabStatus";
-            this.label_GrabStatus.Size = new System.Drawing.Size(586, 13);
-            this.label_GrabStatus.TabIndex = 2;
-            this.label_GrabStatus.Text = "Status: Sleeping.";
-            // 
-            // cCheckGroupBox_Info
-            // 
-            this.cCheckGroupBox_Info.BorderColor = System.Drawing.Color.Black;
-            this.cCheckGroupBox_Info.BottomBorderFix = 1;
-            this.cCheckGroupBox_Info.Controls.Add(this.textBox_Info);
-            this.cCheckGroupBox_Info.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.cCheckGroupBox_Info.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cCheckGroupBox_Info.Location = new System.Drawing.Point(36, 288);
-            this.cCheckGroupBox_Info.Margin = new System.Windows.Forms.Padding(32, 8, 8, 16);
-            this.cCheckGroupBox_Info.Name = "cCheckGroupBox_Info";
-            this.cCheckGroupBox_Info.Size = new System.Drawing.Size(592, 386);
-            this.cCheckGroupBox_Info.TabIndex = 3;
-            this.cCheckGroupBox_Info.TabStop = false;
-            this.cCheckGroupBox_Info.Text = "Info Message Log";
-            this.cCheckGroupBox_Info.TextOffset = 0;
-            // 
-            // textBox_Info
-            // 
-            this.textBox_Info.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
-            this.textBox_Info.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox_Info.ContextMenuStrip = this.contextMenuStrip_InfoBox;
-            this.textBox_Info.DetectUrls = false;
-            this.textBox_Info.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_Info.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.textBox_Info.Location = new System.Drawing.Point(3, 16);
-            this.textBox_Info.MaxLength = 0;
-            this.textBox_Info.Name = "textBox_Info";
-            this.textBox_Info.ReadOnly = true;
-            this.textBox_Info.Size = new System.Drawing.Size(586, 367);
-            this.textBox_Info.TabIndex = 3;
-            this.textBox_Info.TabStop = false;
-            this.textBox_Info.Text = "";
-            this.textBox_Info.WordWrap = false;
-            // 
-            // tabPage_Download
-            // 
-            this.tabPage_Download.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
-            this.tabPage_Download.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.tabPage_Download.Controls.Add(this.bU_SkipDLCache);
-            this.tabPage_Download.Controls.Add(this.bU_DownloadPageDown);
-            this.tabPage_Download.Controls.Add(this.bU_DownloadPageUp);
-            this.tabPage_Download.Controls.Add(this.bU_ClearDLHistory);
-            this.tabPage_Download.Controls.Add(this.cGroupBoxColored_DLThreads);
-            this.tabPage_Download.Controls.Add(this.bU_DownloadFolder);
-            this.tabPage_Download.Controls.Add(this.cGroupBoxColored_Downloaded);
-            this.tabPage_Download.Controls.Add(this.cGroupBoxColored_InProgress);
-            this.tabPage_Download.Controls.Add(this.cCheckGroupBox_Download);
-            this.tabPage_Download.Location = new System.Drawing.Point(4, 5);
-            this.tabPage_Download.Name = "tabPage_Download";
-            this.tabPage_Download.Size = new System.Drawing.Size(192, 91);
-            this.tabPage_Download.TabIndex = 2;
-            this.tabPage_Download.Text = "tabPage_Download";
-            // 
-            // tabPage_Info
-            // 
-            this.tabPage_Info.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
-            this.tabPage_Info.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.tabPage_Info.Controls.Add(this.pictureBox_GitHub);
-            this.tabPage_Info.Controls.Add(this.pictureBox_KoFi);
-            this.tabPage_Info.Controls.Add(this.pictureBox_Logo);
-            this.tabPage_Info.Controls.Add(this.label_Forum);
-            this.tabPage_Info.Controls.Add(this.pictureBox_Discord);
-            this.tabPage_Info.Controls.Add(this.Label_GridHelp2);
-            this.tabPage_Info.Controls.Add(this.Label_GridHelp1);
-            this.tabPage_Info.Controls.Add(this.label_API1);
-            this.tabPage_Info.Controls.Add(this.label_API2);
-            this.tabPage_Info.Location = new System.Drawing.Point(4, 5);
-            this.tabPage_Info.Name = "tabPage_Info";
-            this.tabPage_Info.Size = new System.Drawing.Size(192, 91);
-            this.tabPage_Info.TabIndex = 4;
-            this.tabPage_Info.Text = "tabPage_Info";
-            // 
-            // Label_GridHelp2
-            // 
-            this.Label_GridHelp2.AutoSize = true;
-            this.Label_GridHelp2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.Label_GridHelp2.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.Label_GridHelp2.Location = new System.Drawing.Point(100, 286);
-            this.Label_GridHelp2.Margin = new System.Windows.Forms.Padding(96, 8, 32, 32);
-            this.Label_GridHelp2.Name = "Label_GridHelp2";
-            this.Label_GridHelp2.Size = new System.Drawing.Size(436, 153);
-            this.Label_GridHelp2.TabIndex = 24;
-            this.Label_GridHelp2.Text = resources.GetString("Label_GridHelp2.Text");
-            // 
-            // Label_GridHelp1
-            // 
-            this.Label_GridHelp1.AutoSize = true;
-            this.Label_GridHelp1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.Label_GridHelp1.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.Label_GridHelp1.Location = new System.Drawing.Point(68, 258);
-            this.Label_GridHelp1.Margin = new System.Windows.Forms.Padding(64, 32, 0, 0);
-            this.Label_GridHelp1.Name = "Label_GridHelp1";
-            this.Label_GridHelp1.Size = new System.Drawing.Size(116, 20);
-            this.Label_GridHelp1.TabIndex = 23;
-            this.Label_GridHelp1.Text = "Grid Shortcuts:";
-            // 
-            // label_API1
-            // 
-            this.label_API1.AutoSize = true;
-            this.label_API1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.label_API1.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.label_API1.Location = new System.Drawing.Point(68, 64);
-            this.label_API1.Margin = new System.Windows.Forms.Padding(64, 64, 0, 0);
-            this.label_API1.Name = "label_API1";
-            this.label_API1.Size = new System.Drawing.Size(165, 20);
-            this.label_API1.TabIndex = 2;
-            this.label_API1.Text = "API Key is needed for:";
-            // 
-            // label_API2
-            // 
-            this.label_API2.AutoSize = true;
-            this.label_API2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.label_API2.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.label_API2.Location = new System.Drawing.Point(100, 92);
-            this.label_API2.Margin = new System.Windows.Forms.Padding(96, 8, 32, 32);
-            this.label_API2.Name = "label_API2";
-            this.label_API2.Size = new System.Drawing.Size(330, 102);
-            this.label_API2.TabIndex = 3;
-            this.label_API2.Text = resources.GetString("label_API2.Text");
-            // 
-            // tabPage_Settings
-            // 
-            this.tabPage_Settings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
-            this.tabPage_Settings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.tabPage_Settings.Controls.Add(this.bU_GetDNPs);
-            this.tabPage_Settings.Controls.Add(this.bU_AppData);
-            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_NamingWeb);
-            this.tabPage_Settings.Controls.Add(this.bU_GetGenders);
-            this.tabPage_Settings.Controls.Add(this.label_DragDropConvert);
-            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_ActionDelay);
-            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_ConversionistOptions);
-            this.tabPage_Settings.Controls.Add(this.bU_DLPools);
-            this.tabPage_Settings.Controls.Add(this.bU_DLTags);
-            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_GrabDisplayOrder);
-            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_ProgressBarStyle);
-            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_GridItemStyle);
-            this.tabPage_Settings.Controls.Add(this.bU_RefreshCredit);
-            this.tabPage_Settings.Controls.Add(this.bU_Blacklist);
-            this.tabPage_Settings.Controls.Add(this.bU_PoolWatcher);
-            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_Volume);
-            this.tabPage_Settings.Controls.Add(this.panel_CheckBoxOptions);
-            this.tabPage_Settings.Controls.Add(this.bU_ResetSettings);
-            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_AutocompleteTagEditor);
-            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_NamingE621);
-            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_DownloadsFolderLocation);
-            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_AppNotes);
-            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_APIKey);
-            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_Update);
-            this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_AppName);
-            this.tabPage_Settings.Location = new System.Drawing.Point(4, 5);
-            this.tabPage_Settings.Name = "tabPage_Settings";
-            this.tabPage_Settings.Size = new System.Drawing.Size(192, 91);
-            this.tabPage_Settings.TabIndex = 5;
-            this.tabPage_Settings.Text = "tabPage_Settings";
-            this.tabPage_Settings.Enter += new System.EventHandler(this.TabPage_Settings_Enter);
-            // 
-            // cGroupBoxColored_ConversionistOptions
-            // 
-            this.cGroupBoxColored_ConversionistOptions.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_ConversionistOptions.BottomBorderFix = 1;
-            this.cGroupBoxColored_ConversionistOptions.Controls.Add(this.CheckBox_ConverterDontConvertVideos);
-            this.cGroupBoxColored_ConversionistOptions.Controls.Add(this.CheckBox_ConverterKeepOriginal);
-            this.cGroupBoxColored_ConversionistOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.cGroupBoxColored_ConversionistOptions.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cGroupBoxColored_ConversionistOptions.Location = new System.Drawing.Point(68, 316);
-            this.cGroupBoxColored_ConversionistOptions.Margin = new System.Windows.Forms.Padding(64, 32, 4, 4);
-            this.cGroupBoxColored_ConversionistOptions.Name = "cGroupBoxColored_ConversionistOptions";
-            this.cGroupBoxColored_ConversionistOptions.Padding = new System.Windows.Forms.Padding(1);
-            this.cGroupBoxColored_ConversionistOptions.Size = new System.Drawing.Size(256, 70);
-            this.cGroupBoxColored_ConversionistOptions.TabIndex = 143;
-            this.cGroupBoxColored_ConversionistOptions.TabStop = false;
-            this.cGroupBoxColored_ConversionistOptions.Text = "Conversionist Options:";
-            this.cGroupBoxColored_ConversionistOptions.TextOffset = 8;
-            // 
-            // cGroupBoxColored_GrabDisplayOrder
-            // 
-            this.cGroupBoxColored_GrabDisplayOrder.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_GrabDisplayOrder.BottomBorderFix = 0;
-            this.cGroupBoxColored_GrabDisplayOrder.Controls.Add(this.radioButton_GrabDisplayOrder1);
-            this.cGroupBoxColored_GrabDisplayOrder.Controls.Add(this.radioButton_GrabDisplayOrder0);
-            this.cGroupBoxColored_GrabDisplayOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.cGroupBoxColored_GrabDisplayOrder.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cGroupBoxColored_GrabDisplayOrder.Location = new System.Drawing.Point(68, 148);
-            this.cGroupBoxColored_GrabDisplayOrder.Margin = new System.Windows.Forms.Padding(64, 32, 4, 4);
-            this.cGroupBoxColored_GrabDisplayOrder.Name = "cGroupBoxColored_GrabDisplayOrder";
-            this.cGroupBoxColored_GrabDisplayOrder.Padding = new System.Windows.Forms.Padding(1);
-            this.cGroupBoxColored_GrabDisplayOrder.Size = new System.Drawing.Size(256, 48);
-            this.cGroupBoxColored_GrabDisplayOrder.TabIndex = 138;
-            this.cGroupBoxColored_GrabDisplayOrder.TabStop = false;
-            this.cGroupBoxColored_GrabDisplayOrder.Text = "Grabbed media display order";
-            this.cGroupBoxColored_GrabDisplayOrder.TextOffset = 8;
-            // 
-            // cGroupBoxColored_ProgressBarStyle
-            // 
-            this.cGroupBoxColored_ProgressBarStyle.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_ProgressBarStyle.BottomBorderFix = 0;
-            this.cGroupBoxColored_ProgressBarStyle.Controls.Add(this.panel_BorderFixer);
-            this.cGroupBoxColored_ProgressBarStyle.Controls.Add(this.radioButton_ProgressBarStyle1);
-            this.cGroupBoxColored_ProgressBarStyle.Controls.Add(this.radioButton_ProgressBarStyle0);
-            this.cGroupBoxColored_ProgressBarStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.cGroupBoxColored_ProgressBarStyle.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cGroupBoxColored_ProgressBarStyle.Location = new System.Drawing.Point(496, 148);
-            this.cGroupBoxColored_ProgressBarStyle.Margin = new System.Windows.Forms.Padding(64, 32, 64, 4);
-            this.cGroupBoxColored_ProgressBarStyle.Name = "cGroupBoxColored_ProgressBarStyle";
-            this.cGroupBoxColored_ProgressBarStyle.Padding = new System.Windows.Forms.Padding(1);
-            this.cGroupBoxColored_ProgressBarStyle.Size = new System.Drawing.Size(120, 48);
-            this.cGroupBoxColored_ProgressBarStyle.TabIndex = 137;
-            this.cGroupBoxColored_ProgressBarStyle.TabStop = false;
-            this.cGroupBoxColored_ProgressBarStyle.Text = "Progress Bar Style";
-            this.cGroupBoxColored_ProgressBarStyle.TextOffset = 4;
-            // 
-            // panel_BorderFixer
-            // 
-            this.panel_BorderFixer.Location = new System.Drawing.Point(0, 7);
-            this.panel_BorderFixer.Margin = new System.Windows.Forms.Padding(0);
-            this.panel_BorderFixer.Name = "panel_BorderFixer";
-            this.panel_BorderFixer.Size = new System.Drawing.Size(1, 39);
-            this.panel_BorderFixer.TabIndex = 138;
-            // 
-            // radioButton_ProgressBarStyle1
-            // 
-            this.radioButton_ProgressBarStyle1.AutoSize = true;
-            this.radioButton_ProgressBarStyle1.Location = new System.Drawing.Point(57, 22);
-            this.radioButton_ProgressBarStyle1.Margin = new System.Windows.Forms.Padding(4, 8, 4, 4);
-            this.radioButton_ProgressBarStyle1.Name = "radioButton_ProgressBarStyle1";
-            this.radioButton_ProgressBarStyle1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.radioButton_ProgressBarStyle1.Size = new System.Drawing.Size(57, 17);
-            this.radioButton_ProgressBarStyle1.TabIndex = 2;
-            this.radioButton_ProgressBarStyle1.Text = "Round";
-            this.radioButton_ProgressBarStyle1.UseVisualStyleBackColor = true;
-            // 
-            // radioButton_ProgressBarStyle0
-            // 
-            this.radioButton_ProgressBarStyle0.AutoSize = true;
-            this.radioButton_ProgressBarStyle0.Checked = true;
-            this.radioButton_ProgressBarStyle0.Location = new System.Drawing.Point(5, 22);
-            this.radioButton_ProgressBarStyle0.Margin = new System.Windows.Forms.Padding(4, 8, 4, 4);
-            this.radioButton_ProgressBarStyle0.Name = "radioButton_ProgressBarStyle0";
-            this.radioButton_ProgressBarStyle0.Size = new System.Drawing.Size(44, 17);
-            this.radioButton_ProgressBarStyle0.TabIndex = 1;
-            this.radioButton_ProgressBarStyle0.Text = "Hex";
-            this.radioButton_ProgressBarStyle0.UseVisualStyleBackColor = true;
-            // 
-            // cGroupBoxColored_GridItemStyle
-            // 
-            this.cGroupBoxColored_GridItemStyle.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_GridItemStyle.BottomBorderFix = 0;
-            this.cGroupBoxColored_GridItemStyle.Controls.Add(this.radioButton_GridItemStyle1);
-            this.cGroupBoxColored_GridItemStyle.Controls.Add(this.radioButton_GridItemStyle0);
-            this.cGroupBoxColored_GridItemStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.cGroupBoxColored_GridItemStyle.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cGroupBoxColored_GridItemStyle.Location = new System.Drawing.Point(360, 148);
-            this.cGroupBoxColored_GridItemStyle.Margin = new System.Windows.Forms.Padding(32, 32, 4, 4);
-            this.cGroupBoxColored_GridItemStyle.Name = "cGroupBoxColored_GridItemStyle";
-            this.cGroupBoxColored_GridItemStyle.Padding = new System.Windows.Forms.Padding(1);
-            this.cGroupBoxColored_GridItemStyle.Size = new System.Drawing.Size(136, 48);
-            this.cGroupBoxColored_GridItemStyle.TabIndex = 136;
-            this.cGroupBoxColored_GridItemStyle.TabStop = false;
-            this.cGroupBoxColored_GridItemStyle.Text = "Grid Item Style";
-            this.cGroupBoxColored_GridItemStyle.TextOffset = 2;
-            // 
-            // radioButton_GridItemStyle1
-            // 
-            this.radioButton_GridItemStyle1.AutoSize = true;
-            this.radioButton_GridItemStyle1.Location = new System.Drawing.Point(72, 22);
-            this.radioButton_GridItemStyle1.Margin = new System.Windows.Forms.Padding(4, 8, 4, 4);
-            this.radioButton_GridItemStyle1.Name = "radioButton_GridItemStyle1";
-            this.radioButton_GridItemStyle1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.radioButton_GridItemStyle1.Size = new System.Drawing.Size(56, 17);
-            this.radioButton_GridItemStyle1.TabIndex = 2;
-            this.radioButton_GridItemStyle1.Text = "Simple";
-            this.radioButton_GridItemStyle1.UseVisualStyleBackColor = true;
-            // 
-            // radioButton_GridItemStyle0
-            // 
-            this.radioButton_GridItemStyle0.AutoSize = true;
-            this.radioButton_GridItemStyle0.Checked = true;
-            this.radioButton_GridItemStyle0.Location = new System.Drawing.Point(5, 22);
-            this.radioButton_GridItemStyle0.Margin = new System.Windows.Forms.Padding(4, 8, 4, 4);
-            this.radioButton_GridItemStyle0.Name = "radioButton_GridItemStyle0";
-            this.radioButton_GridItemStyle0.Size = new System.Drawing.Size(59, 17);
-            this.radioButton_GridItemStyle0.TabIndex = 1;
-            this.radioButton_GridItemStyle0.Text = "Default";
-            this.radioButton_GridItemStyle0.UseVisualStyleBackColor = true;
-            // 
-            // panel_CheckBoxOptions
-            // 
-            this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_ClearCache);
-            this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_ManualInferiorSave);
-            this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_DontFlag);
-            this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_BigMode);
-            this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_ExpandedDescription);
-            this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_AutocompleteTags);
-            this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_RemoveBVAS);
-            this.panel_CheckBoxOptions.Location = new System.Drawing.Point(68, 422);
-            this.panel_CheckBoxOptions.Margin = new System.Windows.Forms.Padding(64, 32, 4, 4);
-            this.panel_CheckBoxOptions.Name = "panel_CheckBoxOptions";
-            this.panel_CheckBoxOptions.Size = new System.Drawing.Size(256, 172);
-            this.panel_CheckBoxOptions.TabIndex = 128;
-            this.panel_CheckBoxOptions.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel_CheckBoxOptions_Paint);
-            // 
-            // cGroupBoxColored_AppNotes
-            // 
-            this.cGroupBoxColored_AppNotes.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_AppNotes.BottomBorderFix = 0;
-            this.cGroupBoxColored_AppNotes.Controls.Add(this.bU_NoteRemove);
-            this.cGroupBoxColored_AppNotes.Controls.Add(this.bU_NoteAdd);
-            this.cGroupBoxColored_AppNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.cGroupBoxColored_AppNotes.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cGroupBoxColored_AppNotes.Location = new System.Drawing.Point(360, 64);
-            this.cGroupBoxColored_AppNotes.Margin = new System.Windows.Forms.Padding(64, 32, 4, 4);
-            this.cGroupBoxColored_AppNotes.Name = "cGroupBoxColored_AppNotes";
-            this.cGroupBoxColored_AppNotes.Padding = new System.Windows.Forms.Padding(1);
-            this.cGroupBoxColored_AppNotes.Size = new System.Drawing.Size(256, 48);
-            this.cGroupBoxColored_AppNotes.TabIndex = 124;
-            this.cGroupBoxColored_AppNotes.TabStop = false;
-            this.cGroupBoxColored_AppNotes.Text = "App Notes";
-            this.cGroupBoxColored_AppNotes.TextOffset = 0;
-            // 
-            // cGroupBoxColored_APIKey
-            // 
-            this.cGroupBoxColored_APIKey.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_APIKey.BottomBorderFix = 0;
-            this.cGroupBoxColored_APIKey.Controls.Add(this.bU_APIKey);
-            this.cGroupBoxColored_APIKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.cGroupBoxColored_APIKey.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cGroupBoxColored_APIKey.Location = new System.Drawing.Point(68, 64);
-            this.cGroupBoxColored_APIKey.Margin = new System.Windows.Forms.Padding(64, 32, 4, 4);
-            this.cGroupBoxColored_APIKey.Name = "cGroupBoxColored_APIKey";
-            this.cGroupBoxColored_APIKey.Padding = new System.Windows.Forms.Padding(1);
-            this.cGroupBoxColored_APIKey.Size = new System.Drawing.Size(256, 48);
-            this.cGroupBoxColored_APIKey.TabIndex = 123;
-            this.cGroupBoxColored_APIKey.TabStop = false;
-            this.cGroupBoxColored_APIKey.Text = "API Key";
-            this.cGroupBoxColored_APIKey.TextOffset = 0;
-            // 
-            // bU_APIKey
-            // 
-            this.bU_APIKey.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.bU_APIKey.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bU_APIKey.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bU_APIKey.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.bU_APIKey.FlatAppearance.BorderSize = 0;
-            this.bU_APIKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bU_APIKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.bU_APIKey.Location = new System.Drawing.Point(1, 14);
-            this.bU_APIKey.Name = "bU_APIKey";
-            this.bU_APIKey.Size = new System.Drawing.Size(254, 33);
-            this.bU_APIKey.TabIndex = 0;
-            this.bU_APIKey.TabStop = false;
-            this.bU_APIKey.Text = "Add API Key";
-            this.bU_APIKey.UseVisualStyleBackColor = true;
-            this.bU_APIKey.TextChanged += new System.EventHandler(this.BU_APIKey_TextChanged);
-            this.bU_APIKey.Click += new System.EventHandler(this.BU_APIKey_Click);
-            // 
-            // tabPage_PuzzleGame
-            // 
-            this.tabPage_PuzzleGame.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
-            this.tabPage_PuzzleGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.tabPage_PuzzleGame.Controls.Add(this.labelPuzzle_SelectedPost);
-            this.tabPage_PuzzleGame.Controls.Add(this.cGroupBox_GameCheats);
-            this.tabPage_PuzzleGame.Controls.Add(this.pB_GameThumb);
-            this.tabPage_PuzzleGame.Controls.Add(this.CC_GameAnimations);
-            this.tabPage_PuzzleGame.Controls.Add(this.GB_RestartGame);
-            this.tabPage_PuzzleGame.Controls.Add(this.GB_StartGame);
-            this.tabPage_PuzzleGame.Controls.Add(this.gamePanel_Main);
-            this.tabPage_PuzzleGame.Controls.Add(this.panel_GameStart);
-            this.tabPage_PuzzleGame.Location = new System.Drawing.Point(4, 5);
-            this.tabPage_PuzzleGame.Name = "tabPage_PuzzleGame";
-            this.tabPage_PuzzleGame.Size = new System.Drawing.Size(192, 91);
-            this.tabPage_PuzzleGame.TabIndex = 6;
-            this.tabPage_PuzzleGame.Text = "tabPage_PuzzleGame";
-            // 
-            // cGroupBox_GameCheats
-            // 
-            this.cGroupBox_GameCheats.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBox_GameCheats.BottomBorderFix = 1;
-            this.cGroupBox_GameCheats.Controls.Add(this.CC_GameThumb);
-            this.cGroupBox_GameCheats.Controls.Add(this.CC_GameIndexHints);
-            this.cGroupBox_GameCheats.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.cGroupBox_GameCheats.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.cGroupBox_GameCheats.Location = new System.Drawing.Point(1106, 623);
-            this.cGroupBox_GameCheats.Margin = new System.Windows.Forms.Padding(4, 4, 16, 4);
-            this.cGroupBox_GameCheats.Name = "cGroupBox_GameCheats";
-            this.cGroupBox_GameCheats.Size = new System.Drawing.Size(150, 65);
-            this.cGroupBox_GameCheats.TabIndex = 8;
-            this.cGroupBox_GameCheats.TabStop = false;
-            this.cGroupBox_GameCheats.Text = "Cheats";
-            this.cGroupBox_GameCheats.TextOffset = 0;
-            // 
-            // pB_GameThumb
-            // 
-            this.pB_GameThumb.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pB_GameThumb.Location = new System.Drawing.Point(1026, 386);
-            this.pB_GameThumb.Name = "pB_GameThumb";
-            this.pB_GameThumb.Size = new System.Drawing.Size(230, 230);
-            this.pB_GameThumb.TabIndex = 7;
-            this.pB_GameThumb.TabStop = false;
-            this.pB_GameThumb.Visible = false;
-            this.pB_GameThumb.Paint += new System.Windows.Forms.PaintEventHandler(this.PB_GameThumb_Paint);
             // 
             // GB_RestartGame
             // 
@@ -3559,6 +3488,18 @@
             this.comboBox_PuzzleCollumns.TabIndex = 10;
             this.comboBox_PuzzleCollumns.TabStop = false;
             // 
+            // labelPuzzle_Collumns
+            // 
+            this.labelPuzzle_Collumns.AutoSize = true;
+            this.labelPuzzle_Collumns.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.labelPuzzle_Collumns.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.labelPuzzle_Collumns.Location = new System.Drawing.Point(4, 30);
+            this.labelPuzzle_Collumns.Name = "labelPuzzle_Collumns";
+            this.labelPuzzle_Collumns.Size = new System.Drawing.Size(52, 13);
+            this.labelPuzzle_Collumns.TabIndex = 11;
+            this.labelPuzzle_Collumns.Text = "Collumns:";
+            this.toolTip_Display.SetToolTip(this.labelPuzzle_Collumns, "Number of puzzle collumns.");
+            // 
             // comboBox_PuzzleRows
             // 
             this.comboBox_PuzzleRows.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
@@ -3588,6 +3529,80 @@
             this.comboBox_PuzzleRows.TabIndex = 9;
             this.comboBox_PuzzleRows.TabStop = false;
             // 
+            // labelPuzzle_Rows
+            // 
+            this.labelPuzzle_Rows.AutoSize = true;
+            this.labelPuzzle_Rows.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.labelPuzzle_Rows.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.labelPuzzle_Rows.Location = new System.Drawing.Point(19, 6);
+            this.labelPuzzle_Rows.Name = "labelPuzzle_Rows";
+            this.labelPuzzle_Rows.Size = new System.Drawing.Size(37, 13);
+            this.labelPuzzle_Rows.TabIndex = 3;
+            this.labelPuzzle_Rows.Text = "Rows:";
+            this.toolTip_Display.SetToolTip(this.labelPuzzle_Rows, "Number of puzzle rows.");
+            // 
+            // rb_GameStart_3
+            // 
+            this.rb_GameStart_3.AutoSize = true;
+            this.rb_GameStart_3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.rb_GameStart_3.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.rb_GameStart_3.Location = new System.Drawing.Point(4, 118);
+            this.rb_GameStart_3.Margin = new System.Windows.Forms.Padding(4);
+            this.rb_GameStart_3.Name = "rb_GameStart_3";
+            this.rb_GameStart_3.Size = new System.Drawing.Size(122, 17);
+            this.rb_GameStart_3.TabIndex = 2;
+            this.rb_GameStart_3.Text = "Image from e621.net";
+            this.toolTip_Display.SetToolTip(this.rb_GameStart_3, "Pick an image from e621 when starting a game.");
+            this.rb_GameStart_3.UseVisualStyleBackColor = true;
+            // 
+            // rb_GameStart_1
+            // 
+            this.rb_GameStart_1.AutoSize = true;
+            this.rb_GameStart_1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.rb_GameStart_1.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.rb_GameStart_1.Location = new System.Drawing.Point(5, 93);
+            this.rb_GameStart_1.Margin = new System.Windows.Forms.Padding(4);
+            this.rb_GameStart_1.Name = "rb_GameStart_1";
+            this.rb_GameStart_1.Size = new System.Drawing.Size(51, 17);
+            this.rb_GameStart_1.TabIndex = 1;
+            this.rb_GameStart_1.Text = "Local";
+            this.toolTip_Display.SetToolTip(this.rb_GameStart_1, "Pick an image from local location when starting a game.");
+            this.rb_GameStart_1.UseVisualStyleBackColor = true;
+            // 
+            // rb_GameStart_2
+            // 
+            this.rb_GameStart_2.AutoSize = true;
+            this.rb_GameStart_2.Checked = true;
+            this.rb_GameStart_2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.rb_GameStart_2.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.rb_GameStart_2.Location = new System.Drawing.Point(64, 93);
+            this.rb_GameStart_2.Margin = new System.Windows.Forms.Padding(4);
+            this.rb_GameStart_2.Name = "rb_GameStart_2";
+            this.rb_GameStart_2.Size = new System.Drawing.Size(65, 17);
+            this.rb_GameStart_2.TabIndex = 0;
+            this.rb_GameStart_2.Text = "Random";
+            this.toolTip_Display.SetToolTip(this.rb_GameStart_2, "Picks a random image from e621 when starting a game.");
+            this.rb_GameStart_2.UseVisualStyleBackColor = true;
+            // 
+            // bU_KoFi
+            // 
+            this.bU_KoFi.BackgroundImage = global::e621_ReBot_v2.Properties.Resources.Ko_Fi_ButtonSmall;
+            this.bU_KoFi.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.bU_KoFi.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bU_KoFi.FlatAppearance.BorderSize = 0;
+            this.bU_KoFi.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.bU_KoFi.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.bU_KoFi.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bU_KoFi.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bU_KoFi.Location = new System.Drawing.Point(1243, 18);
+            this.bU_KoFi.Name = "bU_KoFi";
+            this.bU_KoFi.Size = new System.Drawing.Size(20, 16);
+            this.bU_KoFi.TabIndex = 113;
+            this.bU_KoFi.TabStop = false;
+            this.toolTip_Display.SetToolTip(this.bU_KoFi, "Support me on Ko-Fi.");
+            this.bU_KoFi.UseVisualStyleBackColor = true;
+            this.bU_KoFi.Click += new System.EventHandler(this.BU_KoFi_Click);
+            // 
             // Form_Main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -3616,38 +3631,14 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form_Main_FormClosed);
             this.Load += new System.EventHandler(this.Form_Main_Load);
             this.Shown += new System.EventHandler(this.Form_Main_Shown);
-            ((System.ComponentModel.ISupportInitialize)(this.button_AppMinimize)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.button_AppClose)).EndInit();
-            this.cGroupBoxColored_DLThreads.ResumeLayout(false);
-            this.cGroupBoxColored_DLThreads.PerformLayout();
-            this.cGroupBoxColored_Downloaded.ResumeLayout(false);
-            this.cGroupBoxColored_InProgress.ResumeLayout(false);
-            this.cCheckGroupBox_Download.ResumeLayout(false);
-            this.cCheckGroupBox_Download.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_GitHub)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_KoFi)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Logo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Discord)).EndInit();
-            this.cGroupBoxColored_NamingWeb.ResumeLayout(false);
-            this.cGroupBoxColored_NamingWeb.PerformLayout();
-            this.cGroupBoxColored_ActionDelay.ResumeLayout(false);
-            this.cGroupBoxColored_ActionDelay.PerformLayout();
-            this.cGroupBoxColored_Volume.ResumeLayout(false);
-            this.cGroupBoxColored_Volume.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.TrackBar_Volume)).EndInit();
-            this.cGroupBoxColored_AutocompleteTagEditor.ResumeLayout(false);
-            this.cGroupBoxColored_AutocompleteTagEditor.PerformLayout();
-            this.cGroupBoxColored_NamingE621.ResumeLayout(false);
-            this.cGroupBoxColored_NamingE621.PerformLayout();
-            this.cGroupBoxColored_DownloadsFolderLocation.ResumeLayout(false);
-            this.cGroupBoxColored_Update.ResumeLayout(false);
-            this.cGroupBoxColored_Update.PerformLayout();
-            this.cGroupBoxColored_AppName.ResumeLayout(false);
+            this.SizeChanged += new System.EventHandler(this.Form_Main_SizeChanged);
             this.Panel_Holder.ResumeLayout(false);
             this.contextMenuStrip_Download.ResumeLayout(false);
             this.contextMenuStrip_cTreeView.ResumeLayout(false);
             this.contextMenuStrip_InfoBox.ResumeLayout(false);
             this.contextMenuStrip_Conversion.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.button_AppMinimize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.button_AppClose)).EndInit();
             this.cTabControl_e621ReBot.ResumeLayout(false);
             this.tabPage_Browser.ResumeLayout(false);
             this.QuickButtonPanel.ResumeLayout(false);
@@ -3665,9 +3656,23 @@
             this.cCheckGroupBox_Grab.PerformLayout();
             this.cCheckGroupBox_Info.ResumeLayout(false);
             this.tabPage_Download.ResumeLayout(false);
+            this.cGroupBoxColored_DLThreads.ResumeLayout(false);
+            this.cGroupBoxColored_DLThreads.PerformLayout();
+            this.cGroupBoxColored_Downloaded.ResumeLayout(false);
+            this.cGroupBoxColored_InProgress.ResumeLayout(false);
+            this.cCheckGroupBox_Download.ResumeLayout(false);
+            this.cCheckGroupBox_Download.PerformLayout();
             this.tabPage_Info.ResumeLayout(false);
             this.tabPage_Info.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_GitHub)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_KoFi)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Logo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Discord)).EndInit();
             this.tabPage_Settings.ResumeLayout(false);
+            this.cGroupBoxColored_NamingWeb.ResumeLayout(false);
+            this.cGroupBoxColored_NamingWeb.PerformLayout();
+            this.cGroupBoxColored_ActionDelay.ResumeLayout(false);
+            this.cGroupBoxColored_ActionDelay.PerformLayout();
             this.cGroupBoxColored_ConversionistOptions.ResumeLayout(false);
             this.cGroupBoxColored_ConversionistOptions.PerformLayout();
             this.cGroupBoxColored_GrabDisplayOrder.ResumeLayout(false);
@@ -3676,10 +3681,21 @@
             this.cGroupBoxColored_ProgressBarStyle.PerformLayout();
             this.cGroupBoxColored_GridItemStyle.ResumeLayout(false);
             this.cGroupBoxColored_GridItemStyle.PerformLayout();
+            this.cGroupBoxColored_Volume.ResumeLayout(false);
+            this.cGroupBoxColored_Volume.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TrackBar_Volume)).EndInit();
             this.panel_CheckBoxOptions.ResumeLayout(false);
             this.panel_CheckBoxOptions.PerformLayout();
+            this.cGroupBoxColored_AutocompleteTagEditor.ResumeLayout(false);
+            this.cGroupBoxColored_AutocompleteTagEditor.PerformLayout();
+            this.cGroupBoxColored_NamingE621.ResumeLayout(false);
+            this.cGroupBoxColored_NamingE621.PerformLayout();
+            this.cGroupBoxColored_DownloadsFolderLocation.ResumeLayout(false);
             this.cGroupBoxColored_AppNotes.ResumeLayout(false);
             this.cGroupBoxColored_APIKey.ResumeLayout(false);
+            this.cGroupBoxColored_Update.ResumeLayout(false);
+            this.cGroupBoxColored_Update.PerformLayout();
+            this.cGroupBoxColored_AppName.ResumeLayout(false);
             this.tabPage_PuzzleGame.ResumeLayout(false);
             this.tabPage_PuzzleGame.PerformLayout();
             this.cGroupBox_GameCheats.ResumeLayout(false);
@@ -3900,6 +3916,7 @@
         protected internal CustomControls.Custom_RadioButton rb_GameStart_2;
         protected internal CustomControls.Custom_RadioButton rb_GameStart_3;
         private CustomControls.Button_Browser BQB_HentaiFoundry;
+        protected internal System.Windows.Forms.Label label_PanicInfo;
     }
 }
 

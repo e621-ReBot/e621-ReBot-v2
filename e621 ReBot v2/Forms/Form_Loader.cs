@@ -26,6 +26,11 @@ namespace e621_ReBot_v2
             Cursor_Default = Module_Cursor.CreateCursorNoResize(Properties.Resources.e621ReBot_CursorDefault, 0, 0);
             Cursor_ReBotNav = Module_Cursor.CreateCursorNoResize(Properties.Resources.e621ReBot_CursorE6, 0, 0);
             Cursor_BrowserNav = Module_Cursor.CreateCursorNoResize(Properties.Resources.e621ReBot_CursorBrowser, 0, 0);
+            timer_CursorFix = new Timer
+            {
+                Interval = 250
+            };
+            timer_CursorFix.Tick += Timer_CursorFix_Tick;
         }
 
         private void Form_Loader_Load(object sender, EventArgs e)
@@ -45,9 +50,9 @@ namespace e621_ReBot_v2
                 Module_Downloader.DownloadNodeMax = 15;
             }
             _GridFLPHolder = _FormReference.flowLayoutPanel_Grid;
-            WindowState = FormWindowState.Minimized;
 
             _FormReference.Show();
+            timer_CursorFix.Start();
         }
 
         public static Cursor Cursor_Default;
@@ -59,8 +64,42 @@ namespace e621_ReBot_v2
 
         public static bool LastAltState;
         private static bool LastCtrlState;
+        public static Timer timer_CursorFix;
         private void Timer_CursorFix_Tick(object sender, EventArgs e)
         {
+            if (GetAsyncKeyState(Keys.F1) == -32767)
+            {
+                Form FormTemp;
+                for (int i = 1; i < Application.OpenForms.Count; i++)
+                {
+                    FormTemp = Application.OpenForms[i];
+
+                    if (FormTemp.MinimizeBox)
+                    {
+                        FormTemp.WindowState = FormWindowState.Minimized;
+                    }
+                    else
+                    {
+                        switch (FormTemp.Name)
+                        {
+                            case "Form_Main":
+                                {
+                                    FormTemp.WindowState = FormWindowState.Minimized;
+                                    break;
+                                }
+
+                            default:
+                                {
+                                    FormTemp.Close();
+                                    break;
+                                }
+                        }
+                    }
+                }
+                timer_CursorFix.Stop();
+                return;
+            }
+
             bool AltState = ModifierKeys.HasFlag(Keys.Alt);
             bool CtrlState = ModifierKeys.HasFlag(Keys.Control);
             if (AltState == LastAltState && CtrlState == LastCtrlState)
@@ -126,6 +165,9 @@ namespace e621_ReBot_v2
             Cursor.Position = new Point(Cursor.Position.X - 1, Cursor.Position.Y);
             Cursor.Position = new Point(Cursor.Position.X + 1, Cursor.Position.Y);
         }
+
+        [DllImport("user32.dll")]
+        private static extern short GetAsyncKeyState(Keys vKey);
     }
 
     //http://csharphelper.com/blog/2017/01/convert-a-bitmap-into-a-cursor-in-c/
@@ -160,5 +202,4 @@ namespace e621_ReBot_v2
             return new Cursor(ptr);
         }
     }
-
 }

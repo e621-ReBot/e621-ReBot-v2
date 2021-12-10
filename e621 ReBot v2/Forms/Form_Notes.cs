@@ -10,6 +10,7 @@ namespace e621_ReBot_v2.Forms
         {
             InitializeComponent();
             _FormReference = this;
+            Owner = Form_Loader._FormReference;
         }
 
         private void Form_Notes_Load(object sender, EventArgs e)
@@ -63,9 +64,13 @@ namespace e621_ReBot_v2.Forms
 
         private void Note_TextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape)
+            switch (e.KeyCode)
             {
-                Close();
+                case Keys.Escape:
+                    {
+                        Close();
+                        break;
+                    }
             }
         }
 
@@ -80,6 +85,5 @@ namespace e621_ReBot_v2.Forms
             Dispose();
             _FormReference = null;
         }
-
     }
 }

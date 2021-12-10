@@ -336,6 +336,7 @@ namespace e621_ReBot_v2
                     Form_Notes._FormReference.ShowDialog();
                 }
             }
+            FormStarted = true;
         }
 
         private void Form_Main_FormClosing(object sender, FormClosingEventArgs e)
@@ -389,7 +390,14 @@ namespace e621_ReBot_v2
             Application.Exit();
         }
 
-
+        private bool FormStarted = false;
+        private void Form_Main_SizeChanged(object sender, EventArgs e)
+        {
+            if (FormStarted && WindowState == FormWindowState.Normal)
+            {
+                Form_Loader.timer_CursorFix.Start();
+            }
+        }
 
 
 
@@ -3039,6 +3047,5 @@ namespace e621_ReBot_v2
         }
 
         #endregion
-
     }
 }
