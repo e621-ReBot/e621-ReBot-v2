@@ -298,21 +298,29 @@ namespace e621_ReBot_v2.Forms
                             if (Clipboard.GetDataObject().GetDataPresent(DataFormats.StringFormat))
                             {
                                 List<string> PasteTags = ((string)Clipboard.GetDataObject().GetData(DataFormats.StringFormat)).ToLower().Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).Distinct().ToList();
-
-                                List<string> SortTags = new List<string>();
-                                SortTags.AddRange(textBox_Tags.Text.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries));
-                                SortTags = SortTags.Distinct().ToList();
-
-                                for (int i = PasteTags.Count - 1; i >=0; i--)
+                                
+                                if (PasteTags.Count == 1 && textBox_Tags.Text.Substring(textBox_Tags.SelectionStart - 1).Equals(":"))
                                 {
-                                    if (SortTags.Contains(PasteTags[i]))
+                                    textBox_Tags.Text += string.Join(" ", PasteTags) + " ";
+                                }
+                                else
+                                {
+                                    List<string> SortTags = new List<string>();
+                                    SortTags.AddRange(textBox_Tags.Text.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries));
+                                    SortTags = SortTags.Distinct().ToList();
+
+                                    for (int i = PasteTags.Count - 1; i >= 0; i--)
                                     {
-                                        PasteTags.RemoveAt(i);
+                                        if (SortTags.Contains(PasteTags[i]))
+                                        {
+                                            PasteTags.RemoveAt(i);
+                                        }
                                     }
+
+                                    SortTags.AddRange(PasteTags);
+                                    textBox_Tags.Text = string.Join(" ", SortTags) + " ";
                                 }
 
-                                SortTags.AddRange(PasteTags);
-                                textBox_Tags.Text = string.Join(" ", SortTags) + " ";
                                 textBox_Tags.SelectionStart = textBox_Tags.Text.Length;
                                 TagCounter();
                             }
