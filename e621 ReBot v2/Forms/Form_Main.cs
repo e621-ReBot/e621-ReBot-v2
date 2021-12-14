@@ -843,7 +843,7 @@ namespace e621_ReBot_v2
             URLChecker.CookieContainer = CookieContainerUrlCheck;
             URLChecker.UserAgent = Form_Loader.GlobalUserAgent;
             URLChecker.Method = "HEAD";
-            URLChecker.Timeout = 1;
+            URLChecker.Timeout = 5000;
             try
             {
                 HttpWebResponse UrlCheckerRepose = (HttpWebResponse)URLChecker.GetResponse();
