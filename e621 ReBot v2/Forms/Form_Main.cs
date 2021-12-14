@@ -833,17 +833,20 @@ namespace e621_ReBot_v2
 
             string WebURLCheck = WebURL;
             if (!WebURLCheck.StartsWith("http", StringComparison.OrdinalIgnoreCase))
-                WebURLCheck = "http://" + WebURLCheck;
+            {
+                WebURLCheck = $"http://{WebURLCheck}";
+            }
 
             HttpWebRequest URLChecker = (HttpWebRequest)WebRequest.Create(WebURLCheck);
-            URLChecker.CookieContainer = new CookieContainer();
+            CookieContainer CookieContainerUrlCheck = new CookieContainer();
+            //Module_CookieJar.GetCookies(WebURLCheck, ref CookieContainerUrlCheck);
+            URLChecker.CookieContainer = CookieContainerUrlCheck;
             URLChecker.UserAgent = Form_Loader.GlobalUserAgent;
             URLChecker.Method = "HEAD";
-            URLChecker.Timeout = 5000;
-            HttpWebResponse UrlCheckerRepose;
+            URLChecker.Timeout = 1;
             try
             {
-                UrlCheckerRepose = (HttpWebResponse)URLChecker.GetResponse();
+                HttpWebResponse UrlCheckerRepose = (HttpWebResponse)URLChecker.GetResponse();
                 switch (UrlCheckerRepose.StatusCode)
                 {
                     case HttpStatusCode.OK: //200
@@ -860,20 +863,66 @@ namespace e621_ReBot_v2
                     case HttpStatusCode.ServiceUnavailable: //503
                     case HttpStatusCode.GatewayTimeout: //504
                         {
-                            Module_CefSharp.CefSharpBrowser.Load("https://www.google.com/search?q=" + WebURL);
+                            Module_CefSharp.CefSharpBrowser.Load($"https://www.google.com/search?q={WebURL}");
                             break;
                         }
                 }
                 UrlCheckerRepose.Dispose();
             }
-            catch (Exception ex)
+            catch (WebException ex0)
             {
-                Module_CefSharp.CefSharpBrowser.Load("https://www.google.com/search?q=" + WebURL);
+                if (ex0.Response == null)
+                {
+                    Invoke(new Action(() => { label_NavError.Text = ex0.Message; }));
+                    Module_CefSharp.CefSharpBrowser.Load($"https://www.google.com/search?q={WebURL}");
+                }
+                else
+                {
+                    HttpWebResponse ErrorResponse = (HttpWebResponse)ex0.Response;
+                    Invoke(new Action(() => { label_NavError.Text = $"{ErrorResponse.StatusCode} - {ErrorResponse.StatusDescription}"; }));
+                    switch (ErrorResponse.StatusCode)
+                    {
+                        case HttpStatusCode.BadRequest: //400
+                        case HttpStatusCode.Forbidden: //403
+                        case HttpStatusCode.NotFound: //404
+                        case HttpStatusCode.InternalServerError: //500
+                        case HttpStatusCode.BadGateway: //502
+                        case HttpStatusCode.ServiceUnavailable: //503
+                        case HttpStatusCode.GatewayTimeout: //504
+                            {
+                                Module_CefSharp.CefSharpBrowser.Load($"https://www.google.com/search?q={WebURL}");
+                                break;
+                            }
+                    }
+                }
+            
+            }
+            catch (Exception ex1)
+            {
+                Invoke(new Action(() => { label_NavError.Text = ex1.Message; }));
+                Module_CefSharp.CefSharpBrowser.Load($"https://www.google.com/search?q={WebURL}");
             }
             finally
             {
                 //nothing?
             }
+        }
+
+        private void Label_NavError_TextChanged(object sender, EventArgs e)
+        {
+            BB_Navigate.Visible = false;
+            label_NavError.Visible = true;
+            timer_NavError.Start();
+        }
+
+        private void Timer_NavError_Tick(object sender, EventArgs e)
+        {
+            timer_NavError.Stop();
+            label_NavError.Visible = false;
+            label_NavError.TextChanged -= Label_NavError_TextChanged;
+            label_NavError.Text = null;
+            label_NavError.TextChanged += Label_NavError_TextChanged;
+            BB_Navigate.Visible = true;
         }
 
         private readonly List<UnmanagedMemoryStream> TrackList = new List<UnmanagedMemoryStream>();
@@ -3050,5 +3099,6 @@ namespace e621_ReBot_v2
         }
 
         #endregion
+
     }
 }

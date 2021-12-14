@@ -515,6 +515,10 @@
             // 
             this.panel_ComboBoxBlocker.Location = new System.Drawing.Point(1379, 3);
             // 
+            // label_NavError
+            // 
+            this.label_NavError.Size = new System.Drawing.Size(1247, 19);
+            // 
             // Form_MainBig
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
