@@ -1080,7 +1080,10 @@ namespace e621_ReBot_v2
 
         private void FlowLayoutPanel_Grid_ControlAdded(object sender, ControlEventArgs e)
         {
-            Form_Menu._FormReference.MB_Grid.Visible = true;
+            if (Form_Menu._FormReference != null)
+            {
+                Form_Menu._FormReference.MB_Grid.Visible = true;
+            }
 
             e6_GridItem E6ImagePic = (e6_GridItem)e.Control;
             if (Name == "Form_MainBig")
