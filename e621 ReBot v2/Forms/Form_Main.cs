@@ -839,7 +839,7 @@ namespace e621_ReBot_v2
 
             HttpWebRequest URLChecker = (HttpWebRequest)WebRequest.Create(WebURLCheck);
             CookieContainer CookieContainerUrlCheck = new CookieContainer();
-            //Module_CookieJar.GetCookies(WebURLCheck, ref CookieContainerUrlCheck);
+            Module_CookieJar.GetCookies(WebURLCheck, ref CookieContainerUrlCheck);
             URLChecker.CookieContainer = CookieContainerUrlCheck;
             URLChecker.UserAgent = Form_Loader.GlobalUserAgent;
             URLChecker.Method = "HEAD";
