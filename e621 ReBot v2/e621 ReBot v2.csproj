@@ -592,6 +592,7 @@ RD /S /Q "$(TargetDir)swiftshader"
 del "$(TargetDir)HtmlAgilityPack.pdb"
 del "$(TargetDir)HtmlAgilityPack.xml"
 del "$(TargetDir)Newtonsoft.Json.xml"
+RD /S /Q "$(TargetDir)x86"
 </PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />

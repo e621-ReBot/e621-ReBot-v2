@@ -600,7 +600,6 @@ namespace e621_ReBot_v2.Modules
         {
             DataRowRef["Uploaded_As"] = ID;
             Module_DB.DB_Media_CreateRecord(ref DataRowRef);
-            Module_DB.DB_MD5_CreateRecord(int.Parse(ID), (string)DataRowRef["Info_MediaMD5"]);
 
             DataRow DataRowTemp = DataRowRef;
             Form_Loader._FormReference.BeginInvoke(new Action(() =>

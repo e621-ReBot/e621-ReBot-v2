@@ -522,42 +522,27 @@ namespace e621_ReBot_v2.Forms
 
         private void CheckMD5()
         {
-            string MD5Check = Module_DB.DB_MD5_CheckRecord((string)Preview_RowHolder["Info_MediaMD5"]);
-            if (MD5Check == null)
+            string MD5Check = Module_e621Info.e621InfoDownload($"https://e621.net/posts.json?md5={(string)Preview_RowHolder["Info_MediaMD5"]}");
+            if (MD5Check != null && MD5Check.Length > 24)
             {
-                MD5Check = Module_e621Info.e621InfoDownload("https://e621.net/posts.json?md5=" + (string)Preview_RowHolder["Info_MediaMD5"]);
-                if (MD5Check != null && MD5Check.Length > 24)
+                JObject MD5CheckJSON = JObject.Parse(MD5Check);
+                Preview_RowHolder["Uploaded_As"] = MD5CheckJSON["post"]["id"].Value<string>();
+                Preview_RowHolder["Upload_Rating"] = MD5CheckJSON["post"]["rating"].Value<string>().ToUpper();
+                List<string> TagList = new List<string>();
+                foreach (JProperty pTag in MD5CheckJSON["post"]["tags"].Children())
                 {
-                    JObject MD5CheckJSON = JObject.Parse(MD5Check);
-                    Preview_RowHolder["Uploaded_As"] = MD5CheckJSON["post"]["id"].Value<string>();
-                    Preview_RowHolder["Upload_Rating"] = MD5CheckJSON["post"]["rating"].Value<string>().ToUpper();   
-                    List<string> TagList = new List<string>();
-                    foreach (JProperty pTag in MD5CheckJSON["post"]["tags"].Children())
+                    foreach (JToken cTag in pTag.First)
                     {
-                        foreach (JToken cTag in pTag.First)
-                        {
-                            TagList.Add(cTag.Value<string>());
-                        }
-                    };
-                    Preview_RowHolder["Upload_Tags"] = string.Join(" ", TagList);
-                    Module_DB.DB_Media_CreateRecord(ref Preview_RowHolder);
-                    Module_DB.DB_MD5_CreateRecord(MD5CheckJSON["post"]["id"].Value<int>(), (string)Preview_RowHolder["Info_MediaMD5"]);
-                    Label_AlreadyUploaded.Text = $"Already uploaded as #{(string)Preview_RowHolder["Info_MediaMD5"]}";
-                    e6_GridItem e6_GridItemTemp = Form_Loader._FormReference.IsE6PicVisibleInGrid(ref Preview_RowHolder);
-                    if (e6_GridItemTemp != null)
-                    {
-                        e6_GridItemTemp.cLabel_isUploaded.Text = MD5CheckJSON["post"]["id"].Value<string>();
+                        TagList.Add(cTag.Value<string>());
                     }
-                }
-            }
-            else
-            {
-                Preview_RowHolder["Uploaded_As"] = MD5Check;
-                Label_AlreadyUploaded.Text = $"Already uploaded as #{MD5Check}";
+                };
+                Preview_RowHolder["Upload_Tags"] = string.Join(" ", TagList);
+                Module_DB.DB_Media_CreateRecord(ref Preview_RowHolder);
+                Label_AlreadyUploaded.Text = $"Already uploaded as #{(string)Preview_RowHolder["Info_MediaMD5"]}";
                 e6_GridItem e6_GridItemTemp = Form_Loader._FormReference.IsE6PicVisibleInGrid(ref Preview_RowHolder);
                 if (e6_GridItemTemp != null)
                 {
-                    e6_GridItemTemp.cLabel_isUploaded.Text = MD5Check;
+                    e6_GridItemTemp.cLabel_isUploaded.Text = MD5CheckJSON["post"]["id"].Value<string>();
                 }
             }
         }
@@ -1014,7 +999,7 @@ namespace e621_ReBot_v2.Forms
                     {
                         SuperiorSub(PostIDReturned, Preview_RowHolder);
                     }
-                }             
+                }
             }
             else
             {

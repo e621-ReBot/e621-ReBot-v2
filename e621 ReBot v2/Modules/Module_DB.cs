@@ -46,8 +46,8 @@ namespace e621_ReBot_v2.Modules
         {
             using (SQLiteCommand SQL_Command = SQL_Connection.CreateCommand())
             {
-                SQL_Command.CommandText = "SELECT * FROM [Database] WHERE ([Url]=@url)";
-                SQL_Command.Parameters.AddWithValue("@url", DataRowRef["Grab_MediaURL"]);
+                SQL_Command.CommandText = "SELECT * FROM [Database] WHERE ([Url]=@picurl)";
+                SQL_Command.Parameters.AddWithValue("@picurl", DataRowRef["Grab_MediaURL"]);
                 using (SQLiteDataReader SQL_Reader = SQL_Command.ExecuteReader())
                 {
                     if (SQL_Reader.HasRows)
@@ -130,37 +130,6 @@ namespace e621_ReBot_v2.Modules
         {
             Uri URLURI = new Uri(Website);
             return URLURI.Host;
-        }
-
-        // = = = = =
-
-        public static void DB_MD5_CreateRecord(int PostID, string MD5)
-        {
-            using (SQLiteCommand SQL_Command = SQL_Connection.CreateCommand())
-            {
-                SQL_Command.CommandText = "INSERT OR IGNORE INTO [MD5Matches] ([PostID], [MD5]) VALUES (@postID, @md5)";
-                SQL_Command.Parameters.AddWithValue("@postID", PostID);
-                SQL_Command.Parameters.AddWithValue("@md5", MD5);
-                SQL_Command.ExecuteNonQuery();
-            }
-        }
-
-        public static string DB_MD5_CheckRecord(string MD5)
-        {
-            using (SQLiteCommand SQL_Command = SQL_Connection.CreateCommand())
-            {
-                SQL_Command.CommandText = "SELECT * FROM [MD5Matches] WHERE ([MD5]=@md5)";
-                SQL_Command.Parameters.AddWithValue("@md5", MD5);
-                using (SQLiteDataReader SQL_Reader = SQL_Command.ExecuteReader())
-                {
-                    if (SQL_Reader.HasRows)
-                    {
-                        SQL_Reader.Read(); // read first row
-                        return SQL_Reader.GetValue(0).ToString();
-                    }
-                }
-            }
-            return null;
         }
 
         // = = = = =
