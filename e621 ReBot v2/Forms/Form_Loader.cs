@@ -96,7 +96,6 @@ namespace e621_ReBot_v2
                         }
                     }
                 }
-                timer_CursorFix.Stop();
                 return;
             }
 

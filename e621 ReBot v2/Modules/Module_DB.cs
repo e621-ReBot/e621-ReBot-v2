@@ -22,9 +22,6 @@ namespace e621_ReBot_v2.Modules
 
                 SQL_Command.CommandText = "CREATE TABLE IF NOT EXISTS [CustomTags] ([CustomTag] TEXT)";
                 SQL_Command.ExecuteNonQuery();
-
-                SQL_Command.CommandText = "CREATE TABLE IF NOT EXISTS [MD5Matches] ([PostID] MEDIUMINT UNSIGNED UNIQUE, [MD5] TEXT)";
-                SQL_Command.ExecuteNonQuery();
             }
         }
 

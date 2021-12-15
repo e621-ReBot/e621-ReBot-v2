@@ -3653,7 +3653,6 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form_Main_FormClosed);
             this.Load += new System.EventHandler(this.Form_Main_Load);
             this.Shown += new System.EventHandler(this.Form_Main_Shown);
-            this.SizeChanged += new System.EventHandler(this.Form_Main_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.button_AppMinimize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.button_AppClose)).EndInit();
             this.cGroupBoxColored_DLThreads.ResumeLayout(false);
