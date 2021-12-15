@@ -475,6 +475,7 @@ namespace e621_ReBot_v2
 
         private void Menu_Btn_Click(object sender, EventArgs e)
         {
+            cTabControl_e621ReBot.Focus();
             Form_Menu Form_Menu_Temp = new Form_Menu
             {
                 Owner = this,

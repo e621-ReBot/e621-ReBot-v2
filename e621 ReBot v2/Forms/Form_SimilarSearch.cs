@@ -315,10 +315,7 @@ namespace e621_ReBot_v2.Forms
             string ResponseString = Module_e621Info.e621InfoDownload("https://e621.net/iqdb_queries.json?url=" + (string)Form_Preview._FormReference.Preview_RowHolder["Grab_MediaURL"], true);
             if (ResponseString.StartsWith("{", StringComparison.OrdinalIgnoreCase))
             {
-                if (_FormReference == null)
-                {
-                    return; //already closed
-                }
+                if (_FormReference == null) return; //already closed
                 Invoke(new Action(() =>
                 {
                     MessageBox.Show("No probable matches found.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -326,10 +323,7 @@ namespace e621_ReBot_v2.Forms
                 }));
                 return;
             }
-            if (_FormReference == null)
-            {
-                return; //already closed
-            }
+            if (_FormReference == null) return; //already closed
             Invoke(new Action(() => Label_SearchCheck.Text = "Getting image data..."));
 
             List<GroupBox> ResultGBs = new List<GroupBox>();
@@ -342,17 +336,18 @@ namespace e621_ReBot_v2.Forms
                 int FileSize = (int)(PostHolder["file_size"].Value<int>() / 1024d);
                 string PicWidth = PostHolder["image_width"].Value<string>();
                 string PicHeight = PostHolder["image_height"].Value<string>();
-                string PicSources = PostHolder["source"].Value<string>();
+                //string PicSources = PostHolder["source"].Value<string>();
                 string PicFormat = null;
                 string PicMD5 = null;
                 string PicPreview = null;
+
                 if (PostHolder["is_deleted"].Value<bool>())
                 {
                     PicPreview = "https://e621.net/images/deleted-preview.png";
                 }
                 else
                 {
-                    PicFormat = "." + PostHolder["file_ext"].Value<string>();
+                    PicFormat = $".{PostHolder["file_ext"].Value<string>()}";
                     PicMD5 = PostHolder["md5"].Value<string>();
                     PicPreview = PostHolder["preview_file_url"].Value<string>();
                 }
@@ -361,7 +356,8 @@ namespace e621_ReBot_v2.Forms
                 {
                     Size = new Size(156, 169),
                     ForeColor = Color.LightSteelBlue,
-                    Text = string.Format("{0} - {1} ({2} KB {3})", PostID, PostRating, FileSize, PicFormat)
+                    Text = $"{PostID} - {PostRating} ({FileSize} KB {PicFormat})",
+                    Tag = PostRating
                 };
                 var PicBox = new PictureBox()
                 {
@@ -370,7 +366,7 @@ namespace e621_ReBot_v2.Forms
                     Parent = PicGB,
                     Dock = DockStyle.Fill,
                     Name = PostID,
-                    Tag = PostRating
+                    Tag = PostHolder["tag_string"].Value<string>()
                 };
                 PicBox.MouseClick += ItemClick;
                 if (PostHolder["is_deleted"].Value<bool>())
@@ -385,17 +381,14 @@ namespace e621_ReBot_v2.Forms
                         Invoke(new Action(() => PicBox.LoadAsync(PicPreview)));
                     }
                 }
-                toolTip_Display.SetToolTip(PicBox, string.Format("Resolution: {0}x{1}\nFile size: {2} KB {3}\nMD5: {4}", PicWidth, PicHeight, FileSize, PicFormat, PicMD5));
+                toolTip_Display.SetToolTip(PicBox, $"Resolution: {PicWidth}x{PicHeight}\nFile size: {FileSize} KB {PicFormat}\nMD5: {PicMD5}");
                 PicGB.Controls.Add(PicBox);
                 ResultGBs.Add(PicGB);
             }
             e6info_Data = null;
 
             Move2Center = true;
-            if (_FormReference == null)
-            {
-                return; //already closed
-            }
+            if (_FormReference == null) return; //already closed
             Invoke(new Action(() =>
             {
                 FlowLayoutPanel_Holder.Controls.Clear();
@@ -434,14 +427,15 @@ namespace e621_ReBot_v2.Forms
             }
 
             DataRow DataRowTemp = Form_Preview._FormReference.Preview_RowHolder;
-            DataRowTemp["Upload_Rating"] = Post.Tag.ToString();
+            DataRowTemp["Upload_Rating"] = Post.Parent.Tag.ToString();
             DataRowTemp["Uploaded_As"] = Post.Name;
+            DataRowTemp["Upload_Tags"] = Post.Tag.ToString();
             e6_GridItem e6_GridItemTemp = Form_Loader._FormReference.IsE6PicVisibleInGrid(ref DataRowTemp);
             if (e6_GridItemTemp != null)
             {
                 e6_GridItemTemp.cLabel_isUploaded.Text = Post.Name;
             }
-            Form_Preview._FormReference.Label_AlreadyUploaded.Text = string.Format("Already uploaded as #{0}", Post.Name);
+            Form_Preview._FormReference.Label_AlreadyUploaded.Text = $"Already uploaded as #{Post.Name}";
             if (Properties.Settings.Default.ManualInferiorSave)
             {
                 Module_DB.DB_Media_CreateRecord(ref DataRowTemp);

@@ -3632,14 +3632,14 @@
             this.BackgroundImage = global::e621_ReBot_v2.Properties.Resources.E621ReBot_BG;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1304, 738);
+            this.Controls.Add(this.cTabControl_e621ReBot);
+            this.Controls.Add(this.Menu_Btn);
             this.Controls.Add(this.button_AppMinimize);
             this.Controls.Add(this.button_AppClose);
             this.Controls.Add(this.Opene6_btn);
-            this.Controls.Add(this.cTabControl_e621ReBot);
             this.Controls.Add(this.Version_Label);
             this.Controls.Add(this.Title_Label);
             this.Controls.Add(this.Panel_Holder);
-            this.Controls.Add(this.Menu_Btn);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
