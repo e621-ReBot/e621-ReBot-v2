@@ -51,21 +51,21 @@ namespace e621_ReBot_v2
             InitializeComponent();
 
             ServicePointManager.DefaultConnectionLimit = 64;
-            Panel_Holder.MouseDown += Holder_MouseDown;
+            panel_Holder.MouseDown += Holder_MouseDown;
             Title_Label.MouseDown += Holder_MouseDown;
             Version_Label.MouseDown += Holder_MouseDown;
             label_UserLevel.MouseDown += Holder_MouseDown;
             label_Credit_Upload.MouseDown += Holder_MouseDown;
             label_Credit_Flag.MouseDown += Holder_MouseDown;
             label_Credit_Note.MouseDown += Holder_MouseDown;
-            Panel_Holder.MouseMove += Holder_MouseMove;
+            panel_Holder.MouseMove += Holder_MouseMove;
             Title_Label.MouseMove += Holder_MouseMove;
             Version_Label.MouseMove += Holder_MouseMove;
             label_UserLevel.MouseMove += Holder_MouseMove;
             label_Credit_Upload.MouseMove += Holder_MouseMove;
             label_Credit_Flag.MouseMove += Holder_MouseMove;
             label_Credit_Note.MouseMove += Holder_MouseMove;
-            Panel_Holder.MouseUp += Holder_MouseUp;
+            panel_Holder.MouseUp += Holder_MouseUp;
             Title_Label.MouseUp += Holder_MouseUp;
             Version_Label.MouseUp += Holder_MouseUp;
             label_UserLevel.MouseUp += Holder_MouseUp;
@@ -886,7 +886,7 @@ namespace e621_ReBot_v2
                             }
                     }
                 }
-            
+
             }
             catch (Exception ex1)
             {
@@ -1331,7 +1331,7 @@ namespace e621_ReBot_v2
 
         private void GB_Clear_Click(object sender, EventArgs e)
         {
-            if (cTreeView_UploadQueue.Nodes.Count > 0) //| this.TreeView_DownloadQueue.Nodes.Count > 0)
+            if (cTreeView_UploadQueue.Nodes.Count > 0)
             {
                 MessageBox.Show("Images can't be removed while they are queued for upload.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -1358,45 +1358,19 @@ namespace e621_ReBot_v2
                             }
                         }
                     }
-
-
-                    if (Module_TableHolder.Database_Table.Rows.Count == 0)
+                }
+                if (ModifierKeys.HasFlag(Keys.Shift))
+                {
+                    lock (Module_TableHolder.Database_Table)
                     {
-                        GB_Left.Visible = false;
-                        GB_Right.Visible = false;
-                        Label_PageShower.Text = "1 / 1";
-                        cTabControl_e621ReBot.SelectedIndex = 0;
-                        Module_Grabber._Grabbed_MediaURLs.Clear();
-                        ClearGrid();
-                        GridIndexTracker = 0;
-                        lock (Module_TableHolder.Database_Table)
+                        for (int i = (GridIndexTracker + flowLayoutPanel_Grid.Controls.Count - 1); i >= GridIndexTracker; i--)
                         {
-                            Module_TableHolder.Database_Table.Clear();
+                            Module_TableHolder.Database_Table.Rows.RemoveAt(i);
                         }
-                        if (Form_Menu._FormReference != null)
-                        {
-                            Form_Menu._FormReference.MB_Grid.Visible = false;
-                        }
-                    }
-                    else
-                    {
-                        int CurrentPage = GridIndexTracker / Form_Loader._GridMaxControls;
-                        int NewEndPage = (int)Math.Floor((float)Module_TableHolder.Database_Table.Rows.Count / Form_Loader._GridMaxControls - 0.01);
-                        NewEndPage = NewEndPage < CurrentPage ? NewEndPage : CurrentPage;
-                        GridIndexTracker = NewEndPage * Form_Loader._GridMaxControls;
-
-                        UIDrawController.SuspendDrawing(flowLayoutPanel_Grid);
-                        flowLayoutPanel_Grid.SuspendLayout();
-                        ClearGrid();
-                        PopulateGrid(GridIndexTracker);
-                        Paginator();
-                        GB_Left.Visible = GridIndexTracker >= Form_Loader._GridMaxControls;
-                        GB_Right.Visible = Module_TableHolder.Database_Table.Rows.Count - Form_Loader._GridMaxControls > GridIndexTracker;
-                        flowLayoutPanel_Grid.ResumeLayout();
-                        UIDrawController.ResumeDrawing(flowLayoutPanel_Grid);
                     }
                 }
-                else
+
+                if (Module_TableHolder.Database_Table.Rows.Count == 0)
                 {
                     GB_Left.Visible = false;
                     GB_Right.Visible = false;
@@ -1405,22 +1379,41 @@ namespace e621_ReBot_v2
                     Module_Grabber._Grabbed_MediaURLs.Clear();
                     ClearGrid();
                     GridIndexTracker = 0;
-                    Module_TableHolder.Database_Table.Clear();
+                    lock (Module_TableHolder.Database_Table)
+                    {
+                        Module_TableHolder.Database_Table.Clear();
+                    }
                     if (Form_Menu._FormReference != null)
                     {
                         Form_Menu._FormReference.MB_Grid.Visible = false;
                     }
-                    GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
-                    GC.Collect();
                 }
-            }
+                else
+                {
+                    int CurrentPage = GridIndexTracker / Form_Loader._GridMaxControls;
+                    int NewEndPage = (int)Math.Floor((float)Module_TableHolder.Database_Table.Rows.Count / Form_Loader._GridMaxControls - 0.01);
+                    NewEndPage = NewEndPage < CurrentPage ? NewEndPage : CurrentPage;
+                    GridIndexTracker = NewEndPage * Form_Loader._GridMaxControls;
 
+                    UIDrawController.SuspendDrawing(flowLayoutPanel_Grid);
+                    flowLayoutPanel_Grid.SuspendLayout();
+                    ClearGrid();
+                    PopulateGrid(GridIndexTracker);
+                    Paginator();
+                    GB_Left.Visible = GridIndexTracker >= Form_Loader._GridMaxControls;
+                    GB_Right.Visible = Module_TableHolder.Database_Table.Rows.Count - Form_Loader._GridMaxControls > GridIndexTracker;
+                    flowLayoutPanel_Grid.ResumeLayout();
+                    UIDrawController.ResumeDrawing(flowLayoutPanel_Grid);
+                }
+                GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
+                GC.Collect();
+            }
         }
 
         private void GB_Download_Click(object sender, EventArgs e)
         {
             GB_Download.Enabled = false;
-            if (ModifierKeys.HasFlag(Keys.Control))
+            if (ModifierKeys.HasFlag(Keys.Shift))
             {
                 foreach (e6_GridItem e6_GridItemTemp in Form_Loader._GridFLPHolder.Controls)
                 {
@@ -1485,7 +1478,7 @@ namespace e621_ReBot_v2
 
         private void GB_Upload_Click(object sender, EventArgs e)
         {
-            Module_Uploader.UploadBtnClicked();
+            Module_Uploader.UploadBtnClicked(ModifierKeys.HasFlag(Keys.Shift));
         }
 
         #endregion

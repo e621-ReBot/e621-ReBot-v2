@@ -97,11 +97,14 @@ namespace e621_ReBot_v2.Modules
             }
         }
 
-        public static void UploadBtnClicked()
+        public static void UploadBtnClicked(bool CurrentPageOnly = false)
         {
-            foreach (DataRow DBRow in Module_TableHolder.Database_Table.Rows)
+            int StartIndex = CurrentPageOnly ? Form_Loader._FormReference.GridIndexTracker : 0;
+            int EndIndex = (CurrentPageOnly ? Form_Loader._FormReference.GridIndexTracker + Form_Loader._FormReference.flowLayoutPanel_Grid.Controls.Count : Module_TableHolder.Database_Table.Rows.Count) - 1;
+
+            for (int i = StartIndex; i <= EndIndex; i++)
             {
-                if ((bool)DBRow["UPDL_Queued"] && DBRow["Uploaded_As"] == DBNull.Value && ((string)DBRow["Upload_Tags"]).Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).Length < 5)
+                if ((bool)Module_TableHolder.Database_Table.Rows[i]["UPDL_Queued"] && Module_TableHolder.Database_Table.Rows[i]["Uploaded_As"] == DBNull.Value && ((string)Module_TableHolder.Database_Table.Rows[i]["Upload_Tags"]).Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).Length < 8)
                 {
                     if (MessageBox.Show("There are images with insufficient number of tags selected for upload. Are you sure you want to proceed?", "e621 ReBot", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
                     {
@@ -117,19 +120,20 @@ namespace e621_ReBot_v2.Modules
             bool AlreadyUploaded;
             DataTable UploadTableTemp = new DataTable();
             Module_TableHolder.Create_UploadTable(ref UploadTableTemp);
-            foreach (DataRow DBRow in Module_TableHolder.Database_Table.Rows)
+
+            for (int i = StartIndex; i <= EndIndex; i++)
             {
-                ToUpload = (bool)DBRow["UPDL_Queued"];
-                AlreadyUploaded = DBRow["Uploaded_As"] != DBNull.Value;
-                TooBigCheck = DBRow["Info_TooBig"] != DBNull.Value && (bool)DBRow["Info_TooBig"];
-                if (ToUpload && !AlreadyUploaded && !TooBigCheck && !Module_TableHolder.UploadQueueContainsURL((string)DBRow["Grab_MediaURL"]))
+                ToUpload = (bool)Module_TableHolder.Database_Table.Rows[i]["UPDL_Queued"];
+                AlreadyUploaded = Module_TableHolder.Database_Table.Rows[i]["Uploaded_As"] != DBNull.Value;
+                TooBigCheck = Module_TableHolder.Database_Table.Rows[i]["Info_TooBig"] != DBNull.Value && (bool)Module_TableHolder.Database_Table.Rows[i]["Info_TooBig"];
+                if (ToUpload && !AlreadyUploaded && !TooBigCheck && !Module_TableHolder.UploadQueueContainsURL((string)Module_TableHolder.Database_Table.Rows[i]["Grab_MediaURL"]))
                 {
                     DataRow UploadRowTemp = UploadTableTemp.NewRow();
-                    UploadRowTemp["Grab_MediaURL"] = (string)DBRow["Grab_MediaURL"];
-                    UploadRowTemp["DataRowRef"] = DBRow;
-                    UploadRowTemp["CopyNotes"] = DBRow["Inferior_HasNotes"] != DBNull.Value;
-                    UploadRowTemp["MoveChildren"] = DBRow["Inferior_Children"] != DBNull.Value;
-                    if (DBRow["Inferior_ID"] != DBNull.Value)
+                    UploadRowTemp["Grab_MediaURL"] = (string)Module_TableHolder.Database_Table.Rows[i]["Grab_MediaURL"];
+                    UploadRowTemp["DataRowRef"] = Module_TableHolder.Database_Table.Rows[i];
+                    UploadRowTemp["CopyNotes"] = Module_TableHolder.Database_Table.Rows[i]["Inferior_HasNotes"] != DBNull.Value;
+                    UploadRowTemp["MoveChildren"] = Module_TableHolder.Database_Table.Rows[i]["Inferior_Children"] != DBNull.Value;
+                    if (Module_TableHolder.Database_Table.Rows[i]["Inferior_ID"] != DBNull.Value)
                     {
                         if (Properties.Settings.Default.DontFlag)
                         {
@@ -151,13 +155,12 @@ namespace e621_ReBot_v2.Modules
             Form_Loader._FormReference.cTreeView_UploadQueue.EndUpdate();
 
             int NodeCount = Form_Loader._FormReference.cTreeView_UploadQueue.Nodes.Count;
-            Form_Loader._FormReference.cCheckGroupBox_Upload.Text = "Uploader" + (NodeCount > 0 ? string.Format(" ({0})", NodeCount) : null);
+            Form_Loader._FormReference.cCheckGroupBox_Upload.Text = $"Uploader{(NodeCount > 0 ? $" ({NodeCount})" : null)}";
 
             if (Form_Loader._FormReference.cCheckGroupBox_Upload.Checked && !Upload_BGW.IsBusy)
             {
                 timer_Upload.Start();
             }
-
         }
 
         public static void CreateUploadJobNode(ref DataRow DataRowPass)
@@ -475,7 +478,7 @@ namespace e621_ReBot_v2.Modules
                         // https://d.facdn.net/art/dannyckoo/1589311212/1589311212.dannyckoo_%D1%82%D0%B0%D0%BA%D0%B0%D0%BE_%D1%84%D0%B0.jpg
                         // or direct link upload will erorr
                         POST_Dictionary.Add("upload[direct_url]", EscapedURL);
-                    }            
+                    }
                 }
             }
 

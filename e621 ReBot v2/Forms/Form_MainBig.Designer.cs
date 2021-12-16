@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_MainBig));
             ((System.ComponentModel.ISupportInitialize)(this.button_AppClose)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.button_AppMinimize)).BeginInit();
-            this.Panel_Holder.SuspendLayout();
+            this.panel_Holder.SuspendLayout();
             this.panel_CheckBoxOptions.SuspendLayout();
             this.cGroupBoxColored_AutocompleteTagEditor.SuspendLayout();
             this.cGroupBoxColored_DownloadsFolderLocation.SuspendLayout();
@@ -82,7 +82,7 @@
             // 
             // Panel_Holder
             // 
-            this.Panel_Holder.Size = new System.Drawing.Size(1908, 34);
+            this.panel_Holder.Size = new System.Drawing.Size(1908, 34);
             // 
             // bU_RefreshCredit
             // 
@@ -529,7 +529,7 @@
             this.Load += new System.EventHandler(this.Form_MainBig_Load);
             ((System.ComponentModel.ISupportInitialize)(this.button_AppClose)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.button_AppMinimize)).EndInit();
-            this.Panel_Holder.ResumeLayout(false);
+            this.panel_Holder.ResumeLayout(false);
             this.panel_CheckBoxOptions.ResumeLayout(false);
             this.panel_CheckBoxOptions.PerformLayout();
             this.cGroupBoxColored_AutocompleteTagEditor.ResumeLayout(false);

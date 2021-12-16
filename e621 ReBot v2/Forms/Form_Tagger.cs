@@ -350,6 +350,10 @@ namespace e621_ReBot_v2.Forms
                 case Keys.Space:
                 case Keys.Back:
                     {
+                        if (timer_TagCount.Enabled)
+                        {
+                            timer_TagCount.Stop();
+                        }
                         TagCounter();
                         break;
                     }
@@ -701,15 +705,13 @@ namespace e621_ReBot_v2.Forms
 
             if (textBox_Tags.SelectionStart > 0)
             {
-                string SelectedWord = null;
                 int TextBoxCursorIndex = textBox_Tags.SelectionStart - 1;
-                var test = textBox_Tags.Text.Substring(TextBoxCursorIndex, 1);
                 if (textBox_Tags.Text.Substring(TextBoxCursorIndex, 1).Equals(" "))
                 {
                     int WordStartIndex = textBox_Tags.Text.Substring(0, TextBoxCursorIndex).LastIndexOf(" ") + 1;
                     int WordEndIndex = textBox_Tags.Text.IndexOf(" ", WordStartIndex);
                     if (WordEndIndex == -1) WordEndIndex = textBox_Tags.Text.Length;
-                    SelectedWord = textBox_Tags.Text.Substring(WordStartIndex, WordEndIndex - WordStartIndex);
+                    string SelectedWord = textBox_Tags.Text.Substring(WordStartIndex, WordEndIndex - WordStartIndex);
                     SortTags.Clear();
                     SortTags.AddRange(textBox_Tags.Text.Remove(WordStartIndex, WordEndIndex - WordStartIndex).Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries));
                     if (SortTags.Contains(SelectedWord))
@@ -754,6 +756,7 @@ namespace e621_ReBot_v2.Forms
                 string DNPArtist = TagListOnClose.Intersect(Form_Loader._FormReference.DNP_Tags).FirstOrDefault();
                 if (DNPArtist != null && (MessageBox.Show("Artist: " + DNPArtist + " is on DNP list, are you sure you want to proceed?", "e621 ReBot", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No))
                 {
+                    if (_FormReference == null) return;
                     textBox_Tags.AppendText(" ");
                     textBox_Tags.SelectionStart = textBox_Tags.Text.Length;
                     TagsAdded = false;
@@ -762,6 +765,7 @@ namespace e621_ReBot_v2.Forms
                 }
                 if (!TagListOnClose.Intersect(Form_Loader._FormReference.Gender_Tags).Any() && (MessageBox.Show("You have not added any gender tags, are you sure you want to close?", "e621 ReBot", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No))
                 {
+                    if (_FormReference == null) return;
                     textBox_Tags.AppendText(" ");
                     textBox_Tags.SelectionStart = textBox_Tags.Text.Length;
                     TagsAdded = false;

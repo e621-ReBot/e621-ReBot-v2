@@ -161,7 +161,7 @@
             this.bU_KoFi = new e621_ReBot_v2.CustomControls.Button_Unfocusable();
             this.Version_Label = new System.Windows.Forms.Label();
             this.Title_Label = new System.Windows.Forms.Label();
-            this.Panel_Holder = new System.Windows.Forms.Panel();
+            this.panel_Holder = new System.Windows.Forms.Panel();
             this.timer_FadeIn = new System.Windows.Forms.Timer(this.components);
             this.timer_TwitterGrabber = new System.Windows.Forms.Timer(this.components);
             this.timer_Refresh = new System.Windows.Forms.Timer(this.components);
@@ -259,7 +259,7 @@
             this.cGroupBoxColored_DownloadsFolderLocation.SuspendLayout();
             this.cGroupBoxColored_Update.SuspendLayout();
             this.cGroupBoxColored_AppName.SuspendLayout();
-            this.Panel_Holder.SuspendLayout();
+            this.panel_Holder.SuspendLayout();
             this.contextMenuStrip_Download.SuspendLayout();
             this.contextMenuStrip_cTreeView.SuspendLayout();
             this.contextMenuStrip_InfoBox.SuspendLayout();
@@ -890,8 +890,8 @@
             this.GB_Upload.TabIndex = 7;
             this.GB_Upload.TabStop = false;
             this.GB_Upload.Text = "Upload";
-            this.toolTip_Display.SetToolTip(this.GB_Upload, "Upload checked media.\r\nCtrl+Click to upload this page only.\r\nMedia that is alread" +
-        "y uploaded will be skipped.");
+            this.toolTip_Display.SetToolTip(this.GB_Upload, "Upload checked media.\r\nShift+Click to upload this page only.\r\n\r\nMedia that is alr" +
+        "eady uploaded will be skipped.");
             this.GB_Upload.UseVisualStyleBackColor = true;
             this.GB_Upload.Click += new System.EventHandler(this.GB_Upload_Click);
             // 
@@ -911,8 +911,8 @@
             this.GB_Download.TabIndex = 6;
             this.GB_Download.TabStop = false;
             this.GB_Download.Text = "Download";
-            this.toolTip_Display.SetToolTip(this.GB_Download, "Download checked media.\r\nCtrl+Click to download this page only.\r\nMedia that is al" +
-        "ready downloaded will be skipped.");
+            this.toolTip_Display.SetToolTip(this.GB_Download, "Download checked media.\r\nShift+Click to download this page only.\r\n\r\nMedia that is" +
+        " already downloaded will be skipped.");
             this.GB_Download.UseVisualStyleBackColor = true;
             this.GB_Download.Click += new System.EventHandler(this.GB_Download_Click);
             // 
@@ -931,8 +931,8 @@
             this.GB_Clear.TabIndex = 5;
             this.GB_Clear.TabStop = false;
             this.GB_Clear.Text = "Clear";
-            this.toolTip_Display.SetToolTip(this.GB_Clear, "Remove all media. \r\nCtrl+Click to remove only the media that is already uploaded." +
-        "");
+            this.toolTip_Display.SetToolTip(this.GB_Clear, "Remove all media. \r\nShift+Click to remove media on current page.\r\nCtrl+Click to r" +
+        "emove only the media that is already uploaded.");
             this.GB_Clear.UseVisualStyleBackColor = true;
             this.GB_Clear.Click += new System.EventHandler(this.GB_Clear_Click);
             // 
@@ -2496,19 +2496,19 @@
             this.Title_Label.Text = "e621 ReBot";
             this.Title_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Panel_Holder
+            // panel_Holder
             // 
-            this.Panel_Holder.BackColor = System.Drawing.Color.Transparent;
-            this.Panel_Holder.Controls.Add(this.bU_KoFi);
-            this.Panel_Holder.Controls.Add(this.label_Credit_Flag);
-            this.Panel_Holder.Controls.Add(this.label_Credit_Note);
-            this.Panel_Holder.Controls.Add(this.label_Credit_Upload);
-            this.Panel_Holder.Controls.Add(this.label_UserLevel);
-            this.Panel_Holder.Cursor = System.Windows.Forms.Cursors.NoMove2D;
-            this.Panel_Holder.Location = new System.Drawing.Point(0, 0);
-            this.Panel_Holder.Name = "Panel_Holder";
-            this.Panel_Holder.Size = new System.Drawing.Size(1304, 74);
-            this.Panel_Holder.TabIndex = 116;
+            this.panel_Holder.BackColor = System.Drawing.Color.Transparent;
+            this.panel_Holder.Controls.Add(this.bU_KoFi);
+            this.panel_Holder.Controls.Add(this.label_Credit_Flag);
+            this.panel_Holder.Controls.Add(this.label_Credit_Note);
+            this.panel_Holder.Controls.Add(this.label_Credit_Upload);
+            this.panel_Holder.Controls.Add(this.label_UserLevel);
+            this.panel_Holder.Cursor = System.Windows.Forms.Cursors.NoMove2D;
+            this.panel_Holder.Location = new System.Drawing.Point(0, 0);
+            this.panel_Holder.Name = "panel_Holder";
+            this.panel_Holder.Size = new System.Drawing.Size(1304, 74);
+            this.panel_Holder.TabIndex = 116;
             // 
             // timer_FadeIn
             // 
@@ -2830,7 +2830,7 @@
             this.tabPage_Grid.Controls.Add(this.flowLayoutPanel_Grid);
             this.tabPage_Grid.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Grid.Name = "tabPage_Grid";
-            this.tabPage_Grid.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Grid.Size = new System.Drawing.Size(1262, 695);
             this.tabPage_Grid.TabIndex = 1;
             this.tabPage_Grid.Text = "tabPage_Grid";
             this.tabPage_Grid.Paint += new System.Windows.Forms.PaintEventHandler(this.TabPage_Grid_Paint);
@@ -2881,7 +2881,7 @@
             this.flowLayoutPanel_Grid.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel_Grid.Name = "flowLayoutPanel_Grid";
             this.flowLayoutPanel_Grid.Padding = new System.Windows.Forms.Padding(0, 16, 0, 0);
-            this.flowLayoutPanel_Grid.Size = new System.Drawing.Size(192, 650);
+            this.flowLayoutPanel_Grid.Size = new System.Drawing.Size(1262, 650);
             this.flowLayoutPanel_Grid.TabIndex = 0;
             this.flowLayoutPanel_Grid.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.FlowLayoutPanel_Grid_ControlAdded);
             this.flowLayoutPanel_Grid.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.FlowLayoutPanel_Grid_ControlRemoved);
@@ -3639,7 +3639,7 @@
             this.Controls.Add(this.Opene6_btn);
             this.Controls.Add(this.Version_Label);
             this.Controls.Add(this.Title_Label);
-            this.Controls.Add(this.Panel_Holder);
+            this.Controls.Add(this.panel_Holder);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -3680,7 +3680,7 @@
             this.cGroupBoxColored_Update.ResumeLayout(false);
             this.cGroupBoxColored_Update.PerformLayout();
             this.cGroupBoxColored_AppName.ResumeLayout(false);
-            this.Panel_Holder.ResumeLayout(false);
+            this.panel_Holder.ResumeLayout(false);
             this.contextMenuStrip_Download.ResumeLayout(false);
             this.contextMenuStrip_cTreeView.ResumeLayout(false);
             this.contextMenuStrip_InfoBox.ResumeLayout(false);
@@ -3739,7 +3739,7 @@
         protected internal System.Windows.Forms.Label label_Credit_Upload;
         protected internal System.Windows.Forms.Label label_UserLevel;
         private CustomControls.Button_Unfocusable Opene6_btn;
-        protected internal System.Windows.Forms.Panel Panel_Holder;
+        protected internal System.Windows.Forms.Panel panel_Holder;
         internal System.Windows.Forms.Button Menu_Btn;
         internal System.Windows.Forms.ToolTip toolTip_Display;
         private System.Windows.Forms.Timer timer_FadeIn;

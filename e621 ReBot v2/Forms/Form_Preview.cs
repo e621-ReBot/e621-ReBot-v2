@@ -418,7 +418,7 @@ namespace e621_ReBot_v2.Forms
                 else
                 {
                     DateTime DateTimeNowTemp = DateTime.UtcNow;
-                    TimeSpan TimeSpanTemp = LastTickTime - DateTimeNowTemp;
+                    TimeSpan TimeSpanTemp =  DateTimeNowTemp - LastTickTime;
                     if (TimeSpanTemp.TotalMilliseconds > 500)
                     {
                         PB_Navigation_Click(PB_Next, null);
@@ -426,7 +426,7 @@ namespace e621_ReBot_v2.Forms
                     else
                     {
                         LastTickTime = DateTimeNowTemp;
-                        timer_LoadAllDelay.Interval = (int)Math.Min(100, 500 - TimeSpanTemp.TotalMilliseconds);
+                        timer_LoadAllDelay.Interval = (int)Math.Max(100, 500 - TimeSpanTemp.TotalMilliseconds);
                         timer_LoadAllDelay.Start();
                     }
                     return;
