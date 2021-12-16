@@ -297,8 +297,8 @@ namespace e621_ReBot_v2.Forms
                             e.Handled = true;
                             if (Clipboard.GetDataObject().GetDataPresent(DataFormats.StringFormat))
                             {
-                                List<string> PasteTags = ((string)Clipboard.GetDataObject().GetData(DataFormats.StringFormat)).ToLower().Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).Distinct().ToList();
-                                
+                                List<string> PasteTags = ((string)Clipboard.GetDataObject().GetData(DataFormats.StringFormat)).ToLower().Replace(Environment.NewLine, "").Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).Distinct().ToList();
+
                                 if (PasteTags.Count == 1 && textBox_Tags.Text.Substring(textBox_Tags.SelectionStart - 1).Equals(":"))
                                 {
                                     textBox_Tags.Text += string.Join(" ", PasteTags) + " ";

@@ -51,11 +51,13 @@ namespace e621_ReBot_v2.Modules.Grabber
             {
                 case "#text":
                     {
-                        if (TextHolderNode.InnerText.Contains("\r\n\t"))
-                        {
-                            TextHolder += TextHolderNode.InnerText.Replace(" ", "💩").Trim().Replace("💩", " ");
-                        }
-                        else
+                        string TextTest = TextHolderNode.InnerText.Trim();
+                        //if (TextHolderNode.InnerText.Contains("\r\n\t"))
+                        //{
+                        //    TextHolder += TextHolderNode.InnerText.Replace(" ", "💩").Trim().Replace("💩", " ");
+                        //}
+                        //else
+                        if (TextTest.Length != 0)
                         {
                             TextHolder += TextHolderNode.InnerText;
                         }

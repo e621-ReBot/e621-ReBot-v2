@@ -353,10 +353,17 @@ namespace e621_ReBot_v2.Modules
             }
         }
 
+        private static bool FailedUploadTask;
         private static void UploadBGW_Done(object sender, RunWorkerCompletedEventArgs e)
         {
             Report_Status("Waiting...");
             Module_Credits.Credit_Refresh_Display();
+
+            if (FailedUploadTask)
+            {
+                FailedUploadTask = false;
+                return;
+            }
 
             TreeView UploadTreeview = Form_Loader._FormReference.cTreeView_UploadQueue;
 
@@ -383,7 +390,7 @@ namespace e621_ReBot_v2.Modules
             }
 
             int NodeCount = UploadTreeview.Nodes.Count;
-            Form_Loader._FormReference.cCheckGroupBox_Upload.Text = "Uploader" + (NodeCount > 0 ? string.Format(" ({0})", NodeCount) : null);
+            Form_Loader._FormReference.cCheckGroupBox_Upload.Text = $"Uploader{(NodeCount > 0 ? $" ({NodeCount})" : null)}";
 
             if (NodeCount > 0)
             {
@@ -422,16 +429,16 @@ namespace e621_ReBot_v2.Modules
             string Upload_Description;
             if (DataRowRef["Grab_TextBody"] == DBNull.Value)
             {
-                Upload_Description = string.Format("[code]{0}[/code]", (string)DataRowRef["Grab_Title"]);
+                Upload_Description = $"[code]{(string)DataRowRef["Grab_Title"]}[/code]";
             }
             else
             {
-                Upload_Description = string.Format("[section{0}={1}]\n{2}\n[/section]", Properties.Settings.Default.ExpandedDescription ? ",expanded" : "", (string)DataRowRef["Grab_Title"], (string)DataRowRef["Grab_TextBody"]);
+                Upload_Description = string.Format("[section{0}={1}]\n{2}\n[/section]", Properties.Settings.Default.ExpandedDescription ? ",expanded" : null, (string)DataRowRef["Grab_Title"], (string)DataRowRef["Grab_TextBody"]);
             }
 
             if (DataRowRef["Inferior_ID"] != DBNull.Value)
             {
-                Upload_Description = string.Format("Superior version of post #{0}\n\n{1}", DataRowRef["Inferior_ID"], Upload_Description);
+                Upload_Description = $"Superior version of post #{DataRowRef["Inferior_ID"]}\n\n{Upload_Description}";
             }
 
             // FA link fix
@@ -449,7 +456,7 @@ namespace e621_ReBot_v2.Modules
             {
                 POST_Dictionary.Add("upload[file]", Upload_MediaURL);
                 Upload_MediaURL = Upload_MediaURL.Substring(Upload_MediaURL.LastIndexOf("/") + 1);
-                UploadedURLReport = Upload_MediaURL.Substring(0, Upload_MediaURL.IndexOf("_ugoira0.")) + "_ugoira1920x1080.webm, converted from " + (string)DataRowRef["Grab_URL"];
+                UploadedURLReport = $"{Upload_MediaURL.Substring(0, Upload_MediaURL.IndexOf("_ugoira0."))}_ugoira1920x1080.webm, converted from {(string)DataRowRef["Grab_URL"]}";
                 Upload_Description += "\nConverted from Ugoira using FFmpeg: -c:v libvpx-vp9 -pix_fmt yuv420p -lossless 1 -an";
                 isByteUpload = true;
             }
@@ -459,8 +466,8 @@ namespace e621_ReBot_v2.Modules
                 {
                     POST_Dictionary.Add("upload[file]", Upload_MediaURL);
                     string VideoFileName = Upload_MediaURL.Remove(Upload_MediaURL.Length - 4);
-                    VideoFileName = VideoFileName.Substring(VideoFileName.LastIndexOf("/") + 1) + ".webm";
-                    UploadedURLReport = VideoFileName + ", converted from " + (string)DataRowRef["Grab_URL"];
+                    VideoFileName = $"{VideoFileName.Substring(VideoFileName.LastIndexOf("/") + 1)}.webm";
+                    UploadedURLReport = $"{VideoFileName}, converted from {(string)DataRowRef["Grab_URL"]}";
                     Upload_Description += "\nConverted using FFmpeg: -c:v libvpx-vp9 -pix_fmt yuv420p -b:v 2000k -minrate 1500k -maxrate 2500k -crf 16 -quality good -speed 4 -pass 2";
                     isByteUpload = true;
                 }
@@ -511,7 +518,7 @@ namespace e621_ReBot_v2.Modules
                                 Module_Downloader.FileDownloader(Upload_MediaURL, "U", "MediaTemp", null, DataRowRef);
                                 FileName = Module_Downloader.GetMediasFileNameOnly(Upload_MediaURL);
                                 ExtraSourceURL = Upload_MediaURL;
-                                bytes2Send = File.ReadAllBytes(string.Format(@"{0}\{1}", "MediaTemp", FileName));
+                                bytes2Send = File.ReadAllBytes($"MediaTemp\\{FileName}");
                                 break;
                             }
 
@@ -565,7 +572,7 @@ namespace e621_ReBot_v2.Modules
                             Module_Credits.Credit_Upload_Total -= 1;
                         }
                         DisplayUploadSuccess(ref DataRowRef, Upload_Reponse_Data["post_id"].ToString());
-                        Report_Info("Uploaded: " + UploadedURLReport);
+                        Report_Info($"Uploaded: {UploadedURLReport}");
                         break;
                     }
 
@@ -576,19 +583,23 @@ namespace e621_ReBot_v2.Modules
                         if (Upload_Reponse_Data["reason"].Value<string>().Equals("duplicate"))
                         {
                             DisplayUploadSuccess(ref DataRowRef, Upload_Reponse_Data["post_id"].ToString());
-                            Report_Info(string.Format("Error uploading: {0}, duplicate of #{1}", UploadedURLReport, Upload_Reponse_Data["post_id"].Value<string>()));
+                            Report_Info($"Error uploading: {UploadedURLReport}, duplicate of #{Upload_Reponse_Data["post_id"].Value<string>()}");
                         }
                         else
                         {
-                            MessageBox.Show(string.Format("Some other Error {0}\n{1}", e6Response.Key.StatusCode, e6Response.Value), "e621 ReBot");
+                            FailedUploadTask = true;
+                            Form_Loader._FormReference.cCheckGroupBox_Upload.Checked = false;
+                            MessageBox.Show($"Some other Error {e6Response.Key.StatusCode}\n{e6Response.Value}", "e621 ReBot - Upload");
                         }
                         break;
                     }
 
                 default:
                     {
-                        Report_Info("Error uploading: " + UploadedURLReport);
-                        MessageBox.Show(string.Format("Error Code {0}\n{1}", e6Response.Key.StatusCode, e6Response.Value), "e621 ReBot");
+                        FailedUploadTask = true;
+                        Form_Loader._FormReference.cCheckGroupBox_Upload.Checked = false;
+                        Report_Info($"Error uploading: {UploadedURLReport}");
+                        MessageBox.Show($"Error Code {e6Response.Key.StatusCode}\n{e6Response.Value}", "e621 ReBot - Upload");
                         break;
                     }
             }
@@ -626,7 +637,7 @@ namespace e621_ReBot_v2.Modules
                 if (Form_Preview._FormReference != null && ReferenceEquals(Form_Preview._FormReference.Preview_RowHolder, DataRowTemp))
                 {
                     Form_Preview._FormReference.PB_Upload.BackColor = Color.FromArgb(0, 45, 90);
-                    Form_Preview._FormReference.Label_AlreadyUploaded.Text = string.Format("Already uploaded as #{0}", (string)DataRowTemp["Uploaded_As"]);
+                    Form_Preview._FormReference.Label_AlreadyUploaded.Text = $"Already uploaded as #{(string)DataRowTemp["Uploaded_As"]}";
                 }
             }));
         }
@@ -636,7 +647,7 @@ namespace e621_ReBot_v2.Modules
             Report_Status("Copying Notes...");
             DataRow DataRowRef = (DataRow)TaskRow["DataRowRef"];
 
-            JArray NoteList = JArray.Parse(Module_e621Info.e621InfoDownload("https://e621.net/notes.json?search[post_id]=" + (string)DataRowRef["Inferior_ID"]));
+            JArray NoteList = JArray.Parse(Module_e621Info.e621InfoDownload($"https://e621.net/notes.json?search[post_id]={(string)DataRowRef["Inferior_ID"]}"));
             foreach (JObject Note in NoteList.Reverse())
             {
                 if (!Note["is_active"].Value<bool>())
@@ -648,7 +659,7 @@ namespace e621_ReBot_v2.Modules
             double RatioData = (double)DataRowRef["Inferior_NotesSizeRatio"];
             for (int i = 0; i < NoteList.Count; i++)
             {
-                Report_Status(string.Format("Copying Notes: {0}/{1}", i + 1, NoteList.Count));
+                Report_Status($"Copying Notes: {i + 1}/{NoteList.Count}");
 
                 Dictionary<string, string> POST_Dictionary = new Dictionary<string, string>()
                 {
@@ -677,14 +688,14 @@ namespace e621_ReBot_v2.Modules
 
                     case (HttpStatusCode)422:
                         {
-                            Report_Info(string.Format("Note edit limit reached, copied {0} out of {1} notes", i + 1, NoteList.Count));
+                            Report_Info($"Note edit limit reached, copied {(i + 1)} out of {NoteList.Count} notes");
                             Module_Credits.Credit_Notes = 0;
 
                             Form_Loader._FormReference.Invoke(new Action(() =>
                             {
                                 TreeNode clonedNode = new TreeNode()
                                 {
-                                    Text = string.Format("Copy Notes from #{0} to #{1}", (string)DataRowRef["Inferior_ID"], (string)DataRowRef["Uploaded_As"]),
+                                    Text = $"Copy Notes from #{(string)DataRowRef["Inferior_ID"]} to #{(string)DataRowRef["Uploaded_As"]}",
                                     Tag = RatioData
                                 };
                                 Form_Loader._FormReference.cTreeView_RetryQueue.Nodes.Add(clonedNode);
@@ -697,7 +708,7 @@ namespace e621_ReBot_v2.Modules
 
                     default:
                         {
-                            MessageBox.Show(string.Format("Error Code {0}\n{1}", e6NoteResponse.Key.StatusCode, e6NoteResponse.Value), "Copy Notes");
+                            MessageBox.Show($"Error Code {e6NoteResponse.Key.StatusCode}\n{e6NoteResponse.Value}", "e621 Rebot - Copy Notes");
                             break;
                         }
                 }
@@ -715,7 +726,7 @@ namespace e621_ReBot_v2.Modules
 
             for (int i = 0; i < ChildrenList.Count; i++)
             {
-                Report_Status(string.Format("Moving Children: {0}/{1}", i + 1, ChildrenList.Count));
+                Report_Status($"Moving Children: {(i + 1)}/{ChildrenList.Count}");
 
                 Dictionary<string, string> POST_Parent = new Dictionary<string, string>()
                 {
@@ -725,15 +736,15 @@ namespace e621_ReBot_v2.Modules
                     { "api_key", Module_Cryptor.Decrypt(Properties.Settings.Default.API_Key) }
                 };
                 // Child's new parent / id of new image
-                string ChangeChildsParentURL = string.Format("https://e621.net/posts/{0}.json", ChildrenList[i]);
+                string ChangeChildsParentURL = $"https://e621.net/posts/{ChildrenList[i]}.json";
                 KeyValuePair<HttpWebResponse, string> e6ChildResponse = SEND_Request("PATCH", ChangeChildsParentURL, POST_Parent);
                 if (e6ChildResponse.Key.StatusCode == HttpStatusCode.OK)
                 {
-                    Report_Info(string.Format("Post #{0} set as child of #{1}", ChildrenList[i], (string)DataRowRef["Uploaded_As"]));
+                    Report_Info($"Post #{ChildrenList[i]} set as child of #{(string)DataRowRef["Uploaded_As"]}");
                 }
                 else
                 {
-                    MessageBox.Show(string.Format("Error Code {0}\n{1}", e6ChildResponse.Key.StatusCode, e6ChildResponse.Value), "Move Children");
+                    MessageBox.Show($"Error Code {e6ChildResponse.Key.StatusCode}\n{e6ChildResponse.Value}", "e621 Rebot - Move Children");
                 }
                 e6ChildResponse.Key.Dispose();
                 Thread.Sleep(500);
@@ -765,13 +776,13 @@ namespace e621_ReBot_v2.Modules
                             Module_Credits.Timestamps_Flag.Add(DateTime.UtcNow.AddHours(1d));
                         }
 
-                        Report_Info(string.Format("Flagged #{0} as inferior of #{1}", (string)DataRowRef["Inferior_ID"], (string)DataRowRef["Uploaded_As"]));
+                        Report_Info($"Flagged #{(string)DataRowRef["Inferior_ID"]} as inferior of #{(string)DataRowRef["Uploaded_As"]}");
                         break;
                     }
 
                 case (HttpStatusCode)422:
                     {
-                        Report_Info(string.Format("Hourly flag limit reached, did not flag #{0}", (string)DataRowRef["Uploaded_As"]));
+                        Report_Info($"Hourly flag limit reached, did not flag #{(string)DataRowRef["Uploaded_As"]}");
                         Module_Credits.Credit_Flag = 0;
                         UploadTask_ChangeParent();
 
@@ -779,7 +790,7 @@ namespace e621_ReBot_v2.Modules
                         {
                             TreeNode clonedNode = new TreeNode()
                             {
-                                Text = string.Format("Flag #{0} as inferior of #{1}", (string)DataRowRef["Inferior_ID"], (string)DataRowRef["Uploaded_As"])
+                                Text = $"Flag #{(string)DataRowRef["Inferior_ID"]} as inferior of #{(string)DataRowRef["Uploaded_As"]}"
                             };
                             Form_Loader._FormReference.cTreeView_RetryQueue.Nodes.Add(clonedNode);
                         }));
@@ -790,7 +801,7 @@ namespace e621_ReBot_v2.Modules
 
                 default:
                     {
-                        MessageBox.Show(string.Format("Error Code {0}\n{2}", e6FlagResponse.Key.StatusCode, e6FlagResponse.Value), "Flag Inferior");
+                        MessageBox.Show($"Error Code {e6FlagResponse.Key.StatusCode}\n{e6FlagResponse.Value}", "e621 ReBot - Flag Inferior");
                         break;
                     }
             }
@@ -811,12 +822,12 @@ namespace e621_ReBot_v2.Modules
                 { "api_key", Module_Cryptor.Decrypt(Properties.Settings.Default.API_Key) }
             };
 
-            string ChangeParentURL = string.Format("https://e621.net/posts/{0}.json", (string)DataRowRef["Inferior_ID"]);
-            KeyValuePair<HttpWebResponse, string> e6Response = SEND_Request("PATCH", ChangeParentURL, POST_Dictionary);
-            if (e6Response.Key.StatusCode != HttpStatusCode.OK)
+            string ChangeParentURL = $"https://e621.net/posts/{(string)DataRowRef["Inferior_ID"]}.json";
+            KeyValuePair<HttpWebResponse, string> e6ChangeParentResponse = SEND_Request("PATCH", ChangeParentURL, POST_Dictionary);
+            if (e6ChangeParentResponse.Key.StatusCode != HttpStatusCode.OK)
             {
-                Report_Info(string.Format("Error changing parent of {0} to {1}", (string)DataRowRef["Inferior_ID"], (string)DataRowRef["Inferior_ID"]));
-                MessageBox.Show(string.Format("Error Code {0}\n{1}", e6Response.Key.StatusCode, e6Response.Value), "Change Parent");
+                Report_Info($"Error changing parent of {(string)DataRowRef["Inferior_ID"]} to {(string)DataRowRef["Inferior_ID"]}");
+                MessageBox.Show($"Error Code {e6ChangeParentResponse.Key.StatusCode}\n{e6ChangeParentResponse.Value}", "e621 ReBot - Change Parent");
             }
         }
     }
