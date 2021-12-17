@@ -13,6 +13,7 @@ namespace DC_AutocompleteMenuNS
     [ToolboxItem(true)]
     [ProvideProperty("AutocompleteMenu", typeof(Control))]
     public class DC_AutocompleteMenu : Component, IExtenderProvider
+
     {
         public DC_AutocompleteMenu()
         {
@@ -545,10 +546,7 @@ namespace DC_AutocompleteMenuNS
                 switch (e.KeyCode)
                 {
                     case Keys.Escape:
-                        {
-                            return;
-                        }
-
+                    case Keys.F1:
                     case Keys.Up:
                     case Keys.Down:
                     case Keys.PageUp:
@@ -581,10 +579,7 @@ namespace DC_AutocompleteMenuNS
 
         void ResetTimer(int interval)
         {
-            if (interval <= 0)
-                timer.Interval = AppearInterval;
-            else
-                timer.Interval = interval;
+            timer.Interval = interval <= 0 ? AppearInterval : interval;
             timer.Stop();
             timer.Start();
         }

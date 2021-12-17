@@ -70,7 +70,7 @@ namespace e621_ReBot_v2
             if (GetAsyncKeyState(Keys.F1) == -32767)
             {
                 Form FormTemp;
-                for (int i = 1; i < Application.OpenForms.Count; i++)
+                for (int i = Application.OpenForms.Count - 1; i > 0; i--)
                 {
                     FormTemp = Application.OpenForms[i];
 
@@ -83,8 +83,9 @@ namespace e621_ReBot_v2
                         switch (FormTemp.Name)
                         {
                             case "Form_Main":
-                                {
+                                {               
                                     FormTemp.WindowState = FormWindowState.Minimized;
+                                    FormTemp.Hide();
                                     break;
                                 }
 
