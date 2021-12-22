@@ -536,7 +536,8 @@ namespace e621_ReBot_v2
                             {
                                 if (_Selected_e6GridItem != null)
                                 {
-                                    Form_Tagger.OpenTagger(this, _Selected_e6GridItem._DataRowReference, Cursor.Position);
+                                    Point GridPoint = _Selected_e6GridItem.PointToScreen(Point.Empty);
+                                    Form_Tagger.OpenTagger(this, _Selected_e6GridItem._DataRowReference, new Point(GridPoint.X + 200, GridPoint.Y));
                                 }
                                 break;
                             }
@@ -1346,6 +1347,7 @@ namespace e621_ReBot_v2
                     Form_Preview._FormReference.Close();
                 }
 
+                bool ClearAll = true;
                 if (ModifierKeys.HasFlag(Keys.Control))
                 {
                     lock (Module_TableHolder.Database_Table)
@@ -1358,7 +1360,9 @@ namespace e621_ReBot_v2
                             }
                         }
                     }
+                    ClearAll = false;
                 }
+
                 if (ModifierKeys.HasFlag(Keys.Shift))
                 {
                     lock (Module_TableHolder.Database_Table)
@@ -1367,6 +1371,15 @@ namespace e621_ReBot_v2
                         {
                             Module_TableHolder.Database_Table.Rows.RemoveAt(i);
                         }
+                    }
+                    ClearAll = false;
+                }
+
+                if (ClearAll)
+                {
+                    lock (Module_TableHolder.Database_Table)
+                    {
+                        Module_TableHolder.Database_Table.Clear();
                     }
                 }
 
@@ -1379,10 +1392,6 @@ namespace e621_ReBot_v2
                     Module_Grabber._Grabbed_MediaURLs.Clear();
                     ClearGrid();
                     GridIndexTracker = 0;
-                    lock (Module_TableHolder.Database_Table)
-                    {
-                        Module_TableHolder.Database_Table.Clear();
-                    }
                     if (Form_Menu._FormReference != null)
                     {
                         Form_Menu._FormReference.MB_Grid.Visible = false;
