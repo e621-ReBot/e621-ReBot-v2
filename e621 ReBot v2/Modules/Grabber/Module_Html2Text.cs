@@ -132,23 +132,32 @@ namespace e621_ReBot_v2.Modules.Grabber
                 case "table":
                     {
                         HtmlNode SubElement = TextHolderNode.SelectSingleNode(".//a[@class='widget_userNameSmall']");
-                        if (SubElement == null)
+                        if (SubElement != null)
                         {
-                            SubElement = TextHolderNode.SelectSingleNode(".//img");
-                            string PicUrl = SubElement.Attributes["src"].Value;
+                            TextHolder += $"🐰\"{SubElement.InnerText}\":{SubElement.Attributes["href"].Value}";
+                            break;
+                        }
+
+                        SubElement = TextHolderNode.SelectSingleNode(".//div[@class='widget_imageFromSubmission ']");
+                        if (SubElement != null)
+                        {
+                            string PicUrl = SubElement.SelectSingleNode(".//img").Attributes["src"].Value;
+                            string PostURL = null;
                             if (PicUrl.Contains("overlays/blocked.png")) // https://inkbunny.net/s/2163614
                             {
-                                string GetBlockedLink = $"https://inkbunny.net{TextHolderNode.SelectSingleNode(".//a").Attributes["href"].Value}";
-                                TextHolder += $"\"{GetBlockedLink}\":{GetBlockedLink}";
+                                PostURL = $"https://inkbunny.net{TextHolderNode.SelectSingleNode(".//a").Attributes["href"].Value}";
+                                TextHolder += $"🐰\"{PostURL}\":{PostURL}";
                             }
                             else // https://inkbunny.net/s/2165811
                             {
-                                TextHolder += $"🐰\"{SubElement.Attributes["title"].Value}\":{SubElement.ParentNode.Attributes["href"].Value}";
+                                PostURL = SubElement.SelectSingleNode(".//img").ParentNode.Attributes["href"].Value;
+                                if (PostURL.Substring(0, 3).Equals("/s/")) // https://inkbunny.net/s/2075088
+                                {
+                                    PostURL = $"https://inkbunny.net{PostURL}";
+                                }
+                                TextHolder += $"🐰\"{SubElement.Attributes["title"].Value}\":{PostURL}";
                             }
-                        }
-                        else
-                        {
-                            TextHolder += $"🐰\"{SubElement.InnerText}\":{SubElement.Attributes["href"].Value}";
+                            break;
                         }
                         break;
                     }

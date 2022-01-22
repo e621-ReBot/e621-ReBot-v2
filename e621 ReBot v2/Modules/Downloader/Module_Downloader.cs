@@ -495,26 +495,25 @@ namespace e621_ReBot_v2.Modules
             for (int i = Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Count - 1; i >= 0; i--)
             {
                 e6_DownloadItem e6_DownloadItemTemp = (e6_DownloadItem)Form_Loader._FormReference.DownloadFLP_InProgress.Controls[i];
-                if (e6_DownloadItemTemp._DownloadFinished && !e6_DownloadItemTemp._AlreadyCopied)
+                if (e6_DownloadItemTemp._DownloadFinished)
                 {
-                    DataRow DataRowTemp = (DataRow)e6_DownloadItemTemp.Tag;
-
-                    lock (Download_AlreadyDownloaded)
+                    if (!e6_DownloadItemTemp._AlreadyCopied)
                     {
-                        Download_AlreadyDownloaded.Add((string)DataRowTemp["Grab_MediaURL"]);
+                        DataRow DataRowTemp = (DataRow)e6_DownloadItemTemp.Tag;
+
+                        lock (Download_AlreadyDownloaded)
+                        {
+                            Download_AlreadyDownloaded.Add((string)DataRowTemp["Grab_MediaURL"]);
+                        }
+                        Image ImageHolder = e6_DownloadItemTemp.picBox_ImageHolder.Tag == null ? e6_DownloadItemTemp.picBox_ImageHolder.BackgroundImage : null;
+
+                        AddPic2FLP((string)DataRowTemp["Grab_MediaURL"], e6_DownloadItemTemp.DL_FolderIcon.Tag.ToString(), ImageHolder);
+                        e6_DownloadItemTemp.picBox_ImageHolder.Tag = null;
+                        e6_DownloadItemTemp._AlreadyCopied = true;
                     }
-                    Image ImageHolder = e6_DownloadItemTemp.picBox_ImageHolder.Tag == null ? e6_DownloadItemTemp.picBox_ImageHolder.BackgroundImage : null;
-
-                    AddPic2FLP((string)DataRowTemp["Grab_MediaURL"], e6_DownloadItemTemp.DL_FolderIcon.Tag.ToString(), ImageHolder);
-                    e6_DownloadItemTemp.picBox_ImageHolder.Tag = null;
-
                     if (Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Count > DLThreadsCount || !Form_Loader._FormReference.cCheckGroupBox_Download.Checked || Module_TableHolder.Download_Table.Rows.Count == 0)
                     {
                         e6_DownloadItemTemp.Dispose();
-                    }
-                    else
-                    {
-                        e6_DownloadItemTemp._AlreadyCopied = true;
                     }
                 }
             }
@@ -831,7 +830,7 @@ namespace e621_ReBot_v2.Modules
 
             Directory.CreateDirectory(DLPath);
 
-            string PoolPostIndex = DataRowRef["e6_PoolPostIndex"] != DBNull.Value ? (string)DataRowRef["e6_PoolPostIndex"] : null;
+            string PoolPostIndex = DataRowRef["e6_PoolPostIndex"] == DBNull.Value ? null : (string)DataRowRef["e6_PoolPostIndex"];
             string PostID = (string)DataRowRef["e6_PostID"];
 
             switch (Properties.Settings.Default.Naming_e6)

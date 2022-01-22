@@ -220,13 +220,12 @@ namespace e621_ReBot_v2.Forms
 
                         Module_Downloader.AddDownloadQueueItem(
                             DataRowRef: null,
-                            URL: "https://e621.net/posts/" + PoolPostID,
+                            URL: $"https://e621.net/posts/{PoolPostID}",
                             Media_URL: CurrentPoolPosts_Sorted[PoolPostID]["file"]["url"].Value<string>(),
                             e6_PostID: PoolPostID,
                             e6_PoolName: PoolName,
-                            e6_PoolPostIndex: CurrentPoolPosts_Sorted.Keys.ToList().IndexOf(PoolPostID).ToString()
+                            e6_PoolPostIndex: Array.IndexOf(PoolData_JSON["post_ids"].ToObject<string[]>(), PoolPostID).ToString()
                             );
-
                         ItemsAddedCount += 1;
                     }
 
