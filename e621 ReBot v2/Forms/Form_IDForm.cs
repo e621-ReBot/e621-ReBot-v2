@@ -128,7 +128,7 @@ namespace e621_ReBot_v2.CustomControls
             string IDEntered = null;
             if (e6_IDFormTemp.DialogResult == DialogResult.OK)
             {
-                IDEntered = e6_IDFormTemp.ID_TextBox.Text.Equals("") ? null : e6_IDFormTemp.ID_TextBox.Text;
+                IDEntered = string.IsNullOrEmpty(e6_IDFormTemp.ID_TextBox.Text) ? null : e6_IDFormTemp.ID_TextBox.Text;
             }
 
             e6_IDFormTemp.Dispose();

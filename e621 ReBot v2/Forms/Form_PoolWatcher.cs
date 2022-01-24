@@ -27,18 +27,18 @@ namespace e621_ReBot_v2.Forms
 
         private void Form_PoolWatcher_Load(object sender, EventArgs e)
         {
-            if (!Properties.Settings.Default.PoolWatcher.Equals(""))
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.PoolWatcher))
             {
                 TreeView_PoolWatcher.BeginUpdate();
                 foreach (JToken PoolToken in JArray.Parse(Properties.Settings.Default.PoolWatcher))
                 {
-                    string PoolName = PoolToken["name"].Value<string>().Replace("_", " ");
+                    string PoolName = PoolToken["name"].Value<string>().Replace("_", " ").Trim();
                     string PoolID = PoolToken["id"].Value<string>();
                     TreeNode PoolNode = new TreeNode()
                     {
-                        Text = $"{PoolName} | Posts: {PoolToken["post_count"].Value<int>()}",
+                        Text = $"{PoolName} | Posts: {PoolToken["post_ids"].Count()}",
                         Name = PoolID,
-                        ToolTipText = "Pool ID#" + PoolID,
+                        ToolTipText = $"Pool ID#{PoolID}",
                         Tag = PoolToken
                     };
                     TreeView_PoolWatcher.Nodes.Add(PoolNode);
@@ -80,14 +80,14 @@ namespace e621_ReBot_v2.Forms
                 }
 
                 JObject PoolJSON = JObject.Parse(e6JSONResult);
-                string PoolName = PoolJSON["name"].Value<string>().Replace("_", " ");
 
+                string PoolName = PoolJSON["name"].Value<string>().Replace("_", " ").Trim();
                 JObject JObjectTemp = new JObject
                 {
                     { "id", PoolJSON["id"].Value<int>() },
-                    { "name", PoolJSON["name"].Value<string>() },
-                    { "post_ids", PoolJSON["post_ids"].Value<JToken>() },
-                    { "post_count",  PoolJSON["post_count"].Value<int>() }
+                    { "name", PoolName },
+                    { "post_ids", PoolJSON["post_ids"].Value<JToken>() }
+                    //{ "post_count",  PoolJSON["post_count"].Value<int>() }
                 };
                 TreeNode PoolNode = new TreeNode()
                 {
@@ -97,6 +97,7 @@ namespace e621_ReBot_v2.Forms
                     Tag = JObjectTemp
                 };
                 TreeView_PoolWatcher.Nodes.Add(PoolNode);
+                PoolJSON = null;
 
                 Module_e621APIMinion.AddWork2Queue("Pool Watcher", Module_e621APIMinion.GraBPoolInBG, AddPoolID);
 
@@ -142,7 +143,7 @@ namespace e621_ReBot_v2.Forms
 
         public static void PoolWatcher_Check4New()
         {
-            if (!Properties.Settings.Default.PoolWatcher.Equals(""))
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.PoolWatcher))
             {
                 Dictionary<string, List<string>> PoolWatherDictionary = new Dictionary<string, List<string>>();
 
@@ -162,13 +163,14 @@ namespace e621_ReBot_v2.Forms
                     {
                         foreach (JObject CurrentPoolData in JArray.Parse(e6JSONResult))
                         {
+                            string PoolName = CurrentPoolData["name"].Value<string>().Replace("_", " ").Trim();
                             JObject JObjectTemp = new JObject
-                        {
-                            { "id", CurrentPoolData["id"].Value<int>() },
-                            { "name", CurrentPoolData["name"].Value<string>() },
-                            { "post_ids", CurrentPoolData["post_ids"].Value<JToken>() },
-                            { "post_count",  CurrentPoolData["post_count"].Value<int>() }
-                        };
+                            {
+                                { "id", CurrentPoolData["id"].Value<int>() },
+                                { "name", PoolName },
+                                { "post_ids", CurrentPoolData["post_ids"].Value<JToken>() }
+                                //{ "post_count",  CurrentPoolData["post_count"].Value<int>() }
+                            };
                             PoolWatcherSave.Add(JObjectTemp);
 
                             string PoolID = CurrentPoolData["id"].Value<string>();
@@ -178,12 +180,12 @@ namespace e621_ReBot_v2.Forms
                                 PoolPosts2Get.Add(CurrentPoolData, NewPostsIfAny);
                             }
                         }
-                        Thread.Sleep(1000);
                     }
                     else
                     {
                         return;
                     }
+                    Thread.Sleep(1000);
                 }
                 Properties.Settings.Default.PoolWatcher = JsonConvert.SerializeObject(PoolWatcherSave);
                 Properties.Settings.Default.Save();
@@ -196,50 +198,56 @@ namespace e621_ReBot_v2.Forms
 
         private static void GetNewImages(Dictionary<JObject, List<string>> PoolPosts2Get)
         {
+            Dictionary<string, JObject> PoolReferer = new Dictionary<string, JObject>();
             foreach (KeyValuePair<JObject, List<string>> Pool2Get in PoolPosts2Get)
             {
-                JObject PoolData_JSON = Pool2Get.Key;
+                foreach (string PostID2Pool in Pool2Get.Value)
+                {
+                    PoolReferer.Add(PostID2Pool, Pool2Get.Key);
+                }
+            }
 
-                string PostsString = string.Join(",", Pool2Get.Value);
-                string e6JSONResult = Module_e621Info.e621InfoDownload($"https://e621.net/posts.json?tags=id:{PostsString}", true);
+            int ItemsAddedCount = 0;
+            int PageSize = 75; //new API limit
+            for (int i = 0; i < Math.Ceiling(PoolReferer.Keys.Count / (double)PageSize); i++)
+            {
+                string ListSlice = string.Join(",", PoolReferer.Keys.ToList().Skip(i * PageSize).Take(PageSize));
+                string e6JSONResult = Module_e621Info.e621InfoDownload($"https://e621.net/posts.json?tags=id:{ListSlice}", true);
                 if (e6JSONResult != null && e6JSONResult.Length > 24)
                 {
-                    JToken CurrentPoolPosts_Unsorted = JObject.Parse(e6JSONResult)["posts"];
-                    Dictionary<string, JToken> CurrentPoolPosts_Sorted = new Dictionary<string, JToken>();
-                    foreach (JObject Post in CurrentPoolPosts_Unsorted)
+                    JToken PostData = JObject.Parse(e6JSONResult)["posts"];
+                    string PoolPostID;
+                    string PoolName;
+                    foreach (JObject PostDataDetailed in PostData)
                     {
-                        CurrentPoolPosts_Sorted.Add(Post["id"].Value<string>(), Post);
-                    }
-                    CurrentPoolPosts_Unsorted = null;
-
-                    int ItemsAddedCount = 0;
-                    foreach (string PoolPostID in Pool2Get.Value)
-                    {
-                        string PoolName = PoolData_JSON["name"].Value<string>().Replace("_", " ");
+                        PoolPostID = PostDataDetailed["id"].Value<string>();
+                        PoolName = PoolReferer[PoolPostID]["name"].Value<string>().Replace("_", " ").Trim();
                         PoolName = string.Join("", PoolName.Split(Path.GetInvalidFileNameChars()));
 
                         Module_Downloader.AddDownloadQueueItem(
                             DataRowRef: null,
                             URL: $"https://e621.net/posts/{PoolPostID}",
-                            Media_URL: CurrentPoolPosts_Sorted[PoolPostID]["file"]["url"].Value<string>(),
+                            Media_URL: PostDataDetailed["file"]["url"].Value<string>(),
                             e6_PostID: PoolPostID,
                             e6_PoolName: PoolName,
-                            e6_PoolPostIndex: Array.IndexOf(PoolData_JSON["post_ids"].ToObject<string[]>(), PoolPostID).ToString()
+                            e6_PoolPostIndex: Array.IndexOf(PoolReferer[PoolPostID]["post_ids"].ToObject<string[]>(), PoolPostID).ToString()
                             );
                         ItemsAddedCount += 1;
                     }
-
-                    Form_Loader._FormReference.BeginInvoke(new Action(() =>
-                    {
-                        if (ItemsAddedCount > 0)
-                        {
-                            Form_Loader._FormReference.textBox_Info.Text = $"{DateTime.Now.ToLongTimeString()} Pool Watcher >>> Started download of {ItemsAddedCount} image{(ItemsAddedCount > 1 ? "s" : null)}\n" + Form_Loader._FormReference.textBox_Info.Text;
-                        }
-                        Module_Downloader.timer_Download.Start();
-                    }));
-                    CurrentPoolPosts_Sorted = null;
+                }
+                else
+                {
+                    return;
                 }
                 Thread.Sleep(1000);
+            }
+            if (ItemsAddedCount > 0)
+            {
+                Form_Loader._FormReference.BeginInvoke(new Action(() =>
+                {
+                    Form_Loader._FormReference.textBox_Info.Text = $"{DateTime.Now.ToLongTimeString()}, Pool Watcher >>> Started download of {ItemsAddedCount} image{(ItemsAddedCount > 1 ? "s" : null)}\n" + Form_Loader._FormReference.textBox_Info.Text;
+                    Module_Downloader.timer_Download.Start();
+                }));
             }
         }
 

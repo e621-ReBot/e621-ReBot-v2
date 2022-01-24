@@ -96,42 +96,47 @@ namespace e621_ReBot_v2.Modules
 
             string PostRequestString = $"https://e621.net/posts.json?limit=320&tags={TagQuery}";
             int PageCounter = 1;
-        GrabAnotherPage:
-            Report_Status($"Working on Tags - page {PageCounter}", true, HttpUtility.UrlDecode(PostRequestString));
-            JToken JSON_Object = JObject.Parse(Module_e621Info.e621InfoDownload($"{PostRequestString}{(PageCounter > 1 ? $"&page={PageCounter}" : null)}", true))["posts"];
-            foreach (JObject cPost in JSON_Object.Children())
+        GrabAnotherAPIPage:
+            Report_Status($"Working on Tags - Page {PageCounter}", true, HttpUtility.UrlDecode(PostRequestString));
+
+            string e6JSONResult = Module_e621Info.e621InfoDownload($"{PostRequestString}{(PageCounter > 1 ? $"&page={PageCounter}" : null)}", true);
+            if (e6JSONResult != null && e6JSONResult.Length > 24)
             {
-                List<string> TempTagList = CreateTagList(cPost["tags"], cPost["rating"].Value<string>());
-                if (!Blacklist_Check(TempTagList))
+                JToken JSON_Object = JObject.Parse(e6JSONResult)["posts"];
+                foreach (JObject cPost in JSON_Object.Children())
                 {
-                    string PostID = cPost["id"].Value<string>();
-                    Module_Downloader.AddDownloadQueueItem(
-                        DataRowRef: null,
-                        URL: $"https://e621.net/posts/{PostID}",
-                        Media_URL: cPost["file"]["url"].Value<string>(),
-                        e6_PostID: PostID,
-                        e6_PoolName: FolderName
-                        );
+                    List<string> TempTagList = CreateTagList(cPost["tags"], cPost["rating"].Value<string>());
+                    if (!Blacklist_Check(TempTagList))
+                    {
+                        string PostID = cPost["id"].Value<string>();
+                        Module_Downloader.AddDownloadQueueItem(
+                            DataRowRef: null,
+                            URL: $"https://e621.net/posts/{PostID}",
+                            Media_URL: cPost["file"]["url"].Value<string>(),
+                            e6_PostID: PostID,
+                            e6_PoolName: FolderName
+                            );
+                    }
+                }
+                PageCounter += 1;
+                JSON_Object = null;
+
+                Form_Loader._FormReference.BeginInvoke(new Action(() =>
+                {
+                    Module_Downloader.UpdateTreeViewText();
+                    Module_Downloader.UpdateTreeViewNodes();
+                    Module_Downloader.timer_Download.Start();
+                }));
+                if (WorkerMinion.CancellationPending)
+                {
+                    return;
+                }
+                if (JSON_Object.Children().Count() == 320)
+                {
+                    Thread.Sleep(1000);
+                    goto GrabAnotherAPIPage;
                 }
             }
-            PageCounter += 1;
-
-            Form_Loader._FormReference.BeginInvoke(new Action(() =>
-            {
-                Module_Downloader.UpdateTreeViewText();
-                Module_Downloader.UpdateTreeViewNodes();
-                Module_Downloader.timer_Download.Start();
-            }));
-            if (WorkerMinion.CancellationPending)
-            {
-                return;
-            }
-            if (JSON_Object.Children().Count() == 320)
-            {
-                Thread.Sleep(500);
-                goto GrabAnotherPage;
-            }
-            JSON_Object = null;
         }
 
         public static void GraBPoolInBG(object ParameterPass)
@@ -139,38 +144,38 @@ namespace e621_ReBot_v2.Modules
             string PoolID = (string)ParameterPass;
 
             JToken PoolJSON = JObject.Parse(Module_e621Info.e621InfoDownload($"https://e621.net/pools/{PoolID}.json", false));
-            string PoolName = PoolJSON["name"].Value<string>().Replace("_", " ");
+            string PoolName = PoolJSON["name"].Value<string>().Replace("_", " ").Trim();
             PoolName = string.Join("", PoolName.Split(Path.GetInvalidFileNameChars()));
             string FolderPath = Path.Combine(Properties.Settings.Default.DownloadsFolderLocation, @"e621\", PoolName).ToString();
 
-            List<string> FoundComicPages = new List<string>();
+            List<string> FoundComicPosts = new List<string>();
             if (Directory.Exists(FolderPath))
             {
                 foreach (string FileFound in Directory.GetFiles(FolderPath))
                 {
                     string CutPageName = FileFound.Substring(FileFound.LastIndexOf("_") + 1);
-                    FoundComicPages.Add(CutPageName);
+                    FoundComicPosts.Add(CutPageName);
                 }
             }
 
             List<string> ComicPages = PoolJSON["post_ids"].Values<string>().ToList();
-            int PageCount = (int)Math.Ceiling(PoolJSON["post_ids"].Count() / 320d);
+            int SkippedPostsCounter = 0;
             string PoolRequestString = $"https://e621.net/posts.json?limit=320&tags=pool:{PoolID}";
-            string e6JSONResult;
-            int SkippedPagesCounter = 0;
-            for (int p = 1; p <= PageCount; p++)
-            {
-                Report_Status($"Working on Pool#{PoolID} - Page {p}.", true);
-                e6JSONResult = Module_e621Info.e621InfoDownload($"{PoolRequestString}{(p > 1 ? $"&page={p}" : null)}", true);
+            int PageCounter = 1;
+        GrabAnotherAPIPage:
+            Report_Status($"Working on Pool#{PoolID} - Page {PageCounter}", true);
 
+            string e6JSONResult = Module_e621Info.e621InfoDownload($"{PoolRequestString}{(PageCounter > 1 ? $"&page={PageCounter}" : null)}", true);
+            if (e6JSONResult != null && e6JSONResult.Length > 24)
+            {
                 JToken JSON_Object = JObject.Parse(e6JSONResult)["posts"];
                 foreach (JObject Post in JSON_Object)
                 {
                     string PicURL = Post["file"]["url"].Value<string>();
                     string PicName = PicURL.Substring(PicURL.LastIndexOf("/") + 1);
-                    if (FoundComicPages.Contains(PicName))
+                    if (FoundComicPosts.Contains(PicName))
                     {
-                        SkippedPagesCounter += 1;
+                        SkippedPostsCounter += 1;
                         continue;
                     }
 
@@ -184,6 +189,7 @@ namespace e621_ReBot_v2.Modules
                         e6_PoolPostIndex: ComicPages.IndexOf(PostID).ToString()
                         );
                 }
+                JSON_Object = null;
 
                 Form_Loader._FormReference.BeginInvoke(new Action(() =>
                 {
@@ -193,17 +199,23 @@ namespace e621_ReBot_v2.Modules
                 }));
                 if (WorkerMinion.CancellationPending)
                 {
-                    return;
+                    //return;
+                    goto ExitFromStuff;
                 }
-                JSON_Object = null;
-            }
-            Form_Loader._FormReference.BeginInvoke(new Action(() =>
-            {
-                if (SkippedPagesCounter > 0)
+                if (JSON_Object.Children().Count() == 320)
                 {
-                    Form_Loader._FormReference.textBox_Info.Text = $"{DateTime.Now.ToLongTimeString()} Downloader >>> {PoolName}: {SkippedPagesCounter} page{(SkippedPagesCounter > 1 ? "s" : null)} skipped as they already exist\n{Form_Loader._FormReference.textBox_Info.Text}";
+                    Thread.Sleep(1000);
+                    goto GrabAnotherAPIPage;
                 }
-            }));
+            }
+            ExitFromStuff:
+            if (SkippedPostsCounter > 0)
+            {
+                Form_Loader._FormReference.BeginInvoke(new Action(() =>
+                {
+                    Form_Loader._FormReference.textBox_Info.Text = $"{DateTime.Now.ToLongTimeString()}, Downloader >>> {PoolName}: {SkippedPostsCounter} page{(SkippedPostsCounter > 1 ? "s" : null)} skipped as they already exist\n{Form_Loader._FormReference.textBox_Info.Text}";
+                }));
+            }
         }
 
         private static List<string> CreateTagList(JToken PostTags, string RatingTag)

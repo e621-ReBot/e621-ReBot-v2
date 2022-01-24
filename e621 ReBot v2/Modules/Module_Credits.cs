@@ -63,7 +63,7 @@ namespace e621_ReBot_v2.Modules
         {
             Credit_Reset();
             Check_Credit_Upload();
-            if (!Properties.Settings.Default.UserLevel.Equals(""))
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.UserLevel))
             {
                 if (UserLevels[Properties.Settings.Default.UserLevel] == 0)
                 {
@@ -137,7 +137,7 @@ namespace e621_ReBot_v2.Modules
 
         private static void Check_Credit_Flag()
         {
-            if (!Properties.Settings.Default.API_Key.Equals(""))
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.API_Key))
             {
                 Timestamps_Flag.Clear();
 
@@ -165,7 +165,7 @@ namespace e621_ReBot_v2.Modules
 
         private static void Check_Credit_Notes()
         {
-            if (!Properties.Settings.Default.API_Key.Equals(""))
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.API_Key))
             {
                 Timestamps_Notes.Clear();
 

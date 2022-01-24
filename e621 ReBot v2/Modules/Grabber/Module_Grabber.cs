@@ -56,7 +56,7 @@ namespace e621_ReBot_v2.Modules
         {
             Form_Loader._FormReference.BeginInvoke(new Action(() =>
             {
-                Form_Loader._FormReference.textBox_Info.Text = $"{DateTime.Now.ToLongTimeString()} Grabber >>> {InfoMessage}\n{Form_Loader._FormReference.textBox_Info.Text}";
+                Form_Loader._FormReference.textBox_Info.Text = $"{DateTime.Now.ToLongTimeString()}, Grabber >>> {InfoMessage}\n{Form_Loader._FormReference.textBox_Info.Text}";
             }
             ));
         }

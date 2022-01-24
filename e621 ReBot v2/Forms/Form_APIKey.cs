@@ -111,7 +111,7 @@ namespace e621_ReBot_v2.Forms
         {
             Form_Loader._FormReference.Invoke(new Action(() =>
             {
-                if (Properties.Settings.Default.FirstRun && !Properties.Settings.Default.API_Key.Equals(""))
+                if (Properties.Settings.Default.FirstRun && !string.IsNullOrEmpty(Properties.Settings.Default.API_Key))
                 {
                     MessageBox.Show("You can change or remove your API Key at any time in settings.", "e621 ReBot");
                     Properties.Settings.Default.FirstRun = false;
@@ -119,7 +119,7 @@ namespace e621_ReBot_v2.Forms
                     MessageBox.Show("You can now go visit your favorite artists and grab your favorite images.", "e621 ReBot");
                     Form_Loader._FormReference.QuickButtonPanel.Visible = true;
                 }
-                if (!Properties.Settings.Default.API_Key.Equals(""))
+                if (!string.IsNullOrEmpty(Properties.Settings.Default.API_Key))
                 {
                     new Thread(Module_Credits.Check_Credit_All).Start();
                 }

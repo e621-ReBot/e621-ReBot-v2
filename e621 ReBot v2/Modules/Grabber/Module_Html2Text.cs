@@ -16,7 +16,7 @@ namespace e621_ReBot_v2.Modules.Grabber
             }
             if (OutputString != null)
             {
-                OutputString = OutputString.Equals("") ? null : OutputString;
+                OutputString = string.IsNullOrEmpty(OutputString) ? null : OutputString;
             }
 
             return OutputString;

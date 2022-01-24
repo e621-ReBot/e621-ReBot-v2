@@ -129,7 +129,7 @@ namespace e621_ReBot_v2.Modules.Grabber
             }
 
             var WorkList = new List<string>();
-            if (WorkType.Equals(""))
+            if (string.IsNullOrEmpty(WorkType))
             {
                 // Thanks https://stackoverflow.com/questions/16795045/accessing-all-items-in-the-jtoken-json-net/38253969
                 if (JSONDictionary["body"]["illusts"].HasValues)

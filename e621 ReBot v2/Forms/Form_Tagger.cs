@@ -476,7 +476,7 @@ namespace e621_ReBot_v2.Forms
                     }
                     else
                     {
-                        if (InputText.Equals(""))
+                        if (string.IsNullOrEmpty(InputText))
                         {
                             MessageBox.Show("Artist Alias can not be blank.", "e621 ReBot");
                         }
@@ -500,7 +500,7 @@ namespace e621_ReBot_v2.Forms
                         }
                     }
                 }
-                while (InputText.Equals(""));
+                while (string.IsNullOrEmpty(InputText));
             }
         }
 
@@ -567,7 +567,7 @@ namespace e621_ReBot_v2.Forms
         private void CMS_AddCategory_Click(object sender, EventArgs e)
         {
             string inputtext = Custom_InputBox.Show(this, "Add Category", "Name new category", Cursor.Position, "").ToLower();
-            if (!inputtext.Equals("✄") && !inputtext.Equals(""))
+            if (!string.IsNullOrEmpty(inputtext) && !inputtext.Equals("✄"))
             {
                 GroupBox Groupbox = new GroupBox
                 {
@@ -599,7 +599,7 @@ namespace e621_ReBot_v2.Forms
         private void CMS_AddTag_Click(object sender, EventArgs e)
         {
             string inputtext = Custom_InputBox.Show(this, "Name new item", "This is your new tag", Cursor.Position, "").ToLower();
-            if (!inputtext.Equals("✄") && !inputtext.Equals(""))
+            if (!string.IsNullOrEmpty(inputtext) && !inputtext.Equals("✄"))
             {
                 Control WhichGroupboxIsIt = ((ContextMenuStrip)((ToolStripMenuItem)sender).GetCurrentParent()).SourceControl.Controls[0]; // First control becase there is FlowLayoutPanel inside Groupbox
                 foreach (CheckBox ChkBoxCheck in WhichGroupboxIsIt.Controls)
@@ -626,7 +626,7 @@ namespace e621_ReBot_v2.Forms
         {
             Control WhichItemIsIt = ((ContextMenuStrip)((ToolStripMenuItem)sender).GetCurrentParent()).SourceControl;
             string inputtext = Custom_InputBox.Show(this, "Rename item", "This is your tag", Cursor.Position, WhichItemIsIt.Text).ToLower();
-            if (!inputtext.Equals("✄") && !inputtext.Equals("") && !inputtext.Equals(WhichItemIsIt.Text))
+            if (!string.IsNullOrEmpty(inputtext) && !inputtext.Equals("✄") && !inputtext.Equals(WhichItemIsIt.Text))
             {
                 foreach (CheckBox ChkBoxCheck in WhichItemIsIt.Parent.Controls)
                 {

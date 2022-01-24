@@ -54,7 +54,7 @@ namespace e621_ReBot_v2.Forms
             Preview_RowIndex = Module_TableHolder.Database_Table.Rows.IndexOf(Preview_RowHolder);
             UpdateNavButtons();
             Label_AlreadyUploaded.Cursor = Form_Loader.Cursor_ReBotNav;
-            PB_IQDBQ.Enabled = !Properties.Settings.Default.API_Key.Equals("");
+            PB_IQDBQ.Enabled = !string.IsNullOrEmpty(Properties.Settings.Default.API_Key);
         }
 
         public string URL2Navigate;
@@ -771,19 +771,19 @@ namespace e621_ReBot_v2.Forms
                 Preview_RowHolder["Upload_Tags"] = "";
             }
 
-            if (!animated_tag.Equals("") && !CurrentTags.Contains(animated_tag))
+            if (!string.IsNullOrEmpty(animated_tag) && !CurrentTags.Contains(animated_tag))
             {
                 Preview_RowHolder["Upload_Tags"] = (string)Preview_RowHolder["Upload_Tags"] + animated_tag;
             }
 
             if (!((string)Preview_RowHolder["Info_MediaFormat"]).Equals("mp4"))
             {
-                if (!ratio_tag.Equals("") && !CurrentTags.Contains(ratio_tag))
+                if (!string.IsNullOrEmpty(ratio_tag) && !CurrentTags.Contains(ratio_tag))
                 {
                     Preview_RowHolder["Upload_Tags"] = (string)Preview_RowHolder["Upload_Tags"] + ratio_tag;
                 }
 
-                if (!resolution_tag.Equals("") && !CurrentTags.Contains(resolution_tag))
+                if (!string.IsNullOrEmpty(resolution_tag) && !CurrentTags.Contains(resolution_tag))
                 {
                     Preview_RowHolder["Upload_Tags"] = (string)Preview_RowHolder["Upload_Tags"] + resolution_tag;
                 }
@@ -890,7 +890,7 @@ namespace e621_ReBot_v2.Forms
                     Form_Loader._FormReference.UploadCounter += (bool)Preview_RowHolder["UPDL_Queued"] ? 1 : -1;
                 }
 
-                if (!Properties.Settings.Default.API_Key.Equals(""))
+                if (!string.IsNullOrEmpty(Properties.Settings.Default.API_Key))
                 {
                     Form_Loader._FormReference.GB_Upload.Enabled = Form_Loader._FormReference.UploadCounter > 0;
                 }
@@ -1083,7 +1083,7 @@ namespace e621_ReBot_v2.Forms
                 CurrentDescriptionConstruct = $"[section{(Properties.Settings.Default.ExpandedDescription ? ",expanded" : null)}={(string)RowRefference["Grab_Title"]}]\n{(string)RowRefference["Grab_TextBody"]}\n[/section]";
             }
 
-            if (!InferiorDescription.Equals("") && InferiorDescription != CurrentDescriptionConstruct)
+            if (!string.IsNullOrEmpty(InferiorDescription) && InferiorDescription != CurrentDescriptionConstruct)
             {
                 RowRefference["Inferior_Description"] = InferiorDescription;
             }
@@ -1148,7 +1148,7 @@ namespace e621_ReBot_v2.Forms
                     Form_Loader._FormReference.UploadCounter += (bool)RowRefference["UPDL_Queued"] ? 0 : 1;
                     Form_Loader._FormReference.DownloadCounter += (bool)RowRefference["UPDL_Queued"] ? 0 : 1;
                     RowRefference["UPDL_Queued"] = true;
-                    if (!Properties.Settings.Default.API_Key.Equals(""))
+                    if (!string.IsNullOrEmpty(Properties.Settings.Default.API_Key))
                     {
                         Form_Loader._FormReference.GB_Upload.Enabled = Form_Loader._FormReference.UploadCounter > 0;
                     }
@@ -1278,7 +1278,7 @@ namespace e621_ReBot_v2.Forms
                                 {
                                     Form_Loader._FormReference.UploadCounter += (bool)Preview_RowHolder["UPDL_Queued"] ? -1 : 0;
                                 }
-                                if (!Properties.Settings.Default.API_Key.Equals(""))
+                                if (!string.IsNullOrEmpty(Properties.Settings.Default.API_Key))
                                 {
                                     Form_Loader._FormReference.GB_Upload.Enabled = Form_Loader._FormReference.UploadCounter > 0;
                                 }
@@ -1313,7 +1313,7 @@ namespace e621_ReBot_v2.Forms
                                 {
                                     Form_Loader._FormReference.UploadCounter += (bool)Preview_RowHolder["UPDL_Queued"] ? 0 : 1;
                                 }
-                                if (!Properties.Settings.Default.API_Key.Equals(""))
+                                if (!string.IsNullOrEmpty(Properties.Settings.Default.API_Key))
                                 {
                                     Form_Loader._FormReference.GB_Upload.Enabled = Form_Loader._FormReference.UploadCounter > 0;
                                 }

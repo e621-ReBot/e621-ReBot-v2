@@ -276,7 +276,7 @@ namespace e621_ReBot_v2.CustomControls
                 }
             }
 
-            if (!Properties.Settings.Default.API_Key.Equals(""))
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.API_Key))
             {
                 Form_Loader._FormReference.GB_Upload.Enabled = Form_Loader._FormReference.UploadCounter > 0;
             }

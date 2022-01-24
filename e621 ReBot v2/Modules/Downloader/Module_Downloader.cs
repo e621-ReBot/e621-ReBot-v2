@@ -306,7 +306,7 @@ namespace e621_ReBot_v2.Modules
         private static void StartDLClient(ref e6_DownloadItem e6_DownloadItemRef, string DLType)
         {
             DataRow DataRowTemp = (DataRow)e6_DownloadItemRef.Tag;
-            string SiteReferer = "https://" + new Uri((string)DataRowTemp["Grab_URL"]).Host;
+            string SiteReferer = $"https://{new Uri((string)DataRowTemp["Grab_URL"]).Host}";
 
             Custom_WebClient WebClientSelected = null;
             foreach (Custom_WebClient WebClientTemp in (DLType.Equals("Thumb") ? Holder_ThumbClient : Holder_FileClient))
@@ -767,7 +767,7 @@ namespace e621_ReBot_v2.Modules
                         if (DataRow4Grid != null && DataRow4Grid.RowState != DataRowState.Detached)
                         {
                             //Weasyl special
-                            if (DataRow4Grid["Grab_ThumbnailURL"] == DBNull.Value || DataRow4Grid["Grab_ThumbnailURL"].Equals(""))
+                            if (DataRow4Grid["Grab_ThumbnailURL"] == DBNull.Value || string.IsNullOrEmpty((string)DataRow4Grid["Grab_ThumbnailURL"]))
                             {
                                 e6_DownloadItemTemp.picBox_ImageHolder.BackgroundImage = Properties.Resources.BrowserIcon_Weasly;
                                 e6_DownloadItemTemp.picBox_ImageHolder.Tag = true;
@@ -915,7 +915,7 @@ namespace e621_ReBot_v2.Modules
             if (BrowserAdress.StartsWith("https://e621.net/posts", StringComparison.OrdinalIgnoreCase))  // multi
             {
                 string inputtext = Custom_InputBox.Show(Form_Loader._FormReference, "e621 ReBot", "If you want to download media to a separate folder, enter a folder name below.", Form_Loader._FormReference.BQB_Start.PointToScreen(Point.Empty), LastGrabFolder);
-                if (!inputtext.Equals("✄") && !inputtext.Equals(""))
+                if (!string.IsNullOrEmpty(inputtext) && !inputtext.Equals("✄"))
                 {
                     inputtext = string.Join("", inputtext.Split(Path.GetInvalidFileNameChars()));
                     inputtext = inputtext.Trim();
@@ -928,7 +928,7 @@ namespace e621_ReBot_v2.Modules
 
                 if (BrowserAdress.StartsWith("https://e621.net/posts?tags=", StringComparison.OrdinalIgnoreCase))
                 {
-                    if (Properties.Settings.Default.API_Key.Equals("") || WebDoc.DocumentNode.SelectSingleNode("//div[@class='paginator']/menu").ChildNodes.Count <= 3)
+                    if (string.IsNullOrEmpty(Properties.Settings.Default.API_Key) || WebDoc.DocumentNode.SelectSingleNode("//div[@class='paginator']/menu").ChildNodes.Count <= 3)
                     {
                         goto GrabPageOnly_Tags;
                     }
@@ -976,7 +976,7 @@ namespace e621_ReBot_v2.Modules
             if (BrowserAdress.StartsWith("https://e621.net/pools/", StringComparison.OrdinalIgnoreCase))
             {
                 HtmlNode BottomMenuHolder = WebDoc.DocumentNode.SelectSingleNode("//div[@class='paginator']/menu");
-                if (Properties.Settings.Default.API_Key.Equals("") || BottomMenuHolder.SelectSingleNode("//div[@class='paginator']/menu").ChildNodes.Count <= 3)
+                if (string.IsNullOrEmpty(Properties.Settings.Default.API_Key) || BottomMenuHolder.SelectSingleNode("//div[@class='paginator']/menu").ChildNodes.Count <= 3)
                 {
                     goto GrabPageOnly_Pools;
                 }
@@ -1050,7 +1050,7 @@ namespace e621_ReBot_v2.Modules
             if (BrowserAdress.StartsWith("https://e621.net/favorites", StringComparison.OrdinalIgnoreCase))
             {
                 string inputtext = Custom_InputBox.Show(Form_Loader._FormReference, "e621 ReBot", "If you want to download media to a separate folder, enter a folder name below.", Form_Loader._FormReference.BQB_Start.PointToScreen(Point.Empty), LastGrabFolder);
-                if (!inputtext.Equals("✄") && !inputtext.Equals(""))
+                if (!string.IsNullOrEmpty(inputtext) && !inputtext.Equals("✄"))
                 {
                     inputtext = string.Join("", inputtext.Split(Path.GetInvalidFileNameChars()));
                     inputtext = inputtext.Trim();
@@ -1061,7 +1061,7 @@ namespace e621_ReBot_v2.Modules
                 }
                 LastGrabFolder = inputtext;
 
-                if (Properties.Settings.Default.API_Key.Equals("") || WebDoc.DocumentNode.SelectSingleNode("//div[@class='paginator']/menu").ChildNodes.Count <= 3)
+                if (string.IsNullOrEmpty(Properties.Settings.Default.API_Key) || WebDoc.DocumentNode.SelectSingleNode("//div[@class='paginator']/menu").ChildNodes.Count <= 3)
                 {
                     goto GrabPageOnly_Favorites;
                 }

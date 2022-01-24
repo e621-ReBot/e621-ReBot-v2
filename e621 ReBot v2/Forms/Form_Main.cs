@@ -167,17 +167,17 @@ namespace e621_ReBot_v2
 
             Module_DB.CreateDBs();
 
-            if (!Properties.Settings.Default.AppName.Equals(""))
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.AppName))
             {
                 AppName_Label.Text = Properties.Settings.Default.AppName;
             }
 
-            if (!Properties.Settings.Default.UserID.Equals(""))
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.UserID))
             {
                 new Thread(Module_Credits.Check_Credit_All).Start();
             }
 
-            if (Properties.Settings.Default.API_Key.Equals(""))
+            if (string.IsNullOrEmpty(Properties.Settings.Default.API_Key))
             {
                 bU_APIKey.Text = "Add API Key";
             }
@@ -190,7 +190,7 @@ namespace e621_ReBot_v2
             }
 
 
-            if (!Properties.Settings.Default.LastStats.Equals(""))
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.LastStats))
             {
                 string[] LastStatsString = Properties.Settings.Default.LastStats.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
                 label_Credit_Upload.Text = LastStatsString[0];
@@ -207,9 +207,9 @@ namespace e621_ReBot_v2
             CheckBox_RemoveBVAS.Checked = Properties.Settings.Default.RemoveBVAS;
             CheckBox_ClearCache.Checked = Properties.Settings.Default.ClearCache;
             CheckBox_DontFlag.Checked = Properties.Settings.Default.DontFlag;
-            CheckBox_DontFlag.Visible = !Properties.Settings.Default.UserLevel.Equals("") && Module_Credits.UserLevels[Properties.Settings.Default.UserLevel] > 2;
+            CheckBox_DontFlag.Visible = !string.IsNullOrEmpty(Properties.Settings.Default.UserLevel) && Module_Credits.UserLevels[Properties.Settings.Default.UserLevel] > 2;
 
-            if (Properties.Settings.Default.DownloadsFolderLocation.Equals(""))
+            if (string.IsNullOrEmpty(Properties.Settings.Default.DownloadsFolderLocation))
             {
                 label_DownloadsFolder.Text = Application.StartupPath + @"\Downloads\";
                 Properties.Settings.Default.DownloadsFolderLocation = label_DownloadsFolder.Text;
@@ -286,7 +286,7 @@ namespace e621_ReBot_v2
                 }
             }
 
-            if (!Properties.Settings.Default.API_Key.Equals("") && !Properties.Settings.Default.PoolWatcher.Equals(""))
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.API_Key) && !string.IsNullOrEmpty(Properties.Settings.Default.PoolWatcher))
             {
                 new Thread(Form_PoolWatcher.PoolWatcher_Check4New).Start();
             }
@@ -322,7 +322,7 @@ namespace e621_ReBot_v2
                     MessageBox.Show("Thanks for trying me out.\n\nFor a start, you should log in into e621 and provide me with API key so I could do the tasks you require.\n\nI opened the login page for you.", "e621 ReBot");
                 }
 
-                if (Properties.Settings.Default.Note.Equals(""))
+                if (string.IsNullOrEmpty(Properties.Settings.Default.Note))
                 {
                     bU_NoteRemove.Enabled = false;
                 }
@@ -785,7 +785,7 @@ namespace e621_ReBot_v2
 
         private void URL_ComboBox_TextChanged(object sender, EventArgs e)
         {
-            BB_Navigate.Enabled = !URL_ComboBox.Text.Equals("");
+            BB_Navigate.Enabled = !string.IsNullOrEmpty(URL_ComboBox.Text);
         }
 
         private void URL_ComboBox_Leave(object sender, EventArgs e)
@@ -800,7 +800,7 @@ namespace e621_ReBot_v2
 
         private void BB_Navigate_Click(object sender, EventArgs e)
         {
-            if (!URL_ComboBox.Text.Equals(""))
+            if (!string.IsNullOrEmpty(URL_ComboBox.Text))
             {
                 Title_Label.Focus();
                 BB_Bookmarks.Enabled = true;
@@ -1536,7 +1536,7 @@ namespace e621_ReBot_v2
         private void RadioButton_DL_CheckedChanged(object sender, EventArgs e)
         {
             RadioButton WhichRadioButton = (RadioButton)sender;
-            if (!WhichRadioButton.Text.Equals("") && WhichRadioButton.Checked && cCheckGroupBox_Download.Checked)
+            if (!string.IsNullOrEmpty(WhichRadioButton.Text) && WhichRadioButton.Checked && cCheckGroupBox_Download.Checked)
             {
                 int NewValue = int.Parse(WhichRadioButton.Text);
                 if (Module_Downloader.DLThreadsCount != NewValue)
@@ -1904,7 +1904,7 @@ namespace e621_ReBot_v2
 
         private void RetryQueue_Load()
         {
-            if (!Properties.Settings.Default.RetrySave.Equals(""))
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.RetrySave))
             {
                 cTreeView_RetryQueue.BeginUpdate();
                 JObject TempJson = JObject.Parse(Properties.Settings.Default.RetrySave);
@@ -1914,7 +1914,7 @@ namespace e621_ReBot_v2
                     {
                         Text = cItem.Name
                     };
-                    if (!cItem.Value.ToString().Equals(""))
+                    if (!string.IsNullOrEmpty(cItem.Value.ToString()))
                     {
                         TempNode.Tag = cItem.Value.Value<double>();
                     }
@@ -2024,7 +2024,7 @@ namespace e621_ReBot_v2
 
         private void BU_APIKey_Click(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.API_Key.Equals(""))
+            if (string.IsNullOrEmpty(Properties.Settings.Default.API_Key))
             {
                 Form_APIKey Form_APIKey_Temp = new Form_APIKey
                 {

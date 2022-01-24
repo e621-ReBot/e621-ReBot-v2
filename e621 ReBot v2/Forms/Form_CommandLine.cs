@@ -49,7 +49,7 @@ namespace e621_ReBot_v2.Forms
                 //case Keys.Return:
                     {
                         e.SuppressKeyPress = true;
-                        if (CommandLine_Textbox.Text.Equals(""))
+                        if (string.IsNullOrEmpty(CommandLine_Textbox.Text))
                         {
                             // Invoke to delay MessageBox so SuppressKeyPress works
                             BeginInvoke(new Action(() => MessageBox.Show("Command string can not be blank.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning)));
@@ -125,7 +125,7 @@ namespace e621_ReBot_v2.Forms
                         if (!Form_Loader._FormReference.AutoTags.Visible)
                         {
                             TagLine_Textbox.Text = TagLine_Textbox.Text.Trim();
-                            if (TagLine_Textbox.Text.Equals(""))
+                            if (string.IsNullOrEmpty(TagLine_Textbox.Text))
                             {
                                 // Invoke to delay MessageBox so SuppressKeyPress works
                                 BeginInvoke(new Action(() => { MessageBox.Show("Command tags can not be blank.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning); }));

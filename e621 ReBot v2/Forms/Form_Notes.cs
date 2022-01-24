@@ -15,7 +15,7 @@ namespace e621_ReBot_v2.Forms
 
         private void Form_Notes_Load(object sender, EventArgs e)
         {
-            if (!Properties.Settings.Default.Note.Equals(""))
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.Note))
             {
                 Note_TextBox.Text = Properties.Settings.Default.Note;
                 Note_TextBox.ReadOnly = true;
@@ -30,7 +30,6 @@ namespace e621_ReBot_v2.Forms
             {
                 toolTip_Display.SetToolTip(Delete_Note_btn, "Deletes the note, close this instead if you want it to appear next time");
             }
-
         }
 
         private void Form_Notes_Shown(object sender, EventArgs e)
