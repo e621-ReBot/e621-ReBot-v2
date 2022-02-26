@@ -76,6 +76,11 @@ namespace e621_ReBot_v2.Modules.Grabber
                     Module_Grabber.Report_Info(string.Format("Skipped grabbing - Already in queue [@{0}]", DirectLink2Post));
                 }
             }
+
+            if (TreeViewParentNode.Nodes.Count == 0)
+            {
+                TreeViewParentNode.Remove();
+            }
         }
 
         public static void RunGrabber(object sender, DoWorkEventArgs e)
@@ -175,7 +180,7 @@ namespace e621_ReBot_v2.Modules.Grabber
             TempDataRow["Info_MediaFormat"] = MediaURL.Substring(MediaURL.LastIndexOf(".") + 1);
             //TempDataRow["Info_MediaByteLength"] = Module_Grabber.GetMediaSize(MediaURL);
             //TempDataRow["Upload_Tags"] = DateTime.Year
-            TempDataRow["Upload_Tags"] = "";
+            TempDataRow["Upload_Tags"] = string.Empty;
             TempDataRow["Artist"] = Artist;
         }
     }

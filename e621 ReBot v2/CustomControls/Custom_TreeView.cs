@@ -8,7 +8,6 @@ namespace e621_ReBot_v2.CustomControls
 {
     public class Custom_TreeView : TreeView
     {
-
         //Doublebuffer
         protected override void OnHandleCreated(EventArgs e)
         {
@@ -45,12 +44,10 @@ namespace e621_ReBot_v2.CustomControls
         }
 
         //"remove" highlight color
-
         public Custom_TreeView()
         {
             DrawMode = TreeViewDrawMode.OwnerDrawText;
         }
-
 
         public Color NodeBackColor { get; set; } = Color.FromArgb(0, 45, 90);
         protected override void OnDrawNode(DrawTreeNodeEventArgs e)
@@ -66,17 +63,6 @@ namespace e621_ReBot_v2.CustomControls
                 foreColor = e.Node.TreeView.ForeColor;
             }
             TextRenderer.DrawText(e.Graphics, e.Node.Text, font, e.Bounds, foreColor, TextFormatFlags.GlyphOverhangPadding);
-        }
-
-        private void InitializeComponent()
-        {
-            SuspendLayout();
-            // 
-            // Custom_TreeView
-            // 
-            Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Pixel, ((byte)(0)));
-            ResumeLayout(false);
-
         }
     }
 }

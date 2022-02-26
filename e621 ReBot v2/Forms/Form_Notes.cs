@@ -10,7 +10,6 @@ namespace e621_ReBot_v2.Forms
         {
             InitializeComponent();
             _FormReference = this;
-            Owner = Form_Loader._FormReference;
         }
 
         private void Form_Notes_Load(object sender, EventArgs e)
@@ -81,8 +80,8 @@ namespace e621_ReBot_v2.Forms
             }
             Form_Loader._FormReference.Activate();
             Form_Loader._FormReference.Focus();
-            Dispose();
             _FormReference = null;
+            Dispose();
         }
     }
 }

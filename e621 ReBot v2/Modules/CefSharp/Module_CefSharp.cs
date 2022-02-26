@@ -1,7 +1,6 @@
 ﻿using CefSharp;
 using CefSharp.WinForms;
 using e621_ReBot_v2.Forms;
-using e621_ReBot_v2.Modules.CefSharp;
 using e621_ReBot_v2.Modules.Grabber;
 using HtmlAgilityPack;
 using System;
@@ -12,6 +11,7 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows.Forms;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 using Timer = System.Windows.Forms.Timer;
@@ -23,26 +23,20 @@ namespace e621_ReBot_v2.Modules
 
         static Module_CefSharp()
         {
-            timer_Pixiv = new Timer
+            timer_EnableCheck = new Timer
             {
                 Interval = 500
             };
-            timer_Pixiv.Tick += Pixiv_Timer_Tick;
+            timer_EnableCheck.Tick += EnableCheck_Timer_Tick;
             timer_Twitter = new Timer
             {
                 Interval = 500
             };
             timer_Twitter.Tick += Twitter_Timer_Tick;
-            timer_Plurk = new Timer
-            {
-                Interval = 500
-            };
-            timer_Plurk.Tick += Plurk_Timer_Tick;
         }
 
         public static bool BrowserStartup = true;
         public static ChromiumWebBrowser CefSharpBrowser;
-        private static CefSharp_RequestHandler _RequestHandler;
 
         public static void InitializeBrowser(string WebAdress)
         {
@@ -55,20 +49,18 @@ namespace e621_ReBot_v2.Modules
                 LogSeverity = LogSeverity.Error
             };
             CefSharp_Settings.BackgroundColor = Cef.ColorSetARGB(255, 105, 105, 105);
-            //CefSharp_Settings.CefCommandLineArgs.Add("enable-system-flash" , "1");
-            //if (File.Exists("pepflashplayer32_32_0_0_465.dll"))
-            //{
-            //    CefSharp_Settings.CefCommandLineArgs.Add("ppapi-flash-path", $"{Application.StartupPath}\\pepflashplayer32_32_0_0_465.dll");
-            //    CefSharp_Settings.CefCommandLineArgs.Add("ppapi-flash-version", "33.0.0.465");
-            //    CefSharp_Settings.CefCommandLineArgs.Add("plugin-policy", "allow");
-            //}
+            CefSharp_Settings.RegisterScheme(new CefCustomScheme
+            {
+                SchemeName = MediaBrowser_SchemeHandlerFactory.SchemeName,
+                SchemeHandlerFactory = new MediaBrowser_SchemeHandlerFactory()
+            });
+
             Cef.EnableHighDPISupport();
             Cef.Initialize(CefSharp_Settings);
-            _RequestHandler = new CefSharp_RequestHandler();
             CefSharpBrowser = new ChromiumWebBrowser(WebAdress)
             {
                 Dock = DockStyle.Fill,
-                RequestHandler = _RequestHandler,
+                RequestHandler = new CefSharp_RequestHandler(),
                 LifeSpanHandler = new CefSharp_LifeSpanHandler(),
                 UseParentFormMessageInterceptor = false,
             };
@@ -90,8 +82,7 @@ namespace e621_ReBot_v2.Modules
 
         private static void CefSharp_AddressChanged(object sender, AddressChangedEventArgs e)
         {
-            timer_Pixiv.Stop();
-            timer_Plurk.Stop();
+            timer_EnableCheck.Stop();
             timer_Twitter.Stop();
             Form_Loader._FormReference.Invoke(new Action(() =>
             {
@@ -118,7 +109,7 @@ namespace e621_ReBot_v2.Modules
 
             Form_Loader._FormReference.Invoke(new Action(() =>
             {
-                string CefAdress = CefSharpBrowser.Address;
+                string CefAdress = HttpUtility.UrlDecode(CefSharpBrowser.Address);
                 Form_Loader._FormReference.BB_Bookmarks.Enabled = !e.IsLoading;
                 Form_Loader._FormReference.BB_Bookmarks.Enabled = !CefAdress.Equals("about:blank");
                 Form_Loader._FormReference.BB_Backward.Enabled = e.CanGoBack;
@@ -159,11 +150,7 @@ namespace e621_ReBot_v2.Modules
                             case string _3 when _3.StartsWith("https://e621.net/users/", StringComparison.OrdinalIgnoreCase) && _3.EndsWith("/api_key/view", StringComparison.OrdinalIgnoreCase):
                                 {
                                     MessageBox.Show("Generate you API Key and copy it into the floating box.", "e621 Bot");
-                                    Form_APIKey APIFormTemp = new Form_APIKey
-                                    {
-                                        Owner = Form_Loader._FormReference
-                                    };
-                                    APIFormTemp.Show();
+                                    new Form_APIKey().Show();
                                     break;
                                 }
                         }
@@ -235,7 +222,6 @@ namespace e621_ReBot_v2.Modules
 
         private static void GrabEnabler(string WebAdress)
         {
-            timer_Twitter.Stop();
             foreach (Regex URLTest in Module_Grabber._GrabEnabler)
             {
                 Match MatchTemp = URLTest.Match(WebAdress);
@@ -253,48 +239,69 @@ namespace e621_ReBot_v2.Modules
                         return;
                     }
 
-                    if (WebAdress.Contains("https://www.pixiv.net") && FrameLoad[WebAdress] == 1)
+                    if (WebAdress.StartsWith("https://www.pixiv.net", StringComparison.OrdinalIgnoreCase))
                     {
-                        FrameLoad[WebAdress] = 2;
-                        timer_Pixiv.Start();
+                        if (FrameLoad[WebAdress] == 1)
+                        {
+                            FrameLoad[WebAdress] = 2;
+                            timer_EnableCheck.Start();
+                        }
                         return;
                     }
 
-                    Form_Loader._FormReference.BB_Grab.Visible = true;
-                    Form_Loader._FormReference.BB_Grab_All.Visible = false;
+                    timer_EnableCheck.Start();
                     return;
                 }
-            }
-
-            // Plurk gallery check
-            if (WebAdress.StartsWith("https://www.plurk.com/", StringComparison.OrdinalIgnoreCase))
-            {
-                timer_Plurk.Start();
-                return;
             }
 
             List<string> DeviantArtGrabEnabler = new List<string>(new string[] { "/gallery", "/art/" });
             if (WebAdress.Contains("https://www.deviantart.com/") && DeviantArtGrabEnabler.Any(s => WebAdress.Contains(s)))
             {
+                Form_Loader._FormReference.BB_Grab.Tag = WebAdress;
                 Form_Loader._FormReference.BB_Grab.Visible = true;
                 Form_Loader._FormReference.BB_Grab_All.Visible = false;
             }
         }
 
-        public static Timer timer_Pixiv;
-        public static void Pixiv_Timer_Tick(object sender, EventArgs e)
+        public static Timer timer_EnableCheck;
+        public static void EnableCheck_Timer_Tick(object sender, EventArgs e)
         {
-            timer_Pixiv.Stop();
-            if (CefSharpBrowser.Address.StartsWith("https://www.pixiv.net/en/artworks/"))
+            timer_EnableCheck.Stop();
+            string WebAdress = HttpUtility.UrlDecode(CefSharpBrowser.Address);
+            HtmlDocument WebDoc = new HtmlDocument();
+            WebDoc.LoadHtml(GetHTMLSource());
+
+            if (WebAdress.StartsWith("https://www.pixiv.net/en/artworks/", StringComparison.OrdinalIgnoreCase))
             {
-                HtmlDocument WebDoc = new HtmlDocument();
-                WebDoc.LoadHtml(GetHTMLSource());
-                if (WebDoc.DocumentNode.SelectSingleNode("//main/section//figure//button[@type='submit']") == null)
+                if (WebDoc.DocumentNode.SelectSingleNode(".//main/section//figure//button[@type='submit']") == null)
                 {
                     Form_Loader._FormReference.BB_Grab.Visible = true;
                 }
                 //var test = CefSharpBrowser.EvaluateScriptAsync("(function() {return document.querySelector(\"main figure button[type ='submit']\");})();").Result; //refuses to work even if it works in console, returns null always 
+                return;
             }
+
+            if (WebAdress.StartsWith("https://www.hiccears.com/", StringComparison.OrdinalIgnoreCase) &&
+            (WebAdress.Contains("/contents/") || WebAdress.Contains("/file/")))
+            {
+                if (WebDoc.DocumentNode.SelectSingleNode(".//div[@class='marketplace-sidebar']//button[@class='button payable']") == null && //buyable and usually censored/watermarked
+                WebDoc.DocumentNode.SelectSingleNode(".//div[@class='post-open-body']") == null) //writing
+                {
+                    Form_Loader._FormReference.BB_Grab.Visible = true;
+                }
+                return;
+            }
+
+            if (WebAdress.StartsWith("https://www.plurk.com/", StringComparison.OrdinalIgnoreCase))
+            {
+                if (WebDoc.DocumentNode.SelectSingleNode(".//div[@id='timeline_cnt']") != null)
+                {
+                    Form_Loader._FormReference.BB_Grab.Visible = true;
+                }
+                return;
+            }
+
+            Form_Loader._FormReference.BB_Grab.Visible = true;
         }
 
         public static Timer timer_Twitter;
@@ -377,16 +384,6 @@ namespace e621_ReBot_v2.Modules
                 }
                 Form_Loader._FormReference.BB_Grab.Visible = true;
                 Form_Loader._FormReference.BB_Grab_All.Visible = true;
-            }
-        }
-
-        public static Timer timer_Plurk;
-        private static void Plurk_Timer_Tick(object sender, EventArgs e)
-        {
-            timer_Plurk.Stop();
-            if (GetHTMLSource().Contains("div class=\"timeline-cnt\" id=\"timeline_cnt\""))
-            {
-                Form_Loader._FormReference.BB_Grab.Visible = true;
             }
         }
 

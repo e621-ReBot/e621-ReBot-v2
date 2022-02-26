@@ -1,12 +1,11 @@
-﻿using e621_ReBot_v2;
-using e621_ReBot_v2.Modules;
+﻿using e621_ReBot_v2.Modules;
 using e621_ReBot_v2.Modules.Grabber;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Data;
 using System.Linq;
 using System.Net;
 using System.Text;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace e621_ReBot_Tests
 {
@@ -156,38 +155,37 @@ namespace e621_ReBot_Tests
             Assert.IsTrue(RowsAreEqual);
         }
 
-        [TestMethod]
-        public void Test_HicceArs()
-        {
-            //Set cookies first, doesn't work without it.
-            HttpWebRequest HTMLWebRequest = (HttpWebRequest)WebRequest.Create("https://www.hiccears.com/");
-            HTMLWebRequest.UserAgent = Form_Loader.GlobalUserAgent;
-            HTMLWebRequest.CookieContainer = new CookieContainer();
-            HTMLWebRequest.GetResponse().Close();
-            Module_CookieJar.Cookies_HicceArs = HTMLWebRequest.CookieContainer;
+        //[TestMethod]
+        //public void Test_HicceArs()
+        //{
+        //    //Set cookies first, doesn't work without it.
+        //    HttpWebRequest HTMLWebRequest = (HttpWebRequest)WebRequest.Create("https://www.hiccears.com/");
+        //    HTMLWebRequest.UserAgent = Form_Loader.GlobalUserAgent;
+        //    HTMLWebRequest.CookieContainer = new CookieContainer();
+        //    HTMLWebRequest.GetResponse().Close();
+        //    Module_CookieJar.Cookies_HicceArs = HTMLWebRequest.CookieContainer;
 
-            DataTable DataTableTemp = Module_TableHolder.Database_Table.Clone();
-            DataRow DataRowTemp = DataTableTemp.NewRow();
-            DataRowTemp["Grab_URL"] = "https://www.hiccears.com/picture.php?pid=4";
-            DataRowTemp["Grab_DateTime"] = new DateTime(2016, 02, 05, 5, 32, 07);
-            DataRowTemp["Grab_Title"] = "⮚ \"妈妈生日快乐\" ⮘ by Lee on HicceArs";
-            DataRowTemp["Grab_TextBody"] = "Description: \n\t\t\t\t\t\t\t果然还是暑假时间比较多";
-            DataRowTemp["Grab_MediaURL"] = "https://www.hiccears.com/upl0ads/imgs/b39b7ba7e07d710447e89c40277171aa4c568e3d-08e4970d7579288af5bf3f4393a35bc12ba5b2794391eccf63a32706d7a2d0402f2289c9512d95d00d61bdec03d2b99d6ecc455ee5644ae52d10e7c-a61c93062dc97a3.jpg";
-            DataRowTemp["Grab_ThumbnailURL"] = "https://www.hiccears.com/upl0ads/thumbnails/b39b7ba7e07d710447e89c40277171aa4c568e3d-08e4970d7579288af5bf3f4393a35bc12ba5b2794391eccf63a32706d7a2d0402f2289c9512d95d00d61bdec03d2b99d6ecc455ee5644ae52d10e7c-a61c93062dc97a3.png";
-            DataRowTemp["Info_MediaFormat"] = "jpg";
-            DataRowTemp["Info_MediaByteLength"] = 342863;
-            DataRowTemp["Upload_Rating"] = "E";
-            DataRowTemp["Upload_Tags"] = "2016";
-            DataRowTemp["Artist"] = "Lee";
+        //    DataTable DataTableTemp = Module_TableHolder.Database_Table.Clone();
+        //    DataRow DataRowTemp = DataTableTemp.NewRow();
+        //    DataRowTemp["Grab_URL"] = "https://www.hiccears.com/contents/98fab721-31bf-4cbc-aa9e-00f8c7c15bce";
+        //    DataRowTemp["Grab_DateTime"] = new DateTime(2021, 12, 19, 15, 29, 00);
+        //    DataRowTemp["Grab_Title"] = "⮚ \"A Tree Topper\" ⮘ by OtterTheAuthor on HicceArs";
+        //    DataRowTemp["Grab_TextBody"] = "ft. Dane the Angel boy from Titans Academy";
+        //    DataRowTemp["Grab_MediaURL"] = "https://www.hiccears.com/file/98fab721-31bf-4cbc-aa9e-00f8c7c15bce/ab498ed6-5ffa-4793-9852-cacde57bf8cc/download";
+        //    DataRowTemp["Grab_ThumbnailURL"] = "https://www.hiccears.com/media/cache/content_portrait_thumb/upl0ads5/imgs/2ba9128962d18b83a6989e8e89a2f94fb0efad-40e8590dd2091fd9c8a390760b62fe3-1c406ea547d476375ea0a4bdd64ce8380bbd9681bb280f7d3d0e1110d7e96a66577124d9c14105b49a6b212a475631845e9709021.png?2.0.7";
+        //    DataRowTemp["Info_MediaByteLength"] = -1;
+        //    DataRowTemp["Upload_Rating"] = "E";
+        //    DataRowTemp["Upload_Tags"] = "2021";
+        //    DataRowTemp["Artist"] = "OtterTheAuthor";
 
-            Module_Grabber._GrabQueue_URLs.Add("https://www.hiccears.com/picture.php?pid=4");
-            Module_HicceArs.Grab("https://www.hiccears.com/picture.php?pid=4");
-            DataRow DataRowResult = ((DataTable)Module_Grabber._GrabQueue_WorkingOn["https://www.hiccears.com/picture.php?pid=4"]).Rows[0];
+        //    Module_Grabber._GrabQueue_URLs.Add("https://www.hiccears.com/contents/98fab721-31bf-4cbc-aa9e-00f8c7c15bce");
+        //    Module_HicceArs.Grab("https://www.hiccears.com/contents/98fab721-31bf-4cbc-aa9e-00f8c7c15bce", true);
+        //    DataRow DataRowResult = ((DataTable)Module_Grabber._GrabQueue_WorkingOn["https://www.hiccears.com/contents/98fab721-31bf-4cbc-aa9e-00f8c7c15bce"]).Rows[0];
 
-            bool RowsAreEqual = DataRowResult.ItemArray.SequenceEqual(DataRowTemp.ItemArray);
+        //    bool RowsAreEqual = DataRowResult.ItemArray.SequenceEqual(DataRowTemp.ItemArray);
 
-            Assert.IsTrue(RowsAreEqual);
-        }
+        //    Assert.IsTrue(RowsAreEqual);
+        //}
 
         [TestMethod]
         public void Test_SoFurry()
@@ -369,13 +367,6 @@ namespace e621_ReBot_Tests
         [TestMethod]
         public void Test_HentaiFoundry()
         {
-            //Set cookies first, doesn't work without it.
-            HttpWebRequest HTMLWebRequest = (HttpWebRequest)WebRequest.Create("https://www.hentai-foundry.com/pictures/user/Twinstar/12/Pretty-Girl?enterAgree=1&size=0");
-            HTMLWebRequest.UserAgent = Form_Loader.GlobalUserAgent;
-            HTMLWebRequest.CookieContainer = new CookieContainer();
-            HTMLWebRequest.GetResponse().Close();
-            Module_CookieJar.Cookies_HentaiFoundry = HTMLWebRequest.CookieContainer;
-
             DataTable DataTableTemp = Module_TableHolder.Database_Table.Clone();
             DataRow DataRowTemp = DataTableTemp.NewRow();
             DataRowTemp["Grab_URL"] = "https://www.hentai-foundry.com/pictures/user/Twinstar/12/Pretty-Girl";

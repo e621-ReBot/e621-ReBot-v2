@@ -9,7 +9,7 @@ namespace e621_ReBot_v2.Modules
     {
         public static string e621InfoDownload(string URL, bool Auth = false)
         {
-            string HTML_Source;
+            string HTML_Source = null;
 
             HttpWebRequest e621Info = (HttpWebRequest)WebRequest.Create(URL);
             e621Info.UserAgent = Properties.Settings.Default.AppName;
@@ -29,16 +29,12 @@ namespace e621_ReBot_v2.Modules
                             HTML_Source = ResponseReader.ReadToEnd();
                         }
                     }
-                    else
-                    {
-                        return null;
-                    }
                 }
                 return HTML_Source;
             }
             catch
             {
-                return null;
+                return HTML_Source;
             }
         }
     }

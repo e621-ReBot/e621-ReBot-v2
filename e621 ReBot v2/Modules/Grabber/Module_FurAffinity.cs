@@ -63,7 +63,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                 string DirectLink2Post = "https://www.furaffinity.net" + figcaptionNode.SelectSingleNode(".//a").Attributes["href"].Value;
                 if (Module_Grabber._GrabQueue_URLs.Contains(DirectLink2Post))
                 {
-                    Module_Grabber.Report_Info(string.Format("Skipped grabbing - Already in queue [@{0}]", DirectLink2Post));
+                    Module_Grabber.Report_Info($"Skipped grabbing - Already in queue [@{DirectLink2Post}]");
                     continue;
                 }
                 else
@@ -77,15 +77,20 @@ namespace e621_ReBot_v2.Modules.Grabber
                 string SubmissionType = ChildNode.Attributes["class"].Value;
                 if (!SubmissionType.Contains("t-image"))
                 {
-                    Module_Grabber.Report_Info(string.Format("Skipped grabbing - Unsupported submission type: {0} [@{1}]", SubmissionType, DirectLink2Post));
+                    Module_Grabber.Report_Info($"Skipped grabbing - Unsupported submission type: {SubmissionType} [@{DirectLink2Post}]");
                     continue;
                 }
 
                 string WorkTitle = WebUtility.HtmlDecode(figcaptionNode.SelectSingleNode(".//a").Attributes["title"].Value);
                 if (!Module_Grabber.CreateChildTreeNode(ref TreeViewParentNode, WorkTitle, DirectLink2Post))
                 {
-                    Module_Grabber.Report_Info(string.Format("Skipped grabbing - Already in queue [@{0}]", DirectLink2Post));
+                    Module_Grabber.Report_Info($"Skipped grabbing - Already in queue [@{DirectLink2Post}]");
                 }
+            }
+
+            if (TreeViewParentNode.Nodes.Count == 0)
+            {
+                TreeViewParentNode.Remove();
             }
         }
 

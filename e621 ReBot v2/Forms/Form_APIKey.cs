@@ -16,6 +16,7 @@ namespace e621_ReBot_v2.Forms
         {
             InitializeComponent();
             _FormReference = this;
+            Owner = Form_Loader._FormReference;
         }
 
         private void APIKey_TextBox_KeyDown(object sender, KeyEventArgs e)
@@ -124,6 +125,7 @@ namespace e621_ReBot_v2.Forms
                     new Thread(Module_Credits.Check_Credit_All).Start();
                 }
             }));
+            Owner = null;
             _FormReference = null;
             Dispose();
         }

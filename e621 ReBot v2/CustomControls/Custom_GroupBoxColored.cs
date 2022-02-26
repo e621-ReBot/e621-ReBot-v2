@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -76,7 +77,7 @@ namespace e621_ReBot_v2.CustomControls
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            //base.OnPaint(e);
+            base.OnPaint(e);
 
             Size tSize = TextRenderer.MeasureText(Text, Font);
 
@@ -93,7 +94,5 @@ namespace e621_ReBot_v2.CustomControls
             e.Graphics.FillRectangle(new SolidBrush(BackColor), textRect);
             e.Graphics.DrawString(Text, Font, new SolidBrush(ForeColor), textRect);
         }
-
-
     }
 }

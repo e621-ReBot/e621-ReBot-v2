@@ -94,8 +94,8 @@ namespace e621_ReBot_v2.Forms
         private void Form_Menu_FormClosed(object sender, FormClosedEventArgs e)
         {
             Form_Loader._FormReference.Menu_Btn.Visible = true;
-            Dispose();
             _FormReference = null;
+            Dispose();
         }
     }
 }

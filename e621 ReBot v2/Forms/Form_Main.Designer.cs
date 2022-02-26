@@ -1446,7 +1446,7 @@
             // cGroupBoxColored_NamingWeb
             // 
             this.cGroupBoxColored_NamingWeb.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_NamingWeb.BottomBorderFix = 0;
+            this.cGroupBoxColored_NamingWeb.BottomBorderFix = 1;
             this.cGroupBoxColored_NamingWeb.Controls.Add(this.Naming_web_0);
             this.cGroupBoxColored_NamingWeb.Controls.Add(this.Naming_web_1);
             this.cGroupBoxColored_NamingWeb.Controls.Add(this.Naming_web_2);
@@ -1546,7 +1546,7 @@
             // cGroupBoxColored_ActionDelay
             // 
             this.cGroupBoxColored_ActionDelay.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_ActionDelay.BottomBorderFix = 0;
+            this.cGroupBoxColored_ActionDelay.BottomBorderFix = 1;
             this.cGroupBoxColored_ActionDelay.Controls.Add(this.textBox_DelayDownload);
             this.cGroupBoxColored_ActionDelay.Controls.Add(this.label_DownloadDelay);
             this.cGroupBoxColored_ActionDelay.Controls.Add(this.textBox_DelayUploader);
@@ -1664,7 +1664,8 @@
             this.CheckBox_ConverterDontConvertVideos.TabIndex = 106;
             this.CheckBox_ConverterDontConvertVideos.TabStop = false;
             this.CheckBox_ConverterDontConvertVideos.Text = "Do not convert videos when downloading";
-            this.toolTip_Display.SetToolTip(this.CheckBox_ConverterDontConvertVideos, "Check this if you do not want to convert video formats to webm when downloading.");
+            this.toolTip_Display.SetToolTip(this.CheckBox_ConverterDontConvertVideos, "Check this if you do not want to convert video formats to webm when downloading.\r" +
+        "\n.");
             this.CheckBox_ConverterDontConvertVideos.UseVisualStyleBackColor = true;
             this.CheckBox_ConverterDontConvertVideos.CheckedChanged += new System.EventHandler(this.CheckBox_ConverterDontConvertVideos_CheckedChanged);
             // 
@@ -1680,7 +1681,7 @@
             this.CheckBox_ConverterKeepOriginal.TabStop = false;
             this.CheckBox_ConverterKeepOriginal.Text = "Keep original media after conversion";
             this.toolTip_Display.SetToolTip(this.CheckBox_ConverterKeepOriginal, "Check this if you want to keep the original media after conversion (ugoira zips, " +
-        "mp4s, swfs).");
+        "mp4s, swfs).\r\n");
             this.CheckBox_ConverterKeepOriginal.UseVisualStyleBackColor = true;
             this.CheckBox_ConverterKeepOriginal.CheckedChanged += new System.EventHandler(this.CheckBox_ConverterKeepOriginal_CheckedChanged);
             // 
@@ -1985,7 +1986,7 @@
             // cGroupBoxColored_AutocompleteTagEditor
             // 
             this.cGroupBoxColored_AutocompleteTagEditor.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_AutocompleteTagEditor.BottomBorderFix = 0;
+            this.cGroupBoxColored_AutocompleteTagEditor.BottomBorderFix = 1;
             this.cGroupBoxColored_AutocompleteTagEditor.Controls.Add(this.bU_AutoTagsAdd);
             this.cGroupBoxColored_AutocompleteTagEditor.Controls.Add(this.textBox_AutoTagsEditor);
             this.cGroupBoxColored_AutocompleteTagEditor.Controls.Add(this.bU_AutoTagsRemove);
@@ -2013,7 +2014,7 @@
             this.bU_AutoTagsAdd.Location = new System.Drawing.Point(486, 6);
             this.bU_AutoTagsAdd.Margin = new System.Windows.Forms.Padding(4);
             this.bU_AutoTagsAdd.Name = "bU_AutoTagsAdd";
-            this.bU_AutoTagsAdd.Size = new System.Drawing.Size(32, 26);
+            this.bU_AutoTagsAdd.Size = new System.Drawing.Size(32, 25);
             this.bU_AutoTagsAdd.TabIndex = 124;
             this.bU_AutoTagsAdd.TabStop = false;
             this.bU_AutoTagsAdd.Text = "✓";
@@ -2053,7 +2054,7 @@
             this.bU_AutoTagsRemove.Location = new System.Drawing.Point(517, 6);
             this.bU_AutoTagsRemove.Margin = new System.Windows.Forms.Padding(4);
             this.bU_AutoTagsRemove.Name = "bU_AutoTagsRemove";
-            this.bU_AutoTagsRemove.Size = new System.Drawing.Size(32, 26);
+            this.bU_AutoTagsRemove.Size = new System.Drawing.Size(32, 25);
             this.bU_AutoTagsRemove.TabIndex = 122;
             this.bU_AutoTagsRemove.TabStop = false;
             this.bU_AutoTagsRemove.Text = "✕";
@@ -2064,7 +2065,7 @@
             // cGroupBoxColored_NamingE621
             // 
             this.cGroupBoxColored_NamingE621.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_NamingE621.BottomBorderFix = 0;
+            this.cGroupBoxColored_NamingE621.BottomBorderFix = 1;
             this.cGroupBoxColored_NamingE621.Controls.Add(this.Naming_e6_0);
             this.cGroupBoxColored_NamingE621.Controls.Add(this.Naming_e6_1);
             this.cGroupBoxColored_NamingE621.Controls.Add(this.Naming_e6_2);
@@ -2125,7 +2126,7 @@
             // cGroupBoxColored_DownloadsFolderLocation
             // 
             this.cGroupBoxColored_DownloadsFolderLocation.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_DownloadsFolderLocation.BottomBorderFix = 0;
+            this.cGroupBoxColored_DownloadsFolderLocation.BottomBorderFix = 1;
             this.cGroupBoxColored_DownloadsFolderLocation.Controls.Add(this.bU_DownloadFolderChange);
             this.cGroupBoxColored_DownloadsFolderLocation.Controls.Add(this.label_DownloadsFolder);
             this.cGroupBoxColored_DownloadsFolderLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
@@ -2151,7 +2152,7 @@
             this.bU_DownloadFolderChange.Location = new System.Drawing.Point(488, 6);
             this.bU_DownloadFolderChange.Margin = new System.Windows.Forms.Padding(4);
             this.bU_DownloadFolderChange.Name = "bU_DownloadFolderChange";
-            this.bU_DownloadFolderChange.Size = new System.Drawing.Size(60, 26);
+            this.bU_DownloadFolderChange.Size = new System.Drawing.Size(60, 25);
             this.bU_DownloadFolderChange.TabIndex = 122;
             this.bU_DownloadFolderChange.TabStop = false;
             this.bU_DownloadFolderChange.Text = "Change";
@@ -2830,7 +2831,7 @@
             this.tabPage_Grid.Controls.Add(this.flowLayoutPanel_Grid);
             this.tabPage_Grid.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Grid.Name = "tabPage_Grid";
-            this.tabPage_Grid.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Grid.Size = new System.Drawing.Size(192, 91);
             this.tabPage_Grid.TabIndex = 1;
             this.tabPage_Grid.Text = "tabPage_Grid";
             this.tabPage_Grid.Paint += new System.Windows.Forms.PaintEventHandler(this.TabPage_Grid_Paint);
@@ -2881,7 +2882,7 @@
             this.flowLayoutPanel_Grid.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel_Grid.Name = "flowLayoutPanel_Grid";
             this.flowLayoutPanel_Grid.Padding = new System.Windows.Forms.Padding(0, 16, 0, 0);
-            this.flowLayoutPanel_Grid.Size = new System.Drawing.Size(1262, 650);
+            this.flowLayoutPanel_Grid.Size = new System.Drawing.Size(192, 650);
             this.flowLayoutPanel_Grid.TabIndex = 0;
             this.flowLayoutPanel_Grid.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.FlowLayoutPanel_Grid_ControlAdded);
             this.flowLayoutPanel_Grid.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.FlowLayoutPanel_Grid_ControlRemoved);
@@ -3146,7 +3147,7 @@
             this.tabPage_Download.Controls.Add(this.cCheckGroupBox_Download);
             this.tabPage_Download.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Download.Name = "tabPage_Download";
-            this.tabPage_Download.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Download.Size = new System.Drawing.Size(1262, 695);
             this.tabPage_Download.TabIndex = 2;
             this.tabPage_Download.Text = "tabPage_Download";
             // 
@@ -3249,7 +3250,7 @@
             this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_AppName);
             this.tabPage_Settings.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Settings.Name = "tabPage_Settings";
-            this.tabPage_Settings.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Settings.Size = new System.Drawing.Size(1262, 695);
             this.tabPage_Settings.TabIndex = 5;
             this.tabPage_Settings.Text = "tabPage_Settings";
             this.tabPage_Settings.Enter += new System.EventHandler(this.TabPage_Settings_Enter);
@@ -3275,7 +3276,7 @@
             // cGroupBoxColored_GrabDisplayOrder
             // 
             this.cGroupBoxColored_GrabDisplayOrder.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_GrabDisplayOrder.BottomBorderFix = 0;
+            this.cGroupBoxColored_GrabDisplayOrder.BottomBorderFix = 1;
             this.cGroupBoxColored_GrabDisplayOrder.Controls.Add(this.radioButton_GrabDisplayOrder1);
             this.cGroupBoxColored_GrabDisplayOrder.Controls.Add(this.radioButton_GrabDisplayOrder0);
             this.cGroupBoxColored_GrabDisplayOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
@@ -3293,7 +3294,7 @@
             // cGroupBoxColored_ProgressBarStyle
             // 
             this.cGroupBoxColored_ProgressBarStyle.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_ProgressBarStyle.BottomBorderFix = 0;
+            this.cGroupBoxColored_ProgressBarStyle.BottomBorderFix = 1;
             this.cGroupBoxColored_ProgressBarStyle.Controls.Add(this.panel_BorderFixer);
             this.cGroupBoxColored_ProgressBarStyle.Controls.Add(this.radioButton_ProgressBarStyle1);
             this.cGroupBoxColored_ProgressBarStyle.Controls.Add(this.radioButton_ProgressBarStyle0);
@@ -3344,7 +3345,7 @@
             // cGroupBoxColored_GridItemStyle
             // 
             this.cGroupBoxColored_GridItemStyle.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_GridItemStyle.BottomBorderFix = 0;
+            this.cGroupBoxColored_GridItemStyle.BottomBorderFix = 1;
             this.cGroupBoxColored_GridItemStyle.Controls.Add(this.radioButton_GridItemStyle1);
             this.cGroupBoxColored_GridItemStyle.Controls.Add(this.radioButton_GridItemStyle0);
             this.cGroupBoxColored_GridItemStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
@@ -3402,7 +3403,7 @@
             // cGroupBoxColored_AppNotes
             // 
             this.cGroupBoxColored_AppNotes.BorderColor = System.Drawing.Color.Black;
-            this.cGroupBoxColored_AppNotes.BottomBorderFix = 0;
+            this.cGroupBoxColored_AppNotes.BottomBorderFix = 1;
             this.cGroupBoxColored_AppNotes.Controls.Add(this.bU_NoteRemove);
             this.cGroupBoxColored_AppNotes.Controls.Add(this.bU_NoteAdd);
             this.cGroupBoxColored_AppNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));

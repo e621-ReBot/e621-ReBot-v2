@@ -31,11 +31,7 @@ namespace e621_ReBot_v2.Modules
 
         public static void Report_Status(string StatusMessage)
         {
-            Form_Loader._FormReference.BeginInvoke(new Action(() =>
-            {
-                Form_Loader._FormReference.label_ConversionStatus.Text = $"Status: {StatusMessage}";
-            }
-            ));
+            Form_Loader._FormReference.BeginInvoke(new Action(() => { Form_Loader._FormReference.label_ConversionStatus.Text = $"Status: {StatusMessage}"; }));
         }
 
         public static Timer timer_Conversion;
@@ -58,26 +54,33 @@ namespace e621_ReBot_v2.Modules
 
             string URL = ConversionNode.Name;
             TaskRow = (DataRow)ConversionNode.Tag;
-            if (URL.Contains("ugoira"))
+
+            switch ((string)TaskRow["Info_MediaFormat"])
             {
-                Module_FFmpeg.ConversionQueue_Ugoira2WebM(ref TaskRow);
-            }
-            else
-            {
-                if (URL.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) || URL.EndsWith(".swf", StringComparison.OrdinalIgnoreCase))
-                {
-                    Module_FFmpeg.ConversionQueue_Videos2WebM(ref TaskRow);
-                }
-                else
-                {
-                    Form_Loader._FormReference.Invoke(new Action(() => { MessageBox.Show("Errored somehow @ CoversionQueue_Run", "e621 ReBot"); }));
-                }
+                case "ugoira":
+                    {
+                        Module_FFmpeg.ConversionQueue_Ugoira2WebM(ref TaskRow);
+                        break;
+                    }
+
+                //case "mp4":
+                case "swf":
+                    {
+                        Module_FFmpeg.ConversionQueue_Videos2WebM(ref TaskRow);
+                        break;
+                    }
+
+                default:
+                    {
+                        Form_Loader._FormReference.Invoke(new Action(() => { MessageBox.Show("Errored somehow @ ConversionBGW_Start", "e621 ReBot"); }));
+                        break;
+                    }
             }
         }
 
         private static void ConversionBGW_Done(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (Form_Preview._FormReference != null && ReferenceEquals(Form_Preview._FormReference.Preview_RowHolder, TaskRow))
+            if (Form_Preview._FormReference != null && Form_Preview._FormReference.IsHandleCreated && ReferenceEquals(Form_Preview._FormReference.Preview_RowHolder, TaskRow))
             {
                 Form_Preview._FormReference.Label_Download.Visible = false;
                 Form_Preview._FormReference.PB_ViewFile.Visible = true;
@@ -90,6 +93,5 @@ namespace e621_ReBot_v2.Modules
             //string ImageName = Module_Downloader.GetMediasFileNameOnly((string)TaskRow["Grab_MediaURL"]);
             Module_Downloader.Download_AlreadyDownloaded.Add((string)TaskRow["Grab_MediaURL"]);
         }
-
     }
 }

@@ -1,6 +1,7 @@
 ﻿using e621_ReBot.Modules;
 using e621_ReBot_v2.CustomControls;
 using e621_ReBot_v2.Forms;
+using e621_ReBot_v2.Modules.Grabber;
 using HtmlAgilityPack;
 using Newtonsoft.Json.Linq;
 using System;
@@ -19,6 +20,7 @@ using System.Net;
 using System.Runtime;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Web;
 using System.Windows.Forms;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 using Timer = System.Windows.Forms.Timer;
@@ -78,38 +80,7 @@ namespace e621_ReBot_v2.Modules
             }
         }
 
-
-
-        // - - - - - - - - - - -
-
-
-
-        public static Dictionary<string, string> IEDownload_Cache = new Dictionary<string, string>();
-
-        public static void Load_IECache()
-        {
-            //IEDownload_Cache.Clear();
-            new Thread(Load_IECache_BGW).Start();
-        }
-
-        private static void Load_IECache_BGW()
-        {
-            DirectoryInfo CacheFolder = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.InternetCache) + @"\IE");
-            string[] Search4Extensions = { "*.jpg", "*.png", "*.gif" };
-            string FileFoundNameFix;
-
-            foreach (string Search4Extension in Search4Extensions)
-            {
-                foreach (FileInfo FileFound in CacheFolder.GetFiles(Search4Extension, SearchOption.AllDirectories))
-                {
-                    FileFoundNameFix = FileFound.Name.Replace("[1].", ".");
-                    if (!IEDownload_Cache.ContainsKey(FileFoundNameFix))
-                    {
-                        IEDownload_Cache.Add(FileFoundNameFix, FileFound.FullName);
-                    }
-                }
-            }
-        }
+        public static Dictionary<string, string> MediaBrowser_MediaCache = new Dictionary<string, string>();
 
         public static List<string> Download_AlreadyDownloaded = new List<string>();
 
@@ -119,7 +90,7 @@ namespace e621_ReBot_v2.Modules
 
 
 
-        public static string GetMediasFileNameOnly(string FullNamePath)
+        public static string GetMediasFileNameOnly(string FullNamePath, in DataRow DataRowPass = null)
         {
             if (FullNamePath.Contains("?token="))
             {
@@ -133,8 +104,13 @@ namespace e621_ReBot_v2.Modules
             {
                 FullNamePath = FullNamePath.Replace(":orig", "");
             }
+            if (FullNamePath.EndsWith("/download", StringComparison.OrdinalIgnoreCase))
+            {
+                FullNamePath = $"{FullNamePath.Substring(0, FullNamePath.LastIndexOf("/download"))}.";
+                if (DataRowPass != null) FullNamePath += DataRowPass["Info_MediaFormat"];
+            }
 
-            FullNamePath = FullNamePath.Substring(FullNamePath.LastIndexOf("/") + 1);
+            FullNamePath = HttpUtility.UrlDecode(FullNamePath).Substring(FullNamePath.LastIndexOf("/") + 1);
 
             return FullNamePath;
         }
@@ -182,38 +158,39 @@ namespace e621_ReBot_v2.Modules
 
         public static bool ReSaveMedia(ref DataRow DataRowRef)
         {
-            Uri DomainURL = new Uri((string)DataRowRef["Grab_URL"]);
+            var DomainURL = new Uri((string)DataRowRef["Grab_URL"]);
             string HostString = DomainURL.Host.Remove(DomainURL.Host.LastIndexOf(".")).Replace("www.", "");
-            HostString = new CultureInfo("en-US", false).TextInfo.ToTitleCase(HostString) + @"\";
-            string FolderPath = Path.Combine(Properties.Settings.Default.DownloadsFolderLocation, HostString, (string)DataRowRef["Artist"]).ToString();
-            Directory.CreateDirectory(FolderPath);
+            HostString = $"{new CultureInfo("en-US", false).TextInfo.ToTitleCase(HostString)}\\";
 
-            string ImageURL = (string)DataRowRef["Grab_MediaURL"];
-            string ImageName = GetMediasFileNameOnly(ImageURL);
-            string ImageRename = RenameMediaFileName(ImageName, DataRowRef);
-            string FilePath = Path.Combine(FolderPath, ImageRename).ToString();
+            string FullFolderPath = Path.Combine(Properties.Settings.Default.DownloadsFolderLocation, HostString, ((string)DataRowRef["Artist"]).Replace("/", "-"));
+            Directory.CreateDirectory(FullFolderPath);
+
+            string MediaURL = (string)DataRowRef["Grab_MediaURL"];
+            string MediaName = GetMediasFileNameOnly(MediaURL);
+            string MediaRename = RenameMediaFileName(MediaName, DataRowRef);
+            string FullFilePath = Path.Combine(FullFolderPath, MediaRename);
 
             if (DataRowRef.ItemArray.Length > 9)
             {
-                DataRowRef["DL_FilePath"] = FilePath;
+                DataRowRef["DL_FilePath"] = FullFilePath;
             }
             else
             {
                 DataRow DataRow4Grid = DataRowRef["DataRowRef"] != DBNull.Value ? (DataRow)DataRowRef["DataRowRef"] : null;
                 if (DataRow4Grid != null && DataRow4Grid.RowState != DataRowState.Detached)
                 {
-                    ((DataRow)DataRowRef["DataRowRef"])["DL_FilePath"] = FilePath;
+                    ((DataRow)DataRowRef["DataRowRef"])["DL_FilePath"] = FullFilePath;
                 }
             }
 
-            if (!Download_AlreadyDownloaded.Contains(ImageURL))
+            if (!Download_AlreadyDownloaded.Contains(MediaURL))
             {
-                Download_AlreadyDownloaded.Add(ImageURL);
+                Download_AlreadyDownloaded.Add(MediaURL);
             }
 
-            if (!File.Exists(FilePath) && IEDownload_Cache.ContainsKey(ImageName))
+            if (!File.Exists(FullFilePath) && MediaBrowser_MediaCache.ContainsKey(MediaName))
             {
-                File.Copy(IEDownload_Cache[ImageName], FilePath, true);
+                File.Copy(MediaBrowser_MediaCache[MediaName], FullFilePath, true);
                 return true;
             }
             return false;
@@ -317,11 +294,23 @@ namespace e621_ReBot_v2.Modules
                     break;
                 }
             }
-            if (SiteReferer.Equals("https://e621.net"))
-            {
-                WebClientSelected.Headers.Add(HttpRequestHeader.UserAgent, Properties.Settings.Default.AppName);
-            }
             WebClientSelected.Headers.Add(HttpRequestHeader.Referer, SiteReferer);
+            switch (SiteReferer)
+            {
+                case "https://e621.net":
+                    {
+                        WebClientSelected.Headers.Add(HttpRequestHeader.UserAgent, Properties.Settings.Default.AppName);
+                        break;
+                    }
+
+                case "https://www.hiccears.com":
+                    {
+
+                        WebClientSelected.Headers.Add(HttpRequestHeader.Cookie, Module_CookieJar.GetHicceArsCookie());
+                        break;
+                    }
+
+            }
             if (DLType.Equals("Thumb"))
             {
                 WebClientSelected.DownloadDataAsync(new Uri((string)DataRowTemp["Grab_ThumbnailURL"]), e6_DownloadItemRef);
@@ -543,6 +532,7 @@ namespace e621_ReBot_v2.Modules
             if (Form_Loader._FormReference.DownloadFLP_Downloaded.Controls.Count < Form_Loader._DLHistoryMaxControls)
             {
                 e6_DownloadItemTemp = new e6_DownloadItem();
+                e6_DownloadItemTemp.DL_FolderIcon.Tag = FilePath;
                 e6_DownloadItemTemp.DL_FolderIcon.Visible = true;
                 e6_DownloadItemTemp.DL_ProgressBar.Dispose();
                 Form_Loader._FormReference.DownloadFLP_Downloaded.Controls.Add(e6_DownloadItemTemp);
@@ -679,132 +669,142 @@ namespace e621_ReBot_v2.Modules
 
         private static void DownloadFrom_URL(DataRow DataRowRef)
         {
-            Uri DomainURL = new Uri((string)DataRowRef["Grab_URL"]);
+            string WorkURL = (string)DataRowRef["Grab_URL"];
+            var DomainURL = new Uri(WorkURL);
             string HostString = DomainURL.Host.Remove(DomainURL.Host.LastIndexOf(".")).Replace("www.", "");
-            HostString = new CultureInfo("en-US", false).TextInfo.ToTitleCase(HostString) + @"\";
-            string FolderPath = Path.Combine(Properties.Settings.Default.DownloadsFolderLocation, HostString, (string)DataRowRef["Artist"]).ToString();
+            HostString = $"{new CultureInfo("en-US", false).TextInfo.ToTitleCase(HostString)}\\";
+
+            string FolderPath = Path.Combine(Properties.Settings.Default.DownloadsFolderLocation, HostString, ((string)DataRowRef["Artist"]).Replace("/", "-"));
             Directory.CreateDirectory(FolderPath);
 
-            string GetFileNameOnly = GetMediasFileNameOnly((string)DataRowRef["Grab_MediaURL"]);
-            string ImageRename;
-
-            if (GetFileNameOnly.Contains("ugoira"))
+            DataRow DataRow4Grid = DataRowRef["DataRowRef"] != DBNull.Value ? (DataRow)DataRowRef["DataRowRef"] : null;
+            string GetFileNameOnly = GetMediasFileNameOnly((string)DataRowRef["Grab_MediaURL"], DataRow4Grid);
+            if (GetFileNameOnly.EndsWith(".", StringComparison.Ordinal))
             {
-                string WebMName = GetFileNameOnly;
-                WebMName = WebMName.Substring(0, WebMName.IndexOf("_ugoira0")) + "_ugoira1920x1080.webm";
-                ImageRename = RenameMediaFileName(WebMName, DataRowRef);
-
-                string FilePath = Path.Combine(FolderPath, ImageRename).ToString();
-                if (File.Exists(FilePath))
-                {
-                    Form_Loader._FormReference.BeginInvoke(new Action(() =>
-                    {
-                        Form_Loader._FormReference.DownloadFLP_Downloaded.SuspendLayout();
-                        UIDrawController.SuspendDrawing(Form_Loader._FormReference.DownloadFLP_Downloaded);
-                        AddPic2FLP((string)DataRowRef["Grab_ThumbnailURL"], FilePath);
-                        Form_Loader._FormReference.DownloadFLP_Downloaded.ResumeLayout();
-                        UIDrawController.ResumeDrawing(Form_Loader._FormReference.DownloadFLP_Downloaded);
-                    }));
-                }
-                else
-                {
-                    Form_Loader._FormReference.Invoke(new Action(() =>
-                    {
-                        e6_DownloadItem e6_DownloadItemTemp = FindDownloadItem();
-                        bool AddNew = false;
-                        if (e6_DownloadItemTemp == null)
-                        {
-                            e6_DownloadItemTemp = new e6_DownloadItem();
-                            AddNew = true;
-                        }
-                        e6_DownloadItemTemp.Tag = DataRowRef;
-                        e6_DownloadItemTemp.DL_ProgressBar.Visible = true;
-                        e6_DownloadItemTemp.DL_ProgressBar.BarColor = Color.Orange;
-                        e6_DownloadItemTemp.DL_FolderIcon.Tag = FilePath;
-                        StartDLClient(ref e6_DownloadItemTemp, "Thumb");
-                        if (AddNew)
-                        {
-                            Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Add(e6_DownloadItemTemp);
-                        }
-                        Module_FFmpeg.DownloadQueue_ConvertUgoira2WebM(ref e6_DownloadItemTemp);
-                    }));
-                }
+                GetFileNameOnly += Module_HicceArs.GetHicceArsMediaType((string)DataRowRef["Grab_MediaURL"]);
             }
-            else
+
+            string ImageRename = null;
+            switch (GetFileNameOnly)
             {
-                ImageRename = RenameMediaFileName(GetFileNameOnly, DataRowRef);
-                string FilePath = Path.Combine(FolderPath, ImageRename).ToString();
-                if (IEDownload_Cache.Keys.Contains(GetFileNameOnly))
-                {
-                    if (ReSaveMedia(ref DataRowRef))
+                case string UgoiraTest when GetFileNameOnly.Contains("ugoira"):
                     {
-                        Form_Loader._FormReference.BeginInvoke(new Action(() =>
+                        string WebMName = $"{GetFileNameOnly.Substring(0, GetFileNameOnly.IndexOf("_ugoira0"))}_ugoira1920x1080.webm";
+                        ImageRename = RenameMediaFileName(WebMName, DataRowRef);
+
+                        string FilePath = Path.Combine(FolderPath, ImageRename);
+                        if (File.Exists(FilePath))
                         {
-                            Form_Loader._FormReference.DownloadFLP_Downloaded.SuspendLayout();
-                            UIDrawController.SuspendDrawing(Form_Loader._FormReference.DownloadFLP_Downloaded);
-                            AddPic2FLP((string)DataRowRef["Grab_ThumbnailURL"], FilePath);
-                            Form_Loader._FormReference.DownloadFLP_Downloaded.ResumeLayout();
-                            UIDrawController.ResumeDrawing(Form_Loader._FormReference.DownloadFLP_Downloaded);
-                        }));
-                    }
-                }
-                else
-                {
-                    Form_Loader._FormReference.Invoke(new Action(() =>
-                    {
-                        e6_DownloadItem e6_DownloadItemTemp = FindDownloadItem();
-                        bool AddNew = false;
-                        if (e6_DownloadItemTemp == null)
-                        {
-                            e6_DownloadItemTemp = new e6_DownloadItem();
-                            AddNew = true;
+                            Form_Loader._FormReference.BeginInvoke(new Action(() =>
+                            {
+                                Form_Loader._FormReference.DownloadFLP_Downloaded.SuspendLayout();
+                                UIDrawController.SuspendDrawing(Form_Loader._FormReference.DownloadFLP_Downloaded);
+                                AddPic2FLP((string)DataRowRef["Grab_ThumbnailURL"], FilePath);
+                                Form_Loader._FormReference.DownloadFLP_Downloaded.ResumeLayout();
+                                UIDrawController.ResumeDrawing(Form_Loader._FormReference.DownloadFLP_Downloaded);
+                            }));
+                            return;
                         }
-                        e6_DownloadItemTemp.Tag = DataRowRef;
-                        e6_DownloadItemTemp.DL_ProgressBar.Visible = true;
-                        e6_DownloadItemTemp.DL_ProgressBar.BarColor = Color.Orange;
-                        e6_DownloadItemTemp.DL_FolderIcon.Tag = FilePath;
-                        DataRow DataRow4Grid = DataRowRef["DataRowRef"] != DBNull.Value ? (DataRow)DataRowRef["DataRowRef"] : null;
-                        if (DataRow4Grid != null && DataRow4Grid.RowState != DataRowState.Detached)
+
+                        Form_Loader._FormReference.Invoke(new Action(() =>
                         {
-                            //Weasyl special
-                            if (DataRow4Grid["Grab_ThumbnailURL"] == DBNull.Value || string.IsNullOrEmpty((string)DataRow4Grid["Grab_ThumbnailURL"]))
+                            e6_DownloadItem e6_DownloadItemTemp = FindDownloadItem();
+                            bool AddNew = false;
+                            if (e6_DownloadItemTemp == null)
                             {
-                                e6_DownloadItemTemp.picBox_ImageHolder.BackgroundImage = Properties.Resources.BrowserIcon_Weasly;
-                                e6_DownloadItemTemp.picBox_ImageHolder.Tag = true;
+                                e6_DownloadItemTemp = new e6_DownloadItem();
+                                AddNew = true;
                             }
-                            else
+                            e6_DownloadItemTemp.Tag = DataRowRef;
+                            e6_DownloadItemTemp.DL_ProgressBar.Visible = true;
+                            e6_DownloadItemTemp.DL_ProgressBar.BarColor = Color.Orange;
+                            e6_DownloadItemTemp.DL_FolderIcon.Tag = FilePath;
+
+                            StartDLClient(ref e6_DownloadItemTemp, "Thumb");
+                            if (AddNew) Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Add(e6_DownloadItemTemp);
+                            Module_FFmpeg.DownloadQueue_ConvertUgoira2WebM(ref e6_DownloadItemTemp);
+                        }));
+                        break;
+                    }
+
+                default:
+                    {
+                        ImageRename = RenameMediaFileName(GetFileNameOnly, DataRowRef);
+
+                        string FilePath = Path.Combine(FolderPath, ImageRename);
+                        if (File.Exists(FilePath) || (MediaBrowser_MediaCache.Keys.Contains(GetFileNameOnly) && ReSaveMedia(ref DataRowRef)))
+                        {
+                            Form_Loader._FormReference.BeginInvoke(new Action(() =>
                             {
-                                if (DataRow4Grid["Thumbnail_Image"] == DBNull.Value)
+                                Form_Loader._FormReference.DownloadFLP_Downloaded.SuspendLayout();
+                                UIDrawController.SuspendDrawing(Form_Loader._FormReference.DownloadFLP_Downloaded);
+                                AddPic2FLP((string)DataRowRef["Grab_ThumbnailURL"], FilePath);
+                                Form_Loader._FormReference.DownloadFLP_Downloaded.ResumeLayout();
+                                UIDrawController.ResumeDrawing(Form_Loader._FormReference.DownloadFLP_Downloaded);
+                            }));
+                            return;
+                        }
+
+                        Form_Loader._FormReference.Invoke(new Action(() =>
+                        {
+                            e6_DownloadItem e6_DownloadItemTemp = FindDownloadItem();
+                            bool AddNew = false;
+                            if (e6_DownloadItemTemp == null)
+                            {
+                                e6_DownloadItemTemp = new e6_DownloadItem();
+                                AddNew = true;
+                            }
+                            e6_DownloadItemTemp.Tag = DataRowRef;
+                            e6_DownloadItemTemp.DL_ProgressBar.Visible = true;
+                            e6_DownloadItemTemp.DL_ProgressBar.BarColor = Color.Orange;
+                            e6_DownloadItemTemp.DL_FolderIcon.Tag = FilePath;
+
+                            if (DataRow4Grid != null && DataRow4Grid.RowState != DataRowState.Detached)
+                            {
+                                //Weasyl special
+                                if (DataRow4Grid["Grab_ThumbnailURL"] == DBNull.Value || string.IsNullOrEmpty((string)DataRow4Grid["Grab_ThumbnailURL"]))
                                 {
-                                    DataRow4Grid["Thumbnail_DLStart"] = true;
-                                    StartDLClient(ref e6_DownloadItemTemp, "Thumb");
+                                    e6_DownloadItemTemp.picBox_ImageHolder.BackgroundImage = Properties.Resources.BrowserIcon_Weasly;
+                                    e6_DownloadItemTemp.picBox_ImageHolder.Tag = true;
                                 }
                                 else
                                 {
-                                    e6_DownloadItemTemp.picBox_ImageHolder.BackgroundImage = (Image)((Image)DataRow4Grid["Thumbnail_Image"]).Clone();
+                                    if (DataRow4Grid["Thumbnail_Image"] == DBNull.Value)
+                                    {
+                                        DataRow4Grid["Thumbnail_DLStart"] = true;
+                                        StartDLClient(ref e6_DownloadItemTemp, "Thumb");
+                                    }
+                                    else
+                                    {
+                                        e6_DownloadItemTemp.picBox_ImageHolder.BackgroundImage = (Image)((Image)DataRow4Grid["Thumbnail_Image"]).Clone();
+                                    }
                                 }
-                            }
-                        }
-                        else
-                        {
-                            //Weasyl special
-                            if (((string)DataRowRef["Grab_ThumbnailURL"]).Contains("cdn.weasyl.com"))
-                            {
-                                e6_DownloadItemTemp.picBox_ImageHolder.BackgroundImage = Properties.Resources.BrowserIcon_Weasly;
-                                e6_DownloadItemTemp.picBox_ImageHolder.Tag = true;
                             }
                             else
                             {
-                                StartDLClient(ref e6_DownloadItemTemp, "Thumb");
+                                //Weasyl special
+                                if (((string)DataRowRef["Grab_ThumbnailURL"]).Contains("cdn.weasyl.com"))
+                                {
+                                    e6_DownloadItemTemp.picBox_ImageHolder.BackgroundImage = Properties.Resources.BrowserIcon_Weasly;
+                                    e6_DownloadItemTemp.picBox_ImageHolder.Tag = true;
+                                }
+                                else
+                                {
+                                    StartDLClient(ref e6_DownloadItemTemp, "Thumb");
+                                }
                             }
-                        }
-                        if (AddNew)
-                        {
-                            Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Add(e6_DownloadItemTemp);
-                        }
-                        StartDLClient(ref e6_DownloadItemTemp, "File");
-                    }));
-                }
+                            if (AddNew) Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Add(e6_DownloadItemTemp);
+                            if (Properties.Settings.Default.Converter_DontConvertVideos)
+                            {
+                                StartDLClient(ref e6_DownloadItemTemp, "File");
+                            }
+                            else
+                            {
+                                Module_FFmpeg.DownloadQueue_ConvertVideo2WebM(ref e6_DownloadItemTemp);
+                            }
+                        }));
+                        break;
+                    }
             }
         }
 
@@ -1169,24 +1169,13 @@ namespace e621_ReBot_v2.Modules
 
 
 
-        public static void FileDownloader(string DownloadURL, string ActionType, string TempFolder, string DownloadFolder, DataRow DataRowRef = null, bool isUgoira = false, Custom_ProgressBar RoundProgressBarRef = null)
+        public static void FileDownloader(string DownloadURL, string ActionType, string TempFolder, string DownloadFolder, in DataRow DataRowRef = null, bool isUgoira = false, Custom_ProgressBar RoundProgressBarRef = null)
         {
-            if (ActionType.Equals("C") && Form_Preview._FormReference != null)
-            {
-                Label DLLabel = Form_Preview._FormReference.Label_Download;
-                DLLabel.BeginInvoke(new Action(() =>
-                {
-                    DLLabel.Text = "0%";
-                    DLLabel.Visible = true;
-                }));
-            }
-
             HttpWebRequest FileDownloader = (HttpWebRequest)WebRequest.Create(DownloadURL);
-            if (isUgoira)
-            {
-                FileDownloader.Referer = "https://www.pixiv.net/";
-            }
+            if (isUgoira) FileDownloader.Referer = "https://www.pixiv.net/";
+            if (DownloadURL.Contains("https://www.hiccears.com/file/")) FileDownloader.CookieContainer = Module_CookieJar.Cookies_HicceArs;
             FileDownloader.Timeout = 5000;
+
             using (MemoryStream DownloadedBytes = new MemoryStream())
             {
                 using (WebResponse DownloaderReponse = FileDownloader.GetResponse())
@@ -1206,19 +1195,38 @@ namespace e621_ReBot_v2.Modules
                                 {
                                     case "U":
                                         {
-                                            Module_Uploader.Report_Status(string.Format("Downloading {0}...{1}", isUgoira ? "Ugoira" : "Media", ReportPercentage.ToString("P0")));
+                                            Module_Uploader.Report_Status(string.Format("Downloading {0}...{1:P0}", isUgoira ? "Ugoira" : "Media", ReportPercentage));
                                             break;
                                         }
                                     case "C":
                                         {
                                             string ReportType = isUgoira ? "CDU" : "CDV";
-                                            Module_FFmpeg.ReportConversionProgress(ReportType, ReportPercentage, ref DataRowRef);
+                                            Module_FFmpeg.ReportConversionProgress(ReportType, ReportPercentage, in DataRowRef);
                                             break;
                                         }
 
-                                    default: //case "D":
+                                    case "D":
                                         {
+
                                             RoundProgressBarRef.BeginInvoke(new Action(() => { RoundProgressBarRef.Value = (int)(ReportPercentage * 100); }));
+                                            break;
+                                        }
+
+                                    case "M":
+                                        {
+                                            if (Form_Preview._FormReference != null && Form_Preview._FormReference.IsHandleCreated && ReferenceEquals(Form_Preview._FormReference.Preview_RowHolder, DataRowRef))
+                                            {
+                                                Form_Preview._FormReference.BeginInvoke(new Action(() =>
+                                                {
+                                                    if (Form_Preview._FormReference != null && Form_Preview._FormReference.IsHandleCreated)
+                                                    {
+                                                        Form_Preview._FormReference.Label_Download.Text = $"{ReportPercentage:P0}";
+                                                        Form_Preview._FormReference.Label_Download.Visible = true;
+                                                        Form_Preview._FormReference.PB_Download.Visible = false;
+                                                        Form_Preview._FormReference.Label_DownloadWarning.Visible = false;
+                                                    }
+                                                }));
+                                            }
                                             break;
                                         }
                                 }
@@ -1232,6 +1240,7 @@ namespace e621_ReBot_v2.Modules
                 }
 
                 string FileName = GetMediasFileNameOnly(DownloadURL);
+                //HicceArs filename fix for extension is not needed, e621 detects it.
                 if (isUgoira)
                 {
                     using (ZipArchive UgoiraZip = new ZipArchive(DownloadedBytes))
@@ -1241,7 +1250,7 @@ namespace e621_ReBot_v2.Modules
                         {
                             Directory.CreateDirectory(DownloadFolder);
                             DownloadedBytes.Seek(0, SeekOrigin.Begin);
-                            using (FileStream TempFileStream = new FileStream(string.Format(@"{0}\{1}", DownloadFolder, FileName), FileMode.Create))
+                            using (FileStream TempFileStream = new FileStream($"{DownloadFolder}\\{FileName}", FileMode.Create))
                             {
                                 DownloadedBytes.WriteTo(TempFileStream);
                             }
@@ -1250,14 +1259,14 @@ namespace e621_ReBot_v2.Modules
                 }
                 else
                 {
-                    using (FileStream TempFileStream = new FileStream(string.Format(@"{0}\{1}", TempFolder, FileName), FileMode.Create))
+                    using (FileStream TempFileStream = new FileStream($"{TempFolder}\\{FileName}", FileMode.Create))
                     {
                         DownloadedBytes.WriteTo(TempFileStream);
                     }
-                    if (DownloadFolder != null && Properties.Settings.Default.Converter_KeepOriginal)
+                    if (DownloadFolder != null && (Properties.Settings.Default.Converter_KeepOriginal || ActionType.Equals("M")))
                     {
                         Directory.CreateDirectory(DownloadFolder);
-                        File.Copy(string.Format(@"{0}\{1}", TempFolder, FileName), string.Format(@"{0}\{1}", DownloadFolder, FileName), false);
+                        File.Copy($"{TempFolder}\\{FileName}", $"{DownloadFolder}\\{FileName}", true);
                     }
                 }
             }

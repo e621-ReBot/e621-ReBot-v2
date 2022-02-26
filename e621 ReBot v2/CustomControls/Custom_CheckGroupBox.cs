@@ -46,15 +46,15 @@ namespace e621_ReBot_v2.CustomControls
             {
                 if (_m_checkBox != null)
                 {
-                    _m_checkBox.CheckedChanged -= checkBox_CheckedChanged;
-                    _m_checkBox.CheckStateChanged -= checkBox_CheckStateChanged;
+                    _m_checkBox.CheckedChanged -= CheckBox_CheckedChanged;
+                    _m_checkBox.CheckStateChanged -= CheckBox_CheckStateChanged;
                 }
 
                 _m_checkBox = value;
                 if (_m_checkBox != null)
                 {
-                    _m_checkBox.CheckedChanged += checkBox_CheckedChanged;
-                    _m_checkBox.CheckStateChanged += checkBox_CheckStateChanged;
+                    _m_checkBox.CheckedChanged += CheckBox_CheckedChanged;
+                    _m_checkBox.CheckStateChanged += CheckBox_CheckStateChanged;
                 }
             }
         }
@@ -195,7 +195,7 @@ namespace e621_ReBot_v2.CustomControls
         {
         }
 
-        private void checkBox_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (m_bDisableChildrenIfUnchecked == true)
             {
@@ -212,7 +212,7 @@ namespace e621_ReBot_v2.CustomControls
             CheckedChanged?.Invoke(sender, e);
         }
 
-        private void checkBox_CheckStateChanged(object sender, EventArgs e)
+        private void CheckBox_CheckStateChanged(object sender, EventArgs e)
         {
             CheckStateChanged?.Invoke(sender, e);
         }
@@ -229,8 +229,8 @@ namespace e621_ReBot_v2.CustomControls
         {
             components = new Container();
             _m_checkBox = new CheckBox();
-            _m_checkBox.CheckedChanged += new EventHandler(checkBox_CheckedChanged);
-            _m_checkBox.CheckStateChanged += new EventHandler(checkBox_CheckStateChanged);
+            _m_checkBox.CheckedChanged += new EventHandler(CheckBox_CheckedChanged);
+            _m_checkBox.CheckStateChanged += new EventHandler(CheckBox_CheckStateChanged);
             ToolTip_Show = new ToolTip(components);
             SuspendLayout();
             // 

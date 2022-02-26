@@ -49,16 +49,22 @@ namespace e621_ReBot_v2.Forms
             this.Label_Tags = new System.Windows.Forms.Label();
             this.timer_NavDelay = new System.Windows.Forms.Timer(this.components);
             this.toolTip_Display = new System.Windows.Forms.ToolTip(this.components);
+            this.button_Colour1 = new System.Windows.Forms.Button();
+            this.button_Colour2 = new System.Windows.Forms.Button();
+            this.button_Colour3 = new System.Windows.Forms.Button();
             this.Label_AlreadyUploaded = new e621_ReBot_v2.CustomControls.Custom_LabelWithStroke();
             this.PB_Upload = new e621_ReBot_v2.CustomControls.Button_BrowserSmall();
             this.PB_Tagger = new e621_ReBot_v2.CustomControls.Button_BrowserSmall();
             this.panel_Search = new System.Windows.Forms.Panel();
-            this.timer_navCancelFix = new System.Windows.Forms.Timer(this.components);
-            this.Pic_WebBrowser = new e621_ReBot_v2.CustomControls.WebBrowserWithZoom();
+            this.panel_PicBrowserHolder = new System.Windows.Forms.Panel();
+            this.panel_PalleteHolder = new System.Windows.Forms.Panel();
+            this.timer_LoadDoneDelay = new System.Windows.Forms.Timer(this.components);
             this.panel_Navigation.SuspendLayout();
             this.panel_Rating.SuspendLayout();
             this.flowLayoutPanel_DL.SuspendLayout();
             this.panel_Search.SuspendLayout();
+            this.panel_PicBrowserHolder.SuspendLayout();
+            this.panel_PalleteHolder.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_Navigation
@@ -69,7 +75,7 @@ namespace e621_ReBot_v2.Forms
             this.panel_Navigation.Margin = new System.Windows.Forms.Padding(0);
             this.panel_Navigation.Name = "panel_Navigation";
             this.panel_Navigation.Size = new System.Drawing.Size(60, 32);
-            this.panel_Navigation.TabIndex = 0;
+            this.panel_Navigation.TabIndex = 1;
             // 
             // PB_Next
             // 
@@ -128,7 +134,7 @@ namespace e621_ReBot_v2.Forms
             this.panel_Rating.Margin = new System.Windows.Forms.Padding(8, 0, 0, 0);
             this.panel_Rating.Name = "panel_Rating";
             this.panel_Rating.Size = new System.Drawing.Size(84, 32);
-            this.panel_Rating.TabIndex = 3;
+            this.panel_Rating.TabIndex = 2;
             // 
             // PB_Safe
             // 
@@ -239,7 +245,7 @@ namespace e621_ReBot_v2.Forms
             this.PB_Download.Size = new System.Drawing.Size(24, 24);
             this.PB_Download.TabIndex = 5;
             this.PB_Download.Tag = "";
-            this.toolTip_Display.SetToolTip(this.PB_Download, "Download Image.\r\nYou can also use \"D\" key on keyboard (key placement on QWERTY ke" +
+            this.toolTip_Display.SetToolTip(this.PB_Download, "Download Media.\r\nYou can also use \"D\" key on keyboard (key placement on QWERTY ke" +
         "yboard, not actual character).");
             this.PB_Download.UseVisualStyleBackColor = false;
             this.PB_Download.Click += new System.EventHandler(this.PB_Download_Click);
@@ -272,7 +278,7 @@ namespace e621_ReBot_v2.Forms
             this.Label_Download.StokeSize = 3;
             this.Label_Download.TabIndex = 6;
             this.Label_Download.Text = "100%";
-            this.toolTip_Display.SetToolTip(this.Label_Download, "Download (Orange) or Conversion (Purple) status.\r\n");
+            this.toolTip_Display.SetToolTip(this.Label_Download, "Download (orange) or Conversion (purple) status.\r\n");
             // 
             // PB_ViewFile
             // 
@@ -312,7 +318,7 @@ namespace e621_ReBot_v2.Forms
             this.PB_LoadAllImages.Margin = new System.Windows.Forms.Padding(0);
             this.PB_LoadAllImages.Name = "PB_LoadAllImages";
             this.PB_LoadAllImages.Size = new System.Drawing.Size(22, 22);
-            this.PB_LoadAllImages.TabIndex = 114;
+            this.PB_LoadAllImages.TabIndex = 7;
             this.PB_LoadAllImages.TabStop = false;
             this.PB_LoadAllImages.Text = "L";
             this.toolTip_Display.SetToolTip(this.PB_LoadAllImages, "Load all Images. Click again to stop.\r\n\r\nIt just navigates trough whole image lis" +
@@ -369,7 +375,7 @@ namespace e621_ReBot_v2.Forms
             this.Label_Tags.Location = new System.Drawing.Point(0, 35);
             this.Label_Tags.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
             this.Label_Tags.Name = "Label_Tags";
-            this.Label_Tags.Size = new System.Drawing.Size(1084, 16);
+            this.Label_Tags.Size = new System.Drawing.Size(1064, 16);
             this.Label_Tags.TabIndex = 118;
             // 
             // timer_NavDelay
@@ -383,6 +389,44 @@ namespace e621_ReBot_v2.Forms
             this.toolTip_Display.InitialDelay = 100;
             this.toolTip_Display.ReshowDelay = 100;
             // 
+            // button_Colour1
+            // 
+            this.button_Colour1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button_Colour1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Colour1.Location = new System.Drawing.Point(0, 0);
+            this.button_Colour1.Margin = new System.Windows.Forms.Padding(0);
+            this.button_Colour1.Name = "button_Colour1";
+            this.button_Colour1.Size = new System.Drawing.Size(16, 16);
+            this.button_Colour1.TabIndex = 0;
+            this.toolTip_Display.SetToolTip(this.button_Colour1, "Set browser background color to this color.");
+            this.button_Colour1.UseVisualStyleBackColor = true;
+            // 
+            // button_Colour2
+            // 
+            this.button_Colour2.BackColor = System.Drawing.Color.Black;
+            this.button_Colour2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button_Colour2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Colour2.Location = new System.Drawing.Point(0, 15);
+            this.button_Colour2.Margin = new System.Windows.Forms.Padding(0);
+            this.button_Colour2.Name = "button_Colour2";
+            this.button_Colour2.Size = new System.Drawing.Size(16, 16);
+            this.button_Colour2.TabIndex = 1;
+            this.toolTip_Display.SetToolTip(this.button_Colour2, "Set browser background color to this color.");
+            this.button_Colour2.UseVisualStyleBackColor = false;
+            // 
+            // button_Colour3
+            // 
+            this.button_Colour3.BackColor = System.Drawing.Color.White;
+            this.button_Colour3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button_Colour3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Colour3.Location = new System.Drawing.Point(0, 30);
+            this.button_Colour3.Margin = new System.Windows.Forms.Padding(0);
+            this.button_Colour3.Name = "button_Colour3";
+            this.button_Colour3.Size = new System.Drawing.Size(16, 16);
+            this.button_Colour3.TabIndex = 2;
+            this.toolTip_Display.SetToolTip(this.button_Colour3, "Set browser background color to this color.");
+            this.button_Colour3.UseVisualStyleBackColor = false;
+            // 
             // Label_AlreadyUploaded
             // 
             this.Label_AlreadyUploaded.BackColor = System.Drawing.Color.Transparent;
@@ -395,7 +439,7 @@ namespace e621_ReBot_v2.Forms
             this.Label_AlreadyUploaded.Name = "Label_AlreadyUploaded";
             this.Label_AlreadyUploaded.Size = new System.Drawing.Size(330, 24);
             this.Label_AlreadyUploaded.StokeSize = 3;
-            this.Label_AlreadyUploaded.TabIndex = 116;
+            this.Label_AlreadyUploaded.TabIndex = 0;
             this.Label_AlreadyUploaded.Text = "Already uploaded as #0123456789";
             this.toolTip_Display.SetToolTip(this.Label_AlreadyUploaded, "Click to navigate to post.\r\nAlt+Click to open in your default browser.");
             this.Label_AlreadyUploaded.Visible = false;
@@ -445,7 +489,7 @@ namespace e621_ReBot_v2.Forms
             this.PB_Tagger.MinimumSize = new System.Drawing.Size(32, 32);
             this.PB_Tagger.Name = "PB_Tagger";
             this.PB_Tagger.Size = new System.Drawing.Size(32, 32);
-            this.PB_Tagger.TabIndex = 1;
+            this.PB_Tagger.TabIndex = 3;
             this.PB_Tagger.Tag = "";
             this.PB_Tagger.Text = "T";
             this.toolTip_Display.SetToolTip(this.PB_Tagger, "Open Tagger. Press Ctrl to center it to screen.\r\nYou can also use \"T\" key on keyb" +
@@ -460,37 +504,44 @@ namespace e621_ReBot_v2.Forms
             this.panel_Search.Location = new System.Drawing.Point(306, 2);
             this.panel_Search.Name = "panel_Search";
             this.panel_Search.Size = new System.Drawing.Size(180, 32);
-            this.panel_Search.TabIndex = 119;
+            this.panel_Search.TabIndex = 6;
             // 
-            // timer_navCancelFix
+            // panel_PicBrowserHolder
             // 
-            this.timer_navCancelFix.Interval = 250;
-            this.timer_navCancelFix.Tick += new System.EventHandler(this.NavCancelFix_Timer_Tick);
+            this.panel_PicBrowserHolder.Controls.Add(this.panel_PalleteHolder);
+            this.panel_PicBrowserHolder.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel_PicBrowserHolder.Location = new System.Drawing.Point(0, 57);
+            this.panel_PicBrowserHolder.MinimumSize = new System.Drawing.Size(20, 20);
+            this.panel_PicBrowserHolder.Name = "panel_PicBrowserHolder";
+            this.panel_PicBrowserHolder.Size = new System.Drawing.Size(1064, 544);
+            this.panel_PicBrowserHolder.TabIndex = 120;
             // 
-            // Pic_WebBrowser
+            // panel_PalleteHolder
             // 
-            this.Pic_WebBrowser.AllowWebBrowserDrop = false;
-            this.Pic_WebBrowser.Location = new System.Drawing.Point(0, 50);
-            this.Pic_WebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-            this.Pic_WebBrowser.Name = "Pic_WebBrowser";
-            this.Pic_WebBrowser.ScriptErrorsSuppressed = true;
-            this.Pic_WebBrowser.ScrollBarsEnabled = false;
-            this.Pic_WebBrowser.Size = new System.Drawing.Size(1084, 570);
-            this.Pic_WebBrowser.TabIndex = 69;
-            this.Pic_WebBrowser.TabStop = false;
-            this.Pic_WebBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.Pic_WebBrowser_DocumentCompleted);
-            this.Pic_WebBrowser.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.Pic_WebBrowser_Navigated);
-            this.Pic_WebBrowser.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.Pic_WebBrowser_Navigating);
+            this.panel_PalleteHolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.panel_PalleteHolder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel_PalleteHolder.Controls.Add(this.button_Colour3);
+            this.panel_PalleteHolder.Controls.Add(this.button_Colour2);
+            this.panel_PalleteHolder.Controls.Add(this.button_Colour1);
+            this.panel_PalleteHolder.Location = new System.Drawing.Point(0, 496);
+            this.panel_PalleteHolder.Margin = new System.Windows.Forms.Padding(0);
+            this.panel_PalleteHolder.Name = "panel_PalleteHolder";
+            this.panel_PalleteHolder.Size = new System.Drawing.Size(18, 48);
+            this.panel_PalleteHolder.TabIndex = 0;
+            // 
+            // timer_LoadDoneDelay
+            // 
+            this.timer_LoadDoneDelay.Tick += new System.EventHandler(this.Timer_LoadDoneDelay_Tick);
             // 
             // Form_Preview
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.DimGray;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(1077, 590);
-            this.Controls.Add(this.panel_Search);
+            this.ClientSize = new System.Drawing.Size(1064, 601);
             this.Controls.Add(this.Label_Tags);
-            this.Controls.Add(this.Pic_WebBrowser);
+            this.Controls.Add(this.panel_PicBrowserHolder);
+            this.Controls.Add(this.panel_Search);
             this.Controls.Add(this.Label_AlreadyUploaded);
             this.Controls.Add(this.PB_LoadAllImages);
             this.Controls.Add(this.flowLayoutPanel_DL);
@@ -501,10 +552,11 @@ namespace e621_ReBot_v2.Forms
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MinimumSize = new System.Drawing.Size(440, 240);
+            this.MinimumSize = new System.Drawing.Size(520, 240);
             this.Name = "Form_Preview";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Preview";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Preview_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form_Preview_FormClosed);
             this.Load += new System.EventHandler(this.Form_Preview_Load);
             this.Shown += new System.EventHandler(this.Form_Preview_Shown);
@@ -516,6 +568,8 @@ namespace e621_ReBot_v2.Forms
             this.panel_Rating.ResumeLayout(false);
             this.flowLayoutPanel_DL.ResumeLayout(false);
             this.panel_Search.ResumeLayout(false);
+            this.panel_PicBrowserHolder.ResumeLayout(false);
+            this.panel_PalleteHolder.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -539,11 +593,15 @@ namespace e621_ReBot_v2.Forms
         internal CustomControls.Custom_LabelWithStroke Label_DownloadWarning;
         internal CustomControls.Button_BrowserSmall PB_Download;
         internal CustomControls.Custom_LabelWithStroke Label_Download;
-        internal CustomControls.WebBrowserWithZoom Pic_WebBrowser;
         internal System.Windows.Forms.Label Label_Tags;
         private System.Windows.Forms.Timer timer_NavDelay;
         internal System.Windows.Forms.ToolTip toolTip_Display;
         internal System.Windows.Forms.Panel panel_Search;
-        internal System.Windows.Forms.Timer timer_navCancelFix;
+        private System.Windows.Forms.Panel panel_PicBrowserHolder;
+        private System.Windows.Forms.Panel panel_PalleteHolder;
+        private System.Windows.Forms.Button button_Colour3;
+        private System.Windows.Forms.Button button_Colour2;
+        private System.Windows.Forms.Button button_Colour1;
+        private System.Windows.Forms.Timer timer_LoadDoneDelay;
     }
 }

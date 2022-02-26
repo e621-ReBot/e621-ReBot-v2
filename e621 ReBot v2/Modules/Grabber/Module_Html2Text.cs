@@ -148,14 +148,14 @@ namespace e621_ReBot_v2.Modules.Grabber
                                 PostURL = $"https://inkbunny.net{TextHolderNode.SelectSingleNode(".//a").Attributes["href"].Value}";
                                 TextHolder += $"🐰\"{PostURL}\":{PostURL}";
                             }
-                            else // https://inkbunny.net/s/2165811
+                            else
                             {
-                                PostURL = SubElement.SelectSingleNode(".//img").ParentNode.Attributes["href"].Value;
-                                if (PostURL.Substring(0, 3).Equals("/s/")) // https://inkbunny.net/s/2075088
+                                PostURL = TextHolderNode.SelectSingleNode(".//a").Attributes["href"].Value;
+                                if (PostURL.Substring(0, 3).Equals("/s/"))
                                 {
                                     PostURL = $"https://inkbunny.net{PostURL}";
                                 }
-                                TextHolder += $"🐰\"{SubElement.Attributes["title"].Value}\":{PostURL}";
+                                TextHolder += $"🐰\"{SubElement.SelectSingleNode(".//img").Attributes["title"].Value}\":{PostURL}";
                             }
                             break;
                         }

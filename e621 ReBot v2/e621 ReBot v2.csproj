@@ -18,6 +18,21 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>false</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -111,9 +126,8 @@
       <HintPath>..\packages\CefSharp.WinForms.96.0.142\lib\net462\CefSharp.WinForms.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="HtmlAgilityPack, Version=1.11.39.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.11.39\lib\Net45\HtmlAgilityPack.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="HtmlAgilityPack, Version=1.11.42.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.42\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -306,13 +320,12 @@
     <Compile Include="Forms\Form_Tagger.Designer.cs">
       <DependentUpon>Form_Tagger.cs</DependentUpon>
     </Compile>
-    <Compile Include="Modules\CefSharp\CefSharp_LifeSpanHandler.cs" />
-    <Compile Include="Modules\CefSharp\CefSharp_RequestHandler.cs" />
-    <Compile Include="Modules\CefSharp\CefSharp_ResourceRequestHandler.cs" />
+    <Compile Include="Modules\CefSharp\CefBrowser_CefSharpStuff.cs" />
     <Compile Include="Modules\CefSharp\Module_CefSharp.cs" />
     <Compile Include="CustomControls\Custom_WebClient.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Modules\CefSharp\MediaBrowser_CefSharpStuff.cs" />
     <Compile Include="Modules\Grabber\Module_CookieJar.cs" />
     <Compile Include="Modules\Grabber\Module_HentaiFoundry.cs" />
     <Compile Include="Modules\Grabber\Module_FurAffinity.cs" />
@@ -419,6 +432,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Form_Main.resx">
       <DependentUpon>Form_Main.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Form_MainBig.resx">
       <DependentUpon>Form_MainBig.cs</DependentUpon>
@@ -552,7 +566,18 @@
     <Content Include="Resources\Sounds\PeonYesAttack1.wav" />
     <Content Include="Resources\Sounds\PeonYesAttack3.wav" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

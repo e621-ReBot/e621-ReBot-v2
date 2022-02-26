@@ -107,7 +107,7 @@ namespace e621_ReBot_v2.CustomControls
             Owner.Activate();
             Owner.Focus();
             _FormReference = null;
-            //Dispose();
+            Dispose();
         }
 
         // = = = = =

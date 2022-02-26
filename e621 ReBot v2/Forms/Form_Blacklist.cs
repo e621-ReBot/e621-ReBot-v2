@@ -8,15 +8,13 @@ namespace e621_ReBot_v2.Forms
 {
     public partial class Form_Blacklist : Form
     {
-        public Form_Blacklist(Form OwnerPass, Point LocationPass)
+        public static Form_Blacklist _FormReference;
+        public Form_Blacklist(Point LocationPass)
         {
             InitializeComponent();
             _FormReference = this;
             Location = new Point(LocationPass.X - 8, LocationPass.Y);
-            Owner = OwnerPass;
         }
-
-        public static Form_Blacklist _FormReference;
 
         private void Form_Blacklist_Load(object sender, EventArgs e)
         {

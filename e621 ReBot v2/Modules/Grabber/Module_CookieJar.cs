@@ -1,5 +1,6 @@
 ﻿using CefSharp;
 using System;
+using System.Collections.Generic;
 using System.Net;
 
 namespace e621_ReBot_v2.Modules
@@ -26,8 +27,8 @@ namespace e621_ReBot_v2.Modules
                 WhichCookie = new CookieContainer();
             }
             string BaseURL = new Uri(WebAdress).Scheme + "://" + new Uri(WebAdress).Host;
-            var CookieList = Cef.GetGlobalCookieManager().VisitUrlCookiesAsync(BaseURL, true).Result;
-            foreach (var CookieHolder in CookieList)
+            List<CefSharp.Cookie> CookieList = Cef.GetGlobalCookieManager().VisitUrlCookiesAsync(BaseURL, true).Result;
+            foreach (CefSharp.Cookie CookieHolder in CookieList)
             {
                 System.Net.Cookie TempCookie = new System.Net.Cookie()
                 {
@@ -38,6 +39,20 @@ namespace e621_ReBot_v2.Modules
                 };
                 WhichCookie.Add(TempCookie);
             }
+        }
+
+        public static string GetHicceArsCookie()
+        {
+            string BaseURL = "https://www.hiccears.com";
+            List<CefSharp.Cookie> CookieList = Cef.GetGlobalCookieManager().VisitUrlCookiesAsync(BaseURL, true).Result;
+            foreach (CefSharp.Cookie CookieHolder in CookieList)
+            {
+                if (CookieHolder.Name.Equals("hiccears"))
+                {
+                    return $"{CookieHolder.Name}={CookieHolder.Value}";
+                }
+            }
+            return null;
         }
     }
 }

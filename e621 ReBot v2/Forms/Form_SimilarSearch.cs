@@ -18,6 +18,7 @@ using System.Data;
 
 namespace e621_ReBot_v2.Forms
 {
+
     public partial class Form_SimilarSearch : Form
     {
         public Form_SimilarSearch()
@@ -26,13 +27,10 @@ namespace e621_ReBot_v2.Forms
             _FormReference = this;
         }
 
-        public Form_SimilarSearch(string NamePass, Point PointRef, Form OwnerForm)
+        public Form_SimilarSearch(string NamePass, Point PointRef) : this()
         {
-            InitializeComponent();
-            _FormReference = this;
             Text = NamePass;
             Location = new Point(PointRef.X - 9, PointRef.Y - 2);
-            Owner = OwnerForm;
         }
 
         public static Form_SimilarSearch _FormReference;
@@ -44,6 +42,7 @@ namespace e621_ReBot_v2.Forms
         private void Form_Similar_FormClosed(object sender, FormClosedEventArgs e)
         {
             Form_Preview._FormReference.Activate();
+            Form_Preview._FormReference.Focus();
             _FormReference = null;
             Dispose();
         }
@@ -136,8 +135,8 @@ namespace e621_ReBot_v2.Forms
         {
             if (Move2Center)
             {
-                Point OwnerFormPoint = Owner.PointToScreen(Point.Empty);
-                Location = new Point(OwnerFormPoint.X + Owner.Width / 2 - Width / 2, OwnerFormPoint.Y + Owner.Height / 2 - Height / 2);
+                Point OwnerFormPoint = Form_Preview._FormReference.PointToScreen(Point.Empty);
+                Location = new Point(OwnerFormPoint.X + Form_Preview._FormReference.Width / 2 - Width / 2, OwnerFormPoint.Y + Form_Preview._FormReference.Height / 2 - Height / 2);
             }
         }
 

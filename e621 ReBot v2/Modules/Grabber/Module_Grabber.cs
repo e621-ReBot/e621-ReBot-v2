@@ -29,23 +29,24 @@ namespace e621_ReBot_v2.Modules
             timer_Grab.Tick += TimerGrab_Tick;
             timer_Grab.Start();
 
-            _GrabEnabler.Add(new Regex(@".+(inkbunny.net/)(s|gallery|scraps)(/\w+)"));
+            _GrabEnabler.Add(new Regex(@".+(inkbunny.net)/(s|gallery|scraps)/\w+"));
             _GrabEnabler.Add(new Regex(@".+(inkbunny.net/submissionsviewall.php)"));
-            _GrabEnabler.Add(new Regex(@".+(pixiv.net/)(\w+/)(artworks|users)/\d+"));
-            _GrabEnabler.Add(new Regex(@".+(www.furaffinity.net/)(view|full|gallery|scraps|favorites)(/.+/)"));
+            _GrabEnabler.Add(new Regex(@".+(pixiv.net)/\w+/(artworks|users)/\d+"));
+            _GrabEnabler.Add(new Regex(@".+(www.furaffinity.net)/(view|full|gallery|scraps|favorites)/.+/"));
             _GrabEnabler.Add(new Regex(@".+(www.furaffinity.net/search/)"));
-            _GrabEnabler.Add(new Regex(@".+(twitter.com/)(\w+/(media|status/\d+/?$))"));
-            _GrabEnabler.Add(new Regex(@".+(.newgrounds.com/)(movies/|portal/view/\d+|art?.+)"));
-            _GrabEnabler.Add(new Regex(@".+(www.hiccears.com/)(picture|gallery|artist-content)(.+)"));
-            _GrabEnabler.Add(new Regex(@".+(.sofurry.com)/(view/\d+|browse/\w+/art?.+)"));
-            _GrabEnabler.Add(new Regex(@".+(mastodon.social/)(@\w+)(/\d+|/media)"));
-            _GrabEnabler.Add(new Regex(@".+(www.plurk.com/)(p/\w+|\w+$)"));
-            _GrabEnabler.Add(new Regex(@".+(pawoo.net/)(@\w+)(/\d+|/media)"));
-            _GrabEnabler.Add(new Regex(@".+(www.weasyl.com/)(~\w+/submissions/\d+/.+|submissions.+|collections.+)")); //collections are favorites*
-            _GrabEnabler.Add(new Regex(@".+(www.weasyl.com/)(search.+)(find=submit)"));
-            _GrabEnabler.Add(new Regex(@".+(baraag.net/)(@\w+)?(/\d+|/media)"));
-            _GrabEnabler.Add(new Regex(@".+(www.hentai-foundry.com/)(pictures/user/.+|user/.+?/faves/pictures)"));
-            _GrabEnabler.Add(new Regex(@".+(www.hentai-foundry.com/)(pictures/(featured|popular|random|recent/))"));
+            _GrabEnabler.Add(new Regex(@".+(twitter.com)/.+/(media|status/\d+/?)"));
+            _GrabEnabler.Add(new Regex(@".+(.newgrounds.com)/(movies/|portal/view/\d+|art/?.+)"));
+            _GrabEnabler.Add(new Regex(@".+(www.hiccears.com)(/p/.+/illustrations)"));
+            _GrabEnabler.Add(new Regex(@".+(www.hiccears.com)/(contents|file).+"));
+            _GrabEnabler.Add(new Regex(@".+(.sofurry.com)/(view/\d+|browse/\w+/art.+)"));
+            _GrabEnabler.Add(new Regex(@".+(mastodon.social)/(@\w+)(/\d+|/media)"));
+            _GrabEnabler.Add(new Regex(@".+(www.plurk.com)/(p/\w+|\w+$)"));
+            _GrabEnabler.Add(new Regex(@".+(pawoo.net)/@.+/(\d+|media)"));
+            _GrabEnabler.Add(new Regex(@".+(www.weasyl.com)/((~.+/)?submissions(/\d+/)?|collections).+")); //collections are favorites*
+            _GrabEnabler.Add(new Regex(@".+(www.weasyl.com)/(search.+)(find=submit)"));
+            _GrabEnabler.Add(new Regex(@".+(baraag.net/)@.+/(\d+|media)"));
+            _GrabEnabler.Add(new Regex(@".+(www.hentai-foundry.com)/(pictures/user/.+|user/.+?/faves/pictures)"));
+            _GrabEnabler.Add(new Regex(@".+(www.hentai-foundry.com)/(pictures/(featured|popular|random|recent/))"));
 
         }
 
@@ -96,7 +97,14 @@ namespace e621_ReBot_v2.Modules
                     }
                 case "www.hiccears.com":
                     {
-                        Module_HicceArs.QueuePrep(WebAdress);
+                        if (Module_HicceArs.CheckHicceArsCookies())
+                        {
+                            Module_HicceArs.QueuePrep(WebAdress);
+                        }
+                        else
+                        {
+                            MessageBox.Show("You need to relog to refresh cookies, media links are behind login.", "HicceArs Test", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }                      
                         break;
                     }
                 case "www.sofurry.com":
@@ -135,11 +143,11 @@ namespace e621_ReBot_v2.Modules
                         break;
                     }
             }
-            //if (WebAdress.Contains("deviantart.com"))
-            //{
-            //    Module_DeviantArt.QueuePrep(WebAdress);
-            //    return;
-            //}
+            if (WebAdress.Contains("deviantart.com"))
+            {
+                Module_DeviantArt.QueuePrep(WebAdress);
+                return;
+            }
         }
 
 
@@ -332,14 +340,15 @@ namespace e621_ReBot_v2.Modules
                         break;
                     }
             }
-            BGWTemp.RunWorkerAsync(WebAdress);
 
-            //if (WebAdress.Contains("deviantart.com"))
-            //{
-            //    BGWTemp.DoWork += Module_DeviantArt.RunGrabber;
-            //    BGWTemp.RunWorkerAsync(NeededData ?? WebAdress);
-            //    return;
-            //}
+            if (WebAdress.Contains("deviantart.com"))
+            {
+                BGWTemp.DoWork += Module_DeviantArt.RunGrabber;
+                BGWTemp.RunWorkerAsync(NeededData ?? WebAdress);
+                return;
+            }
+
+            BGWTemp.RunWorkerAsync(WebAdress);
         }
 
         private static void GrabberBGWDone(object sender, RunWorkerCompletedEventArgs e)
@@ -452,10 +461,30 @@ namespace e621_ReBot_v2.Modules
             HttpWebRequest GetSizeRequest = (HttpWebRequest)WebRequest.Create(MediaURL);
             GetSizeRequest.Method = "HEAD";
             GetSizeRequest.UserAgent = Form_Loader.GlobalUserAgent;
-            GetSizeRequest.CookieContainer = MediaURL.Contains("deviantart.com") ? Module_CookieJar.Cookies_DeviantArt : new CookieContainer(); //twitter sometimes not working otherwise
-            if (MediaURL.Contains("pximg.net"))
+
+            Uri TempURI = new Uri(MediaURL);
+            switch (TempURI.Host)
             {
-                GetSizeRequest.Referer = "http://www.pixiv.net";
+                case "i.pximg.net":
+                    {
+                        GetSizeRequest.Referer = "http://www.pixiv.net";
+                        break;
+                    }
+                case "pbs.twimg.com": //twitter sometimes not working otherwise
+                    {
+                        GetSizeRequest.CookieContainer = new CookieContainer();
+                        break;
+                    }             
+                case "www.hiccears.com":
+                    {
+                        GetSizeRequest.CookieContainer = Module_CookieJar.Cookies_HicceArs;
+                        break;
+                    }
+                case "deviantart.com":
+                    {
+                        GetSizeRequest.CookieContainer = Module_CookieJar.Cookies_DeviantArt;
+                        break;
+                    }
             }
             GetSizeRequest.Timeout = 3000;
             try
@@ -529,7 +558,7 @@ namespace e621_ReBot_v2.Modules
             {
                 DownloadedImage = Image.FromStream(MemoryStreamTemp);
             }
-            RowReference["Thumbnail_Image"] = MakeImageThumb(DownloadedImage, ((string)RowReference["Grab_MediaURL"]).Contains("ugoira") ? "Ugoira" : null);
+            RowReference["Thumbnail_Image"] = MakeImageThumb(DownloadedImage, ((string)RowReference["Info_MediaFormat"]).Equals("ugoira") ? "Ugoira" : null);
             DownloadedImage.Dispose();
 
             e6_GridItem e6_GridItemTemp = Form_Loader._FormReference.IsE6PicVisibleInGrid(ref RowReference);
@@ -620,8 +649,8 @@ namespace e621_ReBot_v2.Modules
                             {
                                 using (StringFormat sfTemp = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
                                 {
-                                    int bytestokB = (int)DataRowRef["Info_MediaByteLength"] / 1024;
-                                    gpTemp.AddString(string.Format("{0:N0} kB", bytestokB), fontTemp.FontFamily, (int)fontTemp.Style, fontTemp.Size, new Rectangle(new Point(0, 178), new Size(200, 20)), sfTemp);
+                                    int bytes2kB = (int)DataRowRef["Info_MediaByteLength"] / 1024;
+                                    gpTemp.AddString(string.Format("{0:N0} kB", bytes2kB), fontTemp.FontFamily, (int)fontTemp.Style, fontTemp.Size, new Rectangle(new Point(0, 178), new Size(200, 20)), sfTemp);
                                 }
                                 using (Pen penTemp = new Pen(Color.Black, 3))
                                 {

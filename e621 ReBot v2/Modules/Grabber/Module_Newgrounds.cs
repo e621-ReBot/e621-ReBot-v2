@@ -53,7 +53,6 @@ namespace e621_ReBot_v2.Modules.Grabber
             HtmlDocument WebDoc = new HtmlDocument();
             WebDoc.LoadHtml(HTMLSource);
 
-            var test = WebDoc.DocumentNode.SelectNodes(".//div[@data-id='item']");
             foreach (HtmlNode ChildNode in WebDoc.DocumentNode.SelectNodes(".//div[@data-id='item']"))
             {
                 string DirectLink2Post = ChildNode.SelectSingleNode("./a").Attributes["href"].Value;
@@ -75,6 +74,11 @@ namespace e621_ReBot_v2.Modules.Grabber
                 {
                     Module_Grabber.Report_Info(string.Format("Skipped grabbing - Already in queue [@{0}]", DirectLink2Post));
                 }
+            }
+
+            if (TreeViewParentNode.Nodes.Count == 0)
+            {
+                TreeViewParentNode.Remove();
             }
         }
 

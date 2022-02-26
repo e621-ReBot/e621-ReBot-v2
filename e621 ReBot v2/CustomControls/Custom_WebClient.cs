@@ -15,7 +15,7 @@ namespace e621_ReBot_v2.Modules
             DLAsyncTimeoutTimer.Tick += TimeoutTick;
         }
 
-        private Timer DLAsyncTimeoutTimer = new Timer();
+        private readonly Timer DLAsyncTimeoutTimer = new Timer();
         private void TimeoutTick(object sender, EventArgs e)
         {
             DLAsyncTimeoutTimer.Stop();

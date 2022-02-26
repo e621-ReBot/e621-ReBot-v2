@@ -94,6 +94,11 @@ namespace e621_ReBot_v2.Modules.Grabber
                     Module_Grabber.Report_Info(string.Format("Skipped grabbing - Already in queue [@{0}]", DirectLink2Post));
                 }
             }
+
+            if (TreeViewParentNode.Nodes.Count == 0)
+            {
+                TreeViewParentNode.Remove();
+            }
         }
 
         private static void Queue_All(string WebAdress)
@@ -306,7 +311,7 @@ namespace e621_ReBot_v2.Modules.Grabber
             TempDataRow["Grab_MediaURL"] = MediaURL;
             TempDataRow["Grab_ThumbnailURL"] = ThumbURL;
             TempDataRow["Thumbnail_FullInfo"] = true;
-            TempDataRow["Info_MediaFormat"] = MediaURL.Substring(MediaURL.LastIndexOf(".") + 1);
+            TempDataRow["Info_MediaFormat"] = MediaURL.Contains("ugoira0") ? "ugoira" : MediaURL.Substring(MediaURL.LastIndexOf(".") + 1);
             TempDataRow["Info_MediaWidth"] = ImageWidth;
             TempDataRow["Info_MediaHeight"] = ImageHeight;
             TempDataRow["Info_MediaByteLength"] = Module_Grabber.GetMediaSize(MediaURL);

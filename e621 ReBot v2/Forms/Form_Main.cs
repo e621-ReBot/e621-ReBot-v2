@@ -145,6 +145,9 @@ namespace e621_ReBot_v2
             textBox_DelayGrabber.KeyPress += TextBox_Delay_KeyPress;
             textBox_DelayUploader.KeyPress += TextBox_Delay_KeyPress;
             textBox_DelayDownload.KeyPress += TextBox_Delay_KeyPress;
+
+            FolderDialogFix = new Timer();
+            FolderDialogFix.Tick += FolderDialogFix_Tick;
         }
 
         private void Form_Main_Load(object sender, EventArgs e)
@@ -161,7 +164,6 @@ namespace e621_ReBot_v2
             Module_CefSharp.InitializeBrowser("about:blank");
             SetQuickButtonPanelRegion();
             CreateTrackList();
-            Module_Downloader.Load_IECache();
 
             Version_Label.Text = "v" + Application.ProductVersion;
 
@@ -317,9 +319,16 @@ namespace e621_ReBot_v2
                 {
                     TrackBar_Volume.Value = 25;
                     TrackBar_Volume_Scroll(null, null);
-                    panel_Browser.Visible = true;
-                    Module_CefSharp.CefSharpBrowser.Load("https://e621.net/session/new");
-                    MessageBox.Show("Thanks for trying me out.\n\nFor a start, you should log in into e621 and provide me with API key so I could do the tasks you require.\n\nI opened the login page for you.", "e621 ReBot");
+                    if (MessageBox.Show("Since this is our first date, would you like to know more about me?", "e621 ReBot Tutorial", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                    {
+                        panel_Browser.Visible = true;
+                        Module_CefSharp.CefSharpBrowser.Load("https://e621.net/session/new");
+                        MessageBox.Show("Thanks for trying me out.\n\nFor a start, you should log in into e621 and provide me with API key so I could do the tasks you require.\n\nI opened the login page for you.", "e621 ReBot");
+                    }
+                    else
+                    {
+                        Properties.Settings.Default.FirstRun = false;
+                    }
                 }
 
                 if (string.IsNullOrEmpty(Properties.Settings.Default.Note))
@@ -525,7 +534,7 @@ namespace e621_ReBot_v2
                         case Keys.S:
                             {
                                 _Selected_e6GridItem._Rating = keyData.ToString();
-                                if (Form_Preview._FormReference != null && ReferenceEquals(_Selected_e6GridItem._DataRowReference, Form_Preview._FormReference.Preview_RowHolder))
+                                if (Form_Preview._FormReference != null && Form_Preview._FormReference.IsHandleCreated && ReferenceEquals(_Selected_e6GridItem._DataRowReference, Form_Preview._FormReference.Preview_RowHolder))
                                 {
                                     Form_Preview._FormReference.UpdateButtons();
                                 }
@@ -1821,8 +1830,11 @@ namespace e621_ReBot_v2
         {
             int CheckedChildNodesCount = int.Parse(ParentNode.Tag.ToString());
             ParentNode.Tag = CheckedChildNodesCount;
-            ParentNode.ToolTipText = $"Selected: {CheckedChildNodesCount} / {ParentNode.Nodes.Count}";
-            // ^ doesnt update while hovered.
+            if (ParentNode.Nodes.Count != 0)
+            {
+                ParentNode.ToolTipText = $"Selected: {CheckedChildNodesCount} / {ParentNode.Nodes.Count}";
+                // ^ doesnt update while hovered.
+            }
         }
 
         private void CCheckGroupBox_Grab_CheckedChanged(object sender, EventArgs e)
@@ -2022,15 +2034,28 @@ namespace e621_ReBot_v2
             TrackBar_Volume.Value = Module_VolumeControl.GetApplicationVolume();
         }
 
+        private void BU_RefreshCredit_Click(object sender, EventArgs e)
+        {
+            bU_RefreshCredit.Enabled = false;
+            new Thread(Module_Credits.Check_Credit_All).Start();
+        }
+
+        private void Panel_CheckBoxOptions_Paint(object sender, PaintEventArgs e)
+        {
+            int TempHeightHolder = panel_CheckBoxOptions.Height - (CheckBox_DontFlag.Visible ? 0 : 24) - 1;
+            using (Pen TempPen = new Pen(Color.Black, 1))
+            {
+                e.Graphics.DrawLine(TempPen, new Point(0, 0), new Point(0, TempHeightHolder));
+                e.Graphics.DrawLine(TempPen, new Point(0, 0), new Point(8, 0));
+                e.Graphics.DrawLine(TempPen, new Point(0, TempHeightHolder), new Point(8, TempHeightHolder));
+            }
+        }
+
         private void BU_APIKey_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(Properties.Settings.Default.API_Key))
             {
-                Form_APIKey Form_APIKey_Temp = new Form_APIKey
-                {
-                    Owner = this
-                };
-                Form_APIKey_Temp.Show();
+                new Form_APIKey().Show();
             }
             else
             {
@@ -2084,188 +2109,15 @@ namespace e621_ReBot_v2
             bU_NoteRemove.Enabled = false;
         }
 
-        private void CheckBox_BigMode_CheckedChanged(object sender, EventArgs e)
+        private void TrackBar_Volume_Scroll(object sender, EventArgs e)
         {
-            Properties.Settings.Default.LoadBigForm = CheckBox_BigMode.Checked;
-            Properties.Settings.Default.Save();
+            uint vol = (uint)(ushort.MaxValue / 100 * TrackBar_Volume.Value);
+            Module_VolumeControl.waveOutSetVolume(IntPtr.Zero, (vol & 0xFFFF) | (vol << 16));
         }
 
-        private void CheckBox_AutocompleteTags_CheckedChanged(object sender, EventArgs e)
+        private void TrackBar_Volume_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.AutocompleteTags = CheckBox_AutocompleteTags.Checked;
-            Properties.Settings.Default.Save();
-        }
-
-        private void CheckBox_ManualInferiorSave_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.ManualInferiorSave = CheckBox_ManualInferiorSave.Checked;
-            Properties.Settings.Default.Save();
-        }
-
-        private void CheckBox_ExpandedDescription_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.ExpandedDescription = CheckBox_ExpandedDescription.Checked;
-            Properties.Settings.Default.Save();
-        }
-
-        private void CheckBox_RemoveBVAS_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.RemoveBVAS = CheckBox_RemoveBVAS.Checked;
-            Properties.Settings.Default.Save();
-        }
-
-        private void CheckBox_ClearCache_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.ClearCache = CheckBox_ClearCache.Checked;
-            Properties.Settings.Default.Save();
-        }
-
-        private void CheckBox_DontFlag_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.DontFlag = CheckBox_DontFlag.Checked;
-            Properties.Settings.Default.Save();
-        }
-
-        private Timer FolderDialogFix;
-        private void BU_DownloadFolderChange_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog FolderDialogTemp = new FolderBrowserDialog()
-            {
-                SelectedPath = Application.StartupPath
-            };
-
-            //To make shitty FolderBrowserDialog scroll folder into view.
-            FolderDialogFix = new Timer();
-            FolderDialogFix.Tick += FolderDialogFix_Tick;
-            FolderDialogFix.Start();
-            if (FolderDialogTemp.ShowDialog() == DialogResult.OK)
-            {
-                label_DownloadsFolder.Text = FolderDialogTemp.SelectedPath + @"\Downloads\";
-                Properties.Settings.Default.DownloadsFolderLocation = label_DownloadsFolder.Text;
-                Properties.Settings.Default.Save();
-            }
-        }
-
-        private void FolderDialogFix_Tick(object sender, EventArgs e)
-        {
-            FolderDialogFix.Stop();
-            SendKeys.Send("{TAB}{TAB}{RIGHT}");
-            FolderDialogFix.Dispose();
-        }
-
-        private void Textbox_AutoTagsEditor_Enter(object sender, EventArgs e)
-        {
-            textBox_AutoTagsEditor.Text = null;
-        }
-
-        private void Textbox_AutoTagsEditor_Leave(object sender, EventArgs e)
-        {
-            textBox_AutoTagsEditor.Text = "Type here";
-            bU_AutoTagsAdd.Enabled = false;
-            bU_AutoTagsRemove.Enabled = false;
-        }
-
-        public DC_AutocompleteMenu AutoTags = new DC_AutocompleteMenu();
-        public List<DC_AutocompleteItem> AutoTagsList_Tags = new List<DC_AutocompleteItem>();
-        public List<DC_MultiCollumnAutocompleteItem> AutoTagsList_Pools = new List<DC_MultiCollumnAutocompleteItem>();
-
-        private void Textbox_AutoTagsEditor_KeyDown(object sender, KeyEventArgs e)
-        {
-            switch (e.KeyCode)
-            {
-                case Keys.Space:
-                    {
-                        e.SuppressKeyPress = true;
-                        break;
-                    }
-
-                case Keys.Escape:
-                    {
-                        if (!AutoTags.Visible)
-                        {
-                            textBox_AutoTagsEditor.Focus();
-                        }
-                        e.SuppressKeyPress = true;
-                        break;
-                    }
-            }
-        }
-
-        private List<string> CustomTagsTableHolder = new List<string>();
-        private void Textbox_AutoTagsEditor_TextChanged(object sender, EventArgs e)
-        {
-            if (textBox_AutoTagsEditor.TextLength > 0)
-            {
-                if (CustomTagsTableHolder == null)
-                {
-                    CustomTagsTableHolder = Module_DB.DB_CT_ReadTable();
-                }
-
-                if (CustomTagsTableHolder.Contains(textBox_AutoTagsEditor.Text))
-                {
-                    bU_AutoTagsAdd.Enabled = false;
-                    bU_AutoTagsRemove.Enabled = true;
-                }
-                else
-                {
-                    bU_AutoTagsAdd.Enabled = true;
-                    bU_AutoTagsRemove.Enabled = false;
-                }
-            }
-            else
-            {
-                bU_AutoTagsAdd.Enabled = false;
-                bU_AutoTagsRemove.Enabled = false;
-            }
-        }
-
-        private void BU_AutoTagsAdd_Click(object sender, EventArgs e)
-        {
-            textBox_AutoTagsEditor.Text = textBox_AutoTagsEditor.Text.ToLower();
-            Module_DB.DB_CT_CreateRecord(textBox_AutoTagsEditor.Text);
-            CustomTagsTableHolder.Add(textBox_AutoTagsEditor.Text);
-            AutoTagsList_Tags.Add(new DC_AutocompleteItem(textBox_AutoTagsEditor.Text));
-            textBox_AutoTagsEditor.AutoCompleteCustomSource.Clear();
-            AutoCompleteStringCollection TempACSC = new AutoCompleteStringCollection();
-            TempACSC.AddRange(CustomTagsTableHolder.ToArray());
-            textBox_AutoTagsEditor.AutoCompleteCustomSource = TempACSC;
-            cGroupBoxColored_AutocompleteTagEditor.Focus();
-        }
-
-        private void BU_AutoTagsRemove_Click(object sender, EventArgs e)
-        {
-            textBox_AutoTagsEditor.Text = textBox_AutoTagsEditor.Text.ToLower();
-            Module_DB.DB_CT_DeleteRecord(textBox_AutoTagsEditor.Text);
-            CustomTagsTableHolder.Remove(textBox_AutoTagsEditor.Text);
-            AutoTagsList_Tags.Clear();
-            AutoTags.Dispose();
-            AutoTags = new DC_AutocompleteMenu();
-            GC.WaitForPendingFinalizers();
-            GC.Collect();
-            Read_AutoTags();
-            cGroupBoxColored_AutocompleteTagEditor.Focus();
-        }
-
-        private void BU_PoolWatcher_Click(object sender, EventArgs e)
-        {
-            if (Form_PoolWatcher._FormReference == null)
-            {
-                new Form_PoolWatcher(this, bU_PoolWatcher.PointToScreen(Point.Empty));
-            }
-            Form_PoolWatcher._FormReference.ShowDialog();
-        }
-
-        public List<string> Blacklist = new List<string>();
-        private void BU_Blacklist_Click(object sender, EventArgs e)
-        {
-            new Form_Blacklist(this, bU_Blacklist.PointToScreen(Point.Empty));
-            Form_Blacklist._FormReference.ShowDialog();
-        }
-
-        private void BU_RefreshCredit_Click(object sender, EventArgs e)
-        {
-            bU_RefreshCredit.Enabled = false;
-            new Thread(Module_Credits.Check_Credit_All).Start();
+            cGroupBoxColored_Volume.Text = $"Volume ({TrackBar_Volume.Value}%)";
         }
 
         private void UpdateDays_CheckedChanged(object sender, EventArgs e)
@@ -2278,45 +2130,15 @@ namespace e621_ReBot_v2
             }
         }
 
-        private void NamingE6_CheckedChanged(object sender, EventArgs e)
+        //
+
+        private void RadioButton_GrabDisplayOrder_CheckedChanged(object sender, EventArgs e)
         {
-            RadioButton SenderTemp = (RadioButton)sender;
-            if (SenderTemp.Checked)
+            RadioButton RadioButtonHolder = (RadioButton)sender;
+            if (RadioButtonHolder.Checked)
             {
-                Properties.Settings.Default.Naming_e6 = int.Parse(SenderTemp.Tag.ToString());
+                Properties.Settings.Default.GrabDisplayOrder = RadioButtonHolder.Name.Substring(RadioButtonHolder.Name.Length - 1);
                 Properties.Settings.Default.Save();
-            }
-        }
-
-        private void NamingWeb_CheckedChanged(object sender, EventArgs e)
-        {
-            RadioButton SenderTemp = (RadioButton)sender;
-            if (SenderTemp.Checked)
-            {
-                Properties.Settings.Default.Naming_web = int.Parse(SenderTemp.Tag.ToString());
-                Properties.Settings.Default.Save();
-            }
-        }
-
-        private void TrackBar_Volume_Scroll(object sender, EventArgs e)
-        {
-            uint vol = (uint)(ushort.MaxValue / 100 * TrackBar_Volume.Value);
-            Module_VolumeControl.waveOutSetVolume(IntPtr.Zero, (vol & 0xFFFF) | (vol << 16));
-        }
-
-        private void TrackBar_Volume_ValueChanged(object sender, EventArgs e)
-        {
-            cGroupBoxColored_Volume.Text = $"Volume ({TrackBar_Volume.Value}%)";
-        }
-
-        private void Panel_CheckBoxOptions_Paint(object sender, PaintEventArgs e)
-        {
-            int TempHeightHolder = panel_CheckBoxOptions.Height - (CheckBox_DontFlag.Visible ? 0 : 24) - 1;
-            using (Pen TempPen = new Pen(Color.Black, 1))
-            {
-                e.Graphics.DrawLine(TempPen, new Point(0, 0), new Point(0, TempHeightHolder));
-                e.Graphics.DrawLine(TempPen, new Point(0, 0), new Point(8, 0));
-                e.Graphics.DrawLine(TempPen, new Point(0, TempHeightHolder), new Point(8, TempHeightHolder));
             }
         }
 
@@ -2368,36 +2190,233 @@ namespace e621_ReBot_v2
             }
         }
 
-        private void RadioButton_GrabDisplayOrder_CheckedChanged(object sender, EventArgs e)
+        //
+
+        public List<string> Blacklist = new List<string>();
+        private void BU_Blacklist_Click(object sender, EventArgs e)
         {
-            RadioButton RadioButtonHolder = (RadioButton)sender;
-            if (RadioButtonHolder.Checked)
+            new Form_Blacklist(bU_Blacklist.PointToScreen(Point.Empty));
+            Form_Blacklist._FormReference.ShowDialog();
+        }
+
+        //
+
+        private void TextBox_Delay_Enter(object sender, EventArgs e)
+        {
+            TextBox SenderTB = (TextBox)sender;
+            SenderTB.Text = null;
+        }
+
+        private void TextBox_Delay_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Enter key pressed
+            if (e.KeyCode == Keys.Enter)
             {
-                Properties.Settings.Default.GrabDisplayOrder = RadioButtonHolder.Name.Substring(RadioButtonHolder.Name.Length - 1);
+                cGroupBoxColored_ActionDelay.Focus();
+                e.Handled = true;
+                return;
+            }
+        }
+
+        private void TextBox_Delay_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Back)
+            {
+                return;
+            }
+
+            // Don't allow anything that isn't a number
+            if (!char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            TextBox SenderTB = (TextBox)sender;
+            // Don't allow 0 as first value
+            if (SenderTB.Text.Length == 0 && e.KeyChar == '0')
+            {
+                e.Handled = true;
+                return;
+            }
+        }
+
+        private void TextBox_DelayGrabber_Leave(object sender, EventArgs e)
+        {
+            int TBValue;
+            if (!int.TryParse(textBox_DelayGrabber.Text, out TBValue))
+            {
+                TBValue = 0;
+            }
+            if (TBValue < 250)
+            {
+                TBValue = 250;
+            }
+            textBox_DelayGrabber.Text = TBValue.ToString();
+            Properties.Settings.Default.DelayGrabber = TBValue;
+            Properties.Settings.Default.Save();
+
+            bool RestartTimeCheck = Module_Grabber.timer_Grab.Enabled;
+            Module_Grabber.timer_Grab.Stop();
+            Module_Grabber.timer_Grab.Interval = TBValue;
+            if (RestartTimeCheck)
+            {
+                Module_Grabber.timer_Grab.Start();
+            }
+        }
+
+        private void TextBox_DelayUploader_Leave(object sender, EventArgs e)
+        {
+            int TBValue;
+            if (!int.TryParse(textBox_DelayUploader.Text, out TBValue))
+            {
+                TBValue = 0;
+            }
+            if (TBValue < 1000)
+            {
+                TBValue = 1000;
+            }
+            textBox_DelayUploader.Text = TBValue.ToString();
+            Properties.Settings.Default.DelayUploader = TBValue;
+            Properties.Settings.Default.Save();
+
+            bool RestartTimeCheck = Module_Uploader.timer_Upload.Enabled;
+            Module_Uploader.timer_Upload.Stop();
+            Module_Uploader.timer_Upload.Interval = TBValue;
+            if (RestartTimeCheck)
+            {
+                Module_Uploader.timer_Upload.Start();
+            }
+        }
+
+        private void TextBox_DelayDownload_Leave(object sender, EventArgs e)
+        {
+            int TBValue;
+            if (!int.TryParse(textBox_DelayDownload.Text, out TBValue))
+            {
+                TBValue = 0;
+            }
+            if (TBValue < 250)
+            {
+                TBValue = 250;
+            }
+            textBox_DelayDownload.Text = TBValue.ToString();
+            Properties.Settings.Default.DelayDownload = TBValue;
+            Properties.Settings.Default.Save();
+
+            bool RestartTimeCheck = Module_Downloader.timer_Download.Enabled;
+            Module_Downloader.timer_Download.Stop();
+            Module_Downloader.timer_Download.Interval = TBValue;
+            if (RestartTimeCheck)
+            {
+                Module_Downloader.timer_Download.Start();
+            }
+        }
+
+        //
+
+        private void NamingE6_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton SenderTemp = (RadioButton)sender;
+            if (SenderTemp.Checked)
+            {
+                Properties.Settings.Default.Naming_e6 = int.Parse(SenderTemp.Tag.ToString());
                 Properties.Settings.Default.Save();
             }
         }
 
-        private void BU_ResetSettings_Click(object sender, EventArgs e)
+        private void NamingWeb_CheckedChanged(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to reset all settings?", "e621 ReBot", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            RadioButton SenderTemp = (RadioButton)sender;
+            if (SenderTemp.Checked)
             {
-                Properties.Settings.Default.Reset();
-                Cef.Shutdown();
-                bool DeleteWorked = false;
-                do
+                Properties.Settings.Default.Naming_web = int.Parse(SenderTemp.Tag.ToString());
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private readonly Timer FolderDialogFix;
+        private void BU_DownloadFolderChange_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog FolderDialogTemp = new FolderBrowserDialog()
+            {
+                SelectedPath = Application.StartupPath
+            };
+
+            //To make shitty FolderBrowserDialog scroll folder into view.
+            FolderDialogFix.Start();
+            if (FolderDialogTemp.ShowDialog() == DialogResult.OK)
+            {
+                label_DownloadsFolder.Text = $"{FolderDialogTemp.SelectedPath}\\Downloads\\";
+                Properties.Settings.Default.DownloadsFolderLocation = label_DownloadsFolder.Text;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private void FolderDialogFix_Tick(object sender, EventArgs e)
+        {
+            FolderDialogFix.Stop();
+            SendKeys.Send("{TAB}{TAB}{RIGHT}");
+            FolderDialogFix.Dispose();
+        }
+
+        //
+
+        private void CheckBox_ConverterKeepOriginal_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Converter_KeepOriginal = CheckBox_ConverterKeepOriginal.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void CheckBox_ConverterDontConvertVideos_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Converter_DontConvertVideos = CheckBox_ConverterDontConvertVideos.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void Label_DragDropConvert_Paint(object sender, PaintEventArgs e)
+        {
+            ControlPaint.DrawBorder(e.Graphics, label_DragDropConvert.ClientRectangle, Color.Black, ButtonBorderStyle.Solid);
+        }
+
+        private void Label_DragDropConvert_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Copy : DragDropEffects.None;
+        }
+
+        private void Label_DragDropConvert_DragDrop(object sender, DragEventArgs e)
+        {
+            List<string> fileList = new List<string>();
+
+            string[] DropList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+            foreach (string FilePath in DropList)
+            {
+                if (FilePath.ToLower().EndsWith(".mp4") || FilePath.ToLower().EndsWith(".swf"))
                 {
-                    try
+                    fileList.Add(FilePath);
+                }
+            }
+
+            switch (fileList.Count)
+            {
+                case 0:
                     {
-                        Directory.Delete("CefSharp Cache", true);
-                        DeleteWorked = true;
+                        MessageBox.Show("No supported video files detected.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        break;
                     }
-                    catch (Exception)
+
+                case 1:
                     {
-                        Thread.Sleep(500);
+                        Module_FFmpeg.DragDropConvert(fileList[0]);
+                        break;
                     }
-                } while (DeleteWorked == false);
-                Close();
+
+                default:
+                    {
+                        MessageBox.Show("Can only convert one video at a time.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        break;
+                    }
+
             }
         }
 
@@ -2684,175 +2703,154 @@ namespace e621_ReBot_v2
             }
         }
 
-        private void CheckBox_ConverterKeepOriginal_CheckedChanged(object sender, EventArgs e)
+        //
+
+        private void Textbox_AutoTagsEditor_Enter(object sender, EventArgs e)
         {
-            Properties.Settings.Default.Converter_KeepOriginal = CheckBox_ConverterKeepOriginal.Checked;
-            Properties.Settings.Default.Save();
+            textBox_AutoTagsEditor.Text = null;
         }
 
-        private void CheckBox_ConverterDontConvertVideos_CheckedChanged(object sender, EventArgs e)
+        private void Textbox_AutoTagsEditor_Leave(object sender, EventArgs e)
         {
-            Properties.Settings.Default.Converter_DontConvertVideos = CheckBox_ConverterDontConvertVideos.Checked;
-            Properties.Settings.Default.Save();
+            textBox_AutoTagsEditor.Text = "Type here";
+            bU_AutoTagsAdd.Enabled = false;
+            bU_AutoTagsRemove.Enabled = false;
         }
 
-        private void TextBox_Delay_Enter(object sender, EventArgs e)
+        public DC_AutocompleteMenu AutoTags = new DC_AutocompleteMenu();
+        public List<DC_AutocompleteItem> AutoTagsList_Tags = new List<DC_AutocompleteItem>();
+        public List<DC_MultiCollumnAutocompleteItem> AutoTagsList_Pools = new List<DC_MultiCollumnAutocompleteItem>();
+
+        private void Textbox_AutoTagsEditor_KeyDown(object sender, KeyEventArgs e)
         {
-            TextBox SenderTB = (TextBox)sender;
-            SenderTB.Text = null;
-        }
-
-        private void TextBox_Delay_KeyDown(object sender, KeyEventArgs e)
-        {
-            // Enter key pressed
-            if (e.KeyCode == Keys.Enter)
+            switch (e.KeyCode)
             {
-                cGroupBoxColored_ActionDelay.Focus();
-                e.Handled = true;
-                return;
-            }
-        }
+                case Keys.Space:
+                    {
+                        e.SuppressKeyPress = true;
+                        break;
+                    }
 
-        private void TextBox_Delay_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Back)
-            {
-                return;
-            }
-
-            // Don't allow anything that isn't a number
-            if (!char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-                return;
-            }
-
-            TextBox SenderTB = (TextBox)sender;
-            // Don't allow 0 as first value
-            if (SenderTB.Text.Length == 0 && e.KeyChar == '0')
-            {
-                e.Handled = true;
-                return;
+                case Keys.Escape:
+                    {
+                        if (!AutoTags.Visible)
+                        {
+                            textBox_AutoTagsEditor.Focus();
+                        }
+                        e.SuppressKeyPress = true;
+                        break;
+                    }
             }
         }
 
-        private void TextBox_DelayGrabber_Leave(object sender, EventArgs e)
+        private List<string> CustomTagsTableHolder = new List<string>();
+        private void Textbox_AutoTagsEditor_TextChanged(object sender, EventArgs e)
         {
-            int TBValue;
-            if (!int.TryParse(textBox_DelayGrabber.Text, out TBValue))
+            if (textBox_AutoTagsEditor.TextLength > 0)
             {
-                TBValue = 0;
-            }
-            if (TBValue < 250)
-            {
-                TBValue = 250;
-            }
-            textBox_DelayGrabber.Text = TBValue.ToString();
-            Properties.Settings.Default.DelayGrabber = TBValue;
-            Properties.Settings.Default.Save();
-
-            bool RestartTimeCheck = Module_Grabber.timer_Grab.Enabled;
-            Module_Grabber.timer_Grab.Stop();
-            Module_Grabber.timer_Grab.Interval = TBValue;
-            if (RestartTimeCheck)
-            {
-                Module_Grabber.timer_Grab.Start();
-            }
-        }
-
-        private void TextBox_DelayUploader_Leave(object sender, EventArgs e)
-        {
-            int TBValue;
-            if (!int.TryParse(textBox_DelayUploader.Text, out TBValue))
-            {
-                TBValue = 0;
-            }
-            if (TBValue < 1000)
-            {
-                TBValue = 1000;
-            }
-            textBox_DelayUploader.Text = TBValue.ToString();
-            Properties.Settings.Default.DelayUploader = TBValue;
-            Properties.Settings.Default.Save();
-
-            bool RestartTimeCheck = Module_Uploader.timer_Upload.Enabled;
-            Module_Uploader.timer_Upload.Stop();
-            Module_Uploader.timer_Upload.Interval = TBValue;
-            if (RestartTimeCheck)
-            {
-                Module_Uploader.timer_Upload.Start();
-            }
-        }
-
-        private void TextBox_DelayDownload_Leave(object sender, EventArgs e)
-        {
-            int TBValue;
-            if (!int.TryParse(textBox_DelayDownload.Text, out TBValue))
-            {
-                TBValue = 0;
-            }
-            if (TBValue < 250)
-            {
-                TBValue = 250;
-            }
-            textBox_DelayDownload.Text = TBValue.ToString();
-            Properties.Settings.Default.DelayDownload = TBValue;
-            Properties.Settings.Default.Save();
-
-            bool RestartTimeCheck = Module_Downloader.timer_Download.Enabled;
-            Module_Downloader.timer_Download.Stop();
-            Module_Downloader.timer_Download.Interval = TBValue;
-            if (RestartTimeCheck)
-            {
-                Module_Downloader.timer_Download.Start();
-            }
-        }
-
-        private void Label_DragDropConvert_Paint(object sender, PaintEventArgs e)
-        {
-            ControlPaint.DrawBorder(e.Graphics, label_DragDropConvert.ClientRectangle, Color.Black, ButtonBorderStyle.Solid);
-        }
-
-        private void Label_DragDropConvert_DragEnter(object sender, DragEventArgs e)
-        {
-            e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Copy : DragDropEffects.None;
-        }
-
-        private void Label_DragDropConvert_DragDrop(object sender, DragEventArgs e)
-        {
-            List<string> fileList = new List<string>();
-
-            string[] DropList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
-            foreach (string FilePath in DropList)
-            {
-                if (FilePath.ToLower().EndsWith(".mp4") || FilePath.ToLower().EndsWith(".swf"))
+                if (CustomTagsTableHolder == null)
                 {
-                    fileList.Add(FilePath);
+                    CustomTagsTableHolder = Module_DB.DB_CT_ReadTable();
+                }
+
+                if (CustomTagsTableHolder.Contains(textBox_AutoTagsEditor.Text))
+                {
+                    bU_AutoTagsAdd.Enabled = false;
+                    bU_AutoTagsRemove.Enabled = true;
+                }
+                else
+                {
+                    bU_AutoTagsAdd.Enabled = true;
+                    bU_AutoTagsRemove.Enabled = false;
                 }
             }
-
-            switch (fileList.Count)
+            else
             {
-                case 0:
-                    {
-                        MessageBox.Show("No supported video files detected.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        break;
-                    }
-
-                case 1:
-                    {
-                        Module_FFmpeg.DragDropConvert(fileList[0]);
-                        break;
-                    }
-
-                default:
-                    {
-                        MessageBox.Show("Can only convert one video at a time.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        break;
-                    }
-
+                bU_AutoTagsAdd.Enabled = false;
+                bU_AutoTagsRemove.Enabled = false;
             }
         }
+
+        private void BU_AutoTagsAdd_Click(object sender, EventArgs e)
+        {
+            textBox_AutoTagsEditor.Text = textBox_AutoTagsEditor.Text.ToLower();
+            Module_DB.DB_CT_CreateRecord(textBox_AutoTagsEditor.Text);
+            CustomTagsTableHolder.Add(textBox_AutoTagsEditor.Text);
+            AutoTagsList_Tags.Add(new DC_AutocompleteItem(textBox_AutoTagsEditor.Text));
+            textBox_AutoTagsEditor.AutoCompleteCustomSource.Clear();
+            AutoCompleteStringCollection TempACSC = new AutoCompleteStringCollection();
+            TempACSC.AddRange(CustomTagsTableHolder.ToArray());
+            textBox_AutoTagsEditor.AutoCompleteCustomSource = TempACSC;
+            cGroupBoxColored_AutocompleteTagEditor.Focus();
+        }
+
+        private void BU_AutoTagsRemove_Click(object sender, EventArgs e)
+        {
+            textBox_AutoTagsEditor.Text = textBox_AutoTagsEditor.Text.ToLower();
+            Module_DB.DB_CT_DeleteRecord(textBox_AutoTagsEditor.Text);
+            CustomTagsTableHolder.Remove(textBox_AutoTagsEditor.Text);
+            AutoTagsList_Tags.Clear();
+            AutoTags.Dispose();
+            AutoTags = new DC_AutocompleteMenu();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+            Read_AutoTags();
+            cGroupBoxColored_AutocompleteTagEditor.Focus();
+        }
+
+        //
+
+        private void CheckBox_BigMode_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.LoadBigForm = CheckBox_BigMode.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void CheckBox_AutocompleteTags_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.AutocompleteTags = CheckBox_AutocompleteTags.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void CheckBox_ManualInferiorSave_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.ManualInferiorSave = CheckBox_ManualInferiorSave.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void CheckBox_ExpandedDescription_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.ExpandedDescription = CheckBox_ExpandedDescription.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void CheckBox_RemoveBVAS_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.RemoveBVAS = CheckBox_RemoveBVAS.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void CheckBox_ClearCache_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.ClearCache = CheckBox_ClearCache.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void CheckBox_DontFlag_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.DontFlag = CheckBox_DontFlag.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        //
+
+        private void BU_PoolWatcher_Click(object sender, EventArgs e)
+        {
+            new Form_PoolWatcher(bU_PoolWatcher.PointToScreen(Point.Empty));
+            Form_PoolWatcher._FormReference.ShowDialog();
+        }
+
+        //
 
         private void BU_GetGenders_Click(object sender, EventArgs e)
         {
@@ -3026,9 +3024,34 @@ namespace e621_ReBot_v2
             DNP_Tags.AddRange(Properties.Resources.DNPs.Split(new string[] { "✄" }, StringSplitOptions.RemoveEmptyEntries));
         }
 
+        //
+
         private void BU_AppData_Click(object sender, EventArgs e)
         {
             Process.Start("explorer.exe", Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "e621_ReBot_v2"));
+        }
+
+        private void BU_ResetSettings_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to reset all settings?", "e621 ReBot", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                Properties.Settings.Default.Reset();
+                Cef.Shutdown();
+                bool DeleteWorked = false;
+                do
+                {
+                    try
+                    {
+                        Directory.Delete("CefSharp Cache", true);
+                        DeleteWorked = true;
+                    }
+                    catch (Exception)
+                    {
+                        Thread.Sleep(500);
+                    }
+                } while (DeleteWorked == false);
+                Close();
+            }
         }
 
         #endregion
@@ -3092,6 +3115,5 @@ namespace e621_ReBot_v2
         }
 
         #endregion
-
     }
 }

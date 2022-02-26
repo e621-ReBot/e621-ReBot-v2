@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Net;
 using System.Windows.Forms;
 using HtmlAgilityPack;
@@ -77,6 +76,11 @@ namespace e621_ReBot_v2.Modules.Grabber
                 {
                     Module_Grabber.Report_Info(string.Format("Skipped grabbing - Already in queue [@{0}]", DirectLink2Post));
                 }
+            }
+
+            if (TreeViewParentNode.Nodes.Count == 0)
+            {
+                TreeViewParentNode.Remove();
             }
         }
 

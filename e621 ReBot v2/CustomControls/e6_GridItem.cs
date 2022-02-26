@@ -232,21 +232,16 @@ namespace e621_ReBot_v2.CustomControls
         private void DoubleClicked()
         {
             DoubleClickTimerCheck.Stop();
-
-            string Nav2URL = _DataRowReference["Grab_MediaURL"].ToString();
-            if (Nav2URL.ToLower().EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) | Nav2URL.ToLower().EndsWith(".swf", StringComparison.OrdinalIgnoreCase))
-            {
-                Nav2URL = _DataRowReference["Grab_ThumbnailURL"].ToString();
-            }
-
-            if (Form_Preview._FormReference == null)
+            string Nav2URL = (string)_DataRowReference["Grab_MediaURL"];
+            bool FreshStart = Form_Preview._FormReference == null;
+            if (FreshStart)
             {
                 new Form_Preview();
+                Form_Preview._FormReference.URL2Navigate4Start = Nav2URL;
             }
             Form_Preview._FormReference.Preview_RowHolder = _DataRowReference;
             Form_Preview._FormReference.Preview_RowIndex = Module_TableHolder.Database_Table.Rows.IndexOf(_DataRowReference);
-            Form_Preview._FormReference.URL2Navigate = Nav2URL;
-            Form_Preview._FormReference.NavURL(Nav2URL);
+            if (!FreshStart) Form_Preview._FormReference.NavURL(Nav2URL);
             Form_Preview._FormReference.BringToFront();
             if (Form_Preview._FormReference.WindowState == FormWindowState.Minimized)
             {

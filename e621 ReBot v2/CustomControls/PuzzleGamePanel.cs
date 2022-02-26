@@ -1,5 +1,4 @@
-﻿using e621_ReBot_v2.Forms;
-using e621_ReBot_v2.Modules;
+﻿using e621_ReBot_v2.Modules;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;

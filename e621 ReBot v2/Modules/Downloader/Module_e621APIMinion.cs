@@ -119,7 +119,6 @@ namespace e621_ReBot_v2.Modules
                     }
                 }
                 PageCounter += 1;
-                JSON_Object = null;
 
                 Form_Loader._FormReference.BeginInvoke(new Action(() =>
                 {
@@ -129,6 +128,7 @@ namespace e621_ReBot_v2.Modules
                 }));
                 if (WorkerMinion.CancellationPending)
                 {
+                    JSON_Object = null;
                     return;
                 }
                 if (JSON_Object.Children().Count() == 320)
@@ -136,6 +136,7 @@ namespace e621_ReBot_v2.Modules
                     Thread.Sleep(1000);
                     goto GrabAnotherAPIPage;
                 }
+                JSON_Object = null;
             }
         }
 
@@ -189,7 +190,6 @@ namespace e621_ReBot_v2.Modules
                         e6_PoolPostIndex: ComicPages.IndexOf(PostID).ToString()
                         );
                 }
-                JSON_Object = null;
 
                 Form_Loader._FormReference.BeginInvoke(new Action(() =>
                 {
@@ -200,6 +200,7 @@ namespace e621_ReBot_v2.Modules
                 if (WorkerMinion.CancellationPending)
                 {
                     //return;
+                    JSON_Object = null;
                     goto ExitFromStuff;
                 }
                 if (JSON_Object.Children().Count() == 320)
@@ -207,6 +208,7 @@ namespace e621_ReBot_v2.Modules
                     Thread.Sleep(1000);
                     goto GrabAnotherAPIPage;
                 }
+                JSON_Object = null;
             }
             ExitFromStuff:
             if (SkippedPostsCounter > 0)

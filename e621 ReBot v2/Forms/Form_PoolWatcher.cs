@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -17,12 +16,11 @@ namespace e621_ReBot_v2.Forms
     {
         public static Form_PoolWatcher _FormReference;
 
-        public Form_PoolWatcher(Form OwnerPass, Point LocationPass)
+        public Form_PoolWatcher(Point LocationPass)
         {
             InitializeComponent();
             _FormReference = this;
             Location = new Point(LocationPass.X - 8, LocationPass.Y);
-            Owner = OwnerPass;
         }
 
         private void Form_PoolWatcher_Load(object sender, EventArgs e)
@@ -245,7 +243,7 @@ namespace e621_ReBot_v2.Forms
             {
                 Form_Loader._FormReference.BeginInvoke(new Action(() =>
                 {
-                    Form_Loader._FormReference.textBox_Info.Text = $"{DateTime.Now.ToLongTimeString()}, Pool Watcher >>> Started download of {ItemsAddedCount} image{(ItemsAddedCount > 1 ? "s" : null)}\n" + Form_Loader._FormReference.textBox_Info.Text;
+                    Form_Loader._FormReference.textBox_Info.Text = $"{DateTime.Now.ToLongTimeString()}, Pool Watcher >>> Started download of {ItemsAddedCount} image{(ItemsAddedCount > 1 ? "s" : null)}\n{Form_Loader._FormReference.textBox_Info.Text}";
                     Module_Downloader.timer_Download.Start();
                 }));
             }
@@ -279,8 +277,8 @@ namespace e621_ReBot_v2.Forms
 
         private void Form_PoolWatcher_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Owner.Activate();
-            Owner.Focus();
+            Form_Loader._FormReference.Activate();
+            Form_Loader._FormReference.Focus();
             _FormReference = null;
             Dispose();
         }

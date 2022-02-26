@@ -37,39 +37,42 @@ namespace e621_ReBot_v2.Modules
 
         public static bool Media2BigCheck(ref DataRow DataRowPass)
         {
-            string FileType = (string)DataRowPass["Info_MediaFormat"];
-            int BytesLength = (int)DataRowPass["Info_MediaByteLength"];
             //https://e621.net/wiki_pages/howto:sites_and_sources
-            switch (FileType)
+            if (DataRowPass["Info_MediaByteLength"] != DBNull.Value)
             {
-                case "gif":
-                    {
-                        if (BytesLength > 20971520)
+                string FileType = (string)DataRowPass["Info_MediaFormat"];
+                int BytesLength = (int)DataRowPass["Info_MediaByteLength"];
+                switch (FileType)
+                {
+                    case "gif":
                         {
-                            DataRowPass["Info_TooBig"] = true;
-                            return true; // 20 * 1024 * 1024 = 20MB Limit
+                            if (BytesLength > 20971520)
+                            {
+                                DataRowPass["Info_TooBig"] = true;
+                                return true; // 20 * 1024 * 1024 = 20MB Limit
+                            }
+                            break;
                         }
-                        break;
-                    }
 
-                case "jpg":
-                case "jpeg":
-                case "png":
-                    {
-                        if (BytesLength > 104857600)
+                    case "jpg":
+                    case "jpeg":
+                    case "png":
+                    case "webp":
                         {
-                            DataRowPass["Info_TooBig"] = true;
-                            return true; // 100 * 1024 * 1024 = 100MB Limit
+                            if (BytesLength > 104857600)
+                            {
+                                DataRowPass["Info_TooBig"] = true;
+                                return true; // 100 * 1024 * 1024 = 100MB Limit
+                            }
+                            break;
                         }
-                        break;
-                    }
+                }
             }
 
             if (DataRowPass["Info_MediaWidth"] != DBNull.Value)
             {
                 int MediaWidth = (int)DataRowPass["Info_MediaWidth"];
                 int MediaHeight = (int)DataRowPass["Info_MediaHeight"];
-                //https://e621.net/wiki_pages/howto:sites_and_sources
                 int BiggerR = Math.Max(MediaWidth, MediaHeight);
                 if (BiggerR > 15000)
                 {
@@ -187,7 +190,7 @@ namespace e621_ReBot_v2.Modules
         {
             Form_Loader._FormReference.BeginInvoke(new Action(() =>
             {
-                Form_Loader._FormReference.textBox_Info.Text = string.Format("{0} Uploader >>> {1}\n", DateTime.Now.ToLongTimeString(), InfoMessage) + Form_Loader._FormReference.textBox_Info.Text;
+                Form_Loader._FormReference.textBox_Info.Text = $"{DateTime.Now.ToLongTimeString()}, Uploader >>> {InfoMessage}\n{Form_Loader._FormReference.textBox_Info.Text}";
             }
             ));
         }
@@ -197,7 +200,7 @@ namespace e621_ReBot_v2.Modules
             Form_Loader._FormReference.BeginInvoke(new Action(() => { Form_Loader._FormReference.label_UploadStatus.Text = string.Format("Status: {0}", StatusMessage); }));
         }
 
-        public static KeyValuePair<HttpWebResponse, string> SEND_Request(string SendMethod, string URL, Dictionary<string, string> SEND_Dictionary, byte[] bytes2Send = null)
+        public static KeyValuePair<HttpWebResponse, string> SEND_Request(string SendMethod, string URL, Dictionary<string, string> SEND_Dictionary, in byte[] bytes2Send = null)
         {
             string MPF_Boundary = "--------" + DateTime.Now.Ticks.ToString("x");
             MultipartFormDataContent EncodedContent = new MultipartFormDataContent(MPF_Boundary);
@@ -426,7 +429,8 @@ namespace e621_ReBot_v2.Modules
                 }
             }
 
-            string Upload_Description;
+            string Upload_Description = null;
+            string Upload_DescriptionNoExtras = null;
             if (DataRowRef["Grab_TextBody"] == DBNull.Value)
             {
                 Upload_Description = $"[code]{(string)DataRowRef["Grab_Title"]}[/code]";
@@ -435,6 +439,7 @@ namespace e621_ReBot_v2.Modules
             {
                 Upload_Description = string.Format("[section{0}={1}]\n{2}\n[/section]", Properties.Settings.Default.ExpandedDescription ? ",expanded" : null, (string)DataRowRef["Grab_Title"], (string)DataRowRef["Grab_TextBody"]);
             }
+            Upload_DescriptionNoExtras = Upload_Description;
 
             if (DataRowRef["Inferior_ID"] != DBNull.Value)
             {
@@ -452,41 +457,46 @@ namespace e621_ReBot_v2.Modules
 
             bool isByteUpload = false;
             string UploadedURLReport = Upload_MediaURL;
-            if (Upload_MediaURL.Contains("ugoira"))
+
+            string MediaFormat = (string)DataRowRef["Info_MediaFormat"];
+            switch (MediaFormat)
             {
-                POST_Dictionary.Add("upload[file]", Upload_MediaURL);
-                Upload_MediaURL = Upload_MediaURL.Substring(Upload_MediaURL.LastIndexOf("/") + 1);
-                UploadedURLReport = $"{Upload_MediaURL.Substring(0, Upload_MediaURL.IndexOf("_ugoira0."))}_ugoira1920x1080.webm, converted from {(string)DataRowRef["Grab_URL"]}";
-                Upload_Description += "\nConverted from Ugoira using FFmpeg: -c:v libvpx-vp9 -pix_fmt yuv420p -lossless 1 -an";
-                isByteUpload = true;
-            }
-            else
-            {
-                if (Upload_MediaURL.ToLower().EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) || Upload_MediaURL.ToLower().EndsWith(".swf", StringComparison.OrdinalIgnoreCase))
-                {
-                    POST_Dictionary.Add("upload[file]", Upload_MediaURL);
-                    string VideoFileName = Upload_MediaURL.Remove(Upload_MediaURL.Length - 4);
-                    VideoFileName = $"{VideoFileName.Substring(VideoFileName.LastIndexOf("/") + 1)}.webm";
-                    UploadedURLReport = $"{VideoFileName}, converted from {(string)DataRowRef["Grab_URL"]}";
-                    Upload_Description += "\nConverted using FFmpeg: -c:v libvpx-vp9 -pix_fmt yuv420p -b:v 2000k -minrate 1500k -maxrate 2500k -crf 16 -quality good -speed 4 -pass 2";
-                    isByteUpload = true;
-                }
-                else
-                {
-                    string EscapedURL = new Uri(Upload_MediaURL).AbsoluteUri;
-                    if (EscapedURL.Contains("https://img.pawoo.net/media_attachments/"))
+                case "ugoira":
                     {
                         POST_Dictionary.Add("upload[file]", Upload_MediaURL);
+                        Upload_MediaURL = Upload_MediaURL.Substring(Upload_MediaURL.LastIndexOf("/") + 1);
+                        UploadedURLReport = $"{Upload_MediaURL.Substring(0, Upload_MediaURL.IndexOf("_ugoira0."))}_ugoira1920x1080.webm, converted from {(string)DataRowRef["Grab_URL"]}";
+                        Upload_Description += "\nConverted from Ugoira using FFmpeg: -c:v libvpx-vp9 -pix_fmt yuv420p -lossless 1 -an";
                         isByteUpload = true;
+                        break;
                     }
-                    else
+
+                case "mp4":
+                case "swf":
                     {
-                        // Convert https://d.facdn.net/art/dannyckoo/1589311212/1589311212.dannyckoo_такао_фа.jpg to 
-                        // https://d.facdn.net/art/dannyckoo/1589311212/1589311212.dannyckoo_%D1%82%D0%B0%D0%BA%D0%B0%D0%BE_%D1%84%D0%B0.jpg
-                        // or direct link upload will erorr
-                        POST_Dictionary.Add("upload[direct_url]", EscapedURL);
+                        POST_Dictionary.Add("upload[file]", Upload_MediaURL);
+                        string VideoFileName = Upload_MediaURL.Remove(Upload_MediaURL.Length - 4);
+                        VideoFileName = $"{VideoFileName.Substring(VideoFileName.LastIndexOf("/") + 1)}.webm";
+                        UploadedURLReport = $"{VideoFileName}, converted from {(string)DataRowRef["Grab_URL"]}";
+                        Upload_Description += "\nConverted using FFmpeg: -c:v libvpx-vp9 -pix_fmt yuv420p -b:a 192k -b:v 2000k -minrate 1500k -maxrate 2500k -crf 16 -quality good -speed 4 -pass 2";
+                        isByteUpload = true;
+                        break;
                     }
-                }
+
+                 default:
+                    {
+                        string EscapedURL = new Uri(Upload_MediaURL).AbsoluteUri;
+                        if (EscapedURL.Contains("https://img.pawoo.net/media_attachments/") || EscapedURL.Contains("https://www.hiccears.com/file/"))
+                        {
+                            POST_Dictionary.Add("upload[file]", Upload_MediaURL);
+                            isByteUpload = true;
+                        }
+                        else
+                        {
+                            POST_Dictionary.Add("upload[direct_url]", EscapedURL);
+                        }
+                        break;
+                    }
             }
 
             byte[] bytes2Send = null;
@@ -503,28 +513,28 @@ namespace e621_ReBot_v2.Modules
                 {
                     string FileName;
                     string ExtraSourceURL;
-
-                    switch (Upload_MediaURL)
+                    switch (MediaFormat)
                     {
-                        case string Case1 when Case1.Contains("ugoira"):
+                        case "ugoira":
                             {
                                 Module_FFmpeg.UploadQueue_Ugoira2WebM(ref DataRowRef, out bytes2Send, out FileName, out ExtraSourceURL);
                                 break;
                             }
 
-                        case string Case2 when Case2.Contains("https://img.pawoo.net/media_attachments/"):
+                        case "mp4":
+                        case "swf":
                             {
-                                Directory.CreateDirectory("MediaTemp").Attributes = FileAttributes.Hidden;
-                                Module_Downloader.FileDownloader(Upload_MediaURL, "U", "MediaTemp", null, DataRowRef);
-                                FileName = Module_Downloader.GetMediasFileNameOnly(Upload_MediaURL);
-                                ExtraSourceURL = Upload_MediaURL;
-                                bytes2Send = File.ReadAllBytes($"MediaTemp\\{FileName}");
+                                Module_FFmpeg.UploadQueue_Videos2WebM(ref DataRowRef, out bytes2Send, out FileName, out ExtraSourceURL);
                                 break;
                             }
 
-                        default: // videos (.mp4, .swf)
+                        default:
                             {
-                                Module_FFmpeg.UploadQueue_Videos2WebM(ref DataRowRef, out bytes2Send, out FileName, out ExtraSourceURL);
+                                Directory.CreateDirectory("MediaTemp").Attributes = FileAttributes.Hidden;
+                                Module_Downloader.FileDownloader(Upload_MediaURL, "U", "MediaTemp", null, in DataRowRef);
+                                FileName = Module_Downloader.GetMediasFileNameOnly(Upload_MediaURL);
+                                ExtraSourceURL = Upload_MediaURL;
+                                bytes2Send = File.ReadAllBytes($"MediaTemp\\{FileName}");
                                 break;
                             }
                     }
@@ -535,7 +545,11 @@ namespace e621_ReBot_v2.Modules
 
             if (DataRowRef["Inferior_Description"] != DBNull.Value)
             {
-                Upload_Description += $"\n - - - - - \n{DataRowRef["Inferior_Description"]}";
+                string Inferior_Description = (string)DataRowRef["Inferior_Description"];
+                if (!(Inferior_Description.Equals(Upload_DescriptionNoExtras) || Inferior_Description.Equals((string)DataRowRef["Grab_TextBody"])))
+                {
+                    Upload_Description += $"\n - - - - - \n{Inferior_Description}";
+                }
             }
 
             string ParentTag = null;
@@ -558,7 +572,7 @@ namespace e621_ReBot_v2.Modules
             POST_Dictionary.Add("login", Properties.Settings.Default.UserName);
             POST_Dictionary.Add("api_key", Module_Cryptor.Decrypt(Properties.Settings.Default.API_Key));
 
-            KeyValuePair<HttpWebResponse, string> e6Response = SEND_Request("POST", "https://e621.net/uploads.json", POST_Dictionary, bytes2Send);
+            KeyValuePair<HttpWebResponse, string> e6Response = SEND_Request("POST", "https://e621.net/uploads.json", POST_Dictionary, in bytes2Send);
             switch (e6Response.Key.StatusCode)
             {
                 case HttpStatusCode.OK:
@@ -634,7 +648,7 @@ namespace e621_ReBot_v2.Modules
                     e6_GridItemTemp.cLabel_isUploaded.Text = (string)DataRowTemp["Uploaded_As"];
                 }
 
-                if (Form_Preview._FormReference != null && ReferenceEquals(Form_Preview._FormReference.Preview_RowHolder, DataRowTemp))
+                if (Form_Preview._FormReference != null && Form_Preview._FormReference.IsHandleCreated && ReferenceEquals(Form_Preview._FormReference.Preview_RowHolder, DataRowTemp))
                 {
                     Form_Preview._FormReference.PB_Upload.BackColor = Color.FromArgb(0, 45, 90);
                     Form_Preview._FormReference.Label_AlreadyUploaded.Text = $"Already uploaded as #{(string)DataRowTemp["Uploaded_As"]}";

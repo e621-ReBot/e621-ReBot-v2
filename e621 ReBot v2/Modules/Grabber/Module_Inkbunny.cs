@@ -48,13 +48,13 @@ namespace e621_ReBot_v2.Modules.Grabber
             string SubmissionType = WebDoc.DocumentNode.SelectSingleNode(".//div[@class='elephant elephant_bottom elephant_white']/div[@class='content']/div[3]/div[1]/div[2]/div[1]/div/text()").InnerText.Trim();
             if (SubmissionType.Equals("Writing - Document") || SubmissionType.Equals("Music - Single Track"))
             {
-                Module_Grabber.Report_Info(string.Format("Skipped grabbing - Unsupported submission type: {0} [@{1}]", SubmissionType, InkbunnyLinkFix));
+                Module_Grabber.Report_Info($"Skipped grabbing - Unsupported submission type: {SubmissionType} [@{InkbunnyLinkFix}]");
                 return;
             }
 
             if (Module_Grabber._GrabQueue_URLs.Contains(InkbunnyLinkFix))
             {
-                Module_Grabber.Report_Info(string.Format("Skipped grabbing - Already in queue [@{0}]", InkbunnyLinkFix));
+                Module_Grabber.Report_Info($"Skipped grabbing - Already in queue [@{InkbunnyLinkFix}]");
                 return;
             }
             else
@@ -84,7 +84,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                 string DirectLink2Post = "https://inkbunny.net" + ChildNode.SelectSingleNode(".//a").Attributes["href"].Value;
                 if (Module_Grabber._GrabQueue_URLs.Contains(DirectLink2Post))
                 {
-                    Module_Grabber.Report_Info(string.Format("Skipped grabbing - Already in queue [@{0}]", DirectLink2Post));
+                    Module_Grabber.Report_Info($"Skipped grabbing - Already in queue [@{DirectLink2Post}]");
                     continue;
                 }
                 else
@@ -97,15 +97,20 @@ namespace e621_ReBot_v2.Modules.Grabber
 
                 if (SubmissionType.Equals("Type: Writing - Document") || SubmissionType.Equals("Type: Music - Single Track"))
                 {
-                    Module_Grabber.Report_Info(string.Format("Skipped grabbing - Unsupported submission type: {0} [@{1}]", SubmissionType.Replace("Type:", ""), DirectLink2Post));
+                    Module_Grabber.Report_Info($"Skipped grabbing - Unsupported submission type: {SubmissionType.Replace("Type:", "")} [@{DirectLink2Post}]");
                     continue;
                 }
 
                 string WorkTitle = WebUtility.HtmlDecode(ChildNode.SelectSingleNode(".//div[@class='widget_thumbnailFromSubmission_title']").Attributes["title"].Value);
                 if (!Module_Grabber.CreateChildTreeNode(ref TreeViewParentNode, WorkTitle, DirectLink2Post))
                 {
-                    Module_Grabber.Report_Info(string.Format("Skipped grabbing - Already in queue [@{0}]", DirectLink2Post));
+                    Module_Grabber.Report_Info($"Skipped grabbing - Already in queue [@{DirectLink2Post}]");
                 }
+            }
+
+            if (TreeViewParentNode.Nodes.Count == 0)
+            {
+                TreeViewParentNode.Remove();
             }
         }
 

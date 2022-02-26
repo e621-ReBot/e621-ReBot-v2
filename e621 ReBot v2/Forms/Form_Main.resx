@@ -124,7 +124,7 @@
     <value>Drop Videos that you want to convert to Webm here.
 
 Supported formats: mp4, swf.
-FFmpeg settings: -c:v libvpx-vp9 -pix_fmt yuv420p -b:v 2000k -minrate 1500k -maxrate 2500k -crf 16 -quality good -speed 4 -pass 2</value>
+FFmpeg settings: -c:v libvpx-vp9 -pix_fmt yuv420p -b:a 192k -b:v 2000k -minrate 1500k -maxrate 2500k -crf 16 -quality good -speed 4 -pass 2</value>
   </data>
   <data name="radioButton_GrabDisplayOrder0.ToolTip" xml:space="preserve">
     <value>Grabbed media will be displayed in order it was queued.
