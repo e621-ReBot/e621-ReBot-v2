@@ -328,6 +328,7 @@ namespace e621_ReBot_v2
                     else
                     {
                         Properties.Settings.Default.FirstRun = false;
+                        QuickButtonPanel.Visible = true;
                     }
                 }
 

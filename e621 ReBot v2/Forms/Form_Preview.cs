@@ -33,8 +33,8 @@ namespace e621_ReBot_v2.Forms
             {
                 Dock = DockStyle.Fill,
                 RequestHandler = new PicBrowser_RequestHandler(),
-                MenuHandler = new MediaBrowser_MenuHandler()
-                //UseParentFormMessageInterceptor = false,
+                MenuHandler = new MediaBrowser_MenuHandler(),
+                UseParentFormMessageInterceptor = false
             };
             panel_PicBrowserHolder.Controls.Add(MediaBrowser);
             //MediaBrowser.AddressChanged += MediaBrowser_AddressChanged;

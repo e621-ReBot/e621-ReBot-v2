@@ -62,7 +62,7 @@ namespace e621_ReBot_v2.Modules
                 Dock = DockStyle.Fill,
                 RequestHandler = new CefSharp_RequestHandler(),
                 LifeSpanHandler = new CefSharp_LifeSpanHandler(),
-                UseParentFormMessageInterceptor = false,
+                UseParentFormMessageInterceptor = false
             };
             CefSharpBrowser.AddressChanged += CefSharp_AddressChanged;
             CefSharpBrowser.LoadingStateChanged += CefSharp_LoadingStateChanged;
