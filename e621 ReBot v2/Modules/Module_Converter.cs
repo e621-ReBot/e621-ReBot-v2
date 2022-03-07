@@ -82,7 +82,6 @@ namespace e621_ReBot_v2.Modules
         {
             if (Form_Preview._FormReference != null && Form_Preview._FormReference.IsHandleCreated && ReferenceEquals(Form_Preview._FormReference.Preview_RowHolder, TaskRow))
             {
-                Form_Preview._FormReference.Label_Download.Visible = false;
                 Form_Preview._FormReference.PB_ViewFile.Visible = true;
                 Form_Preview._FormReference.PB_ViewFile.Text = "▶";
             }

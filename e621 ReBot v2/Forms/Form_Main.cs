@@ -537,7 +537,7 @@ namespace e621_ReBot_v2
                                 _Selected_e6GridItem._Rating = keyData.ToString();
                                 if (Form_Preview._FormReference != null && Form_Preview._FormReference.IsHandleCreated && ReferenceEquals(_Selected_e6GridItem._DataRowReference, Form_Preview._FormReference.Preview_RowHolder))
                                 {
-                                    Form_Preview._FormReference.UpdateButtons();
+                                    Form_Preview._FormReference.UpdateRatingDLButtons();
                                 }
                                 break;
                             }

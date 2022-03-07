@@ -171,13 +171,16 @@ namespace CefSharp
                             {
                                 string SaveLocation = $"CefSharp Cache\\Media Cache\\{FileName}";
                                 File.WriteAllBytes(SaveLocation, ByteData);
-                                Module_Downloader.MediaBrowser_MediaCache.Add(FileName, SaveLocation);
+                                lock (Module_Downloader.MediaBrowser_MediaCache)
+                                {
+                                    Module_Downloader.MediaBrowser_MediaCache.Add(FileName, SaveLocation);
+                                }
                             }
                             break;
                         }
                     default:
                         {
-                            Form_Preview._FormReference.BeginInvoke(new Action(() => MessageBox.Show($"{FileExt} file extension not supported.", "Form Preview Caching Error", MessageBoxButtons.OK, MessageBoxIcon.Error)));
+                            Form_Preview._FormReference.BeginInvoke(new Action(() => { MessageBox.Show($"{FileExt} file extension not supported.", "Form Preview Caching Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }));
                             break;
                         }
                 }

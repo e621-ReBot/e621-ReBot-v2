@@ -185,7 +185,10 @@ namespace e621_ReBot_v2.Modules
 
             if (!Download_AlreadyDownloaded.Contains(MediaURL))
             {
-                Download_AlreadyDownloaded.Add(MediaURL);
+                lock (Download_AlreadyDownloaded)
+                {
+                    Download_AlreadyDownloaded.Add(MediaURL);
+                }
             }
 
             if (!File.Exists(FullFilePath) && MediaBrowser_MediaCache.ContainsKey(MediaName))
@@ -193,6 +196,7 @@ namespace e621_ReBot_v2.Modules
                 File.Copy(MediaBrowser_MediaCache[MediaName], FullFilePath, true);
                 return true;
             }
+
             return false;
         }
 

@@ -107,7 +107,7 @@ namespace e621_ReBot_v2.Forms
 
         private void Form_Preview_GotFocus(object sender, EventArgs e)
         {
-            UpdateButtons();
+            UpdateRatingDLButtons();
         }
 
         private void Form_Preview_KeyDown(object sender, KeyEventArgs e)
@@ -140,6 +140,8 @@ namespace e621_ReBot_v2.Forms
         private void Timer_NavDelay_Tick(object sender, EventArgs e)
         {
             timer_NavDelay.Stop();
+            UpdateNavButtons();
+            UpdateRatingDLButtons();
             NavURL(URL2Navigate4Start);
             ResizeEnd += Form_Preview_ResizeEnd;
             Resize += Form_Preview_Resize;
@@ -178,7 +180,7 @@ namespace e621_ReBot_v2.Forms
             }
             else
             {
-                PB_Download.Visible = Module_Downloader.Download_AlreadyDownloaded.Contains(ImageURL);
+                PB_Download.Visible = !Module_Downloader.Download_AlreadyDownloaded.Contains(ImageURL);
                 if (!PB_Download.Visible)
                 {
                     if (Preview_RowHolder["DL_FilePath"] != DBNull.Value && File.Exists((string)Preview_RowHolder["DL_FilePath"]))
@@ -231,9 +233,10 @@ namespace e621_ReBot_v2.Forms
                 {
                     panel_Navigation.Enabled = true;
                     UpdateNavButtons();
-                    UpdateButtons();
+                    UpdateRatingDLButtons();
                 }));
             }
+
             if (e.IsLoading)
             {
                 Invoke(new Action(() => { timer_LoadDoneDelay.Stop(); }));
@@ -403,7 +406,7 @@ namespace e621_ReBot_v2.Forms
             PB_LoadAllImages.Enabled = !(Preview_RowIndex == Module_TableHolder.Database_Table.Rows.Count - 1);
         }
 
-        public void UpdateButtons()
+        public void UpdateRatingDLButtons()
         {
             foreach (Button TempButton in panel_Rating.Controls)
             {
@@ -778,7 +781,7 @@ namespace e621_ReBot_v2.Forms
             {
                 GridItemTemp._Rating = SenderButton.Text;
             }
-            UpdateButtons();
+            UpdateRatingDLButtons();
         }
 
         private void PB_Tagger_Click(object sender, EventArgs e)
@@ -823,7 +826,7 @@ namespace e621_ReBot_v2.Forms
                 }
                 Form_Loader._FormReference.DownloadCounter += (bool)Preview_RowHolder["UPDL_Queued"] ? 1 : -1;
                 Form_Loader._FormReference.GB_Download.Enabled = Form_Loader._FormReference.DownloadCounter != 0;
-                UpdateButtons();
+                UpdateRatingDLButtons();
             }
         }
 
@@ -862,7 +865,6 @@ namespace e621_ReBot_v2.Forms
                             {
                                 _FormReference.BeginInvoke(new Action(() =>
                                 {
-                                    Label_Download.Visible = false;
                                     PB_ViewFile.Visible = true;
                                     PB_ViewFile.Text = "▶";
                                 }));
@@ -926,7 +928,10 @@ namespace e621_ReBot_v2.Forms
                 Preview_RowHolder["DL_FilePath"] = DBNull.Value;
                 PB_ViewFile.Visible = false;
                 PB_Download.Visible = true;
-                Label_DownloadWarning.Visible = true;
+                if (FilePath.Contains("ugoira"))
+                {
+                    Label_DownloadWarning.Visible = true;
+                }
             }
         }
 
@@ -995,7 +1000,7 @@ namespace e621_ReBot_v2.Forms
             {
                 Module_DB.DB_Media_CreateRecord(ref RowRefference);
             }
-            _FormReference.UpdateButtons();
+            _FormReference.UpdateRatingDLButtons();
         }
 
         public static void SuperiorSub(string PostID, DataRow RowRefference)
@@ -1119,7 +1124,7 @@ namespace e621_ReBot_v2.Forms
                     Form_Loader._FormReference.GB_Download.Enabled = Form_Loader._FormReference.DownloadCounter != 0;
                 }
             }
-            _FormReference.UpdateButtons();
+            _FormReference.UpdateRatingDLButtons();
         }
 
         private bool LoadAllImagesMod;
