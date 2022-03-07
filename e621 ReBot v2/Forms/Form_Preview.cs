@@ -34,7 +34,8 @@ namespace e621_ReBot_v2.Forms
                 Dock = DockStyle.Fill,
                 RequestHandler = new PicBrowser_RequestHandler(),
                 MenuHandler = new MediaBrowser_MenuHandler(),
-                UseParentFormMessageInterceptor = false
+                UseParentFormMessageInterceptor = false,
+                FocusHandler = new MediaBrowser_FocusHandler()
             };
             panel_PicBrowserHolder.Controls.Add(MediaBrowser);
             //MediaBrowser.AddressChanged += MediaBrowser_AddressChanged;
@@ -767,7 +768,7 @@ namespace e621_ReBot_v2.Forms
 
         private void PB_Rating_Click(object sender, EventArgs e)
         {
-            Label_Tags.Focus();
+            panel_Rating.Focus();
 
             Button_BrowserSmall SenderButton = (Button_BrowserSmall)sender;
             Preview_RowHolder["Upload_Rating"] = SenderButton.Text;
@@ -782,7 +783,7 @@ namespace e621_ReBot_v2.Forms
 
         private void PB_Tagger_Click(object sender, EventArgs e)
         {
-            Label_Tags.Focus();
+            panel_Rating.Focus();
             Open_Tagger(Preview_RowHolder);
         }
 
@@ -1124,7 +1125,7 @@ namespace e621_ReBot_v2.Forms
         private bool LoadAllImagesMod;
         private void PB_LoadAllImages_Click(object sender, EventArgs e)
         {
-            Label_Tags.Focus();
+            panel_Rating.Focus();
             if (LoadAllImagesMod)
             {
                 PB_LoadAllImages.ForeColor = Color.LightSteelBlue;

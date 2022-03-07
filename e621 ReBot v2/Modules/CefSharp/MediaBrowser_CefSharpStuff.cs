@@ -165,7 +165,7 @@ namespace CefSharp
                             string FileName = Module_Downloader.GetMediasFileNameOnly(request.Url);
                             if (FileName.EndsWith(".", StringComparison.Ordinal))
                             {
-                                FileName+= FileExt;
+                                FileName += FileExt;
                             }
                             if (!Module_Downloader.MediaBrowser_MediaCache.ContainsKey(FileName))
                             {
@@ -276,4 +276,89 @@ namespace CefSharp
             return false;
         }
     }
+
+    public class MediaBrowser_FocusHandler : FocusHandler
+    {
+        protected override bool OnSetFocus(IWebBrowser chromiumWebBrowser, IBrowser browser, CefFocusSource source)
+        {
+            return true;
+        }
+
+        protected override void OnGotFocus(IWebBrowser chromiumWebBrowser, IBrowser browser)
+        {
+            Form_Preview._FormReference.BeginInvoke(new Action(() => { Form_Preview._FormReference.panel_Rating.Focus(); }));
+        }
+    }
+
+    //public class MediaBrowser_KeyboardHandler : IKeyboardHandler
+    //{
+    //    public bool OnPreKeyEvent(IWebBrowser chromiumWebBrowser, IBrowser browser, KeyType type, int windowsKeyCode, int nativeKeyCode, CefEventFlags modifiers, bool isSystemKey, ref bool isKeyboardShortcut)
+    //    {
+    //        Form_Preview._FormReference.Invoke(new Action(() =>
+    //        {
+    //            Form_Preview._FormReference.panel_Rating.Focus();
+    //            Form_Preview._FormReference.Activate();
+    //            switch (windowsKeyCode)
+    //            {
+    //                case 38: //Keys.Up:
+    //                case 37: //Keys.Left:
+    //                    {
+    //                        Form_Preview._FormReference.Invoke(new Action(() => { SendKeys.Send("{UP}"); }));
+    //                        break;
+    //                    }
+
+    //                case 40: //Keys.Down:
+    //                case 39: //Keys.Right:
+    //                    {
+    //                        Form_Preview._FormReference.Invoke(new Action(() => { SendKeys.Send("{DOWN}"); }));
+    //                        break;
+    //                    }
+
+    //                case 69: //Keys.E:
+    //                case 81: //Keys.Q:
+    //                case 83: //Keys.S:
+    //                case 84: //Keys.T:
+    //                case 68: //Keys.D:
+    //                    {
+    //                        SendKeys.Send(((char)windowsKeyCode).ToString());
+    //                        break;
+    //                    }
+
+    //                case 70: //Keys.F:
+    //                case 73: //Keys.I:
+    //                    {
+    //                        if (!(modifiers == CefEventFlags.ShiftDown || modifiers == CefEventFlags.ControlDown))
+    //                        {
+    //                            Form_Preview._FormReference.Invoke(new Action(() => { SendKeys.Send(((char)windowsKeyCode).ToString()); }));
+    //                        }
+    //                        break;
+    //                    }
+
+    //                case 189: //Keys.OemMinus:
+    //                case 109: //Keys.Subtract:
+    //                case 96: //Keys.NumPad0:
+    //                case 48: //Keys.D0:
+    //                    {
+    //                        Form_Preview._FormReference.Invoke(new Action(() => { SendKeys.Send("SUBTRACT"); }));
+    //                        break;
+    //                    }
+
+    //                case 187: //Keys.Oemplus:
+    //                case 107: //Keys.Add:
+    //                case 97: //Keys.NumPad1:
+    //                case 49: //Keys.D1:
+    //                    {
+    //                        Form_Preview._FormReference.Invoke(new Action(() => { SendKeys.Send("ADD"); }));
+    //                        break;
+    //                    }
+    //            }
+    //        }));
+    //        return true;
+    //    }
+
+    //    public bool OnKeyEvent(IWebBrowser browserControl, IBrowser browser, KeyType type, int windowsKeyCode, int nativeKeyCode, CefEventFlags modifiers, bool isSystemKey)
+    //    {
+    //        return true;
+    //    }
+    //}
 }

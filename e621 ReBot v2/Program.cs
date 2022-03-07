@@ -64,6 +64,7 @@ namespace e621_ReBot_v2
                 {
                     Process.Start("e621 ReBot Updater.exe");
                     Application.Exit();
+                    return;
                 }
             }
 
