@@ -3,8 +3,11 @@ using e621_ReBot_v2.Forms;
 using e621_ReBot_v2.Modules;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace CefSharp
@@ -286,10 +289,13 @@ namespace CefSharp
         {
             return true;
         }
-
         protected override void OnGotFocus(IWebBrowser chromiumWebBrowser, IBrowser browser)
         {
-            Form_Preview._FormReference.BeginInvoke(new Action(() => { Form_Preview._FormReference.panel_Rating.Focus(); }));
+            Form_Preview._FormReference.BeginInvoke(new Action(() => 
+            {
+                Form_Preview._FormReference.panel_Rating.Focus(); //sometimes keypress' don't work even though focus it there
+                Form_Preview._FormReference.timer_StealFocusBack.Start(); //so add a timer hack
+            }));
         }
     }
 

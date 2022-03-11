@@ -59,6 +59,7 @@ namespace e621_ReBot_v2.Forms
             this.panel_PicBrowserHolder = new System.Windows.Forms.Panel();
             this.panel_PalleteHolder = new System.Windows.Forms.Panel();
             this.timer_LoadDoneDelay = new System.Windows.Forms.Timer(this.components);
+            this.timer_StealFocusBack = new System.Windows.Forms.Timer(this.components);
             this.panel_Navigation.SuspendLayout();
             this.panel_Rating.SuspendLayout();
             this.flowLayoutPanel_DL.SuspendLayout();
@@ -533,6 +534,10 @@ namespace e621_ReBot_v2.Forms
             // 
             this.timer_LoadDoneDelay.Tick += new System.EventHandler(this.Timer_LoadDoneDelay_Tick);
             // 
+            // timer_StealFocusBack
+            // 
+            this.timer_StealFocusBack.Tick += new System.EventHandler(this.Timer_StealFocusBack_Tick);
+            // 
             // Form_Preview
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -575,7 +580,6 @@ namespace e621_ReBot_v2.Forms
         }
 
         #endregion
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_DL;
         internal System.Windows.Forms.Button PB_ViewFile;
         internal System.Windows.Forms.Button PB_LoadAllImages;
         internal System.Windows.Forms.Button PB_SauceNao;
@@ -603,5 +607,7 @@ namespace e621_ReBot_v2.Forms
         private System.Windows.Forms.Button button_Colour2;
         private System.Windows.Forms.Button button_Colour1;
         private System.Windows.Forms.Timer timer_LoadDoneDelay;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_DL;
+        internal System.Windows.Forms.Timer timer_StealFocusBack;
     }
 }

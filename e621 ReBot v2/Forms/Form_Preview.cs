@@ -1321,7 +1321,13 @@ namespace e621_ReBot_v2.Forms
 
         private void Button_GotFocus(object sender, EventArgs e)
         {
-            panel_Navigation.Focus();
+            panel_Rating.Focus();
+        }
+
+        private void Timer_StealFocusBack_Tick(object sender, EventArgs e)
+        {
+            timer_StealFocusBack.Stop();
+            panel_Rating.Focus();
         }
 
         private void Form_Preview_FormClosing(object sender, FormClosingEventArgs e)
