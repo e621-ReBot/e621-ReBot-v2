@@ -517,11 +517,9 @@ namespace e621_ReBot_v2.Modules.Grabber
 
 
 
-
         public static string Html2Text_SoFurry(HtmlNode TextHolderNode)
         {
             string TextString = null;
-
 
             if (TextHolderNode == null)
             {
@@ -563,6 +561,65 @@ namespace e621_ReBot_v2.Modules.Grabber
                 case "div":
                     {
                         TextHolder += Html2Text_SoFurry(TextHolderNode);
+                        break;
+                    }
+
+                default:
+                    {
+                        TextHolder += "UNKNOWN ELEMENT";
+                        break;
+                    }
+            }
+
+            return TextHolder;
+        }
+
+
+
+        public static string Html2Text_Mastodon(HtmlNode TextHolderNode)
+        {
+            string TextString = null;
+
+            if (TextHolderNode == null)
+            {
+                return null;
+            }
+
+            foreach (HtmlNode Line in TextHolderNode.ChildNodes)
+            {
+                TextString += ParseNode_Mastodon(Line);
+            }
+
+            return DecodeText(TextString);
+        }
+
+        private static string ParseNode_Mastodon(HtmlNode TextHolderNode)
+        {
+            string TextHolder = null;
+            switch (TextHolderNode.Name)
+            {
+                case "#text":
+                    {
+                        TextHolder += TextHolderNode.InnerText;
+                        break;
+                    }
+
+                case "br":
+                    {
+                        TextHolder += Environment.NewLine;
+                        break;
+                    }
+
+                case "a":
+                    {
+                        string aURL = WebUtility.UrlDecode(TextHolderNode.Attributes["href"].Value);
+                        TextHolder += string.Format("\"{0}\":{1} ", TextHolderNode.InnerText, aURL);
+                        break;
+                    }
+
+                case "p":
+                    {
+                        TextHolder += $"{Html2Text_Mastodon(TextHolderNode)}\n\n";
                         break;
                     }
 

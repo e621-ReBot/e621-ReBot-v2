@@ -117,10 +117,12 @@ namespace e621_ReBot_v2.Modules.Grabber
             ArtistName += " (" + PostNode.SelectSingleNode(".//span[@class='display-name']/span[@class='display-name__account']").InnerText.Trim() + ")";
 
             HtmlNode Post_TextNode = PostNode.SelectSingleNode(".//div[@class='status__content emojify']");
-            string Post_Text = Post_TextNode.InnerText;
-            if (Post_Text != null)
+            string Post_Text = null;
+            if (Post_TextNode != null)
             {
-                Post_Text = WebUtility.HtmlDecode(Post_Text).Trim();
+                HtmlNode Post_TitleTextNode = Post_TextNode.SelectSingleNode(".//span[@class='p-summary']");
+                Post_Text = Post_TitleTextNode != null ? $"{WebUtility.HtmlDecode(Post_TitleTextNode.InnerText).Trim()}\n\n" : null;
+                Post_Text += Module_Html2Text.Html2Text_Mastodon(Post_TextNode.SelectSingleNode(".//div[@class='e-content']")); ;
             }
 
             string Post_MediaURL;
