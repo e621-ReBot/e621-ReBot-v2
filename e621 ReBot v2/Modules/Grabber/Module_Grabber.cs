@@ -39,12 +39,12 @@ namespace e621_ReBot_v2.Modules
             _GrabEnabler.Add(new Regex(@".+(www.hiccears.com)(/p/.+/illustrations)"));
             _GrabEnabler.Add(new Regex(@".+(www.hiccears.com)/(contents|file).+"));
             _GrabEnabler.Add(new Regex(@".+(.sofurry.com)/(view/\d+|browse/\w+/art.+)"));
-            _GrabEnabler.Add(new Regex(@".+(mastodon.social)/(@\w+)(/\d+|/media)"));
+            _GrabEnabler.Add(new Regex(@".+(mastodon.social)/(@.+)/(\d+|media)"));
             _GrabEnabler.Add(new Regex(@".+(www.plurk.com)/(p/\w+|\w+$)"));
             _GrabEnabler.Add(new Regex(@".+(pawoo.net)/@.+/(\d+|media)"));
             _GrabEnabler.Add(new Regex(@".+(www.weasyl.com)/((~.+/)?submissions(/\d+/)?|collections).+")); //collections are favorites*
             _GrabEnabler.Add(new Regex(@".+(www.weasyl.com)/(search.+)(find=submit)"));
-            _GrabEnabler.Add(new Regex(@".+(baraag.net/)@.+/(\d+|media)"));
+            _GrabEnabler.Add(new Regex(@".+(baraag.net/)(@.+(\d+|media)|web/accounts/\d+/media)"));
             _GrabEnabler.Add(new Regex(@".+(www.hentai-foundry.com)/(pictures/user/.+|user/.+?/faves/pictures)"));
             _GrabEnabler.Add(new Regex(@".+(www.hentai-foundry.com)/(pictures/(featured|popular|random|recent/))"));
 

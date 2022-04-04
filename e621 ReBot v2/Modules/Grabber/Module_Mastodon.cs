@@ -15,7 +15,7 @@ namespace e621_ReBot_v2.Modules.Grabber
     {
         public static void QueuePrep(string WebAdress)
         {
-            //Module_CookieJar.GetCookies(WebAdress, ref Module_CookieJar.Cookies_Mastodon);
+            Module_CookieJar.GetCookies(WebAdress, ref Module_CookieJar.Cookies_Baraag);
             string NumericPartCheck = WebAdress.Substring(WebAdress.LastIndexOf("/") + 1);
             if (NumericPartCheck.All(char.IsDigit))
             {
@@ -51,20 +51,25 @@ namespace e621_ReBot_v2.Modules.Grabber
             HtmlDocument WebDoc = new HtmlDocument();
             WebDoc.LoadHtml(HTMLSource);
 
-            HtmlNodeCollection MediaNodeTest = WebDoc.DocumentNode.SelectNodes(".//div[@data-component='MediaGallery']");
+
+            bool WebVersionTest = WebAdress.Contains("web/accounts/");
+            HtmlNodeCollection MediaNodeTest = WebVersionTest ? WebDoc.DocumentNode.SelectNodes(".//div[@class='account-gallery__container']//a[@class='media-gallery__item-thumbnail']")
+                                                              : WebDoc.DocumentNode.SelectNodes(".//div[@data-component='MediaGallery']");
+
             if (MediaNodeTest == null)
             {
                 Module_Grabber.Report_Info(string.Format("Skipped grabbing - Page contains no media [@{0}]", WebAdress));
                 return;
             }
-
             TreeNode TreeViewParentNode = Module_Grabber.CreateOrFindParentTreeNode(WebAdress, WebAdress);
 
             foreach (HtmlNode ChildNode in MediaNodeTest)
             {
                 HtmlNode ChildNodeHolder = ChildNode.ParentNode;
 
-                string DirectLink2Post = ChildNodeHolder.SelectSingleNode(".//a[@class='status__relative-time u-url u-uid']").Attributes["href"].Value;
+                string DirectLink2Post = WebVersionTest ? ChildNodeHolder.SelectSingleNode("./a").Attributes["href"].Value 
+                                                        : ChildNodeHolder.SelectSingleNode(".//a[@class='status__relative-time u-url u-uid']").Attributes["href"].Value;
+
                 if (Module_Grabber._GrabQueue_URLs.Contains(DirectLink2Post))
                 {
                     Module_Grabber.Report_Info(string.Format("Skipped grabbing - Already in queue [@{0}]", DirectLink2Post));
@@ -78,7 +83,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                     }
                 }
 
-                if (!Module_Grabber.CreateChildTreeNode(ref TreeViewParentNode, DirectLink2Post, DirectLink2Post, new string[] { DirectLink2Post, ChildNodeHolder.OuterHtml }))
+                if (!Module_Grabber.CreateChildTreeNode(ref TreeViewParentNode, DirectLink2Post, DirectLink2Post, new string[] { DirectLink2Post, WebVersionTest ? null : ChildNodeHolder.OuterHtml }))
                 {
                     Module_Grabber.Report_Info(string.Format("Skipped grabbing - Already in queue [@{0}]", DirectLink2Post));
                 }
@@ -103,6 +108,11 @@ namespace e621_ReBot_v2.Modules.Grabber
         {
             DataTable TempDataTable = new DataTable();
             Module_TableHolder.Create_DBTable(ref TempDataTable);
+
+            if (HTMLSource == null) //web/accounts version
+            {
+                HTMLSource = Module_Grabber.GrabPageSource(WebAdress, ref Module_CookieJar.Cookies_Baraag);
+            }
 
             HtmlDocument WebDoc = new HtmlDocument();
             WebDoc.LoadHtml(HTMLSource);
@@ -150,7 +160,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                         }
 
                         DataRow TempDataRow = TempDataTable.NewRow();
-                        JToken OrigData = ImageNode["meta"].Any() && ImageNode["meta"]["original"] != null ? ImageNode["meta"]["original"]: null;
+                        JToken OrigData = ImageNode["meta"].Any() && ImageNode["meta"]["original"] != null ? ImageNode["meta"]["original"] : null;
                         FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Text, Post_MediaURL, ImageNode["preview_url"].Value<string>(), OrigData == null ? null : OrigData["width"].Value<string>(), OrigData == null ? null : OrigData["height"].Value<string>(), ArtistName);
                         TempDataTable.Rows.Add(TempDataRow);
                     }
