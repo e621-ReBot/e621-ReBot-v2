@@ -817,10 +817,7 @@ namespace e621_ReBot_v2.Modules
 
                                 default:
                                     {
-                                        if (Properties.Settings.Default.Converter_DontConvertVideos)
-                                        {
-                                            StartDLClient(ref e6_DownloadItemTemp, "File");
-                                        }
+                                        StartDLClient(ref e6_DownloadItemTemp, "File");
                                         break;
                                     }
                             }
