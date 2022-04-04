@@ -763,7 +763,20 @@ namespace e621_ReBot_v2.Modules
                             e6_DownloadItemTemp.DL_ProgressBar.BarColor = Color.Orange;
                             e6_DownloadItemTemp.DL_FolderIcon.Tag = FilePath;
 
-                            if (DataRow4Grid != null && DataRow4Grid.RowState != DataRowState.Detached)
+                            if (DataRow4Grid == null || DataRow4Grid.RowState == DataRowState.Detached)
+                            {
+                                //Weasyl special
+                                if (((string)DataRowRef["Grab_ThumbnailURL"]).Contains("cdn.weasyl.com"))
+                                {
+                                    e6_DownloadItemTemp.picBox_ImageHolder.BackgroundImage = Properties.Resources.BrowserIcon_Weasly;
+                                    e6_DownloadItemTemp.picBox_ImageHolder.Tag = true;
+                                }
+                                else
+                                {
+                                    StartDLClient(ref e6_DownloadItemTemp, "Thumb");
+                                }
+                            }
+                            else
                             {
                                 //Weasyl special
                                 if (DataRow4Grid["Grab_ThumbnailURL"] == DBNull.Value || string.IsNullOrEmpty((string)DataRow4Grid["Grab_ThumbnailURL"]))
@@ -784,27 +797,32 @@ namespace e621_ReBot_v2.Modules
                                     }
                                 }
                             }
-                            else
-                            {
-                                //Weasyl special
-                                if (((string)DataRowRef["Grab_ThumbnailURL"]).Contains("cdn.weasyl.com"))
-                                {
-                                    e6_DownloadItemTemp.picBox_ImageHolder.BackgroundImage = Properties.Resources.BrowserIcon_Weasly;
-                                    e6_DownloadItemTemp.picBox_ImageHolder.Tag = true;
-                                }
-                                else
-                                {
-                                    StartDLClient(ref e6_DownloadItemTemp, "Thumb");
-                                }
-                            }
                             if (AddNew) Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Add(e6_DownloadItemTemp);
-                            if (Properties.Settings.Default.Converter_DontConvertVideos)
+
+                            switch ((string)DataRowRef["Info_MediaFormat"])
                             {
-                                StartDLClient(ref e6_DownloadItemTemp, "File");
-                            }
-                            else
-                            {
-                                Module_FFmpeg.DownloadQueue_ConvertVideo2WebM(ref e6_DownloadItemTemp);
+                                //case "mp4":
+                                case "swf":
+                                    {
+                                        if (Properties.Settings.Default.Converter_DontConvertVideos)
+                                        {
+                                            StartDLClient(ref e6_DownloadItemTemp, "File");
+                                        }
+                                        else
+                                        {
+                                            Module_FFmpeg.DownloadQueue_ConvertVideo2WebM(ref e6_DownloadItemTemp);
+                                        }
+                                        break;
+                                    }
+
+                                default:
+                                    {
+                                        if (Properties.Settings.Default.Converter_DontConvertVideos)
+                                        {
+                                            StartDLClient(ref e6_DownloadItemTemp, "File");
+                                        }
+                                        break;
+                                    }
                             }
                         }));
                         break;
