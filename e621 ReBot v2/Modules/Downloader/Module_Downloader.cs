@@ -799,7 +799,7 @@ namespace e621_ReBot_v2.Modules
                             }
                             if (AddNew) Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Add(e6_DownloadItemTemp);
 
-                            switch ((string)DataRowRef["Info_MediaFormat"])
+                            switch ((string)DataRow4Grid["Info_MediaFormat"])
                             {
                                 //case "mp4":
                                 case "swf":
