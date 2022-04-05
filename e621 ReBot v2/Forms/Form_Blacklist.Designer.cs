@@ -51,9 +51,11 @@
             this.textBox_Blacklist.Margin = new System.Windows.Forms.Padding(0);
             this.textBox_Blacklist.Multiline = true;
             this.textBox_Blacklist.Name = "textBox_Blacklist";
+            this.textBox_Blacklist.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBox_Blacklist.Size = new System.Drawing.Size(302, 139);
             this.textBox_Blacklist.TabIndex = 1;
             this.toolTip_Display.SetToolTip(this.textBox_Blacklist, resources.GetString("textBox_Blacklist.ToolTip"));
+            this.textBox_Blacklist.WordWrap = false;
             this.textBox_Blacklist.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_Blacklist_KeyDown);
             // 
             // Form_Blacklist

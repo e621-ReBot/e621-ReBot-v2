@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace e621_ReBot_v2.Forms
@@ -18,17 +19,10 @@ namespace e621_ReBot_v2.Forms
 
         private void Form_Blacklist_Load(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.Blacklist == null)
-            {
-                Properties.Settings.Default.Blacklist = new StringCollection();
-            }
+            if (Properties.Settings.Default.Blacklist == null) Properties.Settings.Default.Blacklist = new StringCollection();
             if (Properties.Settings.Default.Blacklist.Count > 0)
             {
-                foreach (var BlacklistString in Properties.Settings.Default.Blacklist)
-                {
-                    textBox_Blacklist.AppendText(BlacklistString + Environment.NewLine);
-                    textBox_Blacklist.Text = textBox_Blacklist.Text.Remove(textBox_Blacklist.Text.Length - 1);
-                }
+                textBox_Blacklist.Text = string.Join(Environment.NewLine, Properties.Settings.Default.Blacklist.Cast<string>());
             }
             textBox_Blacklist.SelectionStart = textBox_Blacklist.Text.Length;
         }
@@ -46,6 +40,23 @@ namespace e621_ReBot_v2.Forms
                 case Keys.Escape:
                     {
                         Close();
+                        break;
+                    }
+
+                case Keys.Space:
+                    {
+                        if (textBox_Blacklist.SelectionStart > 0)
+                        {
+                            if (char.IsWhiteSpace(textBox_Blacklist.Text[textBox_Blacklist.SelectionStart - 1]))
+                            {
+                                e.SuppressKeyPress = true; //don't allow two spaces in a row
+                                break;
+                            }
+                        }
+                        if (char.IsWhiteSpace(textBox_Blacklist.Text[textBox_Blacklist.SelectionStart]))
+                        {
+                            e.SuppressKeyPress = true; //don't allow two spaces in a row
+                        }
                         break;
                     }
             }
