@@ -33,7 +33,10 @@ namespace e621_ReBot_v2.Forms
             {
                 case Keys.Enter:
                     {
-                        Close();
+                        if (textBox_Blacklist.SelectionStart > 0 && textBox_Blacklist.Text[textBox_Blacklist.SelectionStart - 1].Equals('\n'))
+                        {
+                            e.SuppressKeyPress = true; //don't allow two newlines in a row
+                        }
                         break;
                     }
 
@@ -53,7 +56,7 @@ namespace e621_ReBot_v2.Forms
                                 break;
                             }
                         }
-                        if (char.IsWhiteSpace(textBox_Blacklist.Text[textBox_Blacklist.SelectionStart]))
+                        if (textBox_Blacklist.SelectionStart < textBox_Blacklist.Text.Length && char.IsWhiteSpace(textBox_Blacklist.Text[textBox_Blacklist.SelectionStart]))
                         {
                             e.SuppressKeyPress = true; //don't allow two spaces in a row
                         }
@@ -67,7 +70,7 @@ namespace e621_ReBot_v2.Forms
             Properties.Settings.Default.Blacklist = new StringCollection();
             List<string> GetBlacklist = new List<string>();
             textBox_Blacklist.Text = textBox_Blacklist.Text.ToLower();
-            foreach (var TBLine in textBox_Blacklist.Lines)
+            foreach (string TBLine in textBox_Blacklist.Lines)
             {
                 string TempLine = TBLine.Trim();
                 if (TempLine.Length > 0)
