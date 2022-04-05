@@ -978,7 +978,7 @@ namespace e621_ReBot_v2
         public int LastBrowserPositionCounter;
         private void Timer_TwitterGrabber_Tick(object sender, EventArgs e)
         {
-            Module_CefSharp.CefSharpBrowser.ExecuteScriptAsync("window.scrollBy(0, 2048);");
+            Module_CefSharp.CefSharpBrowser.ExecuteScriptAsync("window.scrollBy(0, 2048)");
             int WindowPosition = int.Parse(Module_CefSharp.CefSharpBrowser.EvaluateScriptAsync("window.pageYOffset;").Result.Result.ToString());
             cTreeView_GrabQueue.SuspendLayout();
             cTreeView_GrabQueue.BeginUpdate();
