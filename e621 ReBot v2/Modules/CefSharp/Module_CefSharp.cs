@@ -235,7 +235,7 @@ namespace e621_ReBot_v2.Modules
                         Form_Loader._FormReference.BB_Grab_All.Text = "Grab All";
                         Form_Loader._FormReference.LastBrowserPosition = 0;
                         Form_Loader._FormReference.LastBrowserPositionCounter = 0;
-                        timer_Twitter.Start();
+                        //timer_Twitter.Start();
                         return;
                     }
 

@@ -1,4 +1,6 @@
 ﻿using CefSharp.Handler;
+using e621_ReBot_v2;
+using e621_ReBot_v2.Modules;
 using e621_ReBot_v2.Modules.Grabber;
 using Newtonsoft.Json.Linq;
 using System;
@@ -133,7 +135,7 @@ namespace CefSharp
 
         protected override void OnResourceLoadComplete(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IResponse response, UrlRequestStatus status, long receivedContentLength)
         {
-            if (request.Url.Contains("https://twitter.com/i/api/graphql/") && (request.Url.Contains("/UserTweets?variables=") || request.Url.Contains("/UserMedia?variables=")) && response.MimeType.Equals("application/json"))
+            if (request.Url.Contains("https://twitter.com/i/api/graphql/") && response.MimeType.Equals("application/json") && ((request.Url.Contains("/UserTweets?variables=") || request.Url.Contains("/UserMedia?variables=") || request.Url.Contains("/UserByScreenName?variables="))))
             {
                 byte[] byteHolder = memoryStreamHolder.ToArray();
                 string Data2String = Encoding.UTF8.GetString(byteHolder);
@@ -141,7 +143,7 @@ namespace CefSharp
                 {
                     JObject JObjectTemp = JObject.Parse(Data2String);
 
-                    var TweetsTest = JObjectTemp.SelectTokens("data.user.result.timeline.timeline.instructions.[0].entries.[*].content.itemContent.tweet_results.result");
+                    IEnumerable<JToken> TweetsTest = JObjectTemp.SelectTokens("data.user.result.timeline.timeline.instructions.[0].entries.[*].content.itemContent.tweet_results.result");
                     if (TweetsTest != null)
                     {
                         JArray TweetHolder = new JArray(TweetsTest);
@@ -158,6 +160,7 @@ namespace CefSharp
                         }
                     }
                 }
+                Form_Loader._FormReference.BeginInvoke(new Action(() => Module_CefSharp.timer_Twitter.Start()));
             }
         }
     }

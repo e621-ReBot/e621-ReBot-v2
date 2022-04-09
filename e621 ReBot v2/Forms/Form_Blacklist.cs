@@ -36,6 +36,11 @@ namespace e621_ReBot_v2.Forms
                         if (textBox_Blacklist.SelectionStart > 0 && textBox_Blacklist.Text[textBox_Blacklist.SelectionStart - 1].Equals('\n'))
                         {
                             e.SuppressKeyPress = true; //don't allow two newlines in a row
+                            break;
+                        }
+                        if (textBox_Blacklist.SelectionStart < textBox_Blacklist.Text.Length && textBox_Blacklist.Text[textBox_Blacklist.SelectionStart].Equals('\n'))
+                        {
+                            e.SuppressKeyPress = true; //don't allow two newlines in a row
                         }
                         break;
                     }
@@ -48,13 +53,10 @@ namespace e621_ReBot_v2.Forms
 
                 case Keys.Space:
                     {
-                        if (textBox_Blacklist.SelectionStart > 0)
+                        if (textBox_Blacklist.SelectionStart > 0 && char.IsWhiteSpace(textBox_Blacklist.Text[textBox_Blacklist.SelectionStart - 1]))
                         {
-                            if (char.IsWhiteSpace(textBox_Blacklist.Text[textBox_Blacklist.SelectionStart - 1]))
-                            {
-                                e.SuppressKeyPress = true; //don't allow two spaces in a row
-                                break;
-                            }
+                            e.SuppressKeyPress = true; //don't allow two spaces in a row
+                            break;
                         }
                         if (textBox_Blacklist.SelectionStart < textBox_Blacklist.Text.Length && char.IsWhiteSpace(textBox_Blacklist.Text[textBox_Blacklist.SelectionStart]))
                         {
