@@ -300,7 +300,6 @@ namespace e621_ReBot_v2.Modules
                 }
                 return;
             }
-
             Form_Loader._FormReference.BB_Grab.Visible = true;
         }
 
@@ -361,8 +360,8 @@ namespace e621_ReBot_v2.Modules
                         {
                             CefSharpBrowser.ExecuteScriptAsync("document.querySelectorAll(\"article[data-testid='tweet'] article[role='article'] div[role='button']:not([aria-label])\").forEach(button=>button.click());");
                             CefSharpBrowser.ExecuteScriptAsync("document.onwheel = function(){document.querySelectorAll(\"article[data-testid='tweet'] article[role='article'] div[role='button']:not([aria-label])\").forEach(button=>button.click());};");
-                            Form_Loader._FormReference.BB_Grab.Visible = true;
                             Form_Loader._FormReference.BB_Grab_All.Visible = true;
+                            if (!Form_Loader._FormReference.BB_Grab_All.Text.Equals("Stop")) Form_Loader._FormReference.BB_Grab.Visible = true;
                         }
                     }
                 }
@@ -382,8 +381,8 @@ namespace e621_ReBot_v2.Modules
                     }
                     return;
                 }
-                Form_Loader._FormReference.BB_Grab.Visible = true;
                 Form_Loader._FormReference.BB_Grab_All.Visible = true;
+                if (!Form_Loader._FormReference.BB_Grab_All.Text.Equals("Stop")) Form_Loader._FormReference.BB_Grab.Visible = true;
             }
         }
 

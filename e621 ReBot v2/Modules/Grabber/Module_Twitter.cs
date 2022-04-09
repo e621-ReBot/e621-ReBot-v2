@@ -125,7 +125,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                 TreeViewParentNode.Tag = TreeViewParentNode.Nodes.Count;
                 Form_Loader._FormReference.cTreeView_GrabQueue.Nodes.Add(TreeViewParentNode);
             }
-            Form_Loader._FormReference.BB_Grab.Visible = true;
+            if (!Form_Loader._FormReference.BB_Grab_All.Text.Equals("Stop")) Form_Loader._FormReference.BB_Grab.Visible = true;
         }
 
         public static void RunGrabber(object sender, DoWorkEventArgs e)
