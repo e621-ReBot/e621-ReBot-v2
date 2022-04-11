@@ -23,7 +23,7 @@ namespace e621_ReBot_v2.Modules.Grabber
             || WebAdress.Contains("www.pixiv.net/member_illust.php?id=")
             || WebAdress.Contains("www.pixiv.net/en/users/"))
             {
-                if (MessageBox.Show("Do you want to go grab all works?" + Environment.NewLine + "(If you chose not to, only visible ones will be grabbed.)", "Grab", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("Do you want to go grab all works?\n(If you chose not to, only visible ones will be grabbed.)", "Grab", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     Queue_All(WebAdress);
                 }
@@ -42,7 +42,7 @@ namespace e621_ReBot_v2.Modules.Grabber
         {
             if (Module_Grabber._GrabQueue_URLs.Contains(WebAdress))
             {
-                Module_Grabber.Report_Info(string.Format("Skipped grabbing - Already in queue [@{0}]", WebAdress));
+                Module_Grabber.Report_Info($"Skipped grabbing - Already in queue [@{WebAdress}]");
                 return;
             }
             else
@@ -67,7 +67,6 @@ namespace e621_ReBot_v2.Modules.Grabber
             {
                 PermalinkFix = PermalinkFix.Remove(PermalinkFix.IndexOf("&p="));
             }
-
             if (PermalinkFix.Contains("&type="))
             {
                 PermalinkFix = PermalinkFix.Remove(PermalinkFix.IndexOf("&type="));
@@ -75,10 +74,10 @@ namespace e621_ReBot_v2.Modules.Grabber
 
             foreach (HtmlNode ChildNode in WebDoc.DocumentNode.SelectNodes(".//div[@type='illust']"))
             {
-                string DirectLink2Post = "https://www.pixiv.net" + ChildNode.SelectSingleNode(".//a").Attributes["href"].Value;
+                string DirectLink2Post = $"https://www.pixiv.net{ChildNode.SelectSingleNode(".//a").Attributes["href"].Value}";
                 if (Module_Grabber._GrabQueue_URLs.Contains(DirectLink2Post))
                 {
-                    Module_Grabber.Report_Info(string.Format("Skipped grabbing - Already in queue [@{0}]", DirectLink2Post));
+                    Module_Grabber.Report_Info($"Skipped grabbing - Already in queue [@{DirectLink2Post}]");
                     continue;
                 }
                 else
@@ -91,7 +90,7 @@ namespace e621_ReBot_v2.Modules.Grabber
 
                 if (!Module_Grabber.CreateChildTreeNode(ref TreeViewParentNode, DirectLink2Post, DirectLink2Post))
                 {
-                    Module_Grabber.Report_Info(string.Format("Skipped grabbing - Already in queue [@{0}]", DirectLink2Post));
+                    Module_Grabber.Report_Info($"Skipped grabbing - Already in queue [@{DirectLink2Post}]");
                 }
             }
 
@@ -115,7 +114,6 @@ namespace e621_ReBot_v2.Modules.Grabber
             {
                 PermalinkFix = PermalinkFix.Remove(PermalinkFix.IndexOf("&p="));
             }
-
             if (PermalinkFix.Contains("&type="))
             {
                 PermalinkFix = PermalinkFix.Remove(PermalinkFix.IndexOf("&type="));
@@ -133,32 +131,32 @@ namespace e621_ReBot_v2.Modules.Grabber
                 WorkType = "manga";
             }
 
-            var WorkList = new List<string>();
+            List<string> WorkList = new List<string>();
             if (string.IsNullOrEmpty(WorkType))
             {
                 // Thanks https://stackoverflow.com/questions/16795045/accessing-all-items-in-the-jtoken-json-net/38253969
                 if (JSONDictionary["body"]["illusts"].HasValues)
                 {
-                    WorkList.AddRange(((JObject)JSONDictionary["body"]["illusts"]).Properties().Select(f => f.Name).ToList());
+                    WorkList.AddRange(((JObject)JSONDictionary["body"]["illusts"]).Properties().Select(f => f.Name));
                 }
                 if (JSONDictionary["body"]["manga"].HasValues)
                 {
-                    WorkList.AddRange(((JObject)JSONDictionary["body"]["manga"]).Properties().Select(f => f.Name).ToList());
+                    WorkList.AddRange(((JObject)JSONDictionary["body"]["manga"]).Properties().Select(f => f.Name));
                 }
             }
             else
             {
                 WorkType += WorkType.Equals("illust") ? "s" : null;
-                WorkList.AddRange(((JObject)JSONDictionary["body"][WorkType]).Properties().Select(f => f.Name).ToList());
+                WorkList.AddRange(((JObject)JSONDictionary["body"][WorkType]).Properties().Select(f => f.Name));
             }
-            WorkList.Sort();
+            WorkList = WorkList.OrderByDescending(int.Parse).ToList();
 
             foreach (string PostID in WorkList)
             {
                 string DirectLink2Post = "https://www.pixiv.net/en/artworks/" + PostID;
                 if (Module_Grabber._GrabQueue_URLs.Contains(DirectLink2Post))
                 {
-                    Module_Grabber.Report_Info(string.Format("Skipped grabbing - Already in queue [@{0}]", DirectLink2Post));
+                    Module_Grabber.Report_Info($"Skipped grabbing - Already in queue [@{DirectLink2Post}]");
                     continue;
                 }
                 else
@@ -171,7 +169,7 @@ namespace e621_ReBot_v2.Modules.Grabber
 
                 if (!Module_Grabber.CreateChildTreeNode(ref TreeViewParentNode, DirectLink2Post, DirectLink2Post))
                 {
-                    Module_Grabber.Report_Info(string.Format("Skipped grabbing - Already in queue [@{0}]", DirectLink2Post));
+                    Module_Grabber.Report_Info($"Skipped grabbing - Already in queue [@{DirectLink2Post}]");
                 }
             }
         }
@@ -306,7 +304,7 @@ namespace e621_ReBot_v2.Modules.Grabber
         {
             TempDataRow["Grab_URL"] = URL;
             TempDataRow["Grab_DateTime"] = DateTime;
-            TempDataRow["Grab_Title"] = WebUtility.HtmlDecode(string.Format("⮚ \"{0}\" ⮘ by {1} on Pixiv", Title, Artist)); ;
+            TempDataRow["Grab_Title"] = WebUtility.HtmlDecode($"⮚ \"{Title}\" ⮘ by {Artist} on Pixiv");
             if (TextBody != null) TempDataRow["Grab_TextBody"] = TextBody;
             TempDataRow["Grab_MediaURL"] = MediaURL;
             TempDataRow["Grab_ThumbnailURL"] = ThumbURL;
