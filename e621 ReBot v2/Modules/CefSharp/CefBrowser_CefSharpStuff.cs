@@ -133,9 +133,10 @@ namespace CefSharp
             return new ResponseFilter.StreamResponseFilter(memoryStreamHolder);
         }
 
+        private List<string> TwitterEnabler = new List<string> { "/UserTweets?variables=", "/UserMedia?variables=", "/UserByScreenName?variables=", "/TweetDetail?variables=" };
         protected override void OnResourceLoadComplete(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IResponse response, UrlRequestStatus status, long receivedContentLength)
         {
-            if (request.Url.Contains("https://twitter.com/i/api/graphql/") && response.MimeType.Equals("application/json") && ((request.Url.Contains("/UserTweets?variables=") || request.Url.Contains("/UserMedia?variables=") || request.Url.Contains("/UserByScreenName?variables="))))
+            if (request.Url.Contains("https://twitter.com/i/api/graphql/") && response.MimeType.Equals("application/json") && TwitterEnabler.Any(s => request.Url.Contains(s)))
             {
                 byte[] byteHolder = memoryStreamHolder.ToArray();
                 string Data2String = Encoding.UTF8.GetString(byteHolder);

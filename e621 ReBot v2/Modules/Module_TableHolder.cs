@@ -89,41 +89,49 @@ namespace e621_ReBot_v2.Modules
                 ColumnName = "Upload",
                 Caption = "Upload",
                 DataType = typeof(bool),
-                DefaultValue = true
+                DefaultValue = false
             };
             ReferenceTable.Columns.Add(TempDataColumn0);
             DataColumn TempDataColumn1 = new DataColumn
             {
-                ColumnName = "CopyNotes",
-                Caption = "Copy Notes",
+                ColumnName = "ReplaceInferior",
+                Caption = "Replace Inferior",
                 DataType = typeof(bool),
                 DefaultValue = false
             };
             ReferenceTable.Columns.Add(TempDataColumn1);
             DataColumn TempDataColumn2 = new DataColumn
             {
-                ColumnName = "MoveChildren",
-                Caption = "Move Children",
+                ColumnName = "CopyNotes",
+                Caption = "Copy Notes",
                 DataType = typeof(bool),
                 DefaultValue = false
             };
             ReferenceTable.Columns.Add(TempDataColumn2);
-            DataColumn TempDataColumn3 = new DataColumn
-            {
-                ColumnName = "FlagInferior",
-                Caption = "Flag Inferior",
-                DataType = typeof(bool),
-                DefaultValue = false
-            };
-            ReferenceTable.Columns.Add(TempDataColumn3);
-            DataColumn TempDataColumn4 = new DataColumn
-            {
-                ColumnName = "ChangeParent",
-                Caption = "Change Parent",
-                DataType = typeof(bool),
-                DefaultValue = false
-            };
-            ReferenceTable.Columns.Add(TempDataColumn4);
+            //DataColumn TempDataColumn2 = new DataColumn
+            //{
+            //    ColumnName = "MoveChildren",
+            //    Caption = "Move Children",
+            //    DataType = typeof(bool),
+            //    DefaultValue = false
+            //};
+            //ReferenceTable.Columns.Add(TempDataColumn2);
+            //DataColumn TempDataColumn3 = new DataColumn
+            //{
+            //    ColumnName = "FlagInferior",
+            //    Caption = "Flag Inferior",
+            //    DataType = typeof(bool),
+            //    DefaultValue = false
+            //};
+            //ReferenceTable.Columns.Add(TempDataColumn3);
+            //DataColumn TempDataColumn4 = new DataColumn
+            //{
+            //    ColumnName = "ChangeParent",
+            //    Caption = "Change Parent",
+            //    DataType = typeof(bool),
+            //    DefaultValue = false
+            //};
+            //ReferenceTable.Columns.Add(TempDataColumn4);
         }
 
         public static bool UploadQueueContainsURL(string MediaURL)

@@ -135,17 +135,22 @@ namespace e621_ReBot_v2.Modules
                     UploadRowTemp["Grab_MediaURL"] = (string)Module_TableHolder.Database_Table.Rows[i]["Grab_MediaURL"];
                     UploadRowTemp["DataRowRef"] = Module_TableHolder.Database_Table.Rows[i];
                     UploadRowTemp["CopyNotes"] = Module_TableHolder.Database_Table.Rows[i]["Inferior_HasNotes"] != DBNull.Value;
-                    UploadRowTemp["MoveChildren"] = Module_TableHolder.Database_Table.Rows[i]["Inferior_Children"] != DBNull.Value;
+                    //UploadRowTemp["MoveChildren"] = Module_TableHolder.Database_Table.Rows[i]["Inferior_Children"] != DBNull.Value;
                     if (Module_TableHolder.Database_Table.Rows[i]["Inferior_ID"] != DBNull.Value)
                     {
-                        if (Properties.Settings.Default.DontFlag)
-                        {
-                            UploadRowTemp["ChangeParent"] = true;
-                        }
-                        else
-                        {
-                            UploadRowTemp["FlagInferior"] = true;
-                        }
+                        //if (Properties.Settings.Default.DontFlag)
+                        //{
+                        //    UploadRowTemp["ChangeParent"] = true;
+                        //}
+                        //else
+                        //{
+                        //    UploadRowTemp["FlagInferior"] = true;
+                        //}
+                        UploadRowTemp["ReplaceInferior"] = true;
+                    }
+                    else
+                    {
+                        UploadRowTemp["Upload"] = true;
                     }
                     CreateUploadJobNode(ref UploadRowTemp);
                     UploadTableTemp.Rows.Add(UploadRowTemp);
@@ -655,6 +660,66 @@ namespace e621_ReBot_v2.Modules
                 }
             }));
         }
+
+        public static void UploadTask_ReplaceInferior()
+        {
+            Report_Status("Flagging for replacement...");
+            DataRow DataRowRef = (DataRow)TaskRow["DataRowRef"];
+
+            Dictionary<string, string> POST_Dictionary = new Dictionary<string, string>()
+            {
+                { "post_replacement[replacement_url]", (string)DataRowRef["Grab_MediaURL"] }, //Superior image
+                { "post_replacement[source]", (string)DataRowRef["Grab_URL"] },
+                { "post_replacement[reason]", "Superior version" },
+                { "login", Properties.Settings.Default.UserName },
+                { "api_key", Module_Cryptor.Decrypt(Properties.Settings.Default.API_Key) }
+            };
+
+            KeyValuePair<HttpWebResponse, string> e6Flag4ReplaceResponse = SEND_Request("POST", $"https://e621.net/post_replacements.json?post_id={(string)DataRowRef["Inferior_ID"]}", POST_Dictionary);
+            switch (e6Flag4ReplaceResponse.Key.StatusCode)
+            {
+                case HttpStatusCode.Created:
+                    {
+                        //if (Module_Credits.UserLevels[Properties.Settings.Default.UserLevel] == 0)
+                        //{
+                        //    Module_Credits.Credit_Flag -= 1;
+                        //    Module_Credits.Timestamps_Flag.Add(DateTime.UtcNow.AddHours(1d));
+                        //}
+
+                        Report_Info($"Flag for replacement created for #{(string)DataRowRef["Inferior_ID"]} as inferior of #{(string)DataRowRef["Grab_MediaURL"]}");
+                        break;
+                    }
+
+                case (HttpStatusCode)422:
+                    {
+                        //Report_Info($"Hourly flag limit reached, did not flag #{(string)DataRowRef["Uploaded_As"]}");
+                        //Module_Credits.Credit_Flag = 0;
+                        //UploadTask_ChangeParent();
+
+                        //Form_Loader._FormReference.Invoke(new Action(() =>
+                        //{
+                        //    TreeNode clonedNode = new TreeNode()
+                        //    {
+                        //        Text = $"Flag #{(string)DataRowRef["Inferior_ID"]} as inferior of #{(string)DataRowRef["Uploaded_As"]}"
+                        //    };
+                        //    Form_Loader._FormReference.cTreeView_RetryQueue.Nodes.Add(clonedNode);
+                        //}));
+                        //Module_Retry.timer_RetryDisable.Start();
+                        //Module_Retry.timer_Retry.Start();
+                        break;
+                    }
+
+                default:
+                    {
+                        MessageBox.Show($"Error Code {e6Flag4ReplaceResponse.Key.StatusCode}\n{e6Flag4ReplaceResponse.Value}", "e621 ReBot - Replace Inferior");
+                        break;
+                    }
+            }
+            e6Flag4ReplaceResponse.Key.Dispose();
+            e6Flag4ReplaceResponse = default;
+        }
+
+        //
 
         public static void UploadTask_CopyNotes()
         {

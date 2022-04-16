@@ -2065,6 +2065,8 @@ namespace e621_ReBot_v2
                     Properties.Settings.Default.API_Key = "";
                     Properties.Settings.Default.Save();
                     bU_APIKey.Text = "Add API Key";
+                    cCheckGroupBox_Upload.Checked = false;
+                    cCheckGroupBox_Retry.Checked = false;
                     MessageBox.Show("Uploading will remain disabled until you add the API Key again.", "e621 ReBot");
                 }
             }

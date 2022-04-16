@@ -34,6 +34,8 @@ namespace e621_ReBot_v2.Forms
                     Properties.Settings.Default.API_Key = Module_Cryptor.Encrypt(APIKey_TextBox.Text);
                     Form_Loader._FormReference.bU_APIKey.Text = "Remove API Key";
                     Properties.Settings.Default.Save();
+                    Form_Loader._FormReference.cCheckGroupBox_Upload.Checked = true;
+                    Form_Loader._FormReference.cCheckGroupBox_Retry.Checked = true;
                 }
                 else
                 {
@@ -96,7 +98,7 @@ namespace e621_ReBot_v2.Forms
                 {
                     //Wrong API Key, e621 denies connection
                 }
-                MessageBox.Show(ex.Message + "\n\nStatus Code: " + TempException.StatusCode);
+                MessageBox.Show($"{ex.Message}\n\nStatus Code: {TempException.StatusCode}");
                 e621Request.Abort();
                 TempException.Dispose();
                 EncodedContentStream.Dispose();

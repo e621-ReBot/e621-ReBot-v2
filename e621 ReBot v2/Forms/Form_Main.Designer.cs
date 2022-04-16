@@ -2898,7 +2898,7 @@
             this.tabPage_Jobs.Controls.Add(this.cCheckGroupBox_Info);
             this.tabPage_Jobs.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Jobs.Name = "tabPage_Jobs";
-            this.tabPage_Jobs.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Jobs.Size = new System.Drawing.Size(1262, 695);
             this.tabPage_Jobs.TabIndex = 3;
             this.tabPage_Jobs.Text = "tabPage_Jobs";
             // 
@@ -2906,6 +2906,8 @@
             // 
             this.cCheckGroupBox_Retry.BorderColor = System.Drawing.Color.Black;
             this.cCheckGroupBox_Retry.BottomBorderFix = 1;
+            this.cCheckGroupBox_Retry.Checked = false;
+            this.cCheckGroupBox_Retry.CheckState = System.Windows.Forms.CheckState.Unchecked;
             this.cCheckGroupBox_Retry.Controls.Add(this.cTreeView_RetryQueue);
             this.cCheckGroupBox_Retry.Controls.Add(this.label_RetryStatus);
             this.cCheckGroupBox_Retry.DisableChildrenIfUnchecked = false;
@@ -2998,6 +3000,8 @@
             // 
             this.cCheckGroupBox_Upload.BorderColor = System.Drawing.Color.Black;
             this.cCheckGroupBox_Upload.BottomBorderFix = 1;
+            this.cCheckGroupBox_Upload.Checked = false;
+            this.cCheckGroupBox_Upload.CheckState = System.Windows.Forms.CheckState.Unchecked;
             this.cCheckGroupBox_Upload.Controls.Add(this.cTreeView_UploadQueue);
             this.cCheckGroupBox_Upload.Controls.Add(this.label_UploadStatus);
             this.cCheckGroupBox_Upload.DisableChildrenIfUnchecked = false;
@@ -3147,7 +3151,7 @@
             this.tabPage_Download.Controls.Add(this.cCheckGroupBox_Download);
             this.tabPage_Download.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Download.Name = "tabPage_Download";
-            this.tabPage_Download.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Download.Size = new System.Drawing.Size(192, 91);
             this.tabPage_Download.TabIndex = 2;
             this.tabPage_Download.Text = "tabPage_Download";
             // 

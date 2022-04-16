@@ -191,9 +191,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                 //twitter carousel displayes them strangely when there's 4. 1-3-2-4 (as html order).
                 if (ImageNodes.Count == 4)
                 {
-                    HtmlNode HtmlNodeTemp = ImageNodes[1];
-                    ImageNodes[1] = ImageNodes[2];
-                    ImageNodes[2] = HtmlNodeTemp;
+                    (ImageNodes[2], ImageNodes[1]) = (ImageNodes[1], ImageNodes[2]);
                 }
 
                 foreach (HtmlNode ImageNode in ImageNodes)
@@ -291,7 +289,7 @@ namespace e621_ReBot_v2.Modules.Grabber
 
             HtmlNode PostNode = WebDoc.DocumentNode;
 
-            string Post_URL = "https://twitter.com" + PostNode.SelectSingleNode(".//time").ParentNode.Attributes["href"].Value;
+            string Post_URL = $"https://twitter.com{PostNode.SelectSingleNode(".//time").ParentNode.Attributes["href"].Value}";
             string TweetID = PostNode.SelectSingleNode(".//time").ParentNode.Attributes["href"].Value;
             TweetID = TweetID.Substring(TweetID.LastIndexOf("/") + 1);
 
@@ -391,15 +389,13 @@ namespace e621_ReBot_v2.Modules.Grabber
             {
                 Post_Time = DateTime.Parse(PostNode.SelectSingleNode(".//time").Attributes["datetime"].Value);
 
-                HtmlNodeCollection ImageNodes = PostNode.SelectNodes(".//img[@alt='Image']");
+                HtmlNodeCollection ImageNodes = PostNode.SelectSingleNode(".//div[@id and @aria-labelledby]/div").SelectNodes(".//img[@alt='Image']");
                 if (ImageNodes != null)
                 {
                     //twitter carousel displayes them strangely when there's 4. 1-3-2-4 (as html order).
                     if (ImageNodes.Count == 4)
                     {
-                        HtmlNode HtmlNodeTemp = ImageNodes[1];
-                        ImageNodes[1] = ImageNodes[2];
-                        ImageNodes[2] = HtmlNodeTemp;
+                        (ImageNodes[2], ImageNodes[1]) = (ImageNodes[1], ImageNodes[2]);
                     }
 
                     foreach (HtmlNode ImageNode in ImageNodes)
@@ -432,7 +428,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                 }
                 else
                 {
-                    HtmlNode VideoNodeTest = PostNode.SelectSingleNode(".//div[@data-testid='previewInterstitial'] | //video");
+                    HtmlNode VideoNodeTest = PostNode.SelectSingleNode(".//div[@id and @aria-labelledby]/div").SelectSingleNode(".//div[@data-testid='previewInterstitial'] | //video");
                     if (VideoNodeTest != null)
                     {
                         KeyValuePair<string, string> VideoData = Grab_TwitterStatus_API(Post_URL);
@@ -533,24 +529,30 @@ namespace e621_ReBot_v2.Modules.Grabber
 
             JObject ParseStatusJson = JObject.Parse(ReponseString);
             JToken BestVideo = null;
-            foreach (JToken VideoCheck in ParseStatusJson["extended_entities"]["media"][0]["video_info"]["variants"])
+            JToken MediaHolder = ParseStatusJson["extended_entities"];
+            if (MediaHolder != null)
             {
-                if (VideoCheck["bitrate"] != null)
+                MediaHolder = MediaHolder["media"][0];
+                foreach (JToken VideoCheck in MediaHolder["video_info"]["variants"])
                 {
-                    if (BestVideo == null)
+                    if (VideoCheck["bitrate"] != null)
                     {
-                        BestVideo = VideoCheck;
-                        continue;
-                    }
+                        if (BestVideo == null)
+                        {
+                            BestVideo = VideoCheck;
+                            continue;
+                        }
 
-                    if (VideoCheck["bitrate"].Value<int>() > BestVideo["bitrate"].Value<int>())
-                    {
-                        BestVideo = VideoCheck;
-                    }
+                        if (VideoCheck["bitrate"].Value<int>() > BestVideo["bitrate"].Value<int>())
+                        {
+                            BestVideo = VideoCheck;
+                        }
 
+                    }
                 }
+                return new KeyValuePair<string, string>(BestVideo["url"].Value<string>(), MediaHolder["media_url_https"].Value<string>());
             }
-            return new KeyValuePair<string, string>(BestVideo["url"].Value<string>(), ParseStatusJson["extended_entities"]["media"][0]["media_url_https"].Value<string>());
+            return new KeyValuePair<string, string>(null, null);
         }
 
         public static JArray TwitterJSONHolder;
