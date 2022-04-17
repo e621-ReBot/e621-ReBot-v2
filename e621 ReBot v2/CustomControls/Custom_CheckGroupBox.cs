@@ -22,7 +22,6 @@ namespace e621_ReBot_v2.CustomControls
             ControlAdded += CheckGroupBox_ControlAdded;
             Paint += CheckGroupBox_Paint;
 
-            m_bDisableChildrenIfUnchecked = true;
             m_checkBox.Parent = this;
             m_checkBox.Location = new Point(CHECKBOX_X_OFFSET, CHECKBOX_Y_OFFSET);
             Checked = true;

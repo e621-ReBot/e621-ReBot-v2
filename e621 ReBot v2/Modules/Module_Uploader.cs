@@ -686,7 +686,7 @@ namespace e621_ReBot_v2.Modules
                         //    Module_Credits.Timestamps_Flag.Add(DateTime.UtcNow.AddHours(1d));
                         //}
 
-                        Report_Info($"Flag for replacement created for #{(string)DataRowRef["Inferior_ID"]} as inferior of #{(string)DataRowRef["Grab_MediaURL"]}");
+                        Report_Info($"Flagged #{(string)DataRowRef["Inferior_ID"]} for replacement as inferior of @{(string)DataRowRef["Grab_MediaURL"]}");
                         break;
                     }
 

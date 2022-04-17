@@ -235,7 +235,6 @@ namespace e621_ReBot_v2.Modules
         {
             if (Form_Loader._FormReference.Blacklist.Count > 0)
             {
-
                 foreach (string BlacklistLine in Form_Loader._FormReference.Blacklist)
                 {
                     if (BlacklistLine.Contains("-"))

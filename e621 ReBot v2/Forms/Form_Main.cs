@@ -186,11 +186,14 @@ namespace e621_ReBot_v2
             else
             {
                 bU_APIKey.Text = "Remove API Key";
+                cCheckGroupBox_Upload.Checked = true;
+                cCheckGroupBox_Retry.Checked = true;
                 bU_PoolWatcher.Enabled = true;
                 bU_Blacklist.Enabled = true;
                 bU_RefreshCredit.Enabled = true;
             }
 
+            cCheckGroupBox_Convert.Checked = File.Exists("ffmpeg.exe");
 
             if (!string.IsNullOrEmpty(Properties.Settings.Default.LastStats))
             {
@@ -213,7 +216,7 @@ namespace e621_ReBot_v2
 
             if (string.IsNullOrEmpty(Properties.Settings.Default.DownloadsFolderLocation))
             {
-                label_DownloadsFolder.Text = Application.StartupPath + @"\Downloads\";
+                label_DownloadsFolder.Text = $"{Application.StartupPath}\\Downloads\\";
                 Properties.Settings.Default.DownloadsFolderLocation = label_DownloadsFolder.Text;
                 Properties.Settings.Default.Save();
             }
@@ -1940,7 +1943,21 @@ namespace e621_ReBot_v2
 
         private void CCheckGroupBox_Convert_CheckedChanged(object sender, EventArgs e)
         {
-            Module_Converter.timer_Conversion.Enabled = ((CheckBox)sender).Checked && !Module_Converter.Conversion_BGW.IsBusy;
+            if (cCheckGroupBox_Convert.Checked)
+            {
+                if (File.Exists("ffmpeg.exe"))
+                {
+                    Module_Converter.timer_Conversion.Enabled = !Module_Converter.Conversion_BGW.IsBusy;
+                }
+                else
+                {
+                    MessageBox.Show("ffmpeg.exe not found.\nYou need to add it before trying to enable Conversionist.", "e621 Rebot");
+                }
+            }
+            else
+            {
+                Module_Converter.timer_Conversion.Stop();
+            }
         }
 
         private void ToolStripMenuItem_RemoveConversionNode_Click(object sender, EventArgs e)
@@ -2067,7 +2084,12 @@ namespace e621_ReBot_v2
                     bU_APIKey.Text = "Add API Key";
                     cCheckGroupBox_Upload.Checked = false;
                     cCheckGroupBox_Retry.Checked = false;
-                    MessageBox.Show("Uploading will remain disabled until you add the API Key again.", "e621 ReBot");
+                    Module_Uploader.timer_Upload.Stop();
+                    Module_Uploader.timer_UploadDisable.Stop();
+                    Module_Retry.timer_Retry.Stop();
+                    Module_Retry.timer_RetryDisable.Stop();
+                    BU_CancelAPIDL_Click(null, null);
+                    MessageBox.Show("Some functions will remain disabled until you add the API Key again.", "e621 ReBot");
                 }
             }
         }
