@@ -368,7 +368,7 @@ namespace e621_ReBot_v2.Forms
                     }
             }
             PB_Upload.Enabled = true;
-            panel_Search.Enabled = Preview_RowHolder["Uploaded_As"] == DBNull.Value;
+            panel_Search.Enabled = Preview_RowHolder["Uploaded_As"] == DBNull.Value && Module_APIControler.APIEnabled;
             Label_AlreadyUploaded.Text = Preview_RowHolder["Uploaded_As"] == DBNull.Value ? null : string.Format("Already uploaded as #{0}", Preview_RowHolder["Uploaded_As"]);
             Label_Tags.Text = (string)Preview_RowHolder["Upload_Tags"];
             if (Preview_RowHolder["Info_TooBig"] == DBNull.Value)
@@ -1080,7 +1080,7 @@ namespace e621_ReBot_v2.Forms
             if (PostData["has_notes"].Value<bool>())
             {
                 // when they fix api this should no longer maker 2 requests to get notes
-                PostTest = Module_e621Info.e621InfoDownload("https://e621.net/notes.json?search[post_id]=" + PostID, true);
+                PostTest = Module_e621Info.e621InfoDownload($"https://e621.net/notes.json?search[post_id]={PostID}", true);
                 if (!PostTest.StartsWith("{")) // no notes then
                 {
                     RowRefference["Inferior_HasNotes"] = true;

@@ -133,7 +133,7 @@ namespace e621_ReBot_v2.CustomControls
             if (Form_Loader._FormReference.rb_GameStart_2.Checked)
             {
             Repeat_Random:
-                JToken RandomJSON = JObject.Parse(Module_e621Info.e621InfoDownload("https://e621.net/posts/random.json", false))["post"];
+                JToken RandomJSON = JObject.Parse(Module_e621Info.e621InfoDownload("https://e621.net/posts/random.json"))["post"];
 
                 int ImageWidth = RandomJSON["file"]["width"].Value<int>();
                 int ImageHeight = RandomJSON["file"]["height"].Value<int>();
@@ -168,7 +168,7 @@ namespace e621_ReBot_v2.CustomControls
                     return;
                 } 
 
-                string PostTest = Module_e621Info.e621InfoDownload($"https://e621.net/posts/{PuzzlePostID}.json", false);
+                string PostTest = Module_e621Info.e621InfoDownload($"https://e621.net/posts/{PuzzlePostID}.json");
                 if (PostTest == null || PostTest.Length < 10)
                 {
                     Form_Loader._FormReference.GB_StartGame.Enabled = true;

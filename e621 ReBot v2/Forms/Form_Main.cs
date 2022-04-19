@@ -287,7 +287,7 @@ namespace e621_ReBot_v2
                 }
             }
 
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.API_Key) && !string.IsNullOrEmpty(Properties.Settings.Default.PoolWatcher))
+            if (Module_APIControler.APIEnabled && !string.IsNullOrEmpty(Properties.Settings.Default.PoolWatcher))
             {
                 new Thread(Form_PoolWatcher.PoolWatcher_Check4New).Start();
             }

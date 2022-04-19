@@ -219,7 +219,7 @@ namespace e621_ReBot_v2.Modules
 
         private static void RetryTask_CopyNotes(string InferiorID, string UploadedAs, double NoteRatioData)
         {
-            JArray OldPostNoteList = JArray.Parse(Module_e621Info.e621InfoDownload("https://e621.net/notes.json?search[post_id]=" + InferiorID));
+            JArray OldPostNoteList = JArray.Parse(Module_e621Info.e621InfoDownload($"https://e621.net/notes.json?search[post_id]={InferiorID}"));
             foreach (JObject Note in OldPostNoteList.Reverse())
             {
                 if (!Note["is_active"].Value<bool>())
@@ -230,7 +230,7 @@ namespace e621_ReBot_v2.Modules
             Thread.Sleep(500);
 
             List<string> ExistingNotes = new List<string>();
-            string NoteTest = Module_e621Info.e621InfoDownload("https://e621.net/notes.json?search[post_id]=" + UploadedAs);
+            string NoteTest = Module_e621Info.e621InfoDownload($"https://e621.net/notes.json?search[post_id]={UploadedAs}");
             if (!NoteTest.StartsWith("{", StringComparison.OrdinalIgnoreCase))
             {
                 JArray NewPostNoteList = JArray.Parse(NoteTest);

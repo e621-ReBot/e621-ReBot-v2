@@ -144,7 +144,7 @@ namespace e621_ReBot_v2.Modules
         {
             string PoolID = (string)ParameterPass;
 
-            JToken PoolJSON = JObject.Parse(Module_e621Info.e621InfoDownload($"https://e621.net/pools/{PoolID}.json", false));
+            JToken PoolJSON = JObject.Parse(Module_e621Info.e621InfoDownload($"https://e621.net/pools/{PoolID}.json"));
             string PoolName = PoolJSON["name"].Value<string>().Replace("_", " ").Trim();
             PoolName = string.Join("", PoolName.Split(Path.GetInvalidFileNameChars()));
             string FolderPath = Path.Combine(Properties.Settings.Default.DownloadsFolderLocation, @"e621\", PoolName).ToString();

@@ -1,4 +1,6 @@
-﻿namespace e621_ReBot_v2.Modules
+﻿using e621_ReBot_v2.Forms;
+
+namespace e621_ReBot_v2.Modules
 {
     public class Module_APIControler
     {
@@ -11,6 +13,7 @@
             Form_Loader._FormReference.cCheckGroupBox_Retry.Checked = APIEnabled;
             Form_Loader._FormReference.bU_PoolWatcher.Enabled = APIEnabled;
             Form_Loader._FormReference.bU_RefreshCredit.Enabled = APIEnabled;
+            if (Form_Preview._FormReference != null) Form_Preview._FormReference.panel_Search.Enabled = APIEnabled;
             if (APIEnabled)
             {
                 Module_Uploader.timer_Upload.Start();

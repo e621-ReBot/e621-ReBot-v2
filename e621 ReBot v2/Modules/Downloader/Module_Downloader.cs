@@ -1023,7 +1023,7 @@ namespace e621_ReBot_v2.Modules
                     if (GetCurrentPage > 1)
                     {
                         string PoolID = WebDoc.DocumentNode.SelectSingleNode("//div[@id='a-show']//a").Attributes["href"].Value.Replace("/posts?tags=pool%3A", "");
-                        ComicPages = JObject.Parse(Module_e621Info.e621InfoDownload(string.Format("https://e621.net/pools/{0}.json", PoolID), false))["post_ids"].Values<string>().ToList(); ;
+                        ComicPages = JObject.Parse(Module_e621Info.e621InfoDownload($"https://e621.net/pools/{PoolID}.json"))["post_ids"].Values<string>().ToList();
                     }
 
                     int PoolIndex = 0;
