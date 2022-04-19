@@ -34,10 +34,14 @@
             this.cLabel_isSuperior = new e621_ReBot_v2.CustomControls.Custom_LabelWithStroke();
             this.cLabel_TagWarning = new e621_ReBot_v2.CustomControls.Custom_LabelWithStroke();
             this.cLabel_isUploaded = new e621_ReBot_v2.CustomControls.Custom_LabelWithStroke();
+            this.contextMenuStrip_GridItem = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ToolStripMenuItem_GridCopySourceURL = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItem_GridCopyMediaURL = new System.Windows.Forms.ToolStripMenuItem();
+            this.cPanel_Rating = new e621_ReBot_v2.CustomControls.Custom_Panel();
             this.cCheckBox_UPDL = new e621_ReBot_v2.CustomControls.Custom_CheckBox();
             this.cLabel_Rating = new e621_ReBot_v2.CustomControls.Custom_LabelWithStroke();
-            this.cPanel_Rating = new e621_ReBot_v2.CustomControls.Custom_Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ImageHolder)).BeginInit();
+            this.contextMenuStrip_GridItem.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox_ImageHolder
@@ -114,6 +118,39 @@
             this.cLabel_isUploaded.TextChanged += new System.EventHandler(this.CLabel_isUploaded_TextChanged);
             this.cLabel_isUploaded.Click += new System.EventHandler(this.CLabel_isUploaded_Click);
             // 
+            // contextMenuStrip_GridItem
+            // 
+            this.contextMenuStrip_GridItem.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItem_GridCopySourceURL,
+            this.ToolStripMenuItem_GridCopyMediaURL});
+            this.contextMenuStrip_GridItem.Name = "contextMenuStrip_GridItem";
+            this.contextMenuStrip_GridItem.Size = new System.Drawing.Size(181, 70);
+            // 
+            // ToolStripMenuItem_GridCopySourceURL
+            // 
+            this.ToolStripMenuItem_GridCopySourceURL.Name = "ToolStripMenuItem_GridCopySourceURL";
+            this.ToolStripMenuItem_GridCopySourceURL.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuItem_GridCopySourceURL.Text = "Copy source URL";
+            this.ToolStripMenuItem_GridCopySourceURL.Click += new System.EventHandler(this.ToolStripMenuItem_GridCopySourceURL_Click);
+            // 
+            // ToolStripMenuItem_GridCopyMediaURL
+            // 
+            this.ToolStripMenuItem_GridCopyMediaURL.Name = "ToolStripMenuItem_GridCopyMediaURL";
+            this.ToolStripMenuItem_GridCopyMediaURL.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuItem_GridCopyMediaURL.Text = "Copy media URL";
+            this.ToolStripMenuItem_GridCopyMediaURL.Click += new System.EventHandler(this.ToolStripMenuItem_GridCopyMediaURL_Click);
+            // 
+            // cPanel_Rating
+            // 
+            this.cPanel_Rating.BackColor = System.Drawing.Color.Red;
+            this.cPanel_Rating.Corner = 3;
+            this.cPanel_Rating.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cPanel_Rating.Location = new System.Drawing.Point(1, 179);
+            this.cPanel_Rating.Name = "cPanel_Rating";
+            this.cPanel_Rating.Size = new System.Drawing.Size(24, 24);
+            this.cPanel_Rating.TabIndex = 8;
+            this.cPanel_Rating.Visible = false;
+            // 
             // cCheckBox_UPDL
             // 
             this.cCheckBox_UPDL.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
@@ -141,23 +178,13 @@
             this.cLabel_Rating.Text = "E";
             this.cLabel_Rating.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // cPanel_Rating
-            // 
-            this.cPanel_Rating.BackColor = System.Drawing.Color.Red;
-            this.cPanel_Rating.Corner = 3;
-            this.cPanel_Rating.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.cPanel_Rating.Location = new System.Drawing.Point(1, 179);
-            this.cPanel_Rating.Name = "cPanel_Rating";
-            this.cPanel_Rating.Size = new System.Drawing.Size(24, 24);
-            this.cPanel_Rating.TabIndex = 8;
-            this.cPanel_Rating.Visible = false;
-            // 
             // e6_GridItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(45)))), ((int)(((byte)(90)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.ContextMenuStrip = this.contextMenuStrip_GridItem;
             this.Controls.Add(this.cPanel_Rating);
             this.Controls.Add(this.cLabel_isSuperior);
             this.Controls.Add(this.cLabel_TagWarning);
@@ -170,6 +197,7 @@
             this.Size = new System.Drawing.Size(204, 204);
             this.Load += new System.EventHandler(this.E6_GridItem_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ImageHolder)).EndInit();
+            this.contextMenuStrip_GridItem.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -184,5 +212,8 @@
         internal Custom_CheckBox cCheckBox_UPDL;
         internal System.Windows.Forms.ToolTip toolTip_Display;
         internal Custom_Panel cPanel_Rating;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip_GridItem;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_GridCopySourceURL;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_GridCopyMediaURL;
     }
 }

@@ -120,25 +120,6 @@
   <metadata name="toolTip_Display.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="label_DragDropConvert.ToolTip" xml:space="preserve">
-    <value>Drop Videos that you want to convert to Webm here.
-
-Supported formats: mp4, swf.
-FFmpeg settings: -c:v libvpx-vp9 -pix_fmt yuv420p -b:a 192k -b:v 2000k -minrate 1500k -maxrate 2500k -crf 16 -quality good -speed 4 -pass 2</value>
-  </data>
-  <data name="radioButton_GrabDisplayOrder0.ToolTip" xml:space="preserve">
-    <value>Grabbed media will be displayed in order it was queued.
-If there are two grab task, one with 100 and other with 1 image, the 1 image from
-second task will not be displayed untill first task with 100 images has finished.</value>
-  </data>
-  <data name="bU_Blacklist.ToolTip" xml:space="preserve">
-    <value>Blacklist Tags you do not want to download.
-Blacklist applies to downloads from e621 via API (pool downloads ignore it).
-
-Tags can be combined by entering them on the same line, separated by a space. 
-Each line is regarded separately.
-Use shortened terms "e", "q", "s" for ratings.</value>
-  </data>
   <metadata name="timer_FadeIn.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>151, 17</value>
   </metadata>
@@ -181,6 +162,25 @@ Use shortened terms "e", "q", "s" for ratings.</value>
 * Changing Parent/Children (/posts/&lt;Post_ID&gt;.json)
 * Getting Post data (/posts.json)
 * Getting Pool data (/pools.json)</value>
+  </data>
+  <data name="label_DragDropConvert.ToolTip" xml:space="preserve">
+    <value>Drop Videos that you want to convert to Webm here.
+
+Supported formats: mp4, swf.
+FFmpeg settings: -c:v libvpx-vp9 -pix_fmt yuv420p -b:a 192k -b:v 2000k -minrate 1500k -maxrate 2500k -crf 16 -quality good -speed 4 -pass 2</value>
+  </data>
+  <data name="radioButton_GrabDisplayOrder0.ToolTip" xml:space="preserve">
+    <value>Grabbed media will be displayed in order it was queued.
+If there are two grab task, one with 100 and other with 1 image, the 1 image from
+second task will not be displayed untill first task with 100 images has finished.</value>
+  </data>
+  <data name="bU_Blacklist.ToolTip" xml:space="preserve">
+    <value>Blacklist Tags you do not want to download.
+Blacklist applies to downloads from e621 via API (pool downloads ignore it).
+
+Tags can be combined by entering them on the same line, separated by a space. 
+Each line is regarded separately.
+Use shortened terms "e", "q", "s" for ratings.</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

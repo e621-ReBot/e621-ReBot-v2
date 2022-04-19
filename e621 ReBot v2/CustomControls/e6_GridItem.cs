@@ -154,50 +154,58 @@ namespace e621_ReBot_v2.CustomControls
 
 
 
-        private Timer DoubleClickTimerCheck;
+        private readonly Timer DoubleClickTimerCheck;
         private void E6_GridItem_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            switch (e.Button)
             {
-                if (ModifierKeys.HasFlag(Keys.Control))
-                {
-                    Module_CefSharp.CefSharpBrowser.Load(_DataRowReference["Grab_URL"].ToString());
-                    Form_Loader._FormReference.cTabControl_e621ReBot.SelectedIndex = 0;
-                    return;
-                }
+                case MouseButtons.Left:
+                    {
+                        if (ModifierKeys.HasFlag(Keys.Control))
+                        {
+                            Module_CefSharp.CefSharpBrowser.Load(_DataRowReference["Grab_URL"].ToString());
+                            Form_Loader._FormReference.cTabControl_e621ReBot.SelectedIndex = 0;
+                            return;
+                        }
+                        if (ModifierKeys.HasFlag(Keys.Alt))
+                        {
+                            Process.Start(_DataRowReference["Grab_URL"].ToString());
+                            return;
+                        }
+                        //If Application.OpenForms.OfType(Of Form).Contains(Form_Tagger) Then Form_Tagger.Close()
 
-                if (ModifierKeys.HasFlag(Keys.Alt))
-                {
-                    Process.Start(_DataRowReference["Grab_URL"].ToString());
-                    return;
-                }
+                        if (_IsSelectedCheck)
+                        {
+                            if (DoubleClickTimerCheck.Enabled)
+                            {
+                                DoubleClicked();
+                            }
+                            else
+                            {
+                                Unselect_e6GridItem();
+                                DoubleClickTimerCheck.Start();
+                            }
+                        }
+                        else
+                        {
+                            if (DoubleClickTimerCheck.Enabled)
+                            {
+                                Select_e6GridItem();
+                                DoubleClicked();
+                            }
+                            else
+                            {
+                                Select_e6GridItem();
+                            }
+                        }
+                        break;
+                    }
 
-                //If Application.OpenForms.OfType(Of Form).Contains(Form_Tagger) Then Form_Tagger.Close()
-
-                if (_IsSelectedCheck)
-                {
-                    if (DoubleClickTimerCheck.Enabled)
+                case MouseButtons.Right:
                     {
-                        DoubleClicked();
+                        if (!_IsSelectedCheck) Select_e6GridItem();
                     }
-                    else
-                    {
-                        Unselect_e6GridItem();
-                        DoubleClickTimerCheck.Start();
-                    }
-                }
-                else
-                {
-                    if (DoubleClickTimerCheck.Enabled)
-                    {
-                        Select_e6GridItem();
-                        DoubleClicked();
-                    }
-                    else
-                    {
-                        Select_e6GridItem();
-                    }
-                }
+                    break;
             }
         }
 
@@ -283,6 +291,18 @@ namespace e621_ReBot_v2.CustomControls
             {
                 Form_Preview._FormReference.PB_Upload.BackColor = cCheckBox_State ? Color.LimeGreen : Color.FromArgb(0, 45, 90);
             }
+        }
+
+
+
+        private void ToolStripMenuItem_GridCopySourceURL_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText((string)_DataRowReference["Grab_URL"]);
+        }
+
+        private void ToolStripMenuItem_GridCopyMediaURL_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText((string)_DataRowReference["Grab_MediaURL"]);
         }
 
 
@@ -380,10 +400,10 @@ namespace e621_ReBot_v2.CustomControls
                     TempGraphics.DrawImage(ControlSnapshot, new Rectangle(new Point(8 * i, 8 * i), new Size(Width - 17 * i, Height - 17 * i)));
                 }
                 BackgroundImage = BackgroundRemovalImage;
-                Invoke(new Action(() => { Refresh(); })); 
+                Invoke(new Action(() => { Refresh(); }));
                 Thread.Sleep(1);
             }
-            Invoke(new Action(() => 
+            Invoke(new Action(() =>
             {
                 ControlSnapshot.Dispose();
                 BackgroundRemovalImage.Dispose();
