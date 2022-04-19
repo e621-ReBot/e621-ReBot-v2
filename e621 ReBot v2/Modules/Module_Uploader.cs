@@ -570,6 +570,11 @@ namespace e621_ReBot_v2.Modules
                 ParentTag = " parent:" + (string)((DataRow)DataRowRef["Upload_ParentOffset"])["Uploaded_As"];
             }
 
+            if (!Module_APIControler.APIEnabled)
+            {
+                return;
+            }
+
             POST_Dictionary.Add("upload[source]", Upload_Sources);
             POST_Dictionary.Add("upload[rating]", ((string)DataRowRef["Upload_Rating"]).ToLower());
             POST_Dictionary.Add("upload[tag_string]", PostTags + ParentTag);
@@ -627,6 +632,7 @@ namespace e621_ReBot_v2.Modules
             {
                 Directory.Delete("MediaTemp", true);
             }
+            //e6Response = default;
         }
 
         private static void DisplayUploadSuccess(ref DataRow DataRowRef, string ID)
@@ -716,7 +722,7 @@ namespace e621_ReBot_v2.Modules
                     }
             }
             e6Flag4ReplaceResponse.Key.Dispose();
-            e6Flag4ReplaceResponse = default;
+            //e6Flag4ReplaceResponse = default;
         }
 
         //

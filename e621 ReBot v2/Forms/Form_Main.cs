@@ -186,11 +186,7 @@ namespace e621_ReBot_v2
             else
             {
                 bU_APIKey.Text = "Remove API Key";
-                cCheckGroupBox_Upload.Checked = true;
-                cCheckGroupBox_Retry.Checked = true;
-                bU_PoolWatcher.Enabled = true;
-                bU_Blacklist.Enabled = true;
-                bU_RefreshCredit.Enabled = true;
+                Module_APIControler.ToggleStatus();
             }
 
             cCheckGroupBox_Convert.Checked = File.Exists("ffmpeg.exe");
@@ -2082,12 +2078,7 @@ namespace e621_ReBot_v2
                     Properties.Settings.Default.API_Key = "";
                     Properties.Settings.Default.Save();
                     bU_APIKey.Text = "Add API Key";
-                    cCheckGroupBox_Upload.Checked = false;
-                    cCheckGroupBox_Retry.Checked = false;
-                    Module_Uploader.timer_Upload.Stop();
-                    Module_Uploader.timer_UploadDisable.Stop();
-                    Module_Retry.timer_Retry.Stop();
-                    Module_Retry.timer_RetryDisable.Stop();
+                    Module_APIControler.ToggleStatus();
                     BU_CancelAPIDL_Click(null, null);
                     MessageBox.Show("Some functions will remain disabled until you add the API Key again.", "e621 ReBot");
                 }

@@ -342,6 +342,7 @@
     <Compile Include="Modules\Grabber\Module_Weasyl.cs" />
     <Compile Include="Modules\Grabber\Module_SoFurry.cs" />
     <Compile Include="Modules\Grabber\Module_Twitter.cs" />
+    <Compile Include="Modules\Module_APIControler.cs" />
     <Compile Include="Modules\Module_Converter.cs" />
     <Compile Include="Modules\Module_Credits.cs" />
     <Compile Include="Modules\Module_Cryptor.cs" />
