@@ -15,7 +15,9 @@ namespace CefSharp
 
         public IResourceHandler Create(IBrowser browser, IFrame frame, string schemeName, IRequest request)
         {
-            if (Form_Preview._FormReference != null && browser.Identifier != null && browser.Identifier > 1 && request.Url.EndsWith("/download", StringComparison.OrdinalIgnoreCase))
+            //pixiv js sometimes throws nullexception for browser stuff
+            Uri TestHost = new Uri(request.Url);
+            if (Form_Preview._FormReference != null && TestHost.Host.Equals("www.hiccears.com") && browser.Identifier > 1 && request.Url.EndsWith("/download", StringComparison.OrdinalIgnoreCase))
             {
                 return new MediaBrowser_ResourceHandler();
             }
