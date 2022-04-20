@@ -1,5 +1,6 @@
 ﻿using HtmlAgilityPack;
 using System;
+using System.Linq;
 using System.Net;
 
 namespace e621_ReBot_v2.Modules.Grabber
@@ -51,16 +52,8 @@ namespace e621_ReBot_v2.Modules.Grabber
             {
                 case "#text":
                     {
-                        string TextTest = TextHolderNode.InnerText.Trim();
-                        //if (TextHolderNode.InnerText.Contains("\r\n\t"))
-                        //{
-                        //    TextHolder += TextHolderNode.InnerText.Replace(" ", "💩").Trim().Replace("💩", " ");
-                        //}
-                        //else
-                        if (TextTest.Length != 0)
-                        {
-                            TextHolder += TextHolderNode.InnerText;
-                        }
+                        int TabTest = TextHolderNode.InnerText.Count(ch => ch.Equals('\t'));
+                        TextHolder += TabTest > 2 ? TextHolderNode.InnerText.Trim() + " " : TextHolderNode.InnerText;
                         break;
                     }
 
