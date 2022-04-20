@@ -1,6 +1,4 @@
-﻿using e621_ReBot_v2.Modules;
-using e621_ReBot_v2.Modules.Grabber;
-using System;
+﻿using System;
 using System.Data;
 using System.Linq;
 using System.Net;

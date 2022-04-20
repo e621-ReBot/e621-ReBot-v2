@@ -6,7 +6,6 @@ using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
@@ -189,7 +188,7 @@ namespace e621_ReBot_v2.Modules
         {
             if ((CefSharpBrowser.Address.Contains("https://www.pixiv.net") || e.Url.Contains("https://www.pixiv.net")) && e.Frame.Name.Equals("footer"))
             {
-                FrameLoad[CefSharpBrowser.Address] = 1;
+                FrameLoad[HttpUtility.UrlDecode(CefSharpBrowser.Address)] = 1;
             }
         }
 

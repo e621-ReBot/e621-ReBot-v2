@@ -3,11 +3,8 @@ using e621_ReBot_v2.Forms;
 using e621_ReBot_v2.Modules;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Runtime.InteropServices;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace CefSharp
@@ -18,7 +15,7 @@ namespace CefSharp
 
         public IResourceHandler Create(IBrowser browser, IFrame frame, string schemeName, IRequest request)
         {
-            if (Form_Preview._FormReference != null && browser.Identifier > 1 && request.Url.EndsWith("/download", StringComparison.OrdinalIgnoreCase))
+            if (Form_Preview._FormReference != null && browser.Identifier != null && browser.Identifier > 1 && request.Url.EndsWith("/download", StringComparison.OrdinalIgnoreCase))
             {
                 return new MediaBrowser_ResourceHandler();
             }
