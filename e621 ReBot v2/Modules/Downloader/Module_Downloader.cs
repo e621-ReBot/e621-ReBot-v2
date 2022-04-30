@@ -559,8 +559,7 @@ namespace e621_ReBot_v2.Modules
             e6_DownloadItemTemp.DL_FolderIcon.Tag = FilePath;
             if (e6Pic == null)
             {
-
-                if (FilePath.EndsWith("webm") || FilePath.EndsWith("swf"))
+                if (FilePath.EndsWith("webm") || FilePath.EndsWith("mp4") || FilePath.EndsWith("swf"))
                 {
                     e6_DownloadItemTemp.picBox_ImageHolder.LoadAsync(ThumbURL);
                 }

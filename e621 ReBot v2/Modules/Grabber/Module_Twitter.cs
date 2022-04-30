@@ -168,7 +168,7 @@ namespace e621_ReBot_v2.Modules.Grabber
 
             //string ArtistName = WebAdress.Replace("https://twitter.com/", "");
             //ArtistName = ArtistName.Substring(0, ArtistName.IndexOf("/"));
-            string FullName = PostNode.SelectNodes(".//a[@role='link']")[1].InnerText;
+            string FullName = PostNode.SelectNodes(".//div[@id]")[1].InnerText; //.SelectNodes(".//a[@role='link']")[1].InnerText;
             FullName = FullName.Replace("@", " (@") + ")";
 
             HtmlNodeCollection TestTextNodes = PostNode.SelectNodes(".//div[@dir='auto']/span");
