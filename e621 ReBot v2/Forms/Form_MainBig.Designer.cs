@@ -80,7 +80,7 @@
             // 
             this.label_UserLevel.Location = new System.Drawing.Point(1477, 18);
             // 
-            // Panel_Holder
+            // panel_Holder
             // 
             this.panel_Holder.Size = new System.Drawing.Size(1908, 34);
             // 
@@ -290,6 +290,8 @@
             this.cCheckGroupBox_Upload.Location = new System.Drawing.Point(948, 64);
             this.cCheckGroupBox_Upload.Margin = new System.Windows.Forms.Padding(8, 64, 64, 8);
             this.cCheckGroupBox_Upload.Size = new System.Drawing.Size(860, 400);
+            this.cCheckGroupBox_Upload.Controls.SetChildIndex(this.label_UploadStatus, 0);
+            this.cCheckGroupBox_Upload.Controls.SetChildIndex(this.bU_ReverseUpload, 0);
             this.cCheckGroupBox_Upload.Controls.SetChildIndex(this.cTreeView_UploadQueue, 0);
             // 
             // cCheckGroupBox_Grab
@@ -518,6 +520,15 @@
             // label_NavError
             // 
             this.label_NavError.Size = new System.Drawing.Size(1247, 19);
+            // 
+            // bU_ReverseUpload
+            // 
+            this.bU_ReverseUpload.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.bU_ReverseUpload.Location = new System.Drawing.Point(833, 6);
+            // 
+            // label_UploadStatus
+            // 
+            this.label_UploadStatus.Size = new System.Drawing.Size(828, 13);
             // 
             // Form_MainBig
             // 

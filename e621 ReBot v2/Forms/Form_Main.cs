@@ -1629,8 +1629,11 @@ namespace e621_ReBot_v2
                 MessageBox.Show("Download queue and API should be stopped before attempting to reverse the order.", "e621 ReBot");
                 return;
             }
-            Module_TableHolder.Download_Table = Module_TableHolder.ReverseDataTable(Module_TableHolder.Download_Table);
-            Module_Downloader.UpdateTreeViewNodes();
+            if (Module_TableHolder.Download_Table.Rows.Count > 1)
+            {
+                Module_TableHolder.Download_Table = Module_TableHolder.ReverseDataTable(Module_TableHolder.Download_Table);
+                Module_Downloader.UpdateTreeViewNodes();
+            }
         }
 
         #endregion
@@ -1988,6 +1991,20 @@ namespace e621_ReBot_v2
                 cTreeView_ConversionQueue.Nodes.Clear();
                 cCheckGroupBox_Convert.Text = "Conversionist";
             }
+        }
+
+        private void BU_ReverseUpload_Click(object sender, EventArgs e)
+        {
+            if (cCheckGroupBox_Upload.Checked | Module_Uploader.Upload_BGW.IsBusy)
+            {
+                MessageBox.Show("Upload queue and API should be stopped before attempting to reverse the order.", "e621 ReBot");
+                return;
+            }
+            if (Module_TableHolder.Upload_Table.Rows.Count > 1)
+            {
+                Module_TableHolder.Upload_Table = Module_TableHolder.ReverseDataTable(Module_TableHolder.Upload_Table);
+                Module_Uploader.ReverseUploadNodes();
+            } 
         }
 
         #endregion

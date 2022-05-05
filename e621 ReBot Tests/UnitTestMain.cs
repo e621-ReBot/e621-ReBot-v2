@@ -3,6 +3,8 @@ using System.Data;
 using System.Linq;
 using System.Net;
 using System.Text;
+using e621_ReBot_v2.Modules;
+using e621_ReBot_v2.Modules.Grabber;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace e621_ReBot_Tests

@@ -171,7 +171,7 @@ namespace e621_ReBot_v2.Modules
             }
         }
 
-        public static void CreateUploadJobNode(ref DataRow DataRowPass)
+        private static void CreateUploadJobNode(ref DataRow DataRowPass)
         {
             TreeNode TreeNodeParent = new TreeNode((string)DataRowPass["Grab_MediaURL"])
             {
@@ -189,6 +189,15 @@ namespace e621_ReBot_v2.Modules
             Form_Loader._FormReference.cTreeView_UploadQueue.Nodes.Add(TreeNodeParent);
         }
 
+        public static void ReverseUploadNodes()
+        {
+            Form_Loader._FormReference.cTreeView_UploadQueue.Nodes.Clear();
+            foreach (DataRow DataRowTemp in Module_TableHolder.Upload_Table.Rows)
+            {
+                DataRow UploadRowTemp = DataRowTemp;
+                CreateUploadJobNode(ref UploadRowTemp);
+            }
+        }
 
 
         public static void Report_Info(string InfoMessage)
