@@ -128,10 +128,27 @@ namespace e621_ReBot_v2.Modules
                                 Credit_Upload_Hourly -= 1;
                             }
                         }
-                        Timestamps_Upload.Sort();
                     }
+                    HTML_UploadHistory = Module_e621Info.e621InfoDownload($"https://e621.net/post_replacements.json?search[creator_id]={Properties.Settings.Default.UserID}");
+                    if (HTML_UploadHistory != null && HTML_UploadHistory.Length > 24)
+                    {
+                        JArray PostHistory = JArray.Parse(HTML_UploadHistory);
+                        foreach (JObject UploadedPost in PostHistory)
+                        {
+                            DateTime TempTime = UploadedPost["created_at"].Value<DateTime>().ToUniversalTime().AddHours(1);
+                            if (DateTime.UtcNow > TempTime)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                Timestamps_Upload.Add(TempTime);
+                                Credit_Upload_Hourly -= 1;
+                            }
+                        }
+                    }
+                    Timestamps_Upload.Sort();
                 }
-
             }
         }
 

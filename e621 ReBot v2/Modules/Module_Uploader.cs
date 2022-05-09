@@ -700,29 +700,34 @@ namespace e621_ReBot_v2.Modules
                         //    Module_Credits.Credit_Flag -= 1;
                         //    Module_Credits.Timestamps_Flag.Add(DateTime.UtcNow.AddHours(1d));
                         //}
-
+                        if (Module_Credits.UserLevels[Properties.Settings.Default.UserLevel] < 2)
+                        {
+                            Module_Credits.Credit_Upload_Hourly -= 1;
+                            Module_Credits.Timestamps_Upload.Add(DateTime.UtcNow.AddHours(1d));
+                            Module_Credits.Credit_Upload_Total -= 1;
+                        }
                         Report_Info($"Flagged #{(string)DataRowRef["Inferior_ID"]} for replacement as inferior of @{(string)DataRowRef["Grab_MediaURL"]}");
                         break;
                     }
 
-                case (HttpStatusCode)422:
-                    {
-                        //Report_Info($"Hourly flag limit reached, did not flag #{(string)DataRowRef["Uploaded_As"]}");
-                        //Module_Credits.Credit_Flag = 0;
-                        //UploadTask_ChangeParent();
+                //case (HttpStatusCode)422:
+                //    {
+                //        //Report_Info($"Hourly flag limit reached, did not flag #{(string)DataRowRef["Uploaded_As"]}");
+                //        //Module_Credits.Credit_Flag = 0;
+                //        //UploadTask_ChangeParent();
 
-                        //Form_Loader._FormReference.Invoke(new Action(() =>
-                        //{
-                        //    TreeNode clonedNode = new TreeNode()
-                        //    {
-                        //        Text = $"Flag #{(string)DataRowRef["Inferior_ID"]} as inferior of #{(string)DataRowRef["Uploaded_As"]}"
-                        //    };
-                        //    Form_Loader._FormReference.cTreeView_RetryQueue.Nodes.Add(clonedNode);
-                        //}));
-                        //Module_Retry.timer_RetryDisable.Start();
-                        //Module_Retry.timer_Retry.Start();
-                        break;
-                    }
+                //        //Form_Loader._FormReference.Invoke(new Action(() =>
+                //        //{
+                //        //    TreeNode clonedNode = new TreeNode()
+                //        //    {
+                //        //        Text = $"Flag #{(string)DataRowRef["Inferior_ID"]} as inferior of #{(string)DataRowRef["Uploaded_As"]}"
+                //        //    };
+                //        //    Form_Loader._FormReference.cTreeView_RetryQueue.Nodes.Add(clonedNode);
+                //        //}));
+                //        //Module_Retry.timer_RetryDisable.Start();
+                //        //Module_Retry.timer_Retry.Start();
+                //        break;
+                //    }
 
                 default:
                     {
