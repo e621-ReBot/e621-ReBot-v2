@@ -16,7 +16,7 @@ namespace e621_ReBot_v2
         public static FlowLayoutPanel _GridFLPHolder;
         public static int _GridMaxControls;
         public static int _DLHistoryMaxControls;
-        public static readonly string GlobalUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:94.0) Gecko/20100101 Firefox/94.0";
+        public static readonly string GlobalUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:100.0) Gecko/20100101 Firefox/100.0";
 
         public Form_Loader()
         {

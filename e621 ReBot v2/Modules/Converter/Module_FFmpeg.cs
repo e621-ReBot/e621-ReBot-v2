@@ -212,7 +212,7 @@ namespace e621_ReBot_v2.Modules
 
                                     case "U":
                                         {
-                                            Module_Uploader.Report_Status($"Converting Video to WebM...{(CurrentTime.TotalMilliseconds / VideoDuration.TotalMilliseconds):P0}");
+                                            Module_Uploader.Report_Status($"Converting {TempVideoFormat} Video to WebM...{(CurrentTime.TotalMilliseconds / VideoDuration.TotalMilliseconds):P0}");
                                             break;
                                         }
                                 }

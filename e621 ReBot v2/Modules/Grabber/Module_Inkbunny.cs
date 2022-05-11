@@ -287,16 +287,17 @@ namespace e621_ReBot_v2.Modules.Grabber
                 case ".mp4":
                 case ".swf":
                     {
-                        string ThumbnailURLTemp = MediaURL.Replace(MediaURL.Substring(MediaURL.Length - 4), ".jpg").Replace("files/full", "thumbnails/large");
+                        string ThumbnailURLTemp = MediaURL.Substring(0, MediaURL.Length - 4) + ".jpg";
+                        ThumbnailURLTemp = ThumbnailURLTemp.Replace("files/full", "thumbnails/large");
                         TempDataRow["Grab_ThumbnailURL"] = Module_Grabber.CheckURLExists(ThumbnailURLTemp) ? ThumbnailURLTemp : "https://nl.ib.metapix.net/images78/overlays/video.png";
                         break;
                     }
 
-                case ".gif":
-                    {
-                        TempDataRow["Grab_ThumbnailURL"] = MediaURL.Replace("files/full", "files/screen");
-                        break;
-                    }
+                //case ".gif":
+                //    {
+                //        TempDataRow["Grab_ThumbnailURL"] = MediaURL.Replace("files/full", "files/screen");
+                //        break;
+                //    }
 
                 default:
                     {

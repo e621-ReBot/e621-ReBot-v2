@@ -504,6 +504,11 @@ namespace e621_ReBot_v2.Modules
                         AddPic2FLP((string)DataRowTemp["Grab_MediaURL"], e6_DownloadItemTemp.DL_FolderIcon.Tag.ToString(), ImageHolder);
                         e6_DownloadItemTemp.picBox_ImageHolder.Tag = null;
                         e6_DownloadItemTemp._AlreadyCopied = true;
+
+                        if (e6_DownloadItemTemp.DataRow4Grid != null)
+                        {
+                            e6_DownloadItemTemp.DataRow4Grid["DL_FilePath"] = e6_DownloadItemTemp.DL_FolderIcon.Tag.ToString();
+                        }
                     }
                     if (Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Count > DLThreadsCount || !Form_Loader._FormReference.cCheckGroupBox_Download.Checked || Module_TableHolder.Download_Table.Rows.Count == 0)
                     {
@@ -778,6 +783,7 @@ namespace e621_ReBot_v2.Modules
                             }
                             else
                             {
+                                e6_DownloadItemTemp.DataRow4Grid = DataRow4Grid;
                                 //Weasyl special
                                 if (DataRow4Grid["Grab_ThumbnailURL"] == DBNull.Value || string.IsNullOrEmpty((string)DataRow4Grid["Grab_ThumbnailURL"]))
                                 {

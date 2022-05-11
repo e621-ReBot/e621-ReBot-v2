@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
@@ -9,6 +10,7 @@ namespace e621_ReBot_v2.CustomControls
     {
         public bool _DownloadFinished = false;
         public bool _AlreadyCopied = false;
+        public DataRow DataRow4Grid;
 
         public e6_DownloadItem()
         {

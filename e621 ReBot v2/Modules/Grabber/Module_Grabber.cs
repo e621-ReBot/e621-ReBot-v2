@@ -12,8 +12,10 @@ using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace e621_ReBot_v2.Modules
@@ -533,43 +535,43 @@ namespace e621_ReBot_v2.Modules
             }
         }
 
-        public static void GrabDownloadThumb(ref DataRow RowRef)
+        public static async Task GrabDownloadThumb(DataRow RowRef)
         {
-            string SiteReferer = "https://" + new Uri((string)RowRef["Grab_URL"]).Host;
-            using (Custom_WebClient ThumbClient = new Custom_WebClient())
-            {
-                ThumbClient.Headers.Add(HttpRequestHeader.UserAgent, Form_Loader.GlobalUserAgent);
-                ThumbClient.Headers.Add(HttpRequestHeader.Referer, SiteReferer);
-                ThumbClient.DownloadDataCompleted += GrabDownloadThumbFinished;
-                ThumbClient.DownloadDataAsync(new Uri((string)RowRef["Grab_ThumbnailURL"]), RowRef);
-            }
-        }
-
-        public static void GrabDownloadThumbFinished(object sender, DownloadDataCompletedEventArgs e)
-        {
-            DataRow RowReference = (DataRow)e.UserState;
-            if (RowReference.RowState == DataRowState.Detached)
+            if (RowRef.RowState == DataRowState.Detached)
             {
                 return;
             }
 
-            Image DownloadedImage;
-            using (MemoryStream MemoryStreamTemp = new MemoryStream(e.Result))
+            await Task.Run(() =>
             {
-                DownloadedImage = Image.FromStream(MemoryStreamTemp);
-            }
-            RowReference["Thumbnail_Image"] = MakeImageThumb(DownloadedImage, ((string)RowReference["Info_MediaFormat"]).Equals("ugoira") ? "Ugoira" : null);
-            DownloadedImage.Dispose();
+                string SiteReferer = "https://" + new Uri((string)RowRef["Grab_URL"]).Host;
+                using (HttpRequestMessage HttpRequestMsg = new HttpRequestMessage(HttpMethod.Get, (string)RowRef["Grab_ThumbnailURL"]))
+                {
+                    HttpRequestMsg.Headers.UserAgent.ParseAdd(Form_Loader.GlobalUserAgent);
+                    HttpRequestMsg.Headers.Referrer = new Uri(SiteReferer);
+                    using (HttpClient ThumbClient = new HttpClient())
+                    {
+                        HttpResponseMessage response = ThumbClient.SendAsync(HttpRequestMsg, HttpCompletionOption.ResponseHeadersRead).Result;
+                        //response.EnsureSuccessStatusCode();
 
-            e6_GridItem e6_GridItemTemp = Form_Loader._FormReference.IsE6PicVisibleInGrid(ref RowReference);
-            if (e6_GridItemTemp != null)
-            {
-                e6_GridItemTemp.LoadImage();
-            }
-            else
-            {
-                WriteImageInfo(RowReference);
-            }
+                        Image DownloadedImage = Image.FromStream(response.Content.ReadAsStreamAsync().Result);
+                        RowRef["Thumbnail_Image"] = MakeImageThumb(DownloadedImage, ((string)RowRef["Info_MediaFormat"]).Equals("ugoira") ? "Ugoira" : null);
+                        DownloadedImage.Dispose();
+
+                        e6_GridItem e6_GridItemTemp = Form_Loader._FormReference.IsE6PicVisibleInGrid(ref RowRef);
+                        if (e6_GridItemTemp != null)
+                        {
+                            e6_GridItemTemp.LoadImage();
+                        }
+                        else
+                        {
+                            WriteImageInfo(RowRef);
+                        }
+                    }
+                }
+            });
+
+           
         }
 
         public static Bitmap MakeImageThumb(Image ImagePass, string Text2DrawPass = null)

@@ -34,7 +34,7 @@ namespace e621_ReBot_v2.Forms
                 if (Module_TableHolder.Database_Table.Rows[x]["Thumbnail_Image"] == DBNull.Value)
                 {
                     DataRow DataRowTemp = Module_TableHolder.Database_Table.Rows[x];
-                    Module_Grabber.GrabDownloadThumb(ref DataRowTemp);
+                    Module_Grabber.GrabDownloadThumb(DataRowTemp);
                     LaunchTimer = true;
                 }
                 else
@@ -63,7 +63,7 @@ namespace e621_ReBot_v2.Forms
                     if (Module_TableHolder.Database_Table.Rows[y]["Thumbnail_Image"] == DBNull.Value)
                     {
                         DataRow DataRowTemp = Module_TableHolder.Database_Table.Rows[y];
-                        Module_Grabber.GrabDownloadThumb(ref DataRowTemp);
+                        Module_Grabber.GrabDownloadThumb(DataRowTemp);
                         LaunchTimer = true;
                     }
                     else
