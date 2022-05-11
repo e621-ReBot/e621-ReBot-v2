@@ -1431,67 +1431,48 @@ namespace e621_ReBot_v2
         private void GB_Download_Click(object sender, EventArgs e)
         {
             GB_Download.Enabled = false;
+
+            DataRow DataRowTemp = null;
             if (ModifierKeys.HasFlag(Keys.Shift))
             {
                 foreach (e6_GridItem e6_GridItemTemp in Form_Loader._GridFLPHolder.Controls)
                 {
-                    if ((bool)e6_GridItemTemp._DataRowReference["UPDL_Queued"])
-                    {
-                        if (Module_TableHolder.DownloadQueueContainsURL((string)e6_GridItemTemp._DataRowReference["Grab_MediaURL"]) || Module_Downloader.Download_AlreadyDownloaded.Contains((string)e6_GridItemTemp._DataRowReference["Grab_MediaURL"]))
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            //Weasyl fix
-                            if (e6_GridItemTemp._DataRowReference["Grab_ThumbnailURL"] == DBNull.Value)
-                            {
-                                e6_GridItemTemp._DataRowReference["Grab_ThumbnailURL"] = "";
-                            }
-                            Module_Downloader.AddDownloadQueueItem(
-                                DataRowRef: e6_GridItemTemp._DataRowReference,
-                                URL: (string)e6_GridItemTemp._DataRowReference["Grab_URL"],
-                                Media_URL: (string)e6_GridItemTemp._DataRowReference["Grab_MediaURL"],
-                                Thumbnail_URL: (string)e6_GridItemTemp._DataRowReference["Grab_ThumbnailURL"],
-                                Artist: (string)e6_GridItemTemp._DataRowReference["Artist"],
-                                Grab_Title: (string)e6_GridItemTemp._DataRowReference["Grab_Title"]
-                                );
-                        }
-                    }
+                    DataRowTemp = e6_GridItemTemp._DataRowReference;
+                    CreateDownloadQueueItem(ref DataRowTemp);
                 }
             }
             else
             {
-                foreach (DataRow DataRowTemp in Module_TableHolder.Database_Table.Rows)
+                foreach (DataRow DataRowTemp0 in Module_TableHolder.Database_Table.Rows)
                 {
-                    if ((bool)DataRowTemp["UPDL_Queued"])
-                    {
-                        if (Module_TableHolder.DownloadQueueContainsURL((string)DataRowTemp["Grab_MediaURL"]) || Module_Downloader.Download_AlreadyDownloaded.Contains((string)DataRowTemp["Grab_MediaURL"]))
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            //Weasyl fix
-                            if (DataRowTemp["Grab_ThumbnailURL"] == DBNull.Value)
-                            {
-                                DataRowTemp["Grab_ThumbnailURL"] = "";
-                            }
-                            Module_Downloader.AddDownloadQueueItem(
-                                DataRowRef: DataRowTemp,
-                                URL: (string)DataRowTemp["Grab_URL"],
-                                Media_URL: (string)DataRowTemp["Grab_MediaURL"],
-                                Thumbnail_URL: (string)DataRowTemp["Grab_ThumbnailURL"],
-                                Artist: (string)DataRowTemp["Artist"],
-                                Grab_Title: (string)DataRowTemp["Grab_Title"]
-                                );
-                        }
-                    }
+                    DataRowTemp = DataRowTemp0;
+                    CreateDownloadQueueItem(ref DataRowTemp);
                 }
             }
             Module_Downloader.UpdateTreeViewNodes();
             Module_Downloader.timer_Download.Start();
             BeginInvoke(new Action(() => { GB_Download.Enabled = true; }));
+        }
+
+        private void CreateDownloadQueueItem(ref DataRow DataRowRef)
+        {
+            if ((bool)DataRowRef["UPDL_Queued"])
+            {
+                if (!(Module_TableHolder.DownloadQueueContainsURL((string)DataRowRef["Grab_MediaURL"]) || Module_Downloader.Download_AlreadyDownloaded.Contains((string)DataRowRef["Grab_MediaURL"])))
+                {
+                    //Weasyl fix
+                    if (DataRowRef["Grab_ThumbnailURL"] == DBNull.Value) DataRowRef["Grab_ThumbnailURL"] = "";
+                    Module_Downloader.AddDownloadQueueItem(
+                        DataRowRef: DataRowRef,
+                        URL: (string)DataRowRef["Grab_URL"],
+                        Media_URL: (string)DataRowRef["Grab_MediaURL"],
+                        Thumbnail_URL: (string)DataRowRef["Grab_ThumbnailURL"],
+                        MediaFormat: (string)DataRowRef["Info_MediaFormat"],
+                        Artist: (string)DataRowRef["Artist"],
+                        Grab_Title: (string)DataRowRef["Grab_Title"]
+                        );
+                }
+            }
         }
 
         private void GB_Upload_Click(object sender, EventArgs e)
@@ -2004,7 +1985,7 @@ namespace e621_ReBot_v2
             {
                 Module_TableHolder.Upload_Table = Module_TableHolder.ReverseDataTable(Module_TableHolder.Upload_Table);
                 Module_Uploader.ReverseUploadNodes();
-            } 
+            }
         }
 
         #endregion

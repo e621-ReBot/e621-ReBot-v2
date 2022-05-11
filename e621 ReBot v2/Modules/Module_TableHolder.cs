@@ -148,6 +148,7 @@ namespace e621_ReBot_v2.Modules
             ReferenceTable.Columns.Add("Grab_URL", typeof(string));
             ReferenceTable.Columns.Add("Grab_MediaURL", typeof(string));
             ReferenceTable.Columns.Add("Grab_ThumbnailURL", typeof(string));
+            ReferenceTable.Columns.Add("Info_MediaFormat", typeof(string));
             ReferenceTable.Columns.Add("Artist", typeof(string));
             ReferenceTable.Columns.Add("Grab_Title", typeof(string));
             ReferenceTable.Columns.Add("e6_PostID", typeof(string));

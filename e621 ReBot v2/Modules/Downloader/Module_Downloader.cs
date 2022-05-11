@@ -256,13 +256,14 @@ namespace e621_ReBot_v2.Modules
 
 
 
-        public static void AddDownloadQueueItem(DataRow DataRowRef, string URL, string Media_URL, string Thumbnail_URL = null, string Artist = null, string Grab_Title = null, string e6_PostID = null, string e6_PoolName = null, string e6_PoolPostIndex = null)
+        public static void AddDownloadQueueItem(DataRow DataRowRef, string URL, string Media_URL, string Thumbnail_URL = null, string MediaFormat = null, string Artist = null, string Grab_Title = null, string e6_PostID = null, string e6_PoolName = null, string e6_PoolPostIndex = null)
         {
             DataRow DataRowTemp = Module_TableHolder.Download_Table.NewRow();
             if (DataRowRef != null) DataRowTemp["DataRowRef"] = DataRowRef;
             DataRowTemp["Grab_URL"] = URL;
             DataRowTemp["Grab_MediaURL"] = Media_URL;
             if (Thumbnail_URL != null) DataRowTemp["Grab_ThumbnailURL"] = Thumbnail_URL;
+            if (MediaFormat != null) DataRowTemp["Info_MediaFormat"] = MediaFormat;
             if (Artist != null) DataRowTemp["Artist"] = Artist;
             if (Grab_Title != null) DataRowTemp["Grab_Title"] = Grab_Title;
             if (e6_PostID != null) DataRowTemp["e6_PostID"] = e6_PostID;
@@ -798,7 +799,7 @@ namespace e621_ReBot_v2.Modules
                             }
                             if (AddNew) Form_Loader._FormReference.DownloadFLP_InProgress.Controls.Add(e6_DownloadItemTemp);
 
-                            switch ((string)DataRow4Grid["Info_MediaFormat"])
+                            switch ((string)DataRowRef["Info_MediaFormat"])
                             {
                                 //case "mp4":
                                 case "swf":
