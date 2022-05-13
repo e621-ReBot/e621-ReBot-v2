@@ -51,9 +51,20 @@ namespace e621_ReBot_v2
             //Check updates
             if (File.Exists("update.check"))
             {
-                DateTime DateTimeUpdate = DateTime.Parse(File.ReadAllText("update.check")).AddDays(Properties.Settings.Default.UpdateDays);
-                if (DateTimeUpdate < DateTime.UtcNow && File.Exists("e621 ReBot Updater.exe"))
+                DateTime DateTimeUpdate;
+                bool DateTimeParseSuccess = DateTime.TryParse(File.ReadAllText("update.check"), out DateTimeUpdate);
+                if (DateTimeParseSuccess)
                 {
+                    DateTimeUpdate = DateTimeUpdate.AddDays(Properties.Settings.Default.UpdateDays);
+                    if (DateTimeUpdate < DateTime.UtcNow && File.Exists("e621 ReBot Updater.exe"))
+                    {
+                        Process.Start("e621 ReBot Updater.exe");
+                        Application.Exit();
+                    }
+                }
+                else
+                {
+                    File.Delete("update.check");
                     Process.Start("e621 ReBot Updater.exe");
                     Application.Exit();
                 }

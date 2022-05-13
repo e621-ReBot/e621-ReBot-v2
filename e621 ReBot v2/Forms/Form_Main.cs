@@ -1033,6 +1033,9 @@ namespace e621_ReBot_v2
         {
             //https://blog.dotnetframework.org/2018/10/26/intercepting-ajax-requests-in-cefsharp-chrome-for-c/
             Module_CefSharp.CefSharpBrowser.ShowDevTools();
+            GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
         }
 
         #endregion
@@ -1080,7 +1083,7 @@ namespace e621_ReBot_v2
                 if (RowReff["Thumbnail_DLStart"] == DBNull.Value)
                 {
                     RowReff["Thumbnail_DLStart"] = true;
-                    _ = Module_Grabber.GrabDownloadThumb(RowReff);
+                    Module_Grabber.GrabDownloadThumb(RowReff);
                 }
             }
             else

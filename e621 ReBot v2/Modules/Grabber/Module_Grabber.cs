@@ -106,7 +106,7 @@ namespace e621_ReBot_v2.Modules
                         else
                         {
                             MessageBox.Show("You need to relog to refresh cookies, media links are behind login.", "HicceArs Test", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }                      
+                        }
                         break;
                     }
                 case "www.sofurry.com":
@@ -476,7 +476,7 @@ namespace e621_ReBot_v2.Modules
                     {
                         GetSizeRequest.CookieContainer = new CookieContainer();
                         break;
-                    }             
+                    }
                 case "www.hiccears.com":
                     {
                         GetSizeRequest.CookieContainer = Module_CookieJar.Cookies_HicceArs;
@@ -535,6 +535,7 @@ namespace e621_ReBot_v2.Modules
             }
         }
 
+        private static readonly HttpClient ThumbClient = new HttpClient();
         public static async Task GrabDownloadThumb(DataRow RowRef)
         {
             if (RowRef.RowState == DataRowState.Detached)
@@ -542,36 +543,27 @@ namespace e621_ReBot_v2.Modules
                 return;
             }
 
-            await Task.Run(() =>
+            using (HttpRequestMessage HttpRequestMsg = new HttpRequestMessage(HttpMethod.Get, (string)RowRef["Grab_ThumbnailURL"]))
             {
-                string SiteReferer = "https://" + new Uri((string)RowRef["Grab_URL"]).Host;
-                using (HttpRequestMessage HttpRequestMsg = new HttpRequestMessage(HttpMethod.Get, (string)RowRef["Grab_ThumbnailURL"]))
+                HttpRequestMsg.Headers.UserAgent.ParseAdd(Form_Loader.GlobalUserAgent);
+                HttpRequestMsg.Headers.Referrer = new Uri($"https://{new Uri((string)RowRef["Grab_URL"]).Host}");
+                HttpResponseMessage response = await ThumbClient.SendAsync(HttpRequestMsg, HttpCompletionOption.ResponseContentRead);
+                //response.EnsureSuccessStatusCode();
+
+                Image DownloadedImage = Image.FromStream(await response.Content.ReadAsStreamAsync());
+                RowRef["Thumbnail_Image"] = MakeImageThumb(DownloadedImage, ((string)RowRef["Info_MediaFormat"]).Equals("ugoira") ? "Ugoira" : null);
+                DownloadedImage.Dispose();
+
+                e6_GridItem e6_GridItemTemp = Form_Loader._FormReference.IsE6PicVisibleInGrid(ref RowRef);
+                if (e6_GridItemTemp != null)
                 {
-                    HttpRequestMsg.Headers.UserAgent.ParseAdd(Form_Loader.GlobalUserAgent);
-                    HttpRequestMsg.Headers.Referrer = new Uri(SiteReferer);
-                    using (HttpClient ThumbClient = new HttpClient())
-                    {
-                        HttpResponseMessage response = ThumbClient.SendAsync(HttpRequestMsg, HttpCompletionOption.ResponseHeadersRead).Result;
-                        //response.EnsureSuccessStatusCode();
-
-                        Image DownloadedImage = Image.FromStream(response.Content.ReadAsStreamAsync().Result);
-                        RowRef["Thumbnail_Image"] = MakeImageThumb(DownloadedImage, ((string)RowRef["Info_MediaFormat"]).Equals("ugoira") ? "Ugoira" : null);
-                        DownloadedImage.Dispose();
-
-                        e6_GridItem e6_GridItemTemp = Form_Loader._FormReference.IsE6PicVisibleInGrid(ref RowRef);
-                        if (e6_GridItemTemp != null)
-                        {
-                            e6_GridItemTemp.LoadImage();
-                        }
-                        else
-                        {
-                            WriteImageInfo(RowRef);
-                        }
-                    }
+                    e6_GridItemTemp.LoadImage();
                 }
-            });
-
-           
+                else
+                {
+                    WriteImageInfo(RowRef);
+                }
+            }
         }
 
         public static Bitmap MakeImageThumb(Image ImagePass, string Text2DrawPass = null)

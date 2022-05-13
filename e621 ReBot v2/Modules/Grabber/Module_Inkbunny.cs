@@ -293,11 +293,11 @@ namespace e621_ReBot_v2.Modules.Grabber
                         break;
                     }
 
-                //case ".gif":
-                //    {
-                //        TempDataRow["Grab_ThumbnailURL"] = MediaURL.Replace("files/full", "files/screen");
-                //        break;
-                //    }
+                case ".gif":
+                    {
+                        TempDataRow["Grab_ThumbnailURL"] = MediaURL.Replace("files/full", "files/screen");
+                        break;
+                    }
 
                 default:
                     {
