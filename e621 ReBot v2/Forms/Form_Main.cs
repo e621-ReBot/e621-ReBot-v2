@@ -207,8 +207,9 @@ namespace e621_ReBot_v2
             CheckBox_ExpandedDescription.Checked = Properties.Settings.Default.ExpandedDescription;
             CheckBox_RemoveBVAS.Checked = Properties.Settings.Default.RemoveBVAS;
             CheckBox_ClearCache.Checked = Properties.Settings.Default.ClearCache;
-            CheckBox_DontFlag.Checked = Properties.Settings.Default.DontFlag;
-            CheckBox_DontFlag.Visible = !string.IsNullOrEmpty(Properties.Settings.Default.UserLevel) && Module_Credits.UserLevels[Properties.Settings.Default.UserLevel] > 2;
+            CheckBox_DisableGPU.Checked = Properties.Settings.Default.DisableGPU;
+            //CheckBox_DontFlag.Checked = Properties.Settings.Default.DontFlag;
+            //CheckBox_DontFlag.Visible = !string.IsNullOrEmpty(Properties.Settings.Default.UserLevel) && Module_Credits.UserLevels[Properties.Settings.Default.UserLevel] > 2;
 
             if (string.IsNullOrEmpty(Properties.Settings.Default.DownloadsFolderLocation))
             {
@@ -2057,7 +2058,7 @@ namespace e621_ReBot_v2
 
         private void Panel_CheckBoxOptions_Paint(object sender, PaintEventArgs e)
         {
-            int TempHeightHolder = panel_CheckBoxOptions.Height - (CheckBox_DontFlag.Visible ? 0 : 24) - 1;
+            int TempHeightHolder = panel_CheckBoxOptions.Height - 1;
             using (Pen TempPen = new Pen(Color.Black, 1))
             {
                 e.Graphics.DrawLine(TempPen, new Point(0, 0), new Point(0, TempHeightHolder));
@@ -2853,9 +2854,9 @@ namespace e621_ReBot_v2
             Properties.Settings.Default.Save();
         }
 
-        private void CheckBox_DontFlag_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox_DisableGPU_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.DontFlag = CheckBox_DontFlag.Checked;
+            Properties.Settings.Default.DisableGPU = CheckBox_DisableGPU.Checked;
             Properties.Settings.Default.Save();
         }
 

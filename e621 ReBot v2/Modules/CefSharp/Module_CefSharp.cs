@@ -48,6 +48,7 @@ namespace e621_ReBot_v2.Modules
                 LogSeverity = LogSeverity.Error
             };
             CefSharp_Settings.BackgroundColor = Cef.ColorSetARGB(255, 105, 105, 105);
+            if (Properties.Settings.Default.DisableGPU) CefSharp_Settings.CefCommandLineArgs.Add("disable-gpu", "1");
             CefSharp_Settings.RegisterScheme(new CefCustomScheme
             {
                 SchemeName = MediaBrowser_SchemeHandlerFactory.SchemeName,

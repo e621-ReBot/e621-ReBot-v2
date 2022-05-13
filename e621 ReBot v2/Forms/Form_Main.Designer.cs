@@ -119,7 +119,7 @@
             this.TrackBar_Volume = new System.Windows.Forms.TrackBar();
             this.CheckBox_ClearCache = new System.Windows.Forms.CheckBox();
             this.CheckBox_ManualInferiorSave = new System.Windows.Forms.CheckBox();
-            this.CheckBox_DontFlag = new System.Windows.Forms.CheckBox();
+            this.CheckBox_DisableGPU = new System.Windows.Forms.CheckBox();
             this.CheckBox_BigMode = new System.Windows.Forms.CheckBox();
             this.CheckBox_ExpandedDescription = new System.Windows.Forms.CheckBox();
             this.CheckBox_AutocompleteTags = new System.Windows.Forms.CheckBox();
@@ -1840,23 +1840,23 @@
             this.CheckBox_ManualInferiorSave.UseVisualStyleBackColor = true;
             this.CheckBox_ManualInferiorSave.CheckedChanged += new System.EventHandler(this.CheckBox_ManualInferiorSave_CheckedChanged);
             // 
-            // CheckBox_DontFlag
+            // CheckBox_DisableGPU
             // 
-            this.CheckBox_DontFlag.AutoSize = true;
-            this.CheckBox_DontFlag.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.CheckBox_DontFlag.ForeColor = System.Drawing.Color.LightSteelBlue;
-            this.CheckBox_DontFlag.Location = new System.Drawing.Point(4, 154);
-            this.CheckBox_DontFlag.Margin = new System.Windows.Forms.Padding(4);
-            this.CheckBox_DontFlag.Name = "CheckBox_DontFlag";
-            this.CheckBox_DontFlag.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.CheckBox_DontFlag.Size = new System.Drawing.Size(132, 17);
-            this.CheckBox_DontFlag.TabIndex = 127;
-            this.CheckBox_DontFlag.TabStop = false;
-            this.CheckBox_DontFlag.Text = "Do not Flag 4 Superior";
-            this.toolTip_Display.SetToolTip(this.CheckBox_DontFlag, "Instead of flaging the post as inferior, it will only change the parent.");
-            this.CheckBox_DontFlag.UseVisualStyleBackColor = true;
-            this.CheckBox_DontFlag.Visible = false;
-            this.CheckBox_DontFlag.CheckedChanged += new System.EventHandler(this.CheckBox_DontFlag_CheckedChanged);
+            this.CheckBox_DisableGPU.AutoSize = true;
+            this.CheckBox_DisableGPU.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.CheckBox_DisableGPU.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.CheckBox_DisableGPU.Location = new System.Drawing.Point(4, 154);
+            this.CheckBox_DisableGPU.Margin = new System.Windows.Forms.Padding(4);
+            this.CheckBox_DisableGPU.Name = "CheckBox_DisableGPU";
+            this.CheckBox_DisableGPU.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.CheckBox_DisableGPU.Size = new System.Drawing.Size(87, 17);
+            this.CheckBox_DisableGPU.TabIndex = 127;
+            this.CheckBox_DisableGPU.TabStop = false;
+            this.CheckBox_DisableGPU.Text = "Disable GPU";
+            this.toolTip_Display.SetToolTip(this.CheckBox_DisableGPU, "If your browser is having rendering issues, enable this.\r\nApplication needs to be" +
+        " restarted to apply changes.");
+            this.CheckBox_DisableGPU.UseVisualStyleBackColor = true;
+            this.CheckBox_DisableGPU.CheckedChanged += new System.EventHandler(this.CheckBox_DisableGPU_CheckedChanged);
             // 
             // CheckBox_BigMode
             // 
@@ -2922,7 +2922,7 @@
             this.tabPage_Jobs.Controls.Add(this.cCheckGroupBox_Info);
             this.tabPage_Jobs.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Jobs.Name = "tabPage_Jobs";
-            this.tabPage_Jobs.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Jobs.Size = new System.Drawing.Size(192, 91);
             this.tabPage_Jobs.TabIndex = 3;
             this.tabPage_Jobs.Text = "tabPage_Jobs";
             // 
@@ -3278,7 +3278,7 @@
             this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_AppName);
             this.tabPage_Settings.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Settings.Name = "tabPage_Settings";
-            this.tabPage_Settings.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Settings.Size = new System.Drawing.Size(1262, 695);
             this.tabPage_Settings.TabIndex = 5;
             this.tabPage_Settings.Text = "tabPage_Settings";
             this.tabPage_Settings.Enter += new System.EventHandler(this.TabPage_Settings_Enter);
@@ -3416,7 +3416,7 @@
             // 
             this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_ClearCache);
             this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_ManualInferiorSave);
-            this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_DontFlag);
+            this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_DisableGPU);
             this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_BigMode);
             this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_ExpandedDescription);
             this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_AutocompleteTags);
@@ -3776,7 +3776,7 @@
         protected internal CustomControls.Custom_GroupBoxColored cGroupBoxColored_Volume;
         internal System.Windows.Forms.TrackBar TrackBar_Volume;
         protected internal System.Windows.Forms.Panel panel_CheckBoxOptions;
-        protected internal System.Windows.Forms.CheckBox CheckBox_DontFlag;
+        protected internal System.Windows.Forms.CheckBox CheckBox_DisableGPU;
         protected internal System.Windows.Forms.CheckBox CheckBox_BigMode;
         protected internal System.Windows.Forms.CheckBox CheckBox_ExpandedDescription;
         protected internal System.Windows.Forms.CheckBox CheckBox_AutocompleteTags;
