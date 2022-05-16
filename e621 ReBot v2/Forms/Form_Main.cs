@@ -51,6 +51,7 @@ namespace e621_ReBot_v2
             InitializeComponent();
 
             ServicePointManager.DefaultConnectionLimit = 64;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
             panel_Holder.MouseDown += Holder_MouseDown;
             Title_Label.MouseDown += Holder_MouseDown;
             Version_Label.MouseDown += Holder_MouseDown;
