@@ -1853,8 +1853,8 @@
             this.CheckBox_DisableGPU.TabIndex = 127;
             this.CheckBox_DisableGPU.TabStop = false;
             this.CheckBox_DisableGPU.Text = "Disable GPU";
-            this.toolTip_Display.SetToolTip(this.CheckBox_DisableGPU, "If your browser is having rendering issues, enable this.\r\nApplication needs to be" +
-        " restarted to apply changes.");
+            this.toolTip_Display.SetToolTip(this.CheckBox_DisableGPU, "If your web browser is having rendering issues, enable this.\r\nApplication needs t" +
+        "o be restarted to apply changes.");
             this.CheckBox_DisableGPU.UseVisualStyleBackColor = true;
             this.CheckBox_DisableGPU.CheckedChanged += new System.EventHandler(this.CheckBox_DisableGPU_CheckedChanged);
             // 

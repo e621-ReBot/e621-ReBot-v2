@@ -436,7 +436,6 @@ namespace e621_ReBot_v2.Modules
             {
                 Form_Loader._FormReference.cCheckGroupBox_Download.Checked = false;
                 MessageBox.Show("Timeout has been detected, further downloads have been paused!", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                e6_DownloadItemRef._DownloadFinished = true;
 
                 string PicURL = (string)((DataRow)e6_DownloadItemRef.Tag)["Grab_MediaURL"];
                 if (!Module_TableHolder.DownloadQueueContainsURL(PicURL) && !Download_AlreadyDownloaded.Contains(PicURL))
@@ -453,7 +452,8 @@ namespace e621_ReBot_v2.Modules
             {
                 if (e.Error != null)
                 {
-                    if (e.Error.InnerException.Message.Contains("An existing connection was forcibly closed by the remote host."))
+                    string ErrorMsg = e.Error.InnerException == null ? e.Error.Message : e.Error.InnerException.Message;
+                    if (ErrorMsg.Contains("An existing connection was forcibly closed by the remote host."))
                     {
                         string PicURL = (string)((DataRow)e6_DownloadItemRef.Tag)["Grab_MediaURL"];
                         if (!Module_TableHolder.DownloadQueueContainsURL(PicURL) && !Download_AlreadyDownloaded.Contains(PicURL))
@@ -468,7 +468,7 @@ namespace e621_ReBot_v2.Modules
                     }
                     else
                     {
-                        MessageBox.Show(e.Error.InnerException.Message, "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(ErrorMsg, "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         throw e.Error;
                     }
                 }
