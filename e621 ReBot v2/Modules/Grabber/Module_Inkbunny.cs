@@ -186,7 +186,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                         TempcPB.Value += 1;
                         Post_MediaURL = ImageNode.Attributes["src"].Value;
                         //if video
-                        if (Post_MediaURL.Contains("images78/overlays"))
+                        if (Post_MediaURL.Contains("overlays/video"))
                         {
                             HttpWebRequest TempInkbunny_HTMLRequest = (HttpWebRequest)WebRequest.Create(Post_URL + "-p" + TempcPB.Value);
                             TempInkbunny_HTMLRequest.CookieContainer = Module_CookieJar.Cookies_Inkbunny;
@@ -289,7 +289,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                     {
                         string ThumbnailURLTemp = MediaURL.Substring(0, MediaURL.Length - 4) + ".jpg";
                         ThumbnailURLTemp = ThumbnailURLTemp.Replace("files/full", "thumbnails/large");
-                        TempDataRow["Grab_ThumbnailURL"] = Module_Grabber.CheckURLExists(ThumbnailURLTemp) ? ThumbnailURLTemp : "https://nl.ib.metapix.net/images78/overlays/video.png";
+                        TempDataRow["Grab_ThumbnailURL"] = Module_Grabber.CheckURLExists(ThumbnailURLTemp) ? ThumbnailURLTemp : "https://nl.ib.metapix.net/images80/overlays/video.png";
                         break;
                     }
 
