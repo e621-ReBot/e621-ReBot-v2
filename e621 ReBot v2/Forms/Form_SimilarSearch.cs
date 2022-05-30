@@ -252,6 +252,7 @@ namespace e621_ReBot_v2.Forms
                 string PicHeight = picPost["file"]["height"].Value<string>();
                 string PicMD5 = picPost["file"]["md5"].Value<string>();
                 string PicPreview = ResultList[PostID]; //picPost["preview"]["url"].Value<string>();
+                string TagString = string.Join(" ", picPost.SelectTokens("$.tags.*[*]").ToList());
 
                 GroupBox PicGB = new GroupBox()
                 {
@@ -267,7 +268,8 @@ namespace e621_ReBot_v2.Forms
                     Parent = PicGB,
                     Dock = DockStyle.Fill,
                     Name = PostID,
-                    InitialImage = Properties.Resources.E6Image_Loading,
+                    Tag = TagString,
+                    InitialImage = Properties.Resources.E6Image_Loading
                 };
                 PicBox.MouseClick += ItemClick;
                 if (_FormReference == null)
@@ -335,7 +337,6 @@ namespace e621_ReBot_v2.Forms
                 int FileSize = (int)(PostHolder["file_size"].Value<int>() / 1024d);
                 string PicWidth = PostHolder["image_width"].Value<string>();
                 string PicHeight = PostHolder["image_height"].Value<string>();
-                //string PicSources = PostHolder["source"].Value<string>();
                 string PicFormat = null;
                 string PicMD5 = null;
                 string PicPreview = null;
@@ -365,7 +366,8 @@ namespace e621_ReBot_v2.Forms
                     Parent = PicGB,
                     Dock = DockStyle.Fill,
                     Name = PostID,
-                    Tag = PostHolder["tag_string"].Value<string>()
+                    Tag = PostHolder["tag_string"].Value<string>(),
+                    InitialImage = Properties.Resources.E6Image_Loading
                 };
                 PicBox.MouseClick += ItemClick;
                 if (PostHolder["is_deleted"].Value<bool>())
@@ -434,6 +436,7 @@ namespace e621_ReBot_v2.Forms
             {
                 e6_GridItemTemp.cLabel_isUploaded.Text = Post.Name;
             }
+            Form_Preview._FormReference.Label_Tags.Text = (string)DataRowTemp["Upload_Tags"];
             Form_Preview._FormReference.Label_AlreadyUploaded.Text = $"Already uploaded as #{Post.Name}";
             if (Properties.Settings.Default.ManualInferiorSave)
             {
