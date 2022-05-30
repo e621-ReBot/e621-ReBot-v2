@@ -257,7 +257,8 @@ namespace e621_ReBot_v2.Forms
                 {
                     Size = new Size(156, 169), //150x150 pb
                     ForeColor = Color.LightSteelBlue,
-                    Text = string.Format("{0} - {1} ({2} KB {3})", PostID, PostRating, FileSize, PicFormat)
+                    Text = $"{PostID} - {PostRating} ({FileSize} KB {PicFormat})",
+                    Tag = PostRating
                 };
                 PictureBox PicBox = new PictureBox()
                 {
@@ -267,7 +268,6 @@ namespace e621_ReBot_v2.Forms
                     Dock = DockStyle.Fill,
                     Name = PostID,
                     InitialImage = Properties.Resources.E6Image_Loading,
-                    Tag = PostRating
                 };
                 PicBox.MouseClick += ItemClick;
                 if (_FormReference == null)
@@ -275,7 +275,7 @@ namespace e621_ReBot_v2.Forms
                     return; //already closed
                 }
                 Invoke(new Action(() => PicBox.LoadAsync(PicPreview)));
-                toolTip_Display.SetToolTip(PicBox, string.Format("Resolution: {0}x{1}\nFile size: {2} KB {3}\nMD5: {4}", PicWidth, PicHeight, FileSize, PicFormat, PicMD5));
+                toolTip_Display.SetToolTip(PicBox, $"Resolution: {PicWidth}x{PicHeight}\nFile size: {FileSize} KB {PicFormat}\nMD5: {PicMD5}");
                 PicGB.Controls.Add(PicBox);
                 ResultGBs.Add(PicGB);
                 IndexCounter += 1;
@@ -326,7 +326,7 @@ namespace e621_ReBot_v2.Forms
             Invoke(new Action(() => Label_SearchCheck.Text = "Getting image data..."));
 
             List<GroupBox> ResultGBs = new List<GroupBox>();
-            var e6info_Data = JArray.Parse(ResponseString);
+            JArray e6info_Data = JArray.Parse(ResponseString);
             foreach (JObject picPost in e6info_Data.Children())
             {
                 JToken PostHolder = picPost["post"]["posts"];
@@ -351,14 +351,14 @@ namespace e621_ReBot_v2.Forms
                     PicPreview = PostHolder["preview_file_url"].Value<string>();
                 }
 
-                var PicGB = new GroupBox()
+                GroupBox PicGB = new GroupBox()
                 {
-                    Size = new Size(156, 169),
+                    Size = new Size(156, 169), //150x150 pb
                     ForeColor = Color.LightSteelBlue,
                     Text = $"{PostID} - {PostRating} ({FileSize} KB {PicFormat})",
                     Tag = PostRating
                 };
-                var PicBox = new PictureBox()
+                PictureBox PicBox = new PictureBox()
                 {
                     Cursor = Cursors.No,
                     SizeMode = PictureBoxSizeMode.Zoom,
