@@ -604,7 +604,7 @@ namespace e621_ReBot_v2.Modules
                             Module_Credits.Timestamps_Upload.Add(DateTime.UtcNow.AddHours(1d));
                             Module_Credits.Credit_Upload_Total -= 1;
                         }
-                        DisplayUploadSuccess(ref DataRowRef, Upload_Reponse_Data["post_id"].ToString());
+                        DisplayUploadSuccess(ref DataRowRef, Upload_Reponse_Data["post_id"].Value<string>());
                         Report_Info($"Uploaded: {UploadedURLReport}");
                         break;
                     }
@@ -615,7 +615,7 @@ namespace e621_ReBot_v2.Modules
                         JObject Upload_Reponse_Data = JObject.Parse(Response);
                         if (Upload_Reponse_Data["reason"].Value<string>().Equals("duplicate"))
                         {
-                            DisplayUploadSuccess(ref DataRowRef, Upload_Reponse_Data["post_id"].ToString());
+                            DisplayUploadSuccess(ref DataRowRef, Upload_Reponse_Data["post_id"].Value<string>());
                             Report_Info($"Error uploading: {UploadedURLReport}, duplicate of #{Upload_Reponse_Data["post_id"].Value<string>()}");
                         }
                         else
@@ -644,10 +644,10 @@ namespace e621_ReBot_v2.Modules
             //e6Response = default;
         }
 
-        private static void DisplayUploadSuccess(ref DataRow DataRowRef, string ID)
+        private static void DisplayUploadSuccess(ref DataRow DataRowRef, string ID, bool Record2DB = true)
         {
             DataRowRef["Uploaded_As"] = ID;
-            Module_DB.DB_Media_CreateRecord(ref DataRowRef);
+            if (Record2DB) Module_DB.DB_Media_CreateRecord(ref DataRowRef);
 
             DataRow DataRowTemp = DataRowRef;
             Form_Loader._FormReference.BeginInvoke(new Action(() =>
@@ -706,6 +706,7 @@ namespace e621_ReBot_v2.Modules
                             Module_Credits.Timestamps_Upload.Add(DateTime.UtcNow.AddHours(1d));
                             Module_Credits.Credit_Upload_Total -= 1;
                         }
+                        DisplayUploadSuccess(ref DataRowRef, (string)DataRowRef["Inferior_ID"], false);
                         Report_Info($"Flagged #{(string)DataRowRef["Inferior_ID"]} for replacement as inferior of @{(string)DataRowRef["Grab_MediaURL"]}");
                         break;
                     }

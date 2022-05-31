@@ -133,7 +133,7 @@ namespace e621_ReBot_v2.Forms
             }
 
             string ArtistA = Module_DB.DB_AA_CheckRecord(Tagger_RowHolder["Artist"].ToString(), Tagger_RowHolder["Grab_URL"].ToString());
-            textBox_Tags.AppendText(" " + ArtistA);
+            textBox_Tags.AppendText(" " + ArtistA + " ");
             TB_ArtistAlias.Tag = ArtistA;
 
             List<string> SortTags = new List<string>();
@@ -226,7 +226,7 @@ namespace e621_ReBot_v2.Forms
                         Line4Save += "✄" + Checkbox.Text;
                         if (Checkbox.Checked)
                         {
-                            textBox_Tags.AppendText(" " + Checkbox.Text);
+                            textBox_Tags.AppendText(" " + Checkbox.Text + " ");
                         }
                     }
                 }
