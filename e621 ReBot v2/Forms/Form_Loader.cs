@@ -73,28 +73,23 @@ namespace e621_ReBot_v2
                 for (int i = Application.OpenForms.Count - 1; i > 0; i--)
                 {
                     FormTemp = Application.OpenForms[i];
-
-                    if (FormTemp.MinimizeBox)
+                    switch (FormTemp.Name)
                     {
-                        FormTemp.WindowState = FormWindowState.Minimized;
-                    }
-                    else
-                    {
-                        switch (FormTemp.Name)
-                        {
-                            case "Form_Main":
-                                {               
-                                    FormTemp.WindowState = FormWindowState.Minimized;
-                                    FormTemp.Hide();
-                                    break;
-                                }
+                        case "Form_Main":
+                            {
+                                FormTemp.WindowState = FormWindowState.Minimized;
+                                FormTemp.Hide();
+                                _FormReference.notifyIcon_Main.Visible = true;
+                                _FormReference.notifyIcon_Main.ShowBalloonTip(1000);
+                                _FormReference.ShowInTaskbar = false;
+                                break;
+                            }
 
-                            default:
-                                {
-                                    FormTemp.Close();
-                                    break;
-                                }
-                        }
+                        default:
+                            {
+                                FormTemp.Close();
+                                break;
+                            }
                     }
                 }
                 return;

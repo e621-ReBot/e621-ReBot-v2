@@ -41,8 +41,11 @@ namespace e621_ReBot_v2.Forms
 
         private void Form_Similar_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Form_Preview._FormReference.Activate();
-            Form_Preview._FormReference.Focus();
+            if (Form_Preview._FormReference != null)
+            {
+                Form_Preview._FormReference.Activate();
+                Form_Preview._FormReference.Focus();
+            }
             _FormReference = null;
             Dispose();
         }

@@ -400,6 +400,14 @@ namespace e621_ReBot_v2
             Application.Exit();
         }
 
+        private void ToolStripMenuItem_NotificationArea_Click(object sender, EventArgs e)
+        {
+            notifyIcon_Main.Visible = false;
+            ShowInTaskbar = true;
+            Show();
+            WindowState = FormWindowState.Normal;
+        }
+
 
 
 
