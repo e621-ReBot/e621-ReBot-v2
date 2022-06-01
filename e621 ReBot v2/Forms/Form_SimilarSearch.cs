@@ -150,50 +150,55 @@ namespace e621_ReBot_v2.Forms
             using (HttpClient TempClient = new HttpClient())
             {
                 TempClient.Timeout = TimeSpan.FromSeconds(30);
-                CancellationTokenSource cts = new CancellationTokenSource();
-                try
+                using (CancellationTokenSource cts = new CancellationTokenSource())
                 {
-                    using (HttpResponseMessage responsemsg = TempClient.GetAsync("https://saucenao.com/search.php?db=29&url=" + (string)Form_Preview._FormReference.Preview_RowHolder["Grab_MediaURL"], cts.Token).Result)
+                    try
                     {
-                        if (responsemsg.IsSuccessStatusCode)
+                        using (HttpResponseMessage HttpResponseMsg = await TempClient.GetAsync($"https://saucenao.com/search.php?db=29&url={(string)Form_Preview._FormReference.Preview_RowHolder["Grab_MediaURL"]}", cts.Token))
                         {
-                            ResponseString = await responsemsg.Content.ReadAsStringAsync();
-                        }
-                        else
-                        {
-                            if (_FormReference == null)
+                            if (HttpResponseMsg.IsSuccessStatusCode)
                             {
-                                return; //already closed
+                                ResponseString = await HttpResponseMsg.Content.ReadAsStringAsync();
                             }
+                            else
+                            {
+                                if (_FormReference != null) //already closed
+                                {
+                                    Invoke(new Action(() =>
+                                    {
+                                        MessageBox.Show($"Error at Check SauceNao Images response!\n\nStatus code: {HttpResponseMsg.StatusCode}\n{ResponseString}", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        Close();
+                                    }));
+                                }
+                                return;
+                            }
+                        }
+                    }
+                    catch (WebException ex)
+                    {
+                        if (_FormReference != null) //already closed
+                        {
                             Invoke(new Action(() =>
                             {
-                                MessageBox.Show("Error at Check SauceNao Images response!", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                MessageBox.Show($"SauceNao Search error: {ex.Message}", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 Close();
                             }));
-                            return;
                         }
-                    }
-                }
-                catch (WebException)
-                {
-                    //nothing?'
-                }
-                catch (TaskCanceledException ex)
-                {
-                    if (ex.CancellationToken != cts.Token)
-                    {
-                        if (_FormReference == null)
-                        {
-                            return; //already closed
-                        }
-                        Invoke(new Action(() =>
-                        {
-                            MessageBox.Show("SauceNao Search timed out.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            Close();
-                        }));
                         return;
                     }
-                }
+                    catch (TaskCanceledException ex) when (ex.CancellationToken != cts.Token)
+                    {
+                        if (_FormReference != null) //already closed
+                        {
+                            Invoke(new Action(() =>
+                            {
+                                MessageBox.Show("SauceNao Search timed out.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                Close();
+                            }));
+                        }
+                        return;
+                    }
+                }        
             }
 
             HtmlDocument WebDoc = new HtmlDocument();
@@ -223,21 +228,18 @@ namespace e621_ReBot_v2.Forms
             }
             else
             {
-                if (_FormReference == null)
+                if (_FormReference != null) //already closed
                 {
-                    return; //already closed
+                    Invoke(new Action(() =>
+                    {
+                        MessageBox.Show("No probable matches found.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Close();
+                    }));
                 }
-                Invoke(new Action(() =>
-                {
-                    MessageBox.Show("No probable matches found.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Close();
-                }));
                 return;
             }
-            if (_FormReference == null)
-            {
-                return; //already closed
-            }
+            if (_FormReference == null) return; //already closed
+
             Invoke(new Action(() => Label_SearchCheck.Text = "Getting image data..."));
 
             JToken e6info_Data = JObject.Parse(Module_e621Info.e621InfoDownload($"https://e621.net/posts.json?tags=id:{string.Join(",", ResultList.Keys)}"))["posts"];
@@ -275,10 +277,8 @@ namespace e621_ReBot_v2.Forms
                     InitialImage = Properties.Resources.E6Image_Loading
                 };
                 PicBox.MouseClick += ItemClick;
-                if (_FormReference == null)
-                {
-                    return; //already closed
-                }
+                if (_FormReference == null) return; //already closed
+
                 Invoke(new Action(() => PicBox.LoadAsync(PicPreview)));
                 toolTip_Display.SetToolTip(PicBox, $"Resolution: {PicWidth}x{PicHeight}\nFile size: {FileSize} KB {PicFormat}\nMD5: {PicMD5}");
                 PicGB.Controls.Add(PicBox);
@@ -289,16 +289,14 @@ namespace e621_ReBot_v2.Forms
             e6info_Data = null;
 
             Move2Center = true;
-            if (_FormReference == null)
-            {
-                return; //already closed
-            }
+            if (_FormReference == null) return; //already closed
+
             Invoke(new Action(() =>
             {
                 FlowLayoutPanel_Holder.Controls.Clear();
                 FlowLayoutPanel_Holder.SuspendLayout();
-                // 39 height diff, 16 width
-                if (ResultGBs.Count < 5)
+    
+                if (ResultGBs.Count < 5) // 39 height diff, 16 width
                 {
                     Width = 16 + 162 * ResultGBs.Count;
                     Height = 39 + 177;
@@ -319,12 +317,14 @@ namespace e621_ReBot_v2.Forms
             string ResponseString = Module_e621Info.e621InfoDownload($"https://e621.net/iqdb_queries.json?url={(string)Form_Preview._FormReference.Preview_RowHolder["Grab_MediaURL"]}", true);
             if (ResponseString.StartsWith("{", StringComparison.OrdinalIgnoreCase))
             {
-                if (_FormReference == null) return; //already closed
-                Invoke(new Action(() =>
+                if (_FormReference != null) //already closed
                 {
-                    MessageBox.Show("No probable matches found.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Close();
-                }));
+                    Invoke(new Action(() =>
+                    {
+                        MessageBox.Show("No probable matches found.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Close();
+                    }));
+                }
                 return;
             }
             if (_FormReference == null) return; //already closed
@@ -397,8 +397,8 @@ namespace e621_ReBot_v2.Forms
             {
                 FlowLayoutPanel_Holder.Controls.Clear();
                 FlowLayoutPanel_Holder.SuspendLayout();
-                // 39 height diff, 16 width
-                if (ResultGBs.Count < 5)
+        
+                if (ResultGBs.Count < 5) // 39 height diff, 16 width
                 {
                     Width = 16 + 162 * ResultGBs.Count;
                     Height = 39 + 177;
