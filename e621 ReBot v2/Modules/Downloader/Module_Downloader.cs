@@ -435,7 +435,7 @@ namespace e621_ReBot_v2.Modules
             if (e.Cancelled) //timeout detected, cancelled it;
             {
                 Form_Loader._FormReference.cCheckGroupBox_Download.Checked = false;
-                MessageBox.Show("Timeout has been detected, further downloads have been paused!", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Timeout has been detected, further downloads have been paused!", "e621 ReBot Downloader", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 string PicURL = (string)((DataRow)e6_DownloadItemRef.Tag)["Grab_MediaURL"];
                 if (!Module_TableHolder.DownloadQueueContainsURL(PicURL) && !Download_AlreadyDownloaded.Contains(PicURL))
@@ -468,7 +468,7 @@ namespace e621_ReBot_v2.Modules
                     }
                     else
                     {
-                        MessageBox.Show(ErrorMsg, "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(ErrorMsg, "e621 ReBot Downloader", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         throw e.Error;
                     }
                 }

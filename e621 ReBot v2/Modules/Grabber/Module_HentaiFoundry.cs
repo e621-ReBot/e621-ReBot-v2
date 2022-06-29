@@ -105,7 +105,7 @@ namespace e621_ReBot_v2.Modules.Grabber
 
                 HtmlNode PostNode = WebDoc.DocumentNode.SelectSingleNode("html");
 
-                string Post_TimeTemp = PostNode.SelectSingleNode(".//section[@id='yw0']//time[@datetime]").Attributes["datetime"].Value;
+                string Post_TimeTemp = PostNode.SelectSingleNode(".//section[@id='pictureGeneralInfoBox']//time[@datetime]").Attributes["datetime"].Value;
                 DateTime Post_Time = DateTime.Parse(Post_TimeTemp);
 
                 string Post_Title = PostNode.SelectSingleNode(".//section[@id='picBox']//span[@class='imageTitle']").InnerText.Trim();
