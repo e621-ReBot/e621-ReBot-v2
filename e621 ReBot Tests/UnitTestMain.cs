@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -64,6 +65,11 @@ namespace e621_ReBot_Tests
 
             bool RowsAreEqual = DataRowResult.ItemArray.SequenceEqual(DataRowTemp.ItemArray);
 
+            for (int i = 0; i <= DataTableTemp.Columns.Count - 1; i++)
+            {
+                Debug.Print(DataRowTemp[i].Equals(DataRowResult[i]).ToString());
+            }
+
             Assert.IsTrue(RowsAreEqual);
         }
 
@@ -73,7 +79,7 @@ namespace e621_ReBot_Tests
             DataTable DataTableTemp = Module_TableHolder.Database_Table.Clone();
             DataRow DataRowTemp = DataTableTemp.NewRow();
             DataRowTemp["Grab_URL"] = "https://www.furaffinity.net/view/1";
-            DataRowTemp["Grab_DateTime"] = new DateTime(2005, 12, 04, 19, 31, 00);
+            DataRowTemp["Grab_DateTime"] = new DateTime(2005, 12, 04, 18, 31, 00);
             DataRowTemp["Grab_Title"] = "⮚ \"Congratulations!\" ⮘ by alkora on FurAffinity";
             DataRowTemp["Grab_TextBody"] = "You've made it to submission number 1!\r\n\r\nYou gain 1 fat fender :D";
             DataRowTemp["Grab_MediaURL"] = "https://d.furaffinity.net/art/alkora/1436887262/1133739096.alkora_background.jpg";
@@ -92,6 +98,11 @@ namespace e621_ReBot_Tests
             DataRow DataRowResult = ((DataTable)Module_Grabber._GrabQueue_WorkingOn["https://www.furaffinity.net/view/1"]).Rows[0];
 
             bool RowsAreEqual = DataRowResult.ItemArray.SequenceEqual(DataRowTemp.ItemArray);
+
+            //for (int i = 0; i <= DataTableTemp.Columns.Count - 1; i++)
+            //{
+            //    Debug.Print(DataRowTemp[i].Equals(DataRowResult[i]).ToString());
+            //}
 
             Assert.IsTrue(RowsAreEqual);
         }
@@ -262,6 +273,11 @@ namespace e621_ReBot_Tests
 
             bool RowsAreEqual = DataRowResult.ItemArray.SequenceEqual(DataRowTemp.ItemArray);
 
+            //for (int i = 0; i <= DataTableTemp.Columns.Count - 1; i++)
+            //{
+            //    Debug.Print(DataRowTemp[i].Equals(DataRowResult[i]).ToString());
+            //}
+
             Assert.IsTrue(RowsAreEqual);
         }
 
@@ -273,7 +289,7 @@ namespace e621_ReBot_Tests
             DataRowTemp["Grab_URL"] = "https://pawoo.net/@pawoo_russel/106581866880817198";
             DataRowTemp["Grab_DateTime"] = new DateTime(2021, 07, 15, 2, 50, 24);
             DataRowTemp["Grab_Title"] = "Created by pawoo-russell (@pawoo_russel@pawoo.net)";
-            DataRowTemp["Grab_TextBody"] = "【タイムライン広告表示のお知らせ】Pawooをご利用いただきありがとうございます。この度Pawooは、「ホームタイムライン」「ローカルタイムライン」への広告表示を開始する事になりました。広告表示のイメージは、添付画像をご覧ください。ユーザーの皆さまには、ご理解をいただけましたら幸いです。今後ともPawooをよろしくお願いします。";
+            DataRowTemp["Grab_TextBody"] = "【タイムライン広告表示のお知らせ】\r\nPawooをご利用いただきありがとうございます。\r\nこの度Pawooは、「ホームタイムライン」「ローカルタイムライン」への広告表示を開始する事になりました。\r\n広告表示のイメージは、添付画像をご覧ください。\r\nユーザーの皆さまには、ご理解をいただけましたら幸いです。\r\n今後ともPawooをよろしくお願いします。";
             DataRowTemp["Grab_MediaURL"] = "https://img.pawoo.net/media_attachments/files/037/456/511/original/028af6b9981d5288.jpg";
             DataRowTemp["Grab_ThumbnailURL"] = "https://img.pawoo.net/media_attachments/files/037/456/511/small/028af6b9981d5288.jpg";
             DataRowTemp["Thumbnail_FullInfo"] = true;
@@ -296,6 +312,11 @@ namespace e621_ReBot_Tests
 
             bool RowsAreEqual = DataRowResult.ItemArray.SequenceEqual(DataRowTemp.ItemArray);
 
+            //for (int i = 0; i <= DataTableTemp.Columns.Count - 1; i++)
+            //{
+            //    Debug.Print(DataRowTemp[i].Equals(DataRowResult[i]).ToString());
+            //}
+
             Assert.IsTrue(RowsAreEqual);
         }
 
@@ -305,7 +326,7 @@ namespace e621_ReBot_Tests
             DataTable DataTableTemp = Module_TableHolder.Database_Table.Clone();
             DataRow DataRowTemp = DataTableTemp.NewRow();
             DataRowTemp["Grab_URL"] = "https://www.weasyl.com/~haunt/submissions/24/winter-sigh-test-submission";
-            DataRowTemp["Grab_DateTime"] = new DateTime(2011, 10, 29, 00, 24, 42);
+            DataRowTemp["Grab_DateTime"] = new DateTime(2011, 10, 29, 08, 24, 42);
             DataRowTemp["Grab_Title"] = "⮚ \"Winter Sigh. test submission\" ⮘ by haunt on Weasly";
             DataRowTemp["Grab_MediaURL"] = "https://cdn.weasyl.com/static/media/f6/8d/15/f68d15e5398f39aec37fe0d9d991e444e6ac63e89c26fab76ffa010e64101dfa.png";
             DataRowTemp["Info_MediaFormat"] = "png";
@@ -326,6 +347,12 @@ namespace e621_ReBot_Tests
                     EqualtyCounter -= 1;
                 }
             }
+
+            //for (int i = 0; i <= DataTableTemp.Columns.Count - 1; i++)
+            //{
+            //    Debug.Print(DataRowTemp[i].Equals(DataRowResult[i]).ToString());
+            //}
+
             //can't test bitmap so check that the other 29 collumns are equal.
             Assert.IsTrue(EqualtyCounter == 1);
         }
@@ -338,7 +365,7 @@ namespace e621_ReBot_Tests
             DataRowTemp["Grab_URL"] = "https://baraag.net/@satori/3";
             DataRowTemp["Grab_DateTime"] = new DateTime(2017, 04, 25, 23, 27, 00);
             DataRowTemp["Grab_Title"] = "Created by koi (@satori@baraag.net)";
-            DataRowTemp["Grab_TextBody"] = "What does the elephant say? The English onomatopoeia for it is apparently \"baraag\" https://baraag.net/media/ffA6pGLVWD3ghlbCzdE";
+            DataRowTemp["Grab_TextBody"] = "What does the elephant say? The English onomatopoeia for it is apparently \"baraag\"\n\n\"https://baraag.net/media/ffA6pGLVWD3ghlbCzdE\":https://baraag.net/media/ffA6pGLVWD3ghlbCzdE";
             DataRowTemp["Grab_MediaURL"] = "https://baraag.net/system/media_attachments/files/000/000/003/original/8b6599107e3a06e0.jpeg";
             DataRowTemp["Grab_ThumbnailURL"] = "https://baraag.net/system/media_attachments/files/000/000/003/small/8b6599107e3a06e0.jpeg";
             DataRowTemp["Info_MediaFormat"] = "jpeg";
@@ -370,7 +397,7 @@ namespace e621_ReBot_Tests
             DataTable DataTableTemp = Module_TableHolder.Database_Table.Clone();
             DataRow DataRowTemp = DataTableTemp.NewRow();
             DataRowTemp["Grab_URL"] = "https://www.hentai-foundry.com/pictures/user/Twinstar/12/Pretty-Girl";
-            DataRowTemp["Grab_DateTime"] = new DateTime(2006, 07, 18, 13, 54, 37);
+            DataRowTemp["Grab_DateTime"] = new DateTime(2006, 07, 18, 12, 54, 37);
             DataRowTemp["Grab_Title"] = "⮚ \"Pretty Girl\" ⮘ by Twinstar on Hentai Foundry";
             DataRowTemp["Grab_MediaURL"] = "https://pictures.hentai-foundry.com/t/Twinstar/12/Twinstar-12-Pretty_Girl.jpg";
             DataRowTemp["Grab_ThumbnailURL"] = "https://thumbs.hentai-foundry.com/thumb.php?pid=12&size=200";
@@ -385,6 +412,11 @@ namespace e621_ReBot_Tests
             DataRow DataRowResult = ((DataTable)Module_Grabber._GrabQueue_WorkingOn["https://www.hentai-foundry.com/pictures/user/Twinstar/12/Pretty-Girl"]).Rows[0];
 
             bool RowsAreEqual = DataRowResult.ItemArray.SequenceEqual(DataRowTemp.ItemArray);
+
+            for (int i = 0; i <= DataTableTemp.Columns.Count - 1; i++)
+            {
+                Debug.Print(DataRowTemp[i].Equals(DataRowResult[i]).ToString());
+            }
 
             Assert.IsTrue(RowsAreEqual);
         }

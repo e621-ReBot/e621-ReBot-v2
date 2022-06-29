@@ -89,7 +89,7 @@ namespace e621_ReBot_v2.Modules.Grabber
 
         public static string Grab(string WebAdress)
         {
-            string HTMLSource = Module_Grabber.GrabPageSource(WebAdress, ref Module_CookieJar.Cookies_FurAffinity);
+            string HTMLSource = Module_Grabber.GrabPageSource(WebAdress, ref Module_CookieJar.Cookies_Weasyl);
             if (HTMLSource != null)
             {
                 DataTable TempDataTable = new DataTable();
@@ -102,7 +102,7 @@ namespace e621_ReBot_v2.Modules.Grabber
 
                 HtmlNode PostNode = WebDoc.DocumentNode.SelectSingleNode("//div[@id='page-container']");
 
-                string Post_TimeTemp = PostNode.SelectSingleNode(".//div[@id='db-user']/p[@class='date']").InnerText.Replace(" at ", " ").Replace(" MDT", "").Replace(" MST","");
+                string Post_TimeTemp = PostNode.SelectSingleNode(".//div[@id='db-user']/p[@class='date']/time").Attributes["datetime"].Value;
                 DateTime Post_Time = DateTime.Parse(Post_TimeTemp);
 
                 string Post_Title = PostNode.SelectSingleNode(".//div[@id='db-main']/h2[@id='detail-bar-title']").InnerText.Trim();
