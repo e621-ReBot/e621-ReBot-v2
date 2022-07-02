@@ -41,7 +41,7 @@ namespace e621_ReBot_v2.Modules.Grabber
         {
             if (Module_Grabber._GrabQueue_URLs.Contains(WebAdress))
             {
-                Module_Grabber.Report_Info(string.Format("Skipped grabbing - Already in queue [@{0}]", WebAdress));
+                Module_Grabber.Report_Info($"Skipped grabbing - Already in queue [@{WebAdress}]");
                 return;
             }
             else
@@ -49,7 +49,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                 HtmlDocument WebDoc = new HtmlDocument();
                 WebDoc.LoadHtml(HTMLSource);
 
-                HtmlNode TweetNode = WebDoc.DocumentNode.SelectSingleNode(".//a[@rel='noopener noreferrer' and preceding-sibling::span[.='·']]/ancestor::article"); //[text()='·'] does not work, AND should be and
+                HtmlNode TweetNode = WebDoc.DocumentNode.SelectSingleNode($".//article[@data-testid='tweet']//a[@role='link' and @href='{WebAdress.Substring(19)}']/ancestor::article"); //[text()='·'] does not work, AND should be and
                 if (TweetNode == null)
                 {
                     TweetNode = WebDoc.DocumentNode.SelectSingleNode(".//span[.='·']/ancestor::article");
@@ -57,7 +57,7 @@ namespace e621_ReBot_v2.Modules.Grabber
 
                 if (TweetNode.InnerHtml.Contains("This Tweet is unavailable."))
                 {
-                    Module_Grabber.Report_Info(string.Format("Skipped grabbing - Tweet deleted [@{0}]", WebAdress));
+                    Module_Grabber.Report_Info($"Skipped grabbing - Tweet deleted [@{WebAdress}]");
                     return;
                 }
 
@@ -168,24 +168,28 @@ namespace e621_ReBot_v2.Modules.Grabber
 
             //string ArtistName = WebAdress.Replace("https://twitter.com/", "");
             //ArtistName = ArtistName.Substring(0, ArtistName.IndexOf("/"));
-            string FullName = PostNode.SelectNodes(".//div[@id]")[1].InnerText; //.SelectNodes(".//a[@role='link']")[1].InnerText;
+            string FullName = PostNode.SelectSingleNode(".//div[@id and @data-testid='User-Names']").InnerText;
             FullName = FullName.Replace("@", " (@") + ")";
 
-            HtmlNodeCollection TestTextNodes = PostNode.SelectNodes(".//div[@dir='auto']/span");
-            HtmlNode TestTextNode = TestTextNodes[1];
-            if (FullName.Contains(TestTextNode.InnerText))
+            HtmlNode TestTextNode = PostNode.SelectSingleNode(".//div[@id and @data-testid='tweetText']");
+            string Post_Text = null;
+            if (TestTextNode != null)
             {
-                TestTextNode = TestTextNodes[2];
+                Post_Text = TestTextNode.InnerText;
+                if (Post_Text != null)
+                {
+                    Post_Text = WebUtility.HtmlDecode(Post_Text).Trim();
+                }
             }
-            string Post_Text = TestTextNode.InnerText;
-            if (Post_Text != null)
-            {
-                Post_Text = WebUtility.HtmlDecode(Post_Text).Trim();
-            }
-
+         
             string Post_MediaURL;
             int SkipCounter = 0;
-            HtmlNodeCollection ImageNodes = PostNode.SelectNodes(".//img[@alt='Image']");
+            HtmlNodeCollection ImageNodes = null;
+            HtmlNode ImageNodeTest = PostNode.SelectSingleNode(".//div[@id and @aria-labelledby]/div[@id]");
+            if (ImageNodeTest == null) 
+            {
+                ImageNodes = PostNode.SelectNodes(".//div[@data-testid='tweetPhoto']//img[@alt='Image']"); 
+            }
             if (ImageNodes != null)
             {
                 //twitter carousel displayes them strangely when there's 4. 1-3-2-4 (as html order).
@@ -224,7 +228,7 @@ namespace e621_ReBot_v2.Modules.Grabber
             }
             else
             {
-                HtmlNode VideoNodeTest = WebDoc.DocumentNode.SelectSingleNode(".//div[@data-testid='previewInterstitial'] | //video");
+                HtmlNode VideoNodeTest = PostNode.SelectSingleNode(".//div[@data-testid='previewInterstitial'] | .//video");
                 if (VideoNodeTest != null)
                 {
                     KeyValuePair<string, string> VideoData = Grab_TwitterStatus_API(Post_URL);
@@ -389,7 +393,13 @@ namespace e621_ReBot_v2.Modules.Grabber
             {
                 Post_Time = DateTime.Parse(PostNode.SelectSingleNode(".//time").Attributes["datetime"].Value);
 
-                HtmlNodeCollection ImageNodes = PostNode.SelectSingleNode(".//div[@id and @aria-labelledby]/div").SelectNodes(".//img[@alt='Image']");
+                HtmlNodeCollection ImageNodes = null;
+                HtmlNode ImageNodeTest = PostNode.SelectSingleNode(".//div[@id and @aria-labelledby]/div[@id]");
+                if (ImageNodeTest == null)
+                {
+                    ImageNodes = PostNode.SelectNodes(".//div[@data-testid='tweetPhoto']//img[@alt='Image']"); //PostNode.SelectNodes(".//div[@id and @aria-labelledby]//img[@alt='Image']");
+                }
+
                 if (ImageNodes != null)
                 {
                     //twitter carousel displayes them strangely when there's 4. 1-3-2-4 (as html order).
@@ -428,7 +438,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                 }
                 else
                 {
-                    HtmlNode VideoNodeTest = PostNode.SelectSingleNode(".//div[@id and @aria-labelledby]/div").SelectSingleNode(".//div[@data-testid='previewInterstitial'] | //video");
+                    HtmlNode VideoNodeTest = PostNode.SelectSingleNode("..//div[@data-testid='previewInterstitial'] | .//video");
                     if (VideoNodeTest != null)
                     {
                         KeyValuePair<string, string> VideoData = Grab_TwitterStatus_API(Post_URL);

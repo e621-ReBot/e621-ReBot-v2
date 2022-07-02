@@ -683,7 +683,9 @@ namespace e621_ReBot_v2.Modules
             string HostString = DomainURL.Host.Remove(DomainURL.Host.LastIndexOf(".")).Replace("www.", "");
             HostString = $"{new CultureInfo("en-US", false).TextInfo.ToTitleCase(HostString)}\\";
 
-            string FolderPath = Path.Combine(Properties.Settings.Default.DownloadsFolderLocation, HostString, ((string)DataRowRef["Artist"]).Replace("/", "-"));
+            string PurgeArtistName = ((string)DataRowRef["Artist"]).Replace("/", "-");
+            PurgeArtistName = Path.GetInvalidFileNameChars().Aggregate(PurgeArtistName, (current, c) => current.Replace(c.ToString(), string.Empty));
+            string FolderPath = Path.Combine(Properties.Settings.Default.DownloadsFolderLocation, HostString, PurgeArtistName);
             Directory.CreateDirectory(FolderPath);
 
             DataRow DataRow4Grid = DataRowRef["DataRowRef"] != DBNull.Value ? (DataRow)DataRowRef["DataRowRef"] : null;
