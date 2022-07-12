@@ -1152,8 +1152,12 @@ namespace e621_ReBot_v2.Modules
         public static void Load_DownloadFolderCache()
         {
             DownloadFolderCache.Clear();
-            timer_CacheProgressTimer.Start();
-            new Thread(Load_DownloadFolderCache_BGW).Start();
+            if (Directory.Exists($"{Properties.Settings.Default.DownloadsFolderLocation}\\e621"))
+            {
+                Form_Loader._FormReference.bU_SkipDLCache.Enabled = false;
+                timer_CacheProgressTimer.Start();
+                new Thread(Load_DownloadFolderCache_BGW).Start();
+            }
         }
 
         private static readonly Timer timer_CacheProgressTimer;
@@ -1165,7 +1169,7 @@ namespace e621_ReBot_v2.Modules
 
         private static void Load_DownloadFolderCache_BGW()
         {
-            DirectoryInfo CacheFolder = new DirectoryInfo(Properties.Settings.Default.DownloadsFolderLocation + "\\e621");
+            DirectoryInfo CacheFolder = new DirectoryInfo($"{Properties.Settings.Default.DownloadsFolderLocation}\\e621");
 
             foreach (FileInfo FileFound in CacheFolder.GetFiles("*", SearchOption.AllDirectories))
             {
@@ -1186,7 +1190,7 @@ namespace e621_ReBot_v2.Modules
                 timer_CacheProgressTimer.Stop();
                 Form_Loader._FormReference.bU_SkipDLCache.Text = Form_Loader._FormReference.bU_SkipDLCache.Tag.ToString();
                 Form_Loader._FormReference.bU_SkipDLCache.Enabled = true;
-                MessageBox.Show(string.Format("Cached {0} files.", DownloadFolderCache.Count), "e621 ReBot");
+                MessageBox.Show($"Cached {DownloadFolderCache.Count} files.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }));
         }
 

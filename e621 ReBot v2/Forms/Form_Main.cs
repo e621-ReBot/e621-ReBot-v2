@@ -1612,7 +1612,6 @@ namespace e621_ReBot_v2
 
         private void BU_SkipDLCache_Click(object sender, EventArgs e)
         {
-            bU_SkipDLCache.Enabled = false;
             Module_Downloader.Load_DownloadFolderCache();
         }
 
