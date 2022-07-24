@@ -560,7 +560,7 @@ namespace e621_ReBot_v2.Modules
             if (DataRowRef["Inferior_Description"] != DBNull.Value)
             {
                 string Inferior_Description = (string)DataRowRef["Inferior_Description"];
-                if (!(Inferior_Description.Equals(Upload_DescriptionNoExtras) || Inferior_Description.Equals((string)DataRowRef["Grab_TextBody"])))
+                if (!Inferior_Description.Equals(Upload_DescriptionNoExtras) && !Inferior_Description.Equals((string)DataRowRef["Grab_TextBody"])))
                 {
                     Upload_Description += $"\n - - - - - \n{Inferior_Description}";
                 }

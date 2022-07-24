@@ -441,6 +441,7 @@ namespace e621_ReBot_v2.Forms
             }
             Form_Preview._FormReference.Label_Tags.Text = (string)DataRowTemp["Upload_Tags"];
             Form_Preview._FormReference.Label_AlreadyUploaded.Text = $"Already uploaded as #{Post.Name}";
+            Form_Preview._FormReference.UpdateRatingDLButtons();
             if (Properties.Settings.Default.ManualInferiorSave)
             {
                 Module_DB.DB_Media_CreateRecord(ref DataRowTemp);

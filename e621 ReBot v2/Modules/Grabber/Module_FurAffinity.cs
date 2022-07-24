@@ -116,7 +116,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                 HtmlNode PostNode = WebDoc.DocumentNode.SelectSingleNode("html");
 
                 string Post_TimeTemp = PostNode.SelectSingleNode(".//span[@class='popup_date']").Attributes["title"].Value;
-                if (!(Post_TimeTemp.Contains("AM") || Post_TimeTemp.Contains("PM")))
+                if (!Post_TimeTemp.Contains("AM") && !Post_TimeTemp.Contains("PM"))
                 {
                     Post_TimeTemp = PostNode.SelectSingleNode(".//span[@class='popup_date']").InnerText;
                 }

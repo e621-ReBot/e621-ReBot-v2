@@ -1471,7 +1471,7 @@ namespace e621_ReBot_v2
         {
             if ((bool)DataRowRef["UPDL_Queued"])
             {
-                if (!(Module_TableHolder.DownloadQueueContainsURL((string)DataRowRef["Grab_MediaURL"]) || Module_Downloader.Download_AlreadyDownloaded.Contains((string)DataRowRef["Grab_MediaURL"])))
+                if (!Module_TableHolder.DownloadQueueContainsURL((string)DataRowRef["Grab_MediaURL"]) && !Module_Downloader.Download_AlreadyDownloaded.Contains((string)DataRowRef["Grab_MediaURL"]))
                 {
                     //Weasyl fix
                     if (DataRowRef["Grab_ThumbnailURL"] == DBNull.Value) DataRowRef["Grab_ThumbnailURL"] = "";

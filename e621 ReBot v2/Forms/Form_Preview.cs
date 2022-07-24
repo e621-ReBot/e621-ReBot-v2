@@ -706,12 +706,12 @@ namespace e621_ReBot_v2.Forms
                 }
             }
 
-            if (!(string.IsNullOrEmpty(animated_tag) || CurrentTags.Contains(animated_tag)))
+            if (!string.IsNullOrEmpty(animated_tag) && !CurrentTags.Contains(animated_tag))
             {
                 Preview_RowHolder["Upload_Tags"] = (string)Preview_RowHolder["Upload_Tags"] + animated_tag;
             }
 
-            if (!(MediaFormat.Equals("mp4") || MediaFormat.Equals("swf")))
+            if (!MediaFormat.Equals("mp4") && !MediaFormat.Equals("swf"))
             {
                 if (!string.IsNullOrEmpty(ratio_tag) && !CurrentTags.Contains(ratio_tag))
                 {

@@ -335,7 +335,7 @@ namespace CefSharp
     //                case 70: //Keys.F:
     //                case 73: //Keys.I:
     //                    {
-    //                        if (!(modifiers == CefEventFlags.ShiftDown || modifiers == CefEventFlags.ControlDown))
+    //                        if (!modifiers != CefEventFlags.ShiftDown && modifiers != CefEventFlags.ControlDown))
     //                        {
     //                            Form_Preview._FormReference.Invoke(new Action(() => { SendKeys.Send(((char)windowsKeyCode).ToString()); }));
     //                        }
