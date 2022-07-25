@@ -452,7 +452,7 @@ namespace e621_ReBot_v2.Modules
                     }
                 }
             }
-            catch (WebException ex)
+            catch (WebException)
             {
                 return null;
             }

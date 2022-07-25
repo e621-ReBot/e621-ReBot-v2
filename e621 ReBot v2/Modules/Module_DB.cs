@@ -27,13 +27,23 @@ namespace e621_ReBot_v2.Modules
 
         // = = = = =
 
-        public static void DB_Media_CreateRecord(ref DataRow DataRowRef)
+        public static void DB_Media_CreateRecord(in DataRow DataRowRef)
         {
             using (SQLiteCommand SQL_Command = SQL_Connection.CreateCommand())
             {
                 SQL_Command.CommandText = "INSERT OR IGNORE INTO [Database] ([Url], [Rating], [PostID]) VALUES (@url, @rating, @postid)";
                 SQL_Command.Parameters.AddWithValue("@url", DataRowRef["Grab_MediaURL"]);
                 SQL_Command.Parameters.AddWithValue("@rating", DataRowRef["Upload_Rating"]);
+                SQL_Command.Parameters.AddWithValue("@postid", DataRowRef["Uploaded_As"]);
+                SQL_Command.ExecuteNonQuery();
+            }
+        }
+
+        public static void DB_Media_RemoveRecord(in DataRow DataRowRef)
+        {
+            using (SQLiteCommand SQL_Command = SQL_Connection.CreateCommand())
+            {
+                SQL_Command.CommandText = "DELETE FROM [Database] WHERE [PostID] = @postid";
                 SQL_Command.Parameters.AddWithValue("@postid", DataRowRef["Uploaded_As"]);
                 SQL_Command.ExecuteNonQuery();
             }

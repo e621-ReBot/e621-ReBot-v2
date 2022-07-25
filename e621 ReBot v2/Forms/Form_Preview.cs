@@ -476,7 +476,7 @@ namespace e621_ReBot_v2.Forms
                     }
                 };
                 Preview_RowHolder["Upload_Tags"] = string.Join(" ", TagList);
-                Module_DB.DB_Media_CreateRecord(ref Preview_RowHolder);
+                Module_DB.DB_Media_CreateRecord(Preview_RowHolder);
                 Label_AlreadyUploaded.Text = $"Already uploaded as #{(string)Preview_RowHolder["Info_MediaMD5"]}";
                 e6_GridItem e6_GridItemTemp = Form_Loader._FormReference.IsE6PicVisibleInGrid(ref Preview_RowHolder);
                 if (e6_GridItemTemp != null)
@@ -998,7 +998,7 @@ namespace e621_ReBot_v2.Forms
             _FormReference.Label_AlreadyUploaded.Text = $"Already uploaded as #{PostID}";
             if (Properties.Settings.Default.ManualInferiorSave)
             {
-                Module_DB.DB_Media_CreateRecord(ref RowRefference);
+                Module_DB.DB_Media_CreateRecord(RowRefference);
             }
             _FormReference.UpdateRatingDLButtons();
         }
@@ -1024,7 +1024,7 @@ namespace e621_ReBot_v2.Forms
             }
             SortTags.Sort();
 
-            if (!PostData["pools"].ToString().Equals("[]"))
+            if (PostData["pools"].Children().Any())
             {
                 foreach (JToken pPool in PostData["pools"].Children())
                 {
@@ -1094,8 +1094,7 @@ namespace e621_ReBot_v2.Forms
             }
             _FormReference.Label_Tags.Text = (string)RowRefference["Upload_Tags"];
 
-            DataRow DataRowTemp = _FormReference.Preview_RowHolder;
-            e6_GridItem e6_GridItemTemp = Form_Loader._FormReference.IsE6PicVisibleInGrid(ref DataRowTemp);
+            e6_GridItem e6_GridItemTemp = Form_Loader._FormReference.IsE6PicVisibleInGrid(ref RowRefference);
             if (e6_GridItemTemp != null)
             {
                 e6_GridItemTemp._Rating = (string)RowRefference["Upload_Rating"];
@@ -1108,7 +1107,7 @@ namespace e621_ReBot_v2.Forms
             else
             {
 
-                if (DataRowTemp["Info_TooBig"] != DBNull.Value && Module_Uploader.Media2Big4User(ref DataRowTemp, true))
+                if (RowRefference["Info_TooBig"] != DBNull.Value && Module_Uploader.Media2Big4User(ref RowRefference, true))
                 {
                     // e6_GridItemTemp.cCheckBox_UPDL.Checked = false;
                 }
@@ -1123,6 +1122,13 @@ namespace e621_ReBot_v2.Forms
                     }
                     Form_Loader._FormReference.GB_Download.Enabled = Form_Loader._FormReference.DownloadCounter != 0;
                 }
+            }
+            if (RowRefference["Uploaded_As"] != DBNull.Value)
+            {
+                Module_DB.DB_Media_RemoveRecord(in RowRefference);
+                _FormReference.Label_AlreadyUploaded.Visible = false;
+                if (e6_GridItemTemp != null) e6_GridItemTemp.cLabel_isUploaded.Visible = false;
+                RowRefference["Uploaded_As"] = DBNull.Value;
             }
             _FormReference.UpdateRatingDLButtons();
         }

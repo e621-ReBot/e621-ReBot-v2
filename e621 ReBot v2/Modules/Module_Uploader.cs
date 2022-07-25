@@ -560,7 +560,7 @@ namespace e621_ReBot_v2.Modules
             if (DataRowRef["Inferior_Description"] != DBNull.Value)
             {
                 string Inferior_Description = (string)DataRowRef["Inferior_Description"];
-                if (!Inferior_Description.Equals(Upload_DescriptionNoExtras) && !Inferior_Description.Equals((string)DataRowRef["Grab_TextBody"])))
+                if (!Inferior_Description.Equals(Upload_DescriptionNoExtras) && !Inferior_Description.Equals((string)DataRowRef["Grab_TextBody"]))
                 {
                     Upload_Description += $"\n - - - - - \n{Inferior_Description}";
                 }
@@ -647,7 +647,7 @@ namespace e621_ReBot_v2.Modules
         private static void DisplayUploadSuccess(ref DataRow DataRowRef, string ID, bool Record2DB = true)
         {
             DataRowRef["Uploaded_As"] = ID;
-            if (Record2DB) Module_DB.DB_Media_CreateRecord(ref DataRowRef);
+            if (Record2DB) Module_DB.DB_Media_CreateRecord(DataRowRef);
 
             DataRow DataRowTemp = DataRowRef;
             Form_Loader._FormReference.BeginInvoke(new Action(() =>
