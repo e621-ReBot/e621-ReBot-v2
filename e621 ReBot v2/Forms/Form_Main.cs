@@ -22,6 +22,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Media;
 using System.Net;
+using System.Reflection;
 using System.Runtime;
 using System.Text;
 using System.Threading;
@@ -161,12 +162,12 @@ namespace e621_ReBot_v2
             bU_GetDNPs.Visible = true;
 #endif
 
-            //heavy shit
-            Module_CefSharp.InitializeBrowser("about:blank");
+            panel_BrowserDisplay.Controls.Add(Module_CefSharp.CefSharpBrowser);
+            //heavy shit       
             SetQuickButtonPanelRegion();
             CreateTrackList();
 
-            Version_Label.Text = "v" + Application.ProductVersion;
+            Version_Label.Text = $"v{Application.ProductVersion}";
 
             Module_DB.CreateDBs();
 

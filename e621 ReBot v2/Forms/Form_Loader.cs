@@ -3,7 +3,9 @@ using e621_ReBot_v2.Forms;
 using e621_ReBot_v2.Modules;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -35,6 +37,22 @@ namespace e621_ReBot_v2
 
         private void Form_Loader_Load(object sender, EventArgs e)
         {
+            try
+            {
+                Module_CefSharp.InitializeBrowser("about:blank");
+            }
+            catch (FileNotFoundException)
+            {
+                if (MessageBox.Show("CefSharp dependencies not found or they are an older version. Do you want to visit the download page on GitHub now?\nI can not work without those files so you should really download them.", "e621 Rebot v2", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                {
+                    Process.Start("https://github.com/e621-ReBot/e621-ReBot-v2/releases");
+                }
+                else
+                {
+                    Close();
+                    return;
+                }
+            }
             if (Properties.Settings.Default.LoadBigForm)
             {
                 _FormReference = new Form_MainBig();

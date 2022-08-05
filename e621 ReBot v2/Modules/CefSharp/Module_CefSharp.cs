@@ -69,7 +69,7 @@ namespace e621_ReBot_v2.Modules
             CefSharpBrowser.FrameLoadEnd += CefSharpBrowser_FrameLoadEnd;
             CefSharpBrowser.TitleChanged += CefSharpBrowser_TitleChanged;
 
-            Form_Loader._FormReference.panel_BrowserDisplay.Controls.Add(CefSharpBrowser);
+            //Form_Loader._FormReference.panel_BrowserDisplay.Controls.Add(CefSharpBrowser);
 
             //Fix Browser not being able to load page on first click, before visible, on tutorial.
             string FixBrowser = CefSharpBrowser.Handle.ToString();
