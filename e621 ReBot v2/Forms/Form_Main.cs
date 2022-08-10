@@ -210,6 +210,7 @@ namespace e621_ReBot_v2
             CheckBox_RemoveBVAS.Checked = Properties.Settings.Default.RemoveBVAS;
             CheckBox_ClearCache.Checked = Properties.Settings.Default.ClearCache;
             CheckBox_DisableGPU.Checked = Properties.Settings.Default.DisableGPU;
+            CheckBox_EnableReplacement.Checked = Properties.Settings.Default.ReplacementBeta;
             //CheckBox_DontFlag.Checked = Properties.Settings.Default.DontFlag;
             //CheckBox_DontFlag.Visible = !string.IsNullOrEmpty(Properties.Settings.Default.UserLevel) && Module_Credits.UserLevels[Properties.Settings.Default.UserLevel] > 2;
 
@@ -2866,6 +2867,12 @@ namespace e621_ReBot_v2
         private void CheckBox_DisableGPU_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.DisableGPU = CheckBox_DisableGPU.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void CheckBox_EnableReplacement_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.ReplacementBeta = CheckBox_EnableReplacement.Checked;
             Properties.Settings.Default.Save();
         }
 

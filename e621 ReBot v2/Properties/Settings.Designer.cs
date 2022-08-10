@@ -438,5 +438,17 @@ namespace e621_ReBot_v2.Properties {
                 this["DisableGPU"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ReplacementBeta {
+            get {
+                return ((bool)(this["ReplacementBeta"]));
+            }
+            set {
+                this["ReplacementBeta"] = value;
+            }
+        }
     }
 }

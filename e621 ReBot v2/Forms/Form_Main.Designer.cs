@@ -190,6 +190,7 @@
             this.cGroupBoxColored_Volume = new e621_ReBot_v2.CustomControls.Custom_GroupBoxColored();
             this.TrackBar_Volume = new System.Windows.Forms.TrackBar();
             this.panel_CheckBoxOptions = new System.Windows.Forms.Panel();
+            this.CheckBox_EnableReplacement = new System.Windows.Forms.CheckBox();
             this.CheckBox_ClearCache = new System.Windows.Forms.CheckBox();
             this.CheckBox_ManualInferiorSave = new System.Windows.Forms.CheckBox();
             this.CheckBox_DisableGPU = new System.Windows.Forms.CheckBox();
@@ -570,7 +571,7 @@
             this.contextMenuStrip_NotificationArea.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem_NotificationArea});
             this.contextMenuStrip_NotificationArea.Name = "contextMenuStrip_NotificationArea";
-            this.contextMenuStrip_NotificationArea.Size = new System.Drawing.Size(209, 48);
+            this.contextMenuStrip_NotificationArea.Size = new System.Drawing.Size(209, 26);
             // 
             // toolStripMenuItem_NotificationArea
             // 
@@ -1722,7 +1723,7 @@
             this.tabPage_Download.Controls.Add(this.cCheckGroupBox_Download);
             this.tabPage_Download.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Download.Name = "tabPage_Download";
-            this.tabPage_Download.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Download.Size = new System.Drawing.Size(192, 91);
             this.tabPage_Download.TabIndex = 2;
             this.tabPage_Download.Text = "tabPage_Download";
             // 
@@ -2209,7 +2210,7 @@
             this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_AppName);
             this.tabPage_Settings.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Settings.Name = "tabPage_Settings";
-            this.tabPage_Settings.Size = new System.Drawing.Size(192, 91);
+            this.tabPage_Settings.Size = new System.Drawing.Size(1262, 695);
             this.tabPage_Settings.TabIndex = 5;
             this.tabPage_Settings.Text = "tabPage_Settings";
             this.tabPage_Settings.Enter += new System.EventHandler(this.TabPage_Settings_Enter);
@@ -2788,6 +2789,7 @@
             // 
             // panel_CheckBoxOptions
             // 
+            this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_EnableReplacement);
             this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_ClearCache);
             this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_ManualInferiorSave);
             this.panel_CheckBoxOptions.Controls.Add(this.CheckBox_DisableGPU);
@@ -2798,9 +2800,26 @@
             this.panel_CheckBoxOptions.Location = new System.Drawing.Point(68, 422);
             this.panel_CheckBoxOptions.Margin = new System.Windows.Forms.Padding(64, 32, 4, 4);
             this.panel_CheckBoxOptions.Name = "panel_CheckBoxOptions";
-            this.panel_CheckBoxOptions.Size = new System.Drawing.Size(256, 172);
+            this.panel_CheckBoxOptions.Size = new System.Drawing.Size(256, 198);
             this.panel_CheckBoxOptions.TabIndex = 128;
             this.panel_CheckBoxOptions.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel_CheckBoxOptions_Paint);
+            // 
+            // CheckBox_EnableReplacement
+            // 
+            this.CheckBox_EnableReplacement.AutoSize = true;
+            this.CheckBox_EnableReplacement.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.CheckBox_EnableReplacement.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.CheckBox_EnableReplacement.Location = new System.Drawing.Point(4, 179);
+            this.CheckBox_EnableReplacement.Margin = new System.Windows.Forms.Padding(4);
+            this.CheckBox_EnableReplacement.Name = "CheckBox_EnableReplacement";
+            this.CheckBox_EnableReplacement.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.CheckBox_EnableReplacement.Size = new System.Drawing.Size(114, 17);
+            this.CheckBox_EnableReplacement.TabIndex = 130;
+            this.CheckBox_EnableReplacement.TabStop = false;
+            this.CheckBox_EnableReplacement.Text = "Replacement Beta";
+            this.toolTip_Display.SetToolTip(this.CheckBox_EnableReplacement, "Replace images instead of flagging them and uploading a superior version.");
+            this.CheckBox_EnableReplacement.UseVisualStyleBackColor = true;
+            this.CheckBox_EnableReplacement.CheckedChanged += new System.EventHandler(this.CheckBox_EnableReplacement_CheckedChanged);
             // 
             // CheckBox_ClearCache
             // 
@@ -3348,7 +3367,7 @@
             this.tabPage_PuzzleGame.Controls.Add(this.panel_GameStart);
             this.tabPage_PuzzleGame.Location = new System.Drawing.Point(4, 5);
             this.tabPage_PuzzleGame.Name = "tabPage_PuzzleGame";
-            this.tabPage_PuzzleGame.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_PuzzleGame.Size = new System.Drawing.Size(192, 91);
             this.tabPage_PuzzleGame.TabIndex = 6;
             this.tabPage_PuzzleGame.Text = "tabPage_PuzzleGame";
             // 
@@ -3482,7 +3501,7 @@
             this.gamePanel_Main.Margin = new System.Windows.Forms.Padding(8, 4, 4, 4);
             this.gamePanel_Main.MaximumSize = new System.Drawing.Size(1000, 680);
             this.gamePanel_Main.Name = "gamePanel_Main";
-            this.gamePanel_Main.Size = new System.Drawing.Size(1000, 680);
+            this.gamePanel_Main.Size = new System.Drawing.Size(0, 76);
             this.gamePanel_Main.TabIndex = 0;
             // 
             // panel_GameStart
@@ -4003,6 +4022,7 @@
         protected internal System.Windows.Forms.NotifyIcon notifyIcon_Main;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip_NotificationArea;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_NotificationArea;
+        protected internal System.Windows.Forms.CheckBox CheckBox_EnableReplacement;
     }
 }
 

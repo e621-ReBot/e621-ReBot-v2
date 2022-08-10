@@ -108,30 +108,30 @@ namespace e621_ReBot_v2.Modules
                 DefaultValue = false
             };
             ReferenceTable.Columns.Add(TempDataColumn2);
-            //DataColumn TempDataColumn2 = new DataColumn
-            //{
-            //    ColumnName = "MoveChildren",
-            //    Caption = "Move Children",
-            //    DataType = typeof(bool),
-            //    DefaultValue = false
-            //};
-            //ReferenceTable.Columns.Add(TempDataColumn2);
-            //DataColumn TempDataColumn3 = new DataColumn
-            //{
-            //    ColumnName = "FlagInferior",
-            //    Caption = "Flag Inferior",
-            //    DataType = typeof(bool),
-            //    DefaultValue = false
-            //};
-            //ReferenceTable.Columns.Add(TempDataColumn3);
-            //DataColumn TempDataColumn4 = new DataColumn
+            DataColumn TempDataColumn3 = new DataColumn
+            {
+                ColumnName = "MoveChildren",
+                Caption = "Move Children",
+                DataType = typeof(bool),
+                DefaultValue = false
+            };
+            ReferenceTable.Columns.Add(TempDataColumn3);
+            DataColumn TempDataColumn4 = new DataColumn
+            {
+                ColumnName = "FlagInferior",
+                Caption = "Flag Inferior",
+                DataType = typeof(bool),
+                DefaultValue = false
+            };
+            ReferenceTable.Columns.Add(TempDataColumn4);
+            //DataColumn TempDataColumn5 = new DataColumn
             //{
             //    ColumnName = "ChangeParent",
             //    Caption = "Change Parent",
             //    DataType = typeof(bool),
             //    DefaultValue = false
             //};
-            //ReferenceTable.Columns.Add(TempDataColumn4);
+            //ReferenceTable.Columns.Add(TempDataColumn5);
         }
 
         public static bool UploadQueueContainsURL(string MediaURL)

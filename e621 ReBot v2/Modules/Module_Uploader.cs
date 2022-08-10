@@ -135,22 +135,32 @@ namespace e621_ReBot_v2.Modules
                     UploadRowTemp["Grab_MediaURL"] = (string)Module_TableHolder.Database_Table.Rows[i]["Grab_MediaURL"];
                     UploadRowTemp["DataRowRef"] = Module_TableHolder.Database_Table.Rows[i];
                     UploadRowTemp["CopyNotes"] = Module_TableHolder.Database_Table.Rows[i]["Inferior_HasNotes"] != DBNull.Value;
-                    //UploadRowTemp["MoveChildren"] = Module_TableHolder.Database_Table.Rows[i]["Inferior_Children"] != DBNull.Value;
-                    if (Module_TableHolder.Database_Table.Rows[i]["Inferior_ID"] != DBNull.Value)
+                    if (Properties.Settings.Default.ReplacementBeta)
                     {
-                        //if (Properties.Settings.Default.DontFlag)
-                        //{
-                        //    UploadRowTemp["ChangeParent"] = true;
-                        //}
-                        //else
-                        //{
-                        //    UploadRowTemp["FlagInferior"] = true;
-                        //}
-                        UploadRowTemp["ReplaceInferior"] = true;
+                        if (Module_TableHolder.Database_Table.Rows[i]["Inferior_ID"] != DBNull.Value)
+                        {
+                            UploadRowTemp["ReplaceInferior"] = true;
+                        }
+                        else
+                        {
+                            UploadRowTemp["Upload"] = true;
+                        }
                     }
                     else
                     {
                         UploadRowTemp["Upload"] = true;
+                        if (Module_TableHolder.Database_Table.Rows[i]["Inferior_ID"] != DBNull.Value)
+                        {
+                            //    if (Properties.Settings.Default.DontFlag)
+                            //    {
+                            //        UploadRowTemp["ChangeParent"] = true;
+                            //    }
+                            //    else
+                            //    {
+                            UploadRowTemp["FlagInferior"] = true;
+                            UploadRowTemp["MoveChildren"] = Module_TableHolder.Database_Table.Rows[i]["Inferior_Children"] != DBNull.Value;
+                            //}
+                        }
                     }
                     CreateUploadJobNode(ref UploadRowTemp);
                     UploadTableTemp.Rows.Add(UploadRowTemp);
@@ -497,7 +507,7 @@ namespace e621_ReBot_v2.Modules
                         break;
                     }
 
-                 default:
+                default:
                     {
                         string EscapedURL = new Uri(Upload_MediaURL).AbsoluteUri;
                         if (EscapedURL.Contains("https://img.pawoo.net/media_attachments/") || EscapedURL.Contains("https://www.hiccears.com/file/"))
