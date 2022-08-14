@@ -3071,19 +3071,26 @@ namespace e621_ReBot_v2
             {
                 Properties.Settings.Default.Reset();
                 Cef.Shutdown();
-                bool DeleteWorked = false;
-                do
+                new Thread(() =>
                 {
-                    try
+                    Thread.Sleep(500);
+                    Thread.CurrentThread.IsBackground = true;
+                    int FailCount = 0;
+                    bool DeleteWorked = false;
+                    do
                     {
-                        Directory.Delete("CefSharp Cache", true);
-                        DeleteWorked = true;
-                    }
-                    catch (Exception)
-                    {
-                        Thread.Sleep(500);
-                    }
-                } while (DeleteWorked == false);
+                        try
+                        {
+                            Directory.Delete("CefSharp Cache", true);
+                            DeleteWorked = true;
+                        }
+                        catch (Exception)
+                        {
+                            FailCount++;
+                            Thread.Sleep(500);
+                        }
+                    } while (DeleteWorked == false && FailCount < 6);
+                }).Start();
                 Close();
             }
         }
