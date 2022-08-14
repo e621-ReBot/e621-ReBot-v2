@@ -150,7 +150,7 @@ namespace e621_ReBot_v2.Modules
                             case string _3 when _3.StartsWith("https://e621.net/users/", StringComparison.OrdinalIgnoreCase) && _3.EndsWith("/api_key/view", StringComparison.OrdinalIgnoreCase):
                                 {
                                     MessageBox.Show("Generate you API Key and copy it into the floating box.", "e621 Bot");
-                                    new Form_APIKey().Show();
+                                    if (Form_APIKey._FormReference == null) new Form_APIKey().Show();
                                     break;
                                 }
                         }

@@ -315,7 +315,7 @@ namespace e621_ReBot_v2
 
                 if (Properties.Settings.Default.AutocompleteTags && DownloadWhat != null)
                 {
-                    MessageBox.Show("You should download " + DownloadWhat + " data if you intend to use the autocomplete feature.\n\nYou can do so by going to the settings tab and clicking the button for it.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"You should download {DownloadWhat} data if you intend to use the autocomplete feature.\n\nYou can do so by going to the settings tab and clicking the button for it.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
                 if (Properties.Settings.Default.FirstRun)
@@ -2081,7 +2081,18 @@ namespace e621_ReBot_v2
         {
             if (string.IsNullOrEmpty(Properties.Settings.Default.API_Key))
             {
-                new Form_APIKey().Show();
+                if (string.IsNullOrEmpty(Properties.Settings.Default.UserName))
+                {
+                    MessageBox.Show("I still don't know your name so you will have to introduce yourself first.", "e621 ReBot", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Properties.Settings.Default.FirstRun = true;
+                    panel_Browser.Visible = true;
+                    Module_CefSharp.CefSharpBrowser.Load("https://e621.net/session/new");
+                    cTabControl_e621ReBot.SelectedIndex = 0;
+                }
+                else
+                {
+                    if (Form_APIKey._FormReference == null) new Form_APIKey().Show();
+                }          
             }
             else
             {
