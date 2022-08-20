@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Net;
 using System.Windows.Forms;
+using CefSharp.DevTools.Media;
 using HtmlAgilityPack;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
@@ -110,10 +111,16 @@ namespace e621_ReBot_v2.Modules.Grabber
 
                 HtmlDocument WebDoc = new HtmlDocument();
                 WebDoc.LoadHtml(HTMLSource);
+                HtmlNode PostNode = WebDoc.DocumentNode.SelectSingleNode("html");
 
                 string Post_URL = WebAdress;
 
-                HtmlNode PostNode = WebDoc.DocumentNode.SelectSingleNode("html");
+                bool LoginNeeded = false;
+                if (PostNode.SelectSingleNode(".//div[@id='standardpage']/section[@class='aligncenter notice-message']") != null)
+                {
+                    LoginNeeded = true;
+                    goto Skip2Exit;
+                }
 
                 string Post_TimeTemp = PostNode.SelectSingleNode(".//span[@class='popup_date']").Attributes["title"].Value;
                 if (!Post_TimeTemp.Contains("AM") && !Post_TimeTemp.Contains("PM"))
@@ -172,7 +179,14 @@ namespace e621_ReBot_v2.Modules.Grabber
                     {
                         Module_Grabber._GrabQueue_WorkingOn.Remove(Post_URL);
                     }
-                    PrintText = $"Grabbing skipped - Media already grabbed [@{Post_URL}]";
+                    if (LoginNeeded)
+                    {
+                        PrintText = $"Grabbing skipped - Media is behind login [@{Post_URL}]";
+                    }
+                    else
+                    {
+                        PrintText = $"Grabbing skipped - Media already grabbed [@{Post_URL}]";
+                    }               
                 }
                 else
                 {

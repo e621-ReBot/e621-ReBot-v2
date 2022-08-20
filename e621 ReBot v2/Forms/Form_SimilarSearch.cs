@@ -315,7 +315,7 @@ namespace e621_ReBot_v2.Forms
         private void CheckIQDBQImages(object sender, DoWorkEventArgs e)
         {
             string ResponseString = Module_e621Info.e621InfoDownload($"https://e621.net/iqdb_queries.json?url={(string)Form_Preview._FormReference.Preview_RowHolder["Grab_MediaURL"]}", true);
-            if (ResponseString.StartsWith("{", StringComparison.OrdinalIgnoreCase))
+            if (ResponseString == null || ResponseString.StartsWith("{", StringComparison.OrdinalIgnoreCase))
             {
                 if (_FormReference != null) //already closed
                 {
