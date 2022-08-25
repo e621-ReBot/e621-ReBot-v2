@@ -43,7 +43,7 @@ namespace e621_ReBot_v2.Modules
                         Module_Uploader.timer_UploadDisable.Interval = 3600000;
                         Module_Uploader.timer_UploadDisable.Tag = "Total";
                         Module_Uploader.timer_UploadDisable.Start();
-                        return;
+                        //return; why return here?
                     }
                     if (Credit_Upload_Hourly == 0)
                     {
@@ -91,7 +91,7 @@ namespace e621_ReBot_v2.Modules
             Timestamps_Upload.Clear();
 
             string HTML_UserInfo = Module_e621Info.e621InfoDownload($"https://e621.net/users/{Properties.Settings.Default.UserID}.json");
-            if (HTML_UserInfo != null && HTML_UserInfo.Length > 24)
+            if (!string.IsNullOrEmpty(HTML_UserInfo) && HTML_UserInfo.Length > 24)
             {
                 JObject UserJObject = JObject.Parse(HTML_UserInfo);
 
@@ -112,7 +112,7 @@ namespace e621_ReBot_v2.Modules
                     Credit_Upload_Total = UserJObject["upload_limit"].Value<int>();
 
                     string HTML_UploadHistory = Module_e621Info.e621InfoDownload($"https://e621.net/posts.json?limit=30&tags=user:{Properties.Settings.Default.UserName}");
-                    if (HTML_UploadHistory != null && HTML_UploadHistory.Length > 24)
+                    if (!string.IsNullOrEmpty(HTML_UploadHistory) && HTML_UploadHistory.Length > 24)
                     {
                         JObject PostHistory = JObject.Parse(HTML_UploadHistory);
                         foreach (JObject UploadedPost in PostHistory["posts"])
@@ -130,7 +130,7 @@ namespace e621_ReBot_v2.Modules
                         }
                     }
                     HTML_UploadHistory = Module_e621Info.e621InfoDownload($"https://e621.net/post_replacements.json?search[creator_id]={Properties.Settings.Default.UserID}");
-                    if (HTML_UploadHistory != null && HTML_UploadHistory.Length > 24)
+                    if (!string.IsNullOrEmpty(HTML_UploadHistory) && HTML_UploadHistory.Length > 24)
                     {
                         JArray PostHistory = JArray.Parse(HTML_UploadHistory);
                         foreach (JObject UploadedPost in PostHistory)
@@ -159,7 +159,7 @@ namespace e621_ReBot_v2.Modules
                 Timestamps_Flag.Clear();
 
                 string HTML_FlagHistory = Module_e621Info.e621InfoDownload($"https://e621.net/post_flags.json?search[creator_id]={Properties.Settings.Default.UserID}", true);
-                if (HTML_FlagHistory != null && HTML_FlagHistory.Length > 24)
+                if (!string.IsNullOrEmpty(HTML_FlagHistory) && HTML_FlagHistory.Length > 24)
                 {
                     JArray FlagHistory = JArray.Parse(HTML_FlagHistory);
                     for (int x = 0; x <= 10; x++)
@@ -187,7 +187,7 @@ namespace e621_ReBot_v2.Modules
                 Timestamps_Notes.Clear();
 
                 string HTML_NoteHistory = Module_e621Info.e621InfoDownload($"https://e621.net/note_versions.json?search[updater_id]={Properties.Settings.Default.UserID}");
-                if (HTML_NoteHistory != null && HTML_NoteHistory.Length > 24)
+                if (!string.IsNullOrEmpty(HTML_NoteHistory) && HTML_NoteHistory.Length > 24)
                 {
                     JArray NoteHistory = JArray.Parse(HTML_NoteHistory);
                     for (int x = 0; x <= 50; x++)
