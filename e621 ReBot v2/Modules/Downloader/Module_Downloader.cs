@@ -986,7 +986,7 @@ namespace e621_ReBot_v2.Modules
                 {
                     foreach (HtmlNode Post in NodeSelector)
                     {
-                        if (!Post.Attributes["class"].Value.Contains("blacklisted-active"))
+                        if (!Post.Attributes["class"].Value.Contains("blacklisted"))
                         {
                             string PicURL = Post.Attributes["data-file-url"].Value;
                             if (Module_TableHolder.DownloadQueueContainsURL(PicURL) || Download_AlreadyDownloaded.Contains(PicURL))
@@ -1060,7 +1060,7 @@ namespace e621_ReBot_v2.Modules
                 {
                     foreach (var Post in NodeSelector)
                     {
-                        if (!Post.Attributes["class"].Value.Contains("blacklisted-active"))
+                        if (!Post.Attributes["class"].Value.Contains("blacklisted"))
                         {
                             string PicURL = Post.Attributes["data-file-url"].Value;
                             if (Module_TableHolder.DownloadQueueContainsURL(PicURL) || Download_AlreadyDownloaded.Contains(PicURL))
@@ -1126,7 +1126,7 @@ namespace e621_ReBot_v2.Modules
                 {
                     foreach (var Post in NodeSelector)
                     {
-                        if (!Post.Attributes["class"].Value.Contains("blacklisted-active"))
+                        if (!Post.Attributes["class"].Value.Contains("blacklisted"))
                         {
                             string PicURL = Post.Attributes["data-file-url"].Value;
                             if (Module_TableHolder.DownloadQueueContainsURL(PicURL) || Download_AlreadyDownloaded.Contains(PicURL))
