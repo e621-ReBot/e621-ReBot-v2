@@ -107,6 +107,7 @@ namespace e621_ReBot_v2.Modules
                     Form_Loader._FormReference.label_UserLevel.Visible = true;
                 }));
 
+                //user:!<id>
                 if (UserLevels[Properties.Settings.Default.UserLevel] < 2)
                 {
                     Credit_Upload_Total = UserJObject["upload_limit"].Value<int>();

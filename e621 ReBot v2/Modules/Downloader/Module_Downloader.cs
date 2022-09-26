@@ -63,7 +63,7 @@ namespace e621_ReBot_v2.Modules
             _DownloadEnabler.Add(new Regex(@".+(e621.net/posts)(/\d+|\?.+)?"));
             _DownloadEnabler.Add(new Regex(@".+(e621.net/pools/\d+)"));
             _DownloadEnabler.Add(new Regex(@".+(e621.net/favorites)"));
-            _DownloadEnabler.Add(new Regex(@".+(e621.net/explore/posts/popular)"));
+            _DownloadEnabler.Add(new Regex(@".+(e621.net/popular)"));
         }
 
         private static readonly List<Regex> _DownloadEnabler = new List<Regex>();
@@ -1053,7 +1053,7 @@ namespace e621_ReBot_v2.Modules
                 return;
             }
 
-            if (BrowserAdress.Equals("https://e621.net/explore/posts/popular"))
+            if (BrowserAdress.Equals("https://e621.net/popular"))
             {
                 HtmlNodeCollection NodeSelector = WebDoc.DocumentNode.SelectNodes("//div[@id='posts-container']/article");
                 if (NodeSelector != null)
