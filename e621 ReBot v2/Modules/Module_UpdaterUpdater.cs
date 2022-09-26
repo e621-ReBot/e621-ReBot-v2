@@ -12,7 +12,7 @@ namespace e621_ReBot_v2.Modules
             if (File.Exists("e621 ReBot Updater.exe"))
             {
                 int CurrentVersion = int.Parse(FileVersionInfo.GetVersionInfo("e621 ReBot Updater.exe").FileVersion.Replace(".", ""));
-                if (CurrentVersion < 1004)
+                if (CurrentVersion < 1005)
                 {
                     using (MemoryStream MemoryStreamTemp = new MemoryStream(Properties.Resources.e621_ReBot_Updater))
                     {

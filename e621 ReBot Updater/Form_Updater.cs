@@ -59,12 +59,12 @@ namespace e621_ReBot_Updater
             {
                 string OFVString;
                 CookieContainer RequestCookieContainer = new CookieContainer();
-                string[] SplitCookieString = WebBrowser_Updater.Document.Cookie.Split(new string[] { "=" }, StringSplitOptions.RemoveEmptyEntries);
+                string SplitCookieString = WebBrowser_Updater.Document.Cookie.Substring(WebBrowser_Updater.Document.Cookie.LastIndexOf("=") + 1);
                 Cookie CreateCookie = new Cookie()
                 {
                     Domain = "e621rebot.infinityfreeapp.com",
-                    Name = SplitCookieString[0],
-                    Value = SplitCookieString[1]
+                    Name = "_test",
+                    Value = SplitCookieString
                 };
                 RequestCookieContainer.Add(CreateCookie);
                 HttpWebRequest VersionRequest = (HttpWebRequest)WebRequest.Create("http://e621rebot.infinityfreeapp.com/version.txt");
