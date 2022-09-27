@@ -167,10 +167,8 @@ namespace e621_ReBot_v2.Modules.Grabber
             //.//span[text()[contains(.,'M · ')]]
             DateTime Post_Time = DateTime.Parse(PostNode.SelectSingleNode(".//a[@aria-label and @role='link']/time").Attributes["datetime"].Value);
 
-            //string ArtistName = WebAdress.Replace("https://twitter.com/", "");
-            //ArtistName = ArtistName.Substring(0, ArtistName.IndexOf("/"));
-            string FullName = PostNode.SelectSingleNode(".//div[@id and @data-testid='User-Names']").InnerText;
-            FullName = FullName.Replace("@", " (@") + ")";
+            string ArtistName = PostNode.SelectSingleNode(".//div[@id and @data-testid='User-Names']").InnerText;
+            ArtistName = ArtistName.Replace("@", " (@") + ")";
 
             HtmlNode TestTextNode = PostNode.SelectSingleNode(".//div[@id and @data-testid='tweetText']");
             string Post_Text = null;
@@ -221,7 +219,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                     }
 
                     DataRow TempDataRow = TempDataTable.NewRow();
-                    FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Text, Post_MediaURL, Post_MediaURL, FullName);
+                    FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Text, Post_MediaURL, Post_MediaURL, ArtistName);
                     TempDataTable.Rows.Add(TempDataRow);
 
                     Thread.Sleep(Module_Grabber.PauseBetweenImages);
@@ -253,7 +251,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                     }
 
                     DataRow TempDataRow = TempDataTable.NewRow();
-                    FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Text, VideoURL, VideoData.Value, FullName);
+                    FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Text, VideoURL, VideoData.Value, ArtistName);
                     TempDataTable.Rows.Add(TempDataRow);
                 }
             }
@@ -300,10 +298,8 @@ namespace e621_ReBot_v2.Modules.Grabber
 
             DateTime Post_Time;
 
-            //string ArtistName = WebAdress.Replace("https://twitter.com/", "");
-            //ArtistName = ArtistName.Substring(0, ArtistName.IndexOf("/"));
             string ArtistName = PostNode.SelectSingleNode(".//div[@id and @data-testid='User-Names']").InnerText;
-            ArtistName = ArtistName.Replace("@", " (@") + ")";
+            ArtistName = ArtistName.Substring(0, ArtistName.IndexOf("·")).Replace("@", " (@") + ")";
 
             string Post_Text = null;
             HtmlNode PostNodeTest = PostNode.SelectSingleNode(".//div[@id and @dir='auto']");
