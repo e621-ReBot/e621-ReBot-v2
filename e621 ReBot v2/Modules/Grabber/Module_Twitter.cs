@@ -163,8 +163,9 @@ namespace e621_ReBot_v2.Modules.Grabber
 
             HtmlNode PostNode = WebDoc.DocumentNode;
 
-            string Post_TimeTemp = PostNode.SelectSingleNode(".//span[text()[contains(.,'M · ')]]").InnerText.Trim();
-            DateTime Post_Time = DateTime.ParseExact(Post_TimeTemp, "h:mm tt · MMM d, yyyy", CultureInfo.InvariantCulture);
+            //DateTime.Parse(Post_TimeTemp, "h:mm tt · MMM d, yyyy", CultureInfo.InvariantCulture);
+            //.//span[text()[contains(.,'M · ')]]
+            DateTime Post_Time = DateTime.Parse(PostNode.SelectSingleNode(".//a[@aria-label and @role='link']/time").Attributes["datetime"].Value);
 
             //string ArtistName = WebAdress.Replace("https://twitter.com/", "");
             //ArtistName = ArtistName.Substring(0, ArtistName.IndexOf("/"));
@@ -301,7 +302,7 @@ namespace e621_ReBot_v2.Modules.Grabber
 
             //string ArtistName = WebAdress.Replace("https://twitter.com/", "");
             //ArtistName = ArtistName.Substring(0, ArtistName.IndexOf("/"));
-            string ArtistName = PostNode.SelectSingleNode(".//a[@role='link']").InnerText;
+            string ArtistName = PostNode.SelectSingleNode(".//div[@id and @data-testid='User-Names']").InnerText;
             ArtistName = ArtistName.Replace("@", " (@") + ")";
 
             string Post_Text = null;
@@ -391,7 +392,7 @@ namespace e621_ReBot_v2.Modules.Grabber
             }
             else
             {
-                Post_Time = DateTime.Parse(PostNode.SelectSingleNode(".//time").Attributes["datetime"].Value);
+                Post_Time = DateTime.Parse(PostNode.SelectSingleNode(".//a[@aria-label and @role='link']/time").Attributes["datetime"].Value);
 
                 HtmlNodeCollection ImageNodes = null;
                 HtmlNode ImageNodeTest = PostNode.SelectSingleNode(".//div[@id and @aria-labelledby]/div[@id]");

@@ -144,7 +144,7 @@ namespace CefSharp
                 {
                     JObject JObjectTemp = JObject.Parse(Data2String);
 
-                    IEnumerable<JToken> TweetsTest = JObjectTemp.SelectTokens("data.user.result.timeline.timeline.instructions.[0].entries.[*].content.itemContent.tweet_results.result");
+                    IEnumerable<JToken> TweetsTest = JObjectTemp.SelectTokens("data.user.result.timeline_v2.timeline.instructions.[0].entries.[*].content.itemContent.tweet_results.result");
                     if (TweetsTest != null)
                     {
                         JArray TweetHolder = new JArray(TweetsTest);
