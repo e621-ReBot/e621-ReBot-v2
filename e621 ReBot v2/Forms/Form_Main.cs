@@ -718,7 +718,7 @@ namespace e621_ReBot_v2
                 {
                     Properties.Settings.Default.Bookmarks.Remove(WebAdress);
                     BB_Bookmarks.BackColor = Color.Gray;
-                    toolTip_Display.SetToolTip(BB_Bookmarks, "Bookmark current page." + Environment.NewLine + Environment.NewLine + "Hold Ctrl when clicking to clear all Bookmarks.");
+                    toolTip_Display.SetToolTip(BB_Bookmarks, "Bookmark current page.\n\nHold Ctrl when clicking to clear all Bookmarks.");
                     URL_ComboBox.Items.Remove(WebAdress);
                     URL_ComboBox.Text = WebAdress; // Fix bug, item removal removing text.
                     panel_ComboBoxBlocker.Visible = URL_ComboBox.Items.Count == 0;
@@ -731,7 +731,7 @@ namespace e621_ReBot_v2
                 {
                     Properties.Settings.Default.Bookmarks.Add(WebAdress);
                     BB_Bookmarks.BackColor = Color.RoyalBlue;
-                    toolTip_Display.SetToolTip(BB_Bookmarks, "Remove Bookmark." + Environment.NewLine + Environment.NewLine + "Hold Ctrl when clicking to clear all Bookmarks.");
+                    toolTip_Display.SetToolTip(BB_Bookmarks, "Remove Bookmark.\n\nHold Ctrl when clicking to clear all Bookmarks.");
                     URL_ComboBox.Items.Add(WebAdress);
                     panel_ComboBoxBlocker.Visible = false;
                 }
@@ -772,35 +772,85 @@ namespace e621_ReBot_v2
             QuickButtonPanel.Visible = !QuickButtonPanel.Visible;
         }
 
+        private void URL_ComboBox_DropDown(object sender, EventArgs e)
+        {
+            URL_ComboBox.SelectionLength = 0;
+        }
+
         private void URL_ComboBox_KeyDown(object sender, KeyEventArgs e)
         {
-            // Detect Paste
-            if (ModifierKeys.HasFlag(Keys.Control) && e.KeyCode == Keys.V)
+            switch (e.KeyCode)
             {
-                if (Clipboard.GetDataObject().GetDataPresent(DataFormats.StringFormat))
-                {
-                    string ClipboardText = (string)Clipboard.GetDataObject().GetData(DataFormats.StringFormat);
-                    ClipboardText = WebUtility.UrlDecode(ClipboardText);
-                    e.SuppressKeyPress = true; // disable original paste
+                case Keys.Enter:
+                    {
+                        e.SuppressKeyPress = true; // disable sound
+                        BB_Navigate.PerformClick();
+                        break;
+                    }
 
-                    if (URL_ComboBox.SelectedText.Length > 0)
+                case Keys.Delete:
                     {
-                        URL_ComboBox.Text = URL_ComboBox.Text.Replace(URL_ComboBox.SelectedText, ClipboardText);
+                        e.SuppressKeyPress = true;
+                        e.Handled = true;
+                        if (URL_ComboBox.SelectedIndex == -1) return;
+
+                        string BookmarkURL = URL_ComboBox.SelectedItem.ToString();
+                        string CurrentWebAdress = WebUtility.UrlDecode(Module_CefSharp.CefSharpBrowser.Address);
+
+                        if (Properties.Settings.Default.Bookmarks.Contains(BookmarkURL))
+                        {
+                            if (BookmarkURL.Equals(CurrentWebAdress))
+                            {
+                                BB_Bookmarks.BackColor = Color.Gray;
+                                toolTip_Display.SetToolTip(BB_Bookmarks, "Bookmark current page.\n\nHold Ctrl when clicking to clear all Bookmarks.");
+                            }
+                            Properties.Settings.Default.Bookmarks.Remove(BookmarkURL);
+                            if (Properties.Settings.Default.Bookmarks.Count == 0) Properties.Settings.Default.Bookmarks = null;
+                            Properties.Settings.Default.Save();
+                        }
+
+                        string TextHolder = URL_ComboBox.Text;
+                        int TextSelectionHolder = URL_ComboBox.SelectionStart;
+                        URL_ComboBox.DroppedDown = false;
+                        if (URL_ComboBox.Items.Count == 1)
+                        {                          
+                            URL_ComboBox.Items.Clear();
+                        }
+                        URL_ComboBox.Items.Remove(BookmarkURL);
+                        URL_ComboBox.Text = TextHolder;
+                        URL_ComboBox.Select(TextSelectionHolder,0);
+                        URL_ComboBox.SelectedIndex = -1;
+                        URL_ComboBox.SelectedItem = null;
+                        panel_ComboBoxBlocker.Visible = URL_ComboBox.Items.Count == 0;
+                        break;
                     }
-                    else
+
+                case Keys.V:
                     {
-                        URL_ComboBox.Text = ClipboardText;
+                        // Detect Paste
+                        if (ModifierKeys.HasFlag(Keys.Control) && Clipboard.GetDataObject().GetDataPresent(DataFormats.StringFormat))
+                        {
+                                string ClipboardText = (string)Clipboard.GetDataObject().GetData(DataFormats.StringFormat);
+                                ClipboardText = WebUtility.UrlDecode(ClipboardText);
+                                e.SuppressKeyPress = true; // disable original paste
+
+                                if (URL_ComboBox.SelectedText.Length > 0)
+                                {
+                                    URL_ComboBox.Text = URL_ComboBox.Text.Replace(URL_ComboBox.SelectedText, ClipboardText);
+                                }
+                                else
+                                {
+                                    URL_ComboBox.Text = ClipboardText;
+                                }
+                                URL_ComboBox.SelectionStart = URL_ComboBox.Text.Length;
+                        }
+                        break;
                     }
-                    URL_ComboBox.SelectionStart = URL_ComboBox.Text.Length;
-                }
-            }
-            else
-            {
-                if (e.KeyCode == Keys.Enter)
-                {
-                    e.SuppressKeyPress = true; // disable sound
-                    BB_Navigate.PerformClick();
-                }
+
+                default:
+                    {  
+                        break;
+                    }
             }
         }
 
@@ -816,7 +866,7 @@ namespace e621_ReBot_v2
 
         private void URL_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BB_Navigate.PerformClick();
+            if (URL_ComboBox.SelectedItem != null) BB_Navigate.PerformClick();
         }
 
         private void BB_Navigate_Click(object sender, EventArgs e)

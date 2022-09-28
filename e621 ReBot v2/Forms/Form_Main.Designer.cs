@@ -1020,6 +1020,7 @@
             this.URL_ComboBox.Size = new System.Drawing.Size(720, 21);
             this.URL_ComboBox.TabIndex = 19;
             this.URL_ComboBox.TabStop = false;
+            this.URL_ComboBox.DropDown += new System.EventHandler(this.URL_ComboBox_DropDown);
             this.URL_ComboBox.SelectedIndexChanged += new System.EventHandler(this.URL_ComboBox_SelectedIndexChanged);
             this.URL_ComboBox.TextChanged += new System.EventHandler(this.URL_ComboBox_TextChanged);
             this.URL_ComboBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.URL_ComboBox_KeyDown);
@@ -2210,7 +2211,7 @@
             this.tabPage_Settings.Controls.Add(this.cGroupBoxColored_AppName);
             this.tabPage_Settings.Location = new System.Drawing.Point(4, 5);
             this.tabPage_Settings.Name = "tabPage_Settings";
-            this.tabPage_Settings.Size = new System.Drawing.Size(1262, 695);
+            this.tabPage_Settings.Size = new System.Drawing.Size(192, 91);
             this.tabPage_Settings.TabIndex = 5;
             this.tabPage_Settings.Text = "tabPage_Settings";
             this.tabPage_Settings.Enter += new System.EventHandler(this.TabPage_Settings_Enter);

@@ -86,6 +86,24 @@ namespace e621_ReBot_v2.Modules
             timer_Twitter.Stop();
             Form_Loader._FormReference.Invoke(new Action(() =>
             {
+                string CefAdress = HttpUtility.UrlDecode(CefSharpBrowser.Address);
+                //Form_Loader._FormReference.BB_Bookmarks.Enabled = !CefSharpBrowser.IsLoading;
+                Form_Loader._FormReference.BB_Bookmarks.Enabled = !CefAdress.Equals("about:blank");
+                if (Properties.Settings.Default.Bookmarks != null)
+                {
+                    if (Properties.Settings.Default.Bookmarks.Contains(WebUtility.UrlDecode(CefAdress)))
+                    {
+                        Form_Loader._FormReference.BB_Bookmarks.BackColor = Color.RoyalBlue;
+                        Form_Loader._FormReference.toolTip_Display.SetToolTip(Form_Loader._FormReference.BB_Bookmarks, "Remove Bookmark.\n\nHold Ctrl when clicking to clear all Bookmarks.");
+                    }
+                    else
+                    {
+                        Form_Loader._FormReference.BB_Bookmarks.BackColor = Color.Gray;
+                        Form_Loader._FormReference.toolTip_Display.SetToolTip(Form_Loader._FormReference.BB_Bookmarks, "Bookmark current page.\n\nHold Ctrl when clicking to clear all Bookmarks.");
+                    }
+                }
+
+
                 Form_Loader._FormReference.URL_ComboBox.Text = WebUtility.UrlDecode(e.Address);
                 FrameLoad.Clear();
                 FrameLoad.Add(Form_Loader._FormReference.URL_ComboBox.Text, 0);
@@ -110,8 +128,6 @@ namespace e621_ReBot_v2.Modules
             Form_Loader._FormReference.Invoke(new Action(() =>
             {
                 string CefAdress = HttpUtility.UrlDecode(CefSharpBrowser.Address);
-                Form_Loader._FormReference.BB_Bookmarks.Enabled = !e.IsLoading;
-                Form_Loader._FormReference.BB_Bookmarks.Enabled = !CefAdress.Equals("about:blank");
                 Form_Loader._FormReference.BB_Backward.Enabled = e.CanGoBack;
                 Form_Loader._FormReference.BB_Forward.Enabled = e.CanGoForward;
                 Form_Loader._FormReference.BB_Reload.Enabled = !CefAdress.Equals("about:blank");
@@ -155,20 +171,6 @@ namespace e621_ReBot_v2.Modules
                                 }
                         }
                         return;
-                    }
-
-                    if (Properties.Settings.Default.Bookmarks != null)
-                    {
-                        if (Properties.Settings.Default.Bookmarks.Contains(WebUtility.UrlDecode(CefAdress)))
-                        {
-                            Form_Loader._FormReference.BB_Bookmarks.BackColor = Color.RoyalBlue;
-                            Form_Loader._FormReference.toolTip_Display.SetToolTip(Form_Loader._FormReference.BB_Bookmarks, "Remove Bookmark." + Environment.NewLine + Environment.NewLine + "Hold Ctrl when clicking to clear all Bookmarks.");
-                        }
-                        else
-                        {
-                            Form_Loader._FormReference.BB_Bookmarks.BackColor = Color.Gray;
-                            Form_Loader._FormReference.toolTip_Display.SetToolTip(Form_Loader._FormReference.BB_Bookmarks, "Bookmark current page." + Environment.NewLine + Environment.NewLine + "Hold Ctrl when clicking to clear all Bookmarks.");
-                        }
                     }
 
                     if (CefAdress.Contains("mastodon.social/@"))
