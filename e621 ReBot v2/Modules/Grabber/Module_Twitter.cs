@@ -372,7 +372,8 @@ namespace e621_ReBot_v2.Modules.Grabber
 
                                 }
                             }
-                            Post_MediaURL = BestVideo["url"].Value<string>().Replace("?tag=10", "");
+                            Post_MediaURL = BestVideo["url"].Value<string>();
+                            Post_MediaURL = Post_MediaURL.Substring(0, Post_MediaURL.IndexOf("?tag="));
                         }
 
                         DataRow TempDataRow = TempDataTable.NewRow();
@@ -435,7 +436,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                 }
                 else
                 {
-                    HtmlNode VideoNodeTest = PostNode.SelectSingleNode("..//div[@data-testid='previewInterstitial'] | .//video");
+                    HtmlNode VideoNodeTest = PostNode.SelectSingleNode(".//div[@data-testid='previewInterstitial'] | .//video");
                     if (VideoNodeTest != null)
                     {
                         KeyValuePair<string, string> VideoData = Grab_TwitterStatus_API(Post_URL);
