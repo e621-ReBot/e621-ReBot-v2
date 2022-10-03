@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -373,7 +372,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                                 }
                             }
                             Post_MediaURL = BestVideo["url"].Value<string>();
-                            Post_MediaURL = Post_MediaURL.Substring(0, Post_MediaURL.IndexOf("?tag="));
+                            if (Post_MediaURL.Contains("?tag=")) Post_MediaURL = Post_MediaURL.Substring(0, Post_MediaURL.IndexOf("?tag="));
                         }
 
                         DataRow TempDataRow = TempDataTable.NewRow();
