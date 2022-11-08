@@ -164,7 +164,7 @@ namespace e621_ReBot_v2.Modules.Grabber
 
             //DateTime.Parse(Post_TimeTemp, "h:mm tt · MMM d, yyyy", CultureInfo.InvariantCulture);
             //.//span[text()[contains(.,'M · ')]]
-            DateTime Post_Time = DateTime.Parse(PostNode.SelectSingleNode(".//a[@aria-label and @role='link']/time").Attributes["datetime"].Value);
+            DateTime Post_Time;
 
             string ArtistName = PostNode.SelectSingleNode(".//div[@id and @data-testid='User-Names']").InnerText;
             ArtistName = ArtistName.Replace("@", " (@") + ")";
@@ -179,83 +179,66 @@ namespace e621_ReBot_v2.Modules.Grabber
                     Post_Text = WebUtility.HtmlDecode(Post_Text).Trim();
                 }
             }
-         
+
             string Post_MediaURL;
             int SkipCounter = 0;
-            HtmlNodeCollection ImageNodes = null;
-            HtmlNode ImageNodeTest = PostNode.SelectSingleNode(".//div[@id and @aria-labelledby]/div[@id]");
-            if (ImageNodeTest == null) 
+            HtmlNodeCollection VideoNodes = PostNode.SelectNodes(".//div[@data-testid='tweetPhoto']//img[@alt='Embedded video']");
+            if (VideoNodes != null)
             {
-                ImageNodes = PostNode.SelectNodes(".//div[@data-testid='tweetPhoto']//img[@alt='Image']"); 
-            }
-            if (ImageNodes != null)
-            {
-                //twitter carousel displayes them strangely when there's 4. 1-3-2-4 (as html order).
-                if (ImageNodes.Count == 4)
+                //HtmlNode VideoNodeTest = PostNode.SelectSingleNode(".//div[@data-testid='previewInterstitial'] | .//video");
+                string JSONData = Grab_TwitterStatus_API(Post_URL);
+                JObject ParseStatusJSON = JObject.Parse(JSONData);
+
+                JToken MediaHolder = ParseStatusJSON["extended_entities"];
+                if (MediaHolder != null)
                 {
-                    (ImageNodes[2], ImageNodes[1]) = (ImageNodes[1], ImageNodes[2]);
-                }
-
-                foreach (HtmlNode ImageNode in ImageNodes)
-                {
-                    string PictureLinkHolder = ImageNode.Attributes["src"].Value;
-                    Post_MediaURL = PictureLinkHolder.Substring(0, PictureLinkHolder.IndexOf("?"));
-                    PictureLinkHolder = PictureLinkHolder.Substring(PictureLinkHolder.IndexOf("=") + 1);
-                    PictureLinkHolder = PictureLinkHolder.Remove(PictureLinkHolder.IndexOf("&"));
-                    Post_MediaURL += "." + PictureLinkHolder;
-
-                    if (Module_Grabber._Grabbed_MediaURLs.Contains(Post_MediaURL))
-                    {
-                        SkipCounter += 1;
-                        continue;
-                    }
-                    else
-                    {
-                        lock (Module_Grabber._Grabbed_MediaURLs)
-                        {
-                            Module_Grabber._Grabbed_MediaURLs.Add(Post_MediaURL);
-                        }
-                    }
-
-                    DataRow TempDataRow = TempDataTable.NewRow();
-                    FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Text, Post_MediaURL, Post_MediaURL, ArtistName);
-                    TempDataTable.Rows.Add(TempDataRow);
-
-                    Thread.Sleep(Module_Grabber.PauseBetweenImages);
+                    Post_Time = DateTime.ParseExact(ParseStatusJSON["created_at"].Value<string>(), "ddd MMM dd HH:mm:ss K yyyy", null);
+                    SkipCounter = ScrapeJSON4TweetData(MediaHolder, ref TempDataTable, Post_URL, Post_Time, Post_Text, ArtistName);
                 }
             }
             else
             {
-                HtmlNode VideoNodeTest = PostNode.SelectSingleNode(".//div[@data-testid='previewInterstitial'] | .//video");
-                if (VideoNodeTest != null)
+                Post_Time = DateTime.Parse(PostNode.SelectSingleNode(".//a[@aria-label and @role='link']/time").Attributes["datetime"].Value);
+
+                HtmlNodeCollection ImageNodes = PostNode.SelectNodes(".//div[@data-testid='tweetPhoto']//img[@alt='Image']");
+                if (ImageNodes != null)
                 {
-                    KeyValuePair<string, string> VideoData = Grab_TwitterStatus_API(Post_URL);
-                    string VideoURL = VideoData.Key;
-                    if (VideoURL.Contains("?"))
+                    //twitter carousel displayes them strangely when there's 4. 1-3-2-4 (as html order).
+                    if (ImageNodes.Count == 4)
                     {
-                        VideoURL = VideoURL.Substring(0, VideoURL.IndexOf("?"));
+                        (ImageNodes[2], ImageNodes[1]) = (ImageNodes[1], ImageNodes[2]);
                     }
 
-                    if (Module_Grabber._Grabbed_MediaURLs.Contains(VideoURL))
+                    foreach (HtmlNode ImageNode in ImageNodes)
                     {
-                        SkipCounter += 1;
-                        goto Skip2Exit;
-                    }
-                    else
-                    {
-                        lock (Module_Grabber._Grabbed_MediaURLs)
+                        string PictureLinkHolder = ImageNode.Attributes["src"].Value;
+                        Post_MediaURL = PictureLinkHolder.Substring(0, PictureLinkHolder.IndexOf("?"));
+                        PictureLinkHolder = PictureLinkHolder.Substring(PictureLinkHolder.IndexOf("=") + 1);
+                        PictureLinkHolder = PictureLinkHolder.Remove(PictureLinkHolder.IndexOf("&"));
+                        Post_MediaURL += "." + PictureLinkHolder;
+
+                        if (Module_Grabber._Grabbed_MediaURLs.Contains(Post_MediaURL))
                         {
-                            Module_Grabber._Grabbed_MediaURLs.Add(VideoURL);
+                            SkipCounter += 1;
+                            continue;
                         }
-                    }
+                        else
+                        {
+                            lock (Module_Grabber._Grabbed_MediaURLs)
+                            {
+                                Module_Grabber._Grabbed_MediaURLs.Add(Post_MediaURL);
+                            }
+                        }
 
-                    DataRow TempDataRow = TempDataTable.NewRow();
-                    FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Text, VideoURL, VideoData.Value, ArtistName);
-                    TempDataTable.Rows.Add(TempDataRow);
+                        DataRow TempDataRow = TempDataTable.NewRow();
+                        FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Text, Post_MediaURL, Post_MediaURL, ArtistName);
+                        TempDataTable.Rows.Add(TempDataRow);
+
+                        Thread.Sleep(Module_Grabber.PauseBetweenImages);
+                    }
                 }
             }
 
-        Skip2Exit:
             string PrintText;
             if (TempDataTable.Rows.Count == 0)
             {
@@ -326,146 +309,75 @@ namespace e621_ReBot_v2.Modules.Grabber
             if (TwitterJSONHolder != null && TweetHolder != null)
             {
                 TweetHolder = TweetHolder["legacy"];
-
-                Post_Time = DateTime.ParseExact(TweetHolder["created_at"].Value<string>(), "ddd MMM dd HH:mm:ss K yyyy", null);
-                //Post_Text = TwitterJSONSteal[TweetID]["full_text"].Value<string>();
-
                 JToken MediaHolder = TweetHolder["extended_entities"];
                 if (MediaHolder != null)
                 {
-                    MediaHolder = MediaHolder["media"];
-                    foreach (JToken MediaNode in MediaHolder)
-                    {
-                        Post_MediaURL = MediaNode["media_url_https"].Value<string>();
-                        string Post_ThumbURL = Post_MediaURL;
-                        if (Module_Grabber._Grabbed_MediaURLs.Contains(Post_MediaURL))
-                        {
-                            SkipCounter += 1;
-                            continue;
-                        }
-                        else
-                        {
-                            lock (Module_Grabber._Grabbed_MediaURLs)
-                            {
-                                Module_Grabber._Grabbed_MediaURLs.Add(Post_MediaURL);
-                            }
-                        }
-
-                        if (MediaNode["video_info"] != null)
-                        {
-                            JToken BestVideo = null;
-                            foreach (JToken VideoCheck in MediaNode["video_info"]["variants"])
-                            {
-                                if (VideoCheck["bitrate"] != null)
-                                {
-                                    if (BestVideo == null)
-                                    {
-                                        BestVideo = VideoCheck;
-                                        continue;
-                                    }
-
-                                    if (VideoCheck["bitrate"].Value<int>() > BestVideo["bitrate"].Value<int>())
-                                    {
-                                        BestVideo = VideoCheck;
-                                    }
-
-                                }
-                            }
-                            Post_MediaURL = BestVideo["url"].Value<string>();
-                            if (Post_MediaURL.Contains("?tag=")) Post_MediaURL = Post_MediaURL.Substring(0, Post_MediaURL.IndexOf("?tag="));
-                        }
-
-                        DataRow TempDataRow = TempDataTable.NewRow();
-                        FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Text, Post_MediaURL, Post_ThumbURL, ArtistName);
-                        TempDataRow["Info_MediaWidth"] = MediaNode["original_info"]["width"].Value<int>();
-                        TempDataRow["Info_MediaHeight"] = MediaNode["original_info"]["height"].Value<int>();
-                        TempDataRow["Thumbnail_FullInfo"] = MediaNode["original_info"]["height"].Value<int>();
-                        TempDataTable.Rows.Add(TempDataRow);
-
-                        Thread.Sleep(Module_Grabber.PauseBetweenImages);
-                    }
+                    Post_Time = DateTime.ParseExact(TweetHolder["created_at"].Value<string>(), "ddd MMM dd HH:mm:ss K yyyy", null);
+                    SkipCounter = ScrapeJSON4TweetData(MediaHolder, ref TempDataTable, Post_URL, Post_Time, Post_Text, ArtistName);
                 }
             }
             else
             {
                 Post_Time = DateTime.Parse(PostNode.SelectSingleNode(".//a[@aria-label and @role='link']/time").Attributes["datetime"].Value);
 
-                HtmlNodeCollection ImageNodes = null;
-                HtmlNode ImageNodeTest = PostNode.SelectSingleNode(".//div[@id and @aria-labelledby]/div[@id]");
-                if (ImageNodeTest == null)
+                HtmlNodeCollection VideoNodes = PostNode.SelectNodes(".//div[@data-testid='tweetPhoto']//img[@alt='Embedded video']");
+                if (VideoNodes != null)
                 {
-                    ImageNodes = PostNode.SelectNodes(".//div[@data-testid='tweetPhoto']//img[@alt='Image']"); //PostNode.SelectNodes(".//div[@id and @aria-labelledby]//img[@alt='Image']");
-                }
+                    //HtmlNode VideoNodeTest = PostNode.SelectSingleNode(".//div[@data-testid='previewInterstitial'] | .//video");
+                    string JSONData = Grab_TwitterStatus_API(Post_URL);
+                    JObject ParseStatusJSON = JObject.Parse(JSONData);
 
-                if (ImageNodes != null)
-                {
-                    //twitter carousel displayes them strangely when there's 4. 1-3-2-4 (as html order).
-                    if (ImageNodes.Count == 4)
+                    JToken MediaHolder = ParseStatusJSON["extended_entities"];
+                    if (MediaHolder != null)
                     {
-                        (ImageNodes[2], ImageNodes[1]) = (ImageNodes[1], ImageNodes[2]);
-                    }
-
-                    foreach (HtmlNode ImageNode in ImageNodes)
-                    {
-                        string PictureLinkHolder = ImageNode.Attributes["src"].Value;
-                        Post_MediaURL = PictureLinkHolder.Substring(0, PictureLinkHolder.IndexOf("?"));
-                        PictureLinkHolder = PictureLinkHolder.Substring(PictureLinkHolder.IndexOf("=") + 1);
-                        PictureLinkHolder = PictureLinkHolder.Remove(PictureLinkHolder.IndexOf("&"));
-                        Post_MediaURL += "." + PictureLinkHolder;
-
-                        if (Module_Grabber._Grabbed_MediaURLs.Contains(Post_MediaURL))
-                        {
-                            SkipCounter += 1;
-                            continue;
-                        }
-                        else
-                        {
-                            lock (Module_Grabber._Grabbed_MediaURLs)
-                            {
-                                Module_Grabber._Grabbed_MediaURLs.Add(Post_MediaURL);
-                            }
-                        }
-
-                        DataRow TempDataRow = TempDataTable.NewRow();
-                        FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Text, Post_MediaURL, Post_MediaURL, ArtistName);
-                        TempDataTable.Rows.Add(TempDataRow);
-
-                        Thread.Sleep(Module_Grabber.PauseBetweenImages);
+                        Post_Time = DateTime.ParseExact(ParseStatusJSON["created_at"].Value<string>(), "ddd MMM dd HH:mm:ss K yyyy", null);
+                        SkipCounter = ScrapeJSON4TweetData(MediaHolder, ref TempDataTable, Post_URL, Post_Time, Post_Text, ArtistName);
                     }
                 }
                 else
                 {
-                    HtmlNode VideoNodeTest = PostNode.SelectSingleNode(".//div[@data-testid='previewInterstitial'] | .//video");
-                    if (VideoNodeTest != null)
+                    Post_Time = DateTime.Parse(PostNode.SelectSingleNode(".//a[@aria-label and @role='link']/time").Attributes["datetime"].Value);
+
+                    HtmlNodeCollection ImageNodes = PostNode.SelectNodes(".//div[@data-testid='tweetPhoto']//img[@alt='Image']");
+                    if (ImageNodes != null)
                     {
-                        KeyValuePair<string, string> VideoData = Grab_TwitterStatus_API(Post_URL);
-                        string VideoURL = VideoData.Key;
-                        if (VideoURL.Contains("?"))
+                        //twitter carousel displayes them strangely when there's 4. 1-3-2-4 (as html order).
+                        if (ImageNodes.Count == 4)
                         {
-                            VideoURL = VideoURL.Substring(0, VideoURL.IndexOf("?"));
+                            (ImageNodes[2], ImageNodes[1]) = (ImageNodes[1], ImageNodes[2]);
                         }
 
-                        if (Module_Grabber._Grabbed_MediaURLs.Contains(VideoURL))
+                        foreach (HtmlNode ImageNode in ImageNodes)
                         {
-                            SkipCounter += 1;
-                            goto Skip2Exit;
-                        }
-                        else
-                        {
-                            lock (Module_Grabber._Grabbed_MediaURLs)
+                            string PictureLinkHolder = ImageNode.Attributes["src"].Value;
+                            Post_MediaURL = PictureLinkHolder.Substring(0, PictureLinkHolder.IndexOf("?"));
+                            PictureLinkHolder = PictureLinkHolder.Substring(PictureLinkHolder.IndexOf("=") + 1);
+                            PictureLinkHolder = PictureLinkHolder.Remove(PictureLinkHolder.IndexOf("&"));
+                            Post_MediaURL += "." + PictureLinkHolder;
+
+                            if (Module_Grabber._Grabbed_MediaURLs.Contains(Post_MediaURL))
                             {
-                                Module_Grabber._Grabbed_MediaURLs.Add(VideoURL);
+                                SkipCounter += 1;
+                                continue;
                             }
-                        }
+                            else
+                            {
+                                lock (Module_Grabber._Grabbed_MediaURLs)
+                                {
+                                    Module_Grabber._Grabbed_MediaURLs.Add(Post_MediaURL);
+                                }
+                            }
 
-                        DataRow TempDataRow = TempDataTable.NewRow();
-                        FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Text, VideoURL, VideoData.Value, ArtistName);
-                        TempDataTable.Rows.Add(TempDataRow);
+                            DataRow TempDataRow = TempDataTable.NewRow();
+                            FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Text, Post_MediaURL, Post_MediaURL, ArtistName);
+                            TempDataTable.Rows.Add(TempDataRow);
+
+                            Thread.Sleep(Module_Grabber.PauseBetweenImages);
+                        }
                     }
                 }
             }
 
-        Skip2Exit:
             string PrintText;
             if (TempDataTable.Rows.Count == 0)
             {
@@ -491,7 +403,82 @@ namespace e621_ReBot_v2.Modules.Grabber
             Module_Grabber.Report_Info(PrintText);
         }
 
-        private static void FillDataRow(ref DataRow TempDataRow, string URL, DateTime DateTime, string TextBody, string MediaURL, string ThumbURL, string Artist)
+        private static int ScrapeJSON4TweetData(JToken JSONData, ref DataTable TempDataTable, string Post_URL, DateTime Post_Time, string Post_Text, string ArtistName)
+        {
+            int SkipCounter = 0;
+            JToken MediaHolderTemp = null;
+            for (int i = 0; i < JSONData["media"].Count(); i++)
+            {
+                MediaHolderTemp = JSONData["media"][i];
+                if (MediaHolderTemp["type"].Value<string>().Equals("video"))
+                {
+                    JToken BestVideo = null;
+                    foreach (JToken VideoCheck in MediaHolderTemp["video_info"]["variants"])
+                    {
+                        if (VideoCheck["bitrate"] != null)
+                        {
+                            if (BestVideo == null)
+                            {
+                                BestVideo = VideoCheck;
+                                continue;
+                            }
+
+                            if (VideoCheck["bitrate"].Value<int>() > BestVideo["bitrate"].Value<int>())
+                            {
+                                BestVideo = VideoCheck;
+                            }
+                        }
+                    }
+                    string VideoURL = BestVideo["url"].Value<string>();
+                    if (VideoURL.Contains("?"))
+                    {
+                        VideoURL = VideoURL.Substring(0, VideoURL.IndexOf("?"));
+                    }
+
+                    if (Module_Grabber._Grabbed_MediaURLs.Contains(VideoURL))
+                    {
+                        SkipCounter += 1;
+                        continue;
+                    }
+                    else
+                    {
+                        lock (Module_Grabber._Grabbed_MediaURLs)
+                        {
+                            Module_Grabber._Grabbed_MediaURLs.Add(VideoURL);
+                        }
+                    }
+                    DataRow TempDataRow = TempDataTable.NewRow();
+                    FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Text, VideoURL, MediaHolderTemp["media_url_https"].Value<string>(), ArtistName, MediaHolderTemp["original_info"]["width"].Value<string>(), MediaHolderTemp["original_info"]["height"].Value<string>());
+                    TempDataTable.Rows.Add(TempDataRow);
+                }
+                else
+                {
+                    string Post_MediaURL = MediaHolderTemp["media_url_https"].Value<string>();
+
+                    if (Module_Grabber._Grabbed_MediaURLs.Contains(Post_MediaURL))
+                    {
+                        SkipCounter += 1;
+                        continue;
+                    }
+                    else
+                    {
+                        lock (Module_Grabber._Grabbed_MediaURLs)
+                        {
+                            Module_Grabber._Grabbed_MediaURLs.Add(Post_MediaURL);
+                        }
+                    }
+
+                    DataRow TempDataRow = TempDataTable.NewRow();
+                    FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Text, Post_MediaURL, Post_MediaURL, ArtistName, MediaHolderTemp["original_info"]["width"].Value<string>(), MediaHolderTemp["original_info"]["height"].Value<string>());
+                    TempDataTable.Rows.Add(TempDataRow);
+                }
+                Thread.Sleep(Module_Grabber.PauseBetweenImages);
+            }
+            return SkipCounter;
+        }
+
+
+        private static void FillDataRow(ref DataRow TempDataRow, string URL, DateTime DateTime, string TextBody, string MediaURL, string ThumbURL, string Artist, string ImageWidth = null, string ImageHeight = null)
         {
             TempDataRow["Grab_URL"] = URL;
             TempDataRow["Grab_DateTime"] = DateTime;
@@ -503,16 +490,22 @@ namespace e621_ReBot_v2.Modules.Grabber
             TempDataRow["Grab_MediaURL"] = MediaURL + (MediaURL.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) ? null : ":orig");
             TempDataRow["Grab_ThumbnailURL"] = ThumbURL + ":small";
             TempDataRow["Info_MediaFormat"] = MediaURL.Substring(MediaURL.LastIndexOf(".") + 1);
+            if (ImageWidth != null)
+            {
+                TempDataRow["Thumbnail_FullInfo"] = true;
+                TempDataRow["Info_MediaWidth"] = ImageWidth;
+                TempDataRow["Info_MediaHeight"] = ImageHeight;
+            }
             TempDataRow["Info_MediaByteLength"] = Module_Grabber.GetMediaSize((string)TempDataRow["Grab_MediaURL"]);
             TempDataRow["Upload_Tags"] = DateTime.Year;
             TempDataRow["Artist"] = Artist;
         }
 
         public static string TwitterAuthorizationBearer;
-        private static KeyValuePair<string, string> Grab_TwitterStatus_API(string StatusPermalink)
+        private static string Grab_TwitterStatus_API(string StatusPermalink)
         {
             string StatusID = StatusPermalink.Substring(StatusPermalink.IndexOf("/status/") + "/status/".Length);
-            HttpWebRequest Twitter_HTMLRequest = (HttpWebRequest)WebRequest.Create("https://api.twitter.com/1.1/statuses/show.json?tweet_mode=extended&id=" + StatusID); //("https://twitter.com/i/api/2/timeline/conversation/" & StatusID & ".json")
+            HttpWebRequest Twitter_HTMLRequest = (HttpWebRequest)WebRequest.Create($"https://api.twitter.com/1.1/statuses/show.json?tweet_mode=extended&id={StatusID}"); //("https://twitter.com/i/api/2/timeline/conversation/" & StatusID & ".json")
             Twitter_HTMLRequest.UserAgent = Form_Loader.GlobalUserAgent;
 
             Module_CookieJar.GetCookies(StatusPermalink, ref Module_CookieJar.Cookies_Twitter);
@@ -534,32 +527,7 @@ namespace e621_ReBot_v2.Modules.Grabber
             }
             Twitter_HTMLResponse.Dispose();
 
-            JObject ParseStatusJson = JObject.Parse(ReponseString);
-            JToken BestVideo = null;
-            JToken MediaHolder = ParseStatusJson["extended_entities"];
-            if (MediaHolder != null)
-            {
-                MediaHolder = MediaHolder["media"][0];
-                foreach (JToken VideoCheck in MediaHolder["video_info"]["variants"])
-                {
-                    if (VideoCheck["bitrate"] != null)
-                    {
-                        if (BestVideo == null)
-                        {
-                            BestVideo = VideoCheck;
-                            continue;
-                        }
-
-                        if (VideoCheck["bitrate"].Value<int>() > BestVideo["bitrate"].Value<int>())
-                        {
-                            BestVideo = VideoCheck;
-                        }
-
-                    }
-                }
-                return new KeyValuePair<string, string>(BestVideo["url"].Value<string>(), MediaHolder["media_url_https"].Value<string>());
-            }
-            return new KeyValuePair<string, string>(null, null);
+            return ReponseString;
         }
 
         public static JArray TwitterJSONHolder;
