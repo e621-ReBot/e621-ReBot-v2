@@ -53,9 +53,9 @@ namespace e621_ReBot_v2.Modules.Grabber
             HtmlDocument WebDoc = new HtmlDocument();
             WebDoc.LoadHtml(HTMLSource);
 
-            foreach (HtmlNode ChildNode in WebDoc.DocumentNode.SelectNodes(".//div[@data-id='item']"))
+            foreach (HtmlNode ChildNode in WebDoc.DocumentNode.SelectNodes(".//div[@class='userpage-browse-content']//div[@class='span-1 align-center' and not(@id)]"))
             {
-                string DirectLink2Post = ChildNode.SelectSingleNode("./a").Attributes["href"].Value;
+                string DirectLink2Post = ChildNode.SelectSingleNode(".//a").Attributes["href"].Value;
                 if (Module_Grabber._GrabQueue_URLs.Contains(DirectLink2Post))
                 {
                     Module_Grabber.Report_Info(string.Format("Skipped grabbing - Already in queue [@{0}]", DirectLink2Post));
@@ -69,7 +69,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                     }
                 }
 
-                string WorkTitle = WebUtility.HtmlDecode(ChildNode.SelectSingleNode(".//img").Attributes["alt"].Value);
+                string WorkTitle = WebUtility.HtmlDecode(ChildNode.SelectSingleNode(".//h4").InnerText);
                 if (!Module_Grabber.CreateChildTreeNode(ref TreeViewParentNode, WorkTitle, DirectLink2Post))
                 {
                     Module_Grabber.Report_Info(string.Format("Skipped grabbing - Already in queue [@{0}]", DirectLink2Post));
@@ -99,13 +99,20 @@ namespace e621_ReBot_v2.Modules.Grabber
 
                 HtmlDocument WebDoc = new HtmlDocument();
                 WebDoc.LoadHtml(HTMLSource);
+                HtmlNode PostNode = WebDoc.DocumentNode; //.SelectSingleNode("div[@class='body-guts top']");
 
                 string Post_URL = WebAdress;
 
-                HtmlNode PostNode = WebDoc.DocumentNode; //.SelectSingleNode("div[@class='body-guts top']");
+                int SkipCounter = 0;
+                bool LoginNeeded = false;
+                if (PostNode.SelectSingleNode(".//div[@id='adults_only']") != null)
+                {
+                    LoginNeeded = true;
+                    goto Skip2Exit;
+                }
 
                 //https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings
-                string Post_TimeTemp = PostNode.SelectNodes(".//dl[@class='sidestats'][2]/dd")[0].InnerText + " " + PostNode.SelectNodes(".//dl[@class='sidestats'][2]/dd")[1].InnerText;
+                string Post_TimeTemp = $"{PostNode.SelectNodes(".//dl[@class='sidestats'][2]/dd")[0].InnerText} {PostNode.SelectNodes(".//dl[@class='sidestats'][2]/dd")[1].InnerText}";
                 Post_TimeTemp = Post_TimeTemp.Substring(0, Post_TimeTemp.Length - 4);
                 DateTime Post_Time = DateTime.Parse(Post_TimeTemp);
 
@@ -118,7 +125,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                 string Post_Text = Module_Html2Text.Html2Text_Newgrounds(Post_TextNode);
 
                 string Post_MediaURL;
-                int SkipCounter = 0;
+                //int SkipCounter = 0;
                 HtmlNodeCollection PictureNodes = PostNode.SelectNodes(".//div[@itemtype='https://schema.org/MediaObject']/div[@class='pod-body']//img"); ///div[@class='image']//img");
                 if (PictureNodes != null)
                 {
@@ -234,7 +241,14 @@ namespace e621_ReBot_v2.Modules.Grabber
                     {
                         Module_Grabber._GrabQueue_WorkingOn.Remove(Post_URL);
                     }
-                    PrintText = $"Grabbing skipped - All media already grabbed [@{Post_URL}]";
+                    if (LoginNeeded)
+                    {
+                        PrintText = $"Grabbing skipped - Media is behind login [@{Post_URL}]";
+                    }
+                    else
+                    {
+                        PrintText = $"Grabbing skipped - All media already grabbed [@{Post_URL}]";
+                    }
                 }
                 else
                 {

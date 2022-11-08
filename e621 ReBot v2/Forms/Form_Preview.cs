@@ -326,6 +326,15 @@ namespace e621_ReBot_v2.Forms
                             AutoTags();
                             Preview_RowHolder["Info_TooBig"] = Module_Uploader.Media2BigCheck(ref Preview_RowHolder);
 
+                            //load newgrounds image from cache
+                            if (((string)Preview_RowHolder["Grab_URL"]).Contains(".newgrounds.com"))
+                            {
+                                Preview_RowHolder["Thumbnail_FullInfo"] = DBNull.Value;
+                                ((Image)Preview_RowHolder["Thumbnail_Image"]).Dispose();
+                                string CachedImagePath = Module_Downloader.MediaBrowser_MediaCache[Module_Downloader.GetMediasFileNameOnly((string)Preview_RowHolder["Grab_MediaURL"])];
+                                Preview_RowHolder["Thumbnail_Image"] = Module_Grabber.MakeImageThumb(Image.FromFile(CachedImagePath));
+                            }
+
                             //if (((string)Preview_RowHolder["Grab_ThumbnailURL"]).EndsWith(".webp", StringComparison.OrdinalIgnoreCase)) //more custom handling for webp
                             //{
                             //    CachedImagePath = Module_Downloader.IEDownload_Cache[Module_Downloader.GetMediasFileNameOnly((string)Preview_RowHolder["Grab_MediaURL"])];
