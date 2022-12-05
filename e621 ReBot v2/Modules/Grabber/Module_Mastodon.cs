@@ -3,8 +3,9 @@ using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Net;
-using System.Web;
+using System.Threading;
 using System.Windows.Forms;
+using CefSharp.DevTools.Debugger;
 using HtmlAgilityPack;
 using Newtonsoft.Json.Linq;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
@@ -15,7 +16,7 @@ namespace e621_ReBot_v2.Modules.Grabber
     {
         public static void QueuePrep(string WebAdress)
         {
-            Module_CookieJar.GetCookies(WebAdress, ref Module_CookieJar.Cookies_Baraag);
+            Module_CookieJar.GetCookies(WebAdress, ref Module_CookieJar.Cookies_Mastodon);
             string NumericPartCheck = WebAdress.Substring(WebAdress.LastIndexOf("/") + 1);
             if (NumericPartCheck.All(char.IsDigit))
             {
@@ -42,7 +43,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                 {
                     Module_Grabber._GrabQueue_URLs.Add(WebAdress);
                 }
-                Module_Grabber.CreateOrFindParentTreeNode(WebAdress, WebAdress, true, new string[] { WebAdress, WebDocTemp.DocumentNode.SelectSingleNode(".//div[@class='p-author h-card']").ParentNode.OuterHtml });
+                Module_Grabber.CreateOrFindParentTreeNode(WebAdress, WebAdress, true, new string[] { WebAdress, WebDocTemp.DocumentNode.SelectSingleNode(".//div[@class='focusable detailed-status__wrapper']").OuterHtml });
             }
         }
 
@@ -51,10 +52,7 @@ namespace e621_ReBot_v2.Modules.Grabber
             HtmlDocument WebDoc = new HtmlDocument();
             WebDoc.LoadHtml(HTMLSource);
 
-
-            bool WebVersionTest = WebAdress.Contains("web/accounts/");
-            HtmlNodeCollection MediaNodeTest = WebVersionTest ? WebDoc.DocumentNode.SelectNodes(".//div[@class='account-gallery__container']//a[@class='media-gallery__item-thumbnail']")
-                                                              : WebDoc.DocumentNode.SelectNodes(".//div[@data-component='MediaGallery']");
+            HtmlNodeCollection MediaNodeTest = WebDoc.DocumentNode.SelectNodes(".//div[@class='account-gallery__container']//a[@class='media-gallery__item-thumbnail']");
 
             if (MediaNodeTest == null)
             {
@@ -67,8 +65,10 @@ namespace e621_ReBot_v2.Modules.Grabber
             {
                 HtmlNode ChildNodeHolder = ChildNode.ParentNode;
 
-                string DirectLink2Post = WebVersionTest ? ChildNodeHolder.SelectSingleNode("./a").Attributes["href"].Value 
-                                                        : ChildNodeHolder.SelectSingleNode(".//a[@class='status__relative-time u-url u-uid']").Attributes["href"].Value;
+                string DirectLink2Post = ChildNodeHolder.SelectSingleNode("./a").Attributes["href"].Value;
+                string GetUserName = WebAdress.Substring(WebAdress.IndexOf("/@"));
+                GetUserName = GetUserName.Substring(0, GetUserName.LastIndexOf("/"));
+                DirectLink2Post = $"{WebAdress.Substring(0, WebAdress.IndexOf("/@"))}{DirectLink2Post.Replace("/@undefined", GetUserName)}";
 
                 if (Module_Grabber._GrabQueue_URLs.Contains(DirectLink2Post))
                 {
@@ -83,7 +83,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                     }
                 }
 
-                if (!Module_Grabber.CreateChildTreeNode(ref TreeViewParentNode, DirectLink2Post, DirectLink2Post, new string[] { DirectLink2Post, WebVersionTest ? null : ChildNodeHolder.OuterHtml }))
+                if (!Module_Grabber.CreateChildTreeNode(ref TreeViewParentNode, DirectLink2Post, DirectLink2Post, new string[] { DirectLink2Post, null }))
                 {
                     Module_Grabber.Report_Info(string.Format("Skipped grabbing - Already in queue [@{0}]", DirectLink2Post));
                 }
@@ -106,46 +106,42 @@ namespace e621_ReBot_v2.Modules.Grabber
 
         public static string Grab(string WebAdress, string HTMLSource)
         {
+            //https://baraag.net/api/v1/statuses/<status_id>
+            //https://baraag.net/api/v1/accounts/<account_id>/statuses?only_media=true&limit=40
+            //https://baraag.net/api/v1/accounts/<account_id>/statuses?max_id=<status_id>&only_media=true&limit=40
+
             DataTable TempDataTable = new DataTable();
             Module_TableHolder.Create_DBTable(ref TempDataTable);
 
-            if (HTMLSource == null) //web/accounts version
-            {
-                HTMLSource = Module_Grabber.GrabPageSource(WebAdress, ref Module_CookieJar.Cookies_Baraag);
-            }
-
-            HtmlDocument WebDoc = new HtmlDocument();
-            WebDoc.LoadHtml(HTMLSource);
-
             string Post_URL = WebAdress;
-
-            HtmlNode PostNode = WebDoc.DocumentNode;
-
-            DateTime Post_Time = DateTime.Parse(PostNode.SelectSingleNode(".//time").Attributes["datetime"].Value);
-
-            string ArtistName = PostNode.SelectSingleNode(".//span[@class='display-name']//strong[@class='display-name__html p-name emojify']").InnerText.Trim();
-            ArtistName += " (" + PostNode.SelectSingleNode(".//span[@class='display-name']/span[@class='display-name__account']").InnerText.Trim() + ")";
-
-            HtmlNode Post_TextNode = PostNode.SelectSingleNode(".//div[@class='status__content emojify']");
+            DateTime Post_Time;
+            string ArtistName;
             string Post_Text = null;
-            if (Post_TextNode != null)
-            {
-                HtmlNode Post_TitleTextNode = Post_TextNode.SelectSingleNode(".//span[@class='p-summary']");
-                Post_Text = Post_TitleTextNode != null ? $"{WebUtility.HtmlDecode(Post_TitleTextNode.InnerText).Trim()}\n\n" : null;
-                Post_Text += Module_Html2Text.Html2Text_Mastodon(Post_TextNode.SelectSingleNode(".//div[@class='e-content']")); ;
-            }
-
             string Post_MediaURL;
             int SkipCounter = 0;
-            if (PostNode.SelectSingleNode(".//div[@data-component='MediaGallery']") != null)
-            {
-                JObject MediaJObject = JObject.Parse(HttpUtility.HtmlDecode(PostNode.SelectSingleNode(".//div[@data-component='MediaGallery']").Attributes["data-props"].Value));
 
-                if (MediaJObject["media"].Children().Any())
+            if (HTMLSource == null)
+            {
+                Uri WebUri = new Uri(Post_URL);
+                string APIURL = $"https://{WebUri.Host}/api/v1/statuses/{Post_URL.Substring(Post_URL.LastIndexOf("/") + 1)}";
+
+                //wants session_id in cookie
+                JObject JSONData = JObject.Parse(Module_Grabber.GrabPageSource(APIURL, ref Module_CookieJar.Cookies_Mastodon));
+
+                Post_Time = JSONData["created_at"].Value<DateTime>();
+
+                ArtistName = $"{JSONData["account"]["display_name"].Value<string>()} (@{JSONData["account"]["username"].Value<string>()})";
+
+                if (!string.IsNullOrEmpty(JSONData["content"].Value<string>()))
                 {
-                    foreach (JToken ImageNode in MediaJObject["media"].Children())
+                    Post_Text = WebUtility.HtmlDecode(JSONData["content"].Value<string>());
+                }
+
+                if (JSONData["media_attachments"] != null)
+                {
+                    foreach (JToken MediaNode in JSONData["media_attachments"].Children())
                     {
-                        Post_MediaURL = ImageNode["url"].Value<string>();
+                        Post_MediaURL = MediaNode["url"].Value<string>();
                         if (Module_Grabber._Grabbed_MediaURLs.Contains(Post_MediaURL))
                         {
                             SkipCounter += 1;
@@ -160,9 +156,74 @@ namespace e621_ReBot_v2.Modules.Grabber
                         }
 
                         DataRow TempDataRow = TempDataTable.NewRow();
-                        JToken OrigData = ImageNode["meta"].Any() && ImageNode["meta"]["original"] != null ? ImageNode["meta"]["original"] : null;
-                        FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Text, Post_MediaURL, ImageNode["preview_url"].Value<string>(), OrigData == null ? null : OrigData["width"].Value<string>(), OrigData == null ? null : OrigData["height"].Value<string>(), ArtistName);
+                        JToken OrigData = MediaNode["meta"].Any() && MediaNode["meta"]["original"] != null ? MediaNode["meta"]["original"] : null;
+                        FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Text, Post_MediaURL, MediaNode["preview_url"].Value<string>(), ArtistName, OrigData == null ? null : OrigData["width"].Value<string>(), OrigData == null ? null : OrigData["height"].Value<string>());
                         TempDataTable.Rows.Add(TempDataRow);
+                    }
+                }
+            }
+            else
+            {
+                HtmlDocument WebDoc = new HtmlDocument();
+                WebDoc.LoadHtml(HTMLSource);
+
+                HtmlNode PostNode = WebDoc.DocumentNode;
+
+                Post_Time = DateTime.ParseExact(PostNode.SelectSingleNode(".//a[@class='detailed-status__datetime']/span").InnerText, "MMM dd, yyyy, HH:mm", null);
+
+                ArtistName = PostNode.SelectSingleNode(".//span[@class='display-name']//strong[@class='display-name__html']").InnerText.Trim();
+                ArtistName += " (" + PostNode.SelectSingleNode(".//span[@class='display-name']/span[@class='display-name__account']").InnerText.Trim() + ")";
+
+                HtmlNode Post_TextNode = PostNode.SelectSingleNode(".//div[@class='status__content']/div");
+                //if (Post_TextNode != null)
+                //{
+                //    HtmlNode Post_TitleTextNode = Post_TextNode.SelectSingleNode(".//span[@class='p-summary']");
+                //    Post_Text = Post_TitleTextNode != null ? $"{WebUtility.HtmlDecode(Post_TitleTextNode.InnerText).Trim()}\n\n" : null;
+                //    Post_Text += Module_Html2Text.Html2Text_Mastodon(Post_TextNode.SelectSingleNode(".//div[@class='e-content']")); ;
+                //}
+
+                HtmlNode MediaNodeHitTest = PostNode.SelectSingleNode(".//div[@class='video-player inline']");
+                if (MediaNodeHitTest != null)
+                {
+                    HtmlNode VideoNodeHitTest = MediaNodeHitTest.SelectSingleNode(".//video");
+                    if (VideoNodeHitTest != null)
+                    {
+                        Post_MediaURL = VideoNodeHitTest.Attributes["src"].Value;
+                        if (!Module_Grabber._Grabbed_MediaURLs.Contains(Post_MediaURL))
+                        {
+                            lock (Module_Grabber._Grabbed_MediaURLs)
+                            {
+                                Module_Grabber._Grabbed_MediaURLs.Add(Post_MediaURL);
+                            }
+                            DataRow TempDataRow = TempDataTable.NewRow();
+                            FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Text, Post_MediaURL, VideoNodeHitTest.Attributes["poster"].Value, ArtistName, null, null);
+                            TempDataTable.Rows.Add(TempDataRow);
+                        }
+                    }
+                }
+                MediaNodeHitTest = PostNode.SelectSingleNode(".//div[@class='media-gallery']");
+                if (MediaNodeHitTest != null)
+                {
+                    foreach (HtmlNode MediaNode in MediaNodeHitTest.SelectNodes(".//img"))
+                    {
+                        Post_MediaURL = MediaNode.ParentNode.Attributes["href"].Value;
+                        if (Module_Grabber._Grabbed_MediaURLs.Contains(Post_MediaURL))
+                        {
+                            SkipCounter += 1;
+                            continue;
+                        }
+                        else
+                        {
+                            lock (Module_Grabber._Grabbed_MediaURLs)
+                            {
+                                Module_Grabber._Grabbed_MediaURLs.Add(Post_MediaURL);
+                            }
+                        }
+
+                        DataRow TempDataRow = TempDataTable.NewRow();
+                        FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Text, Post_MediaURL, MediaNode.Attributes["src"].Value, ArtistName, null, null);
+                        TempDataTable.Rows.Add(TempDataRow);
+                        Thread.Sleep(Module_Grabber.PauseBetweenImages);
                     }
                 }
             }
@@ -193,13 +254,13 @@ namespace e621_ReBot_v2.Modules.Grabber
             return PrintText;
         }
 
-        private static void FillDataRow(ref DataRow TempDataRow, string URL, DateTime DateTime, string TextBody, string MediaURL, string ThumbnailURL, string ImageWidth, string ImageHeight, string Artist)
+        private static void FillDataRow(ref DataRow TempDataRow, string URL, DateTime DateTime, string TextBody, string MediaURL, string ThumbnailURL, string Artist, string ImageWidth = null, string ImageHeight = null)
         {
             TempDataRow["Grab_URL"] = URL;
             TempDataRow["Grab_DateTime"] = DateTime;
             TempDataRow["Grab_Title"] = WebUtility.HtmlDecode(string.Format("Created by {0}", Artist)); ;
             if (TextBody != null) TempDataRow["Grab_TextBody"] = TextBody;
-            TempDataRow["Grab_MediaURL"] = MediaURL;
+            TempDataRow["Grab_MediaURL"] = MediaURL.Replace("small", "original");
             TempDataRow["Grab_ThumbnailURL"] = ThumbnailURL;
             if (ImageWidth != null) TempDataRow["Thumbnail_FullInfo"] = true;
             TempDataRow["Info_MediaFormat"] = MediaURL.Substring(MediaURL.LastIndexOf(".") + 1);

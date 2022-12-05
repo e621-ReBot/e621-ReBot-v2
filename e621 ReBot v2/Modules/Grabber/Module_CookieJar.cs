@@ -17,7 +17,7 @@ namespace e621_ReBot_v2.Modules
         //Mastadon?
         public static CookieContainer Cookies_Plurk;
         public static CookieContainer Cookies_Weasyl;
-        public static CookieContainer Cookies_Baraag;
+        public static CookieContainer Cookies_Mastodon;
         public static CookieContainer Cookies_HentaiFoundry;
         public static CookieContainer Cookies_DeviantArt;
 

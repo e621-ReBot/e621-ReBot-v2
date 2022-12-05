@@ -4,7 +4,6 @@ using System.Data;
 using System.Linq;
 using System.Net;
 using System.Windows.Forms;
-using CefSharp.DevTools.Media;
 using HtmlAgilityPack;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 

@@ -477,7 +477,6 @@ namespace e621_ReBot_v2.Modules.Grabber
             return SkipCounter;
         }
 
-
         private static void FillDataRow(ref DataRow TempDataRow, string URL, DateTime DateTime, string TextBody, string MediaURL, string ThumbURL, string Artist, string ImageWidth = null, string ImageHeight = null)
         {
             TempDataRow["Grab_URL"] = URL;
