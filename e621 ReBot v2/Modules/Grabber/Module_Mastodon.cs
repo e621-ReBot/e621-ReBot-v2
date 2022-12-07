@@ -120,6 +120,7 @@ namespace e621_ReBot_v2.Modules.Grabber
             string Post_MediaURL;
             int SkipCounter = 0;
 
+            HtmlDocument WebDoc = new HtmlDocument();
             if (HTMLSource == null)
             {
                 Uri WebUri = new Uri(Post_URL);
@@ -134,7 +135,13 @@ namespace e621_ReBot_v2.Modules.Grabber
 
                 if (!string.IsNullOrEmpty(JSONData["content"].Value<string>()))
                 {
-                    Post_Text = WebUtility.HtmlDecode(JSONData["content"].Value<string>());
+                    WebDoc.LoadHtml(JSONData["content"].Value<string>());
+
+                    HtmlNode Post_TextNode = WebDoc.DocumentNode;
+                    if (Post_TextNode != null && !string.IsNullOrEmpty(Post_TextNode.InnerText.Trim()))
+                    {
+                        Post_Text = Module_Html2Text.Html2Text_Mastodon(Post_TextNode);
+                    }
                 }
 
                 if (JSONData["media_attachments"] != null)
@@ -164,7 +171,6 @@ namespace e621_ReBot_v2.Modules.Grabber
             }
             else
             {
-                HtmlDocument WebDoc = new HtmlDocument();
                 WebDoc.LoadHtml(HTMLSource);
 
                 HtmlNode PostNode = WebDoc.DocumentNode;
@@ -175,12 +181,10 @@ namespace e621_ReBot_v2.Modules.Grabber
                 ArtistName += " (" + PostNode.SelectSingleNode(".//span[@class='display-name']/span[@class='display-name__account']").InnerText.Trim() + ")";
 
                 HtmlNode Post_TextNode = PostNode.SelectSingleNode(".//div[@class='status__content']/div");
-                //if (Post_TextNode != null)
-                //{
-                //    HtmlNode Post_TitleTextNode = Post_TextNode.SelectSingleNode(".//span[@class='p-summary']");
-                //    Post_Text = Post_TitleTextNode != null ? $"{WebUtility.HtmlDecode(Post_TitleTextNode.InnerText).Trim()}\n\n" : null;
-                //    Post_Text += Module_Html2Text.Html2Text_Mastodon(Post_TextNode.SelectSingleNode(".//div[@class='e-content']")); ;
-                //}
+                if (Post_TextNode != null && !string.IsNullOrEmpty(Post_TextNode.InnerText.Trim()))
+                {
+                    Post_Text = Module_Html2Text.Html2Text_Mastodon(Post_TextNode.FirstChild);
+                }
 
                 HtmlNode MediaNodeHitTest = PostNode.SelectSingleNode(".//div[@class='video-player inline']");
                 if (MediaNodeHitTest != null)
@@ -204,26 +208,31 @@ namespace e621_ReBot_v2.Modules.Grabber
                 MediaNodeHitTest = PostNode.SelectSingleNode(".//div[@class='media-gallery']");
                 if (MediaNodeHitTest != null)
                 {
-                    foreach (HtmlNode MediaNode in MediaNodeHitTest.SelectNodes(".//img"))
+                    //remove retweets
+                    HtmlNode RTHitTest = PostNode.SelectSingleNode(".//video");
+                    if (RTHitTest == null)
                     {
-                        Post_MediaURL = MediaNode.ParentNode.Attributes["href"].Value;
-                        if (Module_Grabber._Grabbed_MediaURLs.Contains(Post_MediaURL))
+                        foreach (HtmlNode MediaNode in MediaNodeHitTest.SelectNodes(".//img"))
                         {
-                            SkipCounter += 1;
-                            continue;
-                        }
-                        else
-                        {
-                            lock (Module_Grabber._Grabbed_MediaURLs)
+                            Post_MediaURL = MediaNode.ParentNode.Attributes["href"].Value;
+                            if (Module_Grabber._Grabbed_MediaURLs.Contains(Post_MediaURL))
                             {
-                                Module_Grabber._Grabbed_MediaURLs.Add(Post_MediaURL);
+                                SkipCounter += 1;
+                                continue;
                             }
-                        }
+                            else
+                            {
+                                lock (Module_Grabber._Grabbed_MediaURLs)
+                                {
+                                    Module_Grabber._Grabbed_MediaURLs.Add(Post_MediaURL);
+                                }
+                            }
 
-                        DataRow TempDataRow = TempDataTable.NewRow();
-                        FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Text, Post_MediaURL, MediaNode.Attributes["src"].Value, ArtistName, null, null);
-                        TempDataTable.Rows.Add(TempDataRow);
-                        Thread.Sleep(Module_Grabber.PauseBetweenImages);
+                            DataRow TempDataRow = TempDataTable.NewRow();
+                            FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Text, Post_MediaURL, MediaNode.Attributes["src"].Value, ArtistName, null, null);
+                            TempDataTable.Rows.Add(TempDataRow);
+                            Thread.Sleep(Module_Grabber.PauseBetweenImages);
+                        }
                     }
                 }
             }
@@ -235,7 +244,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                 {
                     Module_Grabber._GrabQueue_WorkingOn.Remove(Post_URL);
                 }
-                PrintText = $"Grabbing skipped - All media already grabbed [@{Post_URL}]";
+                PrintText = $"Grabbing skipped - {(SkipCounter > 0 ? "All media already grabbed" : "No media found")} [@{Post_URL}]";
             }
             else
             {
