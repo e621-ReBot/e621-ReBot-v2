@@ -237,7 +237,7 @@ namespace e621_ReBot_v2.Modules
                         Form_Loader._FormReference.BB_Grab_All.Text = "Grab All";
                         Form_Loader._FormReference.LastBrowserPosition = 0;
                         Form_Loader._FormReference.LastBrowserPositionCounter = 0;
-                        //timer_Twitter.Start();
+                        //timer_Twitter.Start(); //Gets enabled via CefSharpStuff.
                         return;
                     }
 
@@ -256,13 +256,13 @@ namespace e621_ReBot_v2.Modules
                 }
             }
 
-            List<string> DeviantArtGrabEnabler = new List<string>(new string[] { "/gallery", "/art/" });
-            if (WebAdress.Contains("https://www.deviantart.com/") && DeviantArtGrabEnabler.Any(s => WebAdress.Contains(s)))
-            {
-                Form_Loader._FormReference.BB_Grab.Tag = WebAdress;
-                Form_Loader._FormReference.BB_Grab.Visible = true;
-                Form_Loader._FormReference.BB_Grab_All.Visible = false;
-            }
+            //List<string> DeviantArtGrabEnabler = new List<string>(new string[] { "/gallery", "/art/" });
+            //if (WebAdress.Contains("https://www.deviantart.com/") && DeviantArtGrabEnabler.Any(s => WebAdress.Contains(s)))
+            //{
+            //    Form_Loader._FormReference.BB_Grab.Tag = WebAdress;
+            //    Form_Loader._FormReference.BB_Grab.Visible = true;
+            //    Form_Loader._FormReference.BB_Grab_All.Visible = false;
+            //}
         }
 
         public static Timer timer_EnableCheck;

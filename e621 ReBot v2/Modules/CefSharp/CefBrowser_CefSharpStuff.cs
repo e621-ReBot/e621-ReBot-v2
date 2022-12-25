@@ -102,17 +102,17 @@ namespace CefSharp
         // To allow the resource load to proceed with default handling return null. To specify a handler for the resource return a IResourceRequestHandler object. If this callback returns null the same method will be called on the associated IRequestContextHandler, if any
         protected override IResourceRequestHandler GetResourceRequestHandler(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool isNavigation, bool isDownload, string requestInitiator, ref bool disableDefaultHandling)
         {
-            if (chromiumWebBrowser.Address.Contains("https://twitter.com") && request.Url.StartsWith("https://twitter.com/i/api/graphql/", StringComparison.OrdinalIgnoreCase) && request.Headers["authorization"] != null)
+            if (chromiumWebBrowser.Address.Contains("https://twitter.com") && request.Url.StartsWith("https://api.twitter.com/graphql/", StringComparison.OrdinalIgnoreCase) && request.Headers["authorization"] != null)
             {
                 Module_Twitter.TwitterAuthorizationBearer = request.Headers["authorization"];
                 return new CefSharp_ResourceRequestHandler();
             }
 
-            if (chromiumWebBrowser.Address.Contains("https://www.deviantart.com/") && request.Url.Contains("https://www.deviantart.com/_napi/da-user-profile/api/gallery/contents") && request.Url.Contains("&folderid="))
-            {
-                Module_DeviantArt.FolderID = request.Url.Substring(request.Url.IndexOf("&folderid=") + 10);
-                return null;
-            }
+            //if (chromiumWebBrowser.Address.Contains("https://www.deviantart.com/") && request.Url.Contains("https://www.deviantart.com/_napi/da-user-profile/api/gallery/contents") && request.Url.Contains("&folderid="))
+            //{
+            //    Module_DeviantArt.FolderID = request.Url.Substring(request.Url.IndexOf("&folderid=") + 10);
+            //    return null;
+            //}
 
             if (AdBlock.Any(s => request.Url.Contains(s)))
             {
@@ -136,7 +136,7 @@ namespace CefSharp
         private List<string> TwitterEnabler = new List<string> { "/UserTweets?variables=", "/UserMedia?variables=", "/UserByScreenName?variables=", "/TweetDetail?variables=" };
         protected override void OnResourceLoadComplete(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IResponse response, UrlRequestStatus status, long receivedContentLength)
         {
-            if (request.Url.Contains("https://twitter.com/i/api/graphql/") && response.MimeType.Equals("application/json") && TwitterEnabler.Any(s => request.Url.Contains(s)))
+            if (request.Url.Contains("https://api.twitter.com/graphql/") && response.MimeType.Equals("application/json") && TwitterEnabler.Any(s => request.Url.Contains(s)))
             {
                 byte[] byteHolder = memoryStreamHolder.ToArray();
                 string Data2String = Encoding.UTF8.GetString(byteHolder);
