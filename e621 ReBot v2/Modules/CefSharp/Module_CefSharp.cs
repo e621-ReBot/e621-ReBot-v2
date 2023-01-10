@@ -109,7 +109,7 @@ namespace e621_ReBot_v2.Modules
                 FrameLoad.Add(Form_Loader._FormReference.URL_ComboBox.Text, 0);
                 Form_Loader._FormReference.timer_TwitterGrabber.Stop();
                 Module_Twitter.TwitterJSONHolder = null;
-                Module_DeviantArt.FolderID = null;
+                //Module_DeviantArt.FolderID = null;
             }));
         }
 
@@ -127,6 +127,8 @@ namespace e621_ReBot_v2.Modules
 
             Form_Loader._FormReference.Invoke(new Action(() =>
             {
+                timer_EnableCheck.Stop();
+
                 string CefAdress = HttpUtility.UrlDecode(CefSharpBrowser.Address);
                 Form_Loader._FormReference.BB_Backward.Enabled = e.CanGoBack;
                 Form_Loader._FormReference.BB_Forward.Enabled = e.CanGoForward;
