@@ -195,7 +195,7 @@ namespace e621_ReBot_v2.Modules
         private static int ActiveBGWCount = 0;
         private static void TimerGrab_Tick(object sender, EventArgs e)
         {
-            if (Form_Loader._FormReference.cCheckGroupBox_Grab.Checked && ActiveBGWCount < 4)
+            if (Form_Loader._FormReference.cCheckGroupBox_Grab.Checked && Form_Loader._FormReference.cTreeView_GrabQueue.Nodes.Count > 0 && ActiveBGWCount < 4)
             {
                 TreeNode ParentNodeTemp = null;
                 foreach (TreeNode ParentNode in Form_Loader._FormReference.cTreeView_GrabQueue.Nodes)
@@ -210,6 +210,7 @@ namespace e621_ReBot_v2.Modules
                                 if (ChildNode.Checked)
                                 {
                                     ChildNodeTemp = ChildNode;
+                                    ActiveBGWCount += 1;
                                     GrabberBGWStart(ChildNode.Name, ChildNode.Tag);
                                     break;
                                 }
@@ -219,7 +220,6 @@ namespace e621_ReBot_v2.Modules
                                 if (ChildNodeTemp.Parent.Nodes.Count == 1)
                                 {
                                     ParentNodeTemp = ChildNodeTemp.Parent;
-                                    break;
                                 }
                                 else
                                 {
@@ -233,12 +233,13 @@ namespace e621_ReBot_v2.Modules
                                     {
                                         TempParentHolder.Checked = false;
                                     }
-
                                 }
+                                break;
                             }
                         }
                         else
                         {
+                            ActiveBGWCount += 1;
                             GrabberBGWStart(ParentNode.Name, ParentNode.Tag);
                             ParentNodeTemp = ParentNode;
                             break;
@@ -259,12 +260,18 @@ namespace e621_ReBot_v2.Modules
         public static int PauseBetweenImages = 50;
         private static void GrabberBGWStart(string WebAdress, object NeededData)
         {
-            ActiveBGWCount += 1;
+            //ActiveBGWCount += 1;
             BackgroundWorker BGWTemp = new BackgroundWorker();
             BGWTemp.RunWorkerCompleted += GrabberBGWDone;
 
-            _GrabQueue_WorkingOn.Add(WebAdress, null);
-            _GrabQueue_URLs.Remove(WebAdress);
+            lock (_GrabQueue_WorkingOn)
+            {
+                _GrabQueue_WorkingOn.Add(WebAdress, null);
+            }
+            lock (_GrabQueue_URLs)
+            {
+                _GrabQueue_URLs.Remove(WebAdress);
+            }
 
             Report_Status();
 
@@ -343,12 +350,12 @@ namespace e621_ReBot_v2.Modules
                     }
             }
 
-            if (WebAdress.Contains("deviantart.com"))
-            {
-                BGWTemp.DoWork += Module_DeviantArt.RunGrabber;
-                BGWTemp.RunWorkerAsync(NeededData ?? WebAdress);
-                return;
-            }
+            //if (WebAdress.Contains("deviantart.com"))
+            //{
+            //    BGWTemp.DoWork += Module_DeviantArt.RunGrabber;
+            //    BGWTemp.RunWorkerAsync(NeededData ?? WebAdress);
+            //    return;
+            //}
 
             BGWTemp.RunWorkerAsync(WebAdress);
         }
