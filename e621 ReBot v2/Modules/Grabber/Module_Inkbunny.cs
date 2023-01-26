@@ -120,6 +120,43 @@ namespace e621_ReBot_v2.Modules.Grabber
             ((BackgroundWorker)sender).Dispose();
         }
 
+        public static string InkbunnyURL_Fix(string fix_url)
+        {
+            //E621 may have issues that prevents uploading from direct links coming from Inkbunny servers that require redirecting E621 to another link. This hopefully fixes the issue.
+            //To add other regions when needed, simply copy-paste this entire if-statement, replacing the "br" with the new suffix before the ".ib.metapix.net/" link.
+
+            if (fix_url.Contains("br") && fix_url.Contains(".ib.metapix.net"))
+            {
+                if (!fix_url.Contains("br1") ||
+                    !fix_url.Contains("br2") ||
+                    !fix_url.Contains("br3") ||
+                    !fix_url.Contains("br4"))
+                {
+                    fix_url = fix_url.Replace("br.ib.meta", "jp.ib.meta");
+
+                }
+                else if (fix_url.Contains("br1") && fix_url.Contains(".ib.metapix.net"))
+                {
+                    fix_url = fix_url.Replace("br1.ib.meta", "jp.ib.meta");
+                }
+
+                else if (fix_url.Contains("br2") && fix_url.Contains(".ib.metapix.net"))
+                {
+                    fix_url = fix_url.Replace("br2.ib.meta", "jp.ib.meta");
+                }
+
+                else if (fix_url.Contains("br3") && fix_url.Contains(".ib.metapix.net"))
+                {
+                    fix_url = fix_url.Replace("br3.ib.meta", "jp.ib.meta");
+                }
+
+                else if (fix_url.Contains("br4") && fix_url.Contains(".ib.metapix.net"))
+                {
+                    fix_url = fix_url.Replace("br4.ib.meta", "jp.ib.meta");
+                }
+            }
+            return fix_url;
+        }
         public static string Grab(string WebAdress)
         {
             string HTMLSource = Module_Grabber.GrabPageSource(WebAdress, ref Module_CookieJar.Cookies_Inkbunny);
@@ -172,6 +209,8 @@ namespace e621_ReBot_v2.Modules.Grabber
                         }
                     }
 
+
+                    Post_MediaURL = InkbunnyURL_Fix(Post_MediaURL);
                     DataRow TempDataRow = TempDataTable.NewRow();
                     FillDataRow(ref TempDataRow, Post_URL, Post_Time, Post_Title, Post_Text, Post_MediaURL, ArtistName);
                     TempDataTable.Rows.Add(TempDataRow);
@@ -216,6 +255,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                             if (Module_Grabber.CheckURLExists(MediaLinkFix))
                             {
                                 Post_MediaURL = MediaLinkFix;
+                                Post_MediaURL = InkbunnyURL_Fix(Post_MediaURL);
                                 break;
                             }
                             else
@@ -263,7 +303,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                     if (SkipCounter > 0)
                     {
                         PrintText += $", {SkipCounter} media container{(SkipCounter > 1 ? "s have" : " has")} been skipped";
-                    }              
+                    }
                 }
                 lock (Module_Grabber._GrabQueue_URLs)
                 {
