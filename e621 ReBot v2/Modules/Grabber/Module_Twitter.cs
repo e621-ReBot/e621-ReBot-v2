@@ -201,6 +201,10 @@ namespace e621_ReBot_v2.Modules.Grabber
                 Post_Time = DateTime.Parse(PostNode.SelectSingleNode(".//a[@aria-label and @role='link']/time").Attributes["datetime"].Value);
 
                 HtmlNodeCollection ImageNodes = PostNode.SelectNodes(".//div[@data-testid='tweetPhoto']//img[@alt='Image']");
+                if (ImageNodes == null) //Fix for translated twitter HTML. Make it a "While null" loop in case more regions are needed?
+                {
+                    ImageNodes = PostNode.SelectNodes(".//div[@data-testid='tweetPhoto']//img[@alt='Imagem']"); //image -> imagem | Brazilian Portuguese
+                }
                 if (ImageNodes != null)
                 {
                     //twitter carousel displayes them strangely when there's 4. 1-3-2-4 (as html order).
