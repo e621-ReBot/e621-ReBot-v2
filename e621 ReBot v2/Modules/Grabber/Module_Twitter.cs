@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -95,7 +96,7 @@ namespace e621_ReBot_v2.Modules.Grabber
 
             foreach (HtmlNode ChildNode in WebDoc.DocumentNode.SelectSingleNode(".//h1[@id and @role='heading' and @dir]").NextSibling.SelectNodes(".//article[@data-testid='tweet']"))
             {
-                HtmlNode IsTweetRelevantTest = ChildNode.SelectSingleNode("./div/div/div");
+                HtmlNode IsTweetRelevantTest = ChildNode.SelectSingleNode("./div/div");
                 if (IsTweetRelevantTest.FirstChild.InnerText.Length > 0)
                 {
                     continue; //It's not a tweet, it's a retweet or pin
@@ -166,7 +167,7 @@ namespace e621_ReBot_v2.Modules.Grabber
             //.//span[text()[contains(.,'M · ')]]
             DateTime Post_Time;
 
-            string ArtistName = PostNode.SelectSingleNode(".//div[@id and @data-testid='User-Names']").InnerText;
+            string ArtistName = PostNode.SelectSingleNode(".//div[@id and @data-testid='User-Name']").InnerText;
             ArtistName = ArtistName.Replace("@", " (@") + ")";
 
             HtmlNode TestTextNode = PostNode.SelectSingleNode(".//div[@id and @data-testid='tweetText']");
@@ -280,7 +281,7 @@ namespace e621_ReBot_v2.Modules.Grabber
 
             DateTime Post_Time;
 
-            string ArtistName = PostNode.SelectSingleNode(".//div[@id and @data-testid='User-Names']").InnerText;
+            string ArtistName = PostNode.SelectSingleNode(".//div[@id and @data-testid='User-Name']").InnerText;
             ArtistName = ArtistName.Substring(0, ArtistName.IndexOf("·")).Replace("@", " (@") + ")";
 
             string Post_Text = null;
@@ -312,7 +313,7 @@ namespace e621_ReBot_v2.Modules.Grabber
                 JToken MediaHolder = TweetHolder["extended_entities"];
                 if (MediaHolder != null)
                 {
-                    Post_Time = DateTime.ParseExact(TweetHolder["created_at"].Value<string>(), "ddd MMM dd HH:mm:ss K yyyy", null);
+                    Post_Time = DateTime.ParseExact(TweetHolder["created_at"].Value<string>(), "ddd MMM dd HH:mm:ss K yyyy", CultureInfo.InvariantCulture);
                     SkipCounter = ScrapeJSON4TweetData(MediaHolder, ref TempDataTable, Post_URL, Post_Time, Post_Text, ArtistName);
                 }
             }

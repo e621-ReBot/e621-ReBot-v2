@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace CefSharp
@@ -102,7 +103,7 @@ namespace CefSharp
         // To allow the resource load to proceed with default handling return null. To specify a handler for the resource return a IResourceRequestHandler object. If this callback returns null the same method will be called on the associated IRequestContextHandler, if any
         protected override IResourceRequestHandler GetResourceRequestHandler(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool isNavigation, bool isDownload, string requestInitiator, ref bool disableDefaultHandling)
         {
-            if (chromiumWebBrowser.Address.Contains("https://twitter.com") && request.Url.StartsWith("https://api.twitter.com/graphql/", StringComparison.OrdinalIgnoreCase) && request.Headers["authorization"] != null)
+            if (chromiumWebBrowser.Address.Contains("https://twitter.com") && request.Url.StartsWith("https://twitter.com/i/api/graphql/", StringComparison.OrdinalIgnoreCase) && request.Headers["authorization"] != null)
             {
                 Module_Twitter.TwitterAuthorizationBearer = request.Headers["authorization"];
                 return new CefSharp_ResourceRequestHandler();
@@ -136,7 +137,7 @@ namespace CefSharp
         private List<string> TwitterEnabler = new List<string> { "/UserTweets?variables=", "/UserMedia?variables=", "/UserByScreenName?variables=", "/TweetDetail?variables=" };
         protected override void OnResourceLoadComplete(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IResponse response, UrlRequestStatus status, long receivedContentLength)
         {
-            if (request.Url.Contains("https://api.twitter.com/graphql/") && response.MimeType.Equals("application/json") && TwitterEnabler.Any(s => request.Url.Contains(s)))
+            if (request.Url.Contains("https://twitter.com/i/api/graphql/") && response.MimeType.Equals("application/json") && TwitterEnabler.Any(s => request.Url.Contains(s)))
             {
                 byte[] byteHolder = memoryStreamHolder.ToArray();
                 string Data2String = Encoding.UTF8.GetString(byteHolder);
@@ -144,16 +145,13 @@ namespace CefSharp
                 {
                     JObject JObjectTemp = JObject.Parse(Data2String);
 
-                    IEnumerable<JToken> TweetsTest = JObjectTemp.SelectTokens("data.user.result.timeline_v2.timeline.instructions.[0].entries.[*].content.itemContent.tweet_results.result");
-                    if (TweetsTest != null)
+                    IEnumerable<JToken> TweetsContainer = JObjectTemp.SelectTokens("$..data..instructions[?(@.type=='TimelineAddEntries')].entries[*]..tweet_results.result").Where(token => token["legacy"]["extended_entities"] != null);
+                    if (TweetsContainer.Any())
                     {
-                        JArray TweetHolder = new JArray(TweetsTest);
+                        JArray TweetHolder = new JArray(TweetsContainer);
                         if (Module_Twitter.TwitterJSONHolder != null)
                         {
-                            Module_Twitter.TwitterJSONHolder.Merge(TweetHolder, new JsonMergeSettings
-                            {
-                                MergeArrayHandling = MergeArrayHandling.Union
-                            });
+                            Module_Twitter.TwitterJSONHolder.Merge(TweetHolder, new JsonMergeSettings { MergeArrayHandling = MergeArrayHandling.Union });
                         }
                         else
                         {
@@ -161,7 +159,10 @@ namespace CefSharp
                         }
                     }
                 }
-                Form_Loader._FormReference.BeginInvoke(new Action(() => Module_CefSharp.timer_Twitter.Start()));
+                if (Regex.Match(chromiumWebBrowser.Address, @".+(twitter.com)/.+/(media|status/\d+/?)").Success)
+                {
+                    Form_Loader._FormReference.BeginInvoke(new Action(() => Module_CefSharp.timer_Twitter.Start()));
+                }           
             }
         }
     }
