@@ -1035,8 +1035,10 @@ namespace e621_ReBot_v2.Modules
                     }
 
                     int PoolIndex = 0;
-                    foreach (var Post in NodeSelector)
+                    foreach (HtmlNode Post in NodeSelector)
                     {
+                        if (Post.Attributes["data-flags"].Value.Equals("deleted")) continue;
+
                         string PicURL = Post.Attributes["data-file-url"].Value;
                         //if (Form_Loader._FormReference.cTreeView_DownloadQueue.Nodes.ContainsKey(PicURL) || Download_AlreadyDownloaded.Contains(PicURL))
                         //{
