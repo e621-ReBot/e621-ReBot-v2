@@ -191,7 +191,7 @@ namespace e621_ReBot_v2.Modules
         private static Dictionary<string, int> FrameLoad = new Dictionary<string, int>();
         private static void CefSharpBrowser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
-            if ((CefSharpBrowser.Address.Contains("https://www.pixiv.net") || e.Url.Contains("https://www.pixiv.net")) && e.Frame.Name.Equals("footer"))
+            if ((CefSharpBrowser.Address.Contains("https://www.pixiv.net") || (e.Url != null && e.Url.Contains("https://www.pixiv.net"))) && e.Frame.Name.Equals("footer"))
             {
                 FrameLoad[HttpUtility.UrlDecode(CefSharpBrowser.Address)] = 1;
             }
