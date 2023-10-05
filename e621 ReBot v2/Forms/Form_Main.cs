@@ -905,6 +905,13 @@ namespace e621_ReBot_v2
             URLChecker.CookieContainer = CookieContainerUrlCheck;
             URLChecker.UserAgent = Form_Loader.GlobalUserAgent;
             URLChecker.Method = "HEAD";
+
+            //twitter hack
+            if (WebURLCheck.StartsWith("https://twitter.com/"))
+            {
+                URLChecker.Method = "GET";
+            }
+
             URLChecker.Timeout = 5000;
             try
             {
