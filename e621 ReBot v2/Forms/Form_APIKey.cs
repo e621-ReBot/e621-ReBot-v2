@@ -1,11 +1,11 @@
-﻿using e621_ReBot_v2.Modules;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
 using System.Net;
-using System.Net.Http;
+using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using e621_ReBot_v2.Modules;
+using Newtonsoft.Json.Linq;
 
 namespace e621_ReBot_v2.Forms
 {
@@ -55,60 +55,48 @@ namespace e621_ReBot_v2.Forms
 
         public bool ValidateAPIKey()
         {
-            Dictionary<string, string> POST_RequestData = new Dictionary<string, string>()
-            {
-                { "login", Properties.Settings.Default.UserName },
-                { "api_key", APIKey_TextBox.Text },
-                { "score", "1" }
-            };
-
-            FormUrlEncodedContent EncodedContent = new FormUrlEncodedContent(POST_RequestData);
-            Stream EncodedContentStream = EncodedContent.ReadAsStreamAsync().Result;
-            //Debug.Print(New FormUrlEncodedContent(POST_RequestData).ReadAsStringAsync.Result)
-
-            string APIURL = $"https://e621.net/posts/{"109434"}/votes.json"; //https://e621.net/post/show/109434
-
-            HttpWebRequest e621Request = (HttpWebRequest)WebRequest.Create(APIURL);
-            e621Request.UserAgent = Form_Loader._FormReference.AppName_Label.Text;
-            e621Request.Method = "POST";
-            e621Request.ContentType = "application/x-www-form-urlencoded";
-            e621Request.Timeout = 5000;
-            EncodedContentStream.CopyTo(e621Request.GetRequestStream());
-            EncodedContentStream.Position = 0; // Return stream to beginning
+            HttpWebRequest e6APICheck = (HttpWebRequest)WebRequest.Create($"https://e621.net/users/{Properties.Settings.Default.UserID}.json");
+            e6APICheck.UserAgent = Form_Loader._FormReference.AppName_Label.Text;
+            e6APICheck.Timeout = 5000;
+            e6APICheck.Headers.Add(HttpRequestHeader.Authorization, $"Basic {Convert.ToBase64String(Encoding.ASCII.GetBytes($"{Properties.Settings.Default.UserName}:{APIKey_TextBox.Text}"))}");
             try
             {
-                e621Request.GetResponse().Close();
-
-                // Undo score change on successful validation, just repeat same request
-                EncodedContent = new FormUrlEncodedContent(POST_RequestData);
-                EncodedContentStream = EncodedContent.ReadAsStreamAsync().Result;
-
-                HttpWebRequest e621Request2 = (HttpWebRequest)WebRequest.Create(APIURL);
-                e621Request2.UserAgent = Form_Loader._FormReference.AppName_Label.Text;
-                e621Request2.Method = "POST";
-                e621Request2.ContentType = "application/x-www-form-urlencoded";
-                EncodedContentStream.CopyTo(e621Request2.GetRequestStream());
-                e621Request2.GetResponse().Close();
-                EncodedContentStream.Dispose();
-                return true;
+                HttpWebResponse HttpWebResponseTemp = (HttpWebResponse)e6APICheck.GetResponse();
+                if (HttpWebResponseTemp.StatusCode == HttpStatusCode.OK)
+                {
+                    using (Stream StreamTemp = HttpWebResponseTemp.GetResponseStream())
+                    {
+                        using (StreamReader StreamReaderTemp = new StreamReader(StreamTemp))
+                        {
+                            string JSONReponse = StreamReaderTemp.ReadToEnd();
+                            JObject JObjectTemp = JObject.Parse(JSONReponse);
+                            if (JObjectTemp.Count > 32)
+                            {
+                                Properties.Settings.Default.UserLevel = JObjectTemp["level"].Value<string>();
+                                Properties.Settings.Default.AppName = $"e621 ReBot ({Properties.Settings.Default.UserName})";
+                                Form_Loader._FormReference.AppName_Label.Text = Properties.Settings.Default.AppName;
+                                return true;
+                            }
+                            else
+                            {
+                                MessageBox.Show(this, "API key is not valid.", "e621 ReBot");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(this, $"Error!\n\nStatus Code: {HttpWebResponseTemp.StatusCode}", "e621 ReBot");
+                }
             }
             catch (WebException ex)
             {
-                HttpWebResponse TempException = (HttpWebResponse)ex.Response;
-                if (TempException.StatusCode == HttpStatusCode.Forbidden) //403
+                using (HttpWebResponse HttpWebResponseTemp = (HttpWebResponse)ex.Response)
                 {
-                    //Wrong API Key, e621 denies connection
+                    MessageBox.Show(this, $"{ex.Message}\n\nStatus Code: {HttpWebResponseTemp.StatusCode}", "e621 ReBot");
                 }
-                MessageBox.Show($"{ex.Message}\n\nStatus Code: {TempException.StatusCode}");
-                e621Request.Abort();
-                TempException.Dispose();
-                EncodedContentStream.Dispose();
-                return false;
             }
-            finally
-            {
-                EncodedContent.Dispose();
-            }
+            return false;
         }
 
         private void Form_APIKey_FormClosed(object sender, FormClosedEventArgs e)
