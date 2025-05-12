@@ -1,4 +1,5 @@
-# e621 ReBot v2 (No longer maintained, check out v3 @https://github.com/e621-ReBot/e621-ReBot-v3)
+# e621 ReBot v2
+(No longer maintained, check out v3 @https://github.com/e621-ReBot/e621-ReBot-v3)
 
 e621 ReBot is a tool for making your uploading life to e621 easier, it also supports downloading.
 
